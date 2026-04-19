@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bhin3f1hn066e"]
+
+[ext_resource type="Texture2D" uid="uid://xcv35gxctpkd" path="res://flagellant_asset/Texture2D/tex_flagellant_wpn_flail_col.png" id="1_lhakd"]
+[ext_resource type="Texture2D" uid="uid://bskaswe5flbnt" path="res://flagellant_asset/Texture2D/tex_flagellant_wpn_flail_ink.png" id="2_wgvc2"]
+
+[resource]
+albedo_texture = ExtResource("1_lhakd")
+rim_enabled = true
+rim_texture = ExtResource("2_wgvc2")

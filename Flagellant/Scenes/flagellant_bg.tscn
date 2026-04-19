@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://yyl72ahi77oi"]
+
+[ext_resource type="Texture2D" uid="uid://bsqte7vstbu5k" path="res://flagellant_asset/Texture2D/hero-story-flagellant.png" id="1_gaggu"]
+
+[node name="FlagellantBg" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 3840.0
+offset_bottom = 2160.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_gaggu")

@@ -1,0 +1,16 @@
+{
+  "FLAGELLANT-FLAGELLANT.title": "曼波",
+  "FLAGELLANT-FLAGELLANT.titleObject": "曼波",
+  "FLAGELLANT-FLAGELLANT.description": "お祭りマンボ",
+  "FLAGELLANT-FLAGELLANT.pronounObject": "她",
+  "FLAGELLANT-FLAGELLANT.possessiveAdjective": "她的",
+  "FLAGELLANT-FLAGELLANT.pronounPossessive": "她的",
+  "FLAGELLANT-FLAGELLANT.pronounSubject": "她",
+  "FLAGELLANT-FLAGELLANT.cardsModifierTitle": "Flagellant Cards",
+  "FLAGELLANT-FLAGELLANT.cardsModifierDescription": "Flagellant的卡牌将出现在商店与奖励中",
+  "FLAGELLANT-FLAGELLANT.aromaPrinciple": "[sine][pink]曼波[/pink][/sine]",
+  "FLAGELLANT-FLAGELLANT.eventDeathPrevention": "曼波...曼波...",
+  "FLAGELLANT-FLAGELLANT.banter.alive.endTurnPing": "曼波叫你快一点...尼尔龙马...",
+  "FLAGELLANT-FLAGELLANT.banter.dead.endTurnPing": "曼波...",
+  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]金闪闪的哈基米...[/sine]..."
+}

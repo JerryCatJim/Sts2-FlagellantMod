@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://djmst8o5yl7lp"]
+
+[ext_resource type="Texture2D" uid="uid://cmedn07nou7p8" path="res://flagellant_asset/Texture2D/tex_flagellant_col.png" id="1_tadu3"]
+[ext_resource type="Texture2D" uid="uid://djlsc14k71rrj" path="res://flagellant_asset/Texture2D/tex_flagellant_ink.png" id="2_cgch8"]
+
+[resource]
+albedo_texture = ExtResource("1_tadu3")
+rim_enabled = true
+rim_texture = ExtResource("2_cgch8")

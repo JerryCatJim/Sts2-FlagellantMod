@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://imne6kge8rmg"]
+
+[ext_resource type="PackedScene" uid="uid://ra7injoopate" path="res://Flagellant/Scenes/flagellant_model.tscn" id="2_mretl"]
+[ext_resource type="AnimationLibrary" uid="uid://dptdm08jt2wl5" path="res://Flagellant/flagellant_animlib.tres" id="3_mretl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ydqrq"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_mretl"]
+sky_material = SubResource("ProceduralSkyMaterial_ydqrq")
+
+[sub_resource type="Environment" id="Environment_fnc4o"]
+background_mode = 2
+sky = SubResource("Sky_mretl")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="TestFlagellant" type="Node2D"]
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Visuals"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -492.0
+offset_right = 344.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Visuals/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(600, 600)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Visuals/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.8, 2)
+near = 0.001
+
+[node name="flagellant_model" parent="Visuals/SubViewportContainer/SubViewport" instance=ExtResource("2_mretl")]
+transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, 0, 0, 0)
+
+[node name="Bonus" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -209.0
+offset_top = -416.0
+offset_right = 208.0
+offset_bottom = -2.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -500)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/flagellant_model")
+libraries = {
+&"": ExtResource("3_mretl")
+}
+autoplay = "flagellant_idle_A"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fnc4o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
