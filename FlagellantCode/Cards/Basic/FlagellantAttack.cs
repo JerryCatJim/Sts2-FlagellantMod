@@ -15,20 +15,25 @@ using Flagellant.Abstract;
 
 namespace Flagellant.Cards;
 
-public class FlagellantAttack() : FlagellantCard(1,
-	CardType.Attack, CardRarity.Basic,
-	TargetType.AnyEnemy)
+public class FlagellantAttack : FlagellantCard
 {
-	protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
+    public FlagellantAttack() : base(1,
+    CardType.Attack, CardRarity.Basic,
+    TargetType.AnyEnemy)
+    {
+        CardSelectAnimName = "Punish";
+        CardPlayAnimName = "Punish";
+    }
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
 
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => [
 		HoverTipFactory.FromPower<DemonFormPower>()
 	];
 
-	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
 	}
 
 	protected override void OnUpgrade()

@@ -1,7 +1,8 @@
+using Flagellant.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using Flagellant.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,11 +1,21 @@
+using Flagellant.Abstract;
+using Flagellant.Character;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Commands.Builders;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
+using MegaCrit.Sts2.Core.Multiplayer.Game.PeerInput;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.RestSite;
-using Flagellant.Character;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Runs;
 using static Godot.GodotObject;
 using static Godot.Node;
 using static Godot.PackedScene;
@@ -24,11 +34,12 @@ public static class FlagellantAnimationPatch
 		switch (trigger)
 		{
 			case "Hit":
-				PlayAnim(__instance, "flagellant_impact_recover");
+				PlayAnim(__instance, "Hit", true);
 				break;
 
-			case "Attack":
-				PlayAnim(__instance, "flagellant_attackD_bloodpull_antic", 3);
+            default:
+            //case "Attack":
+				PlayAnim(__instance, trigger, false, true);
 				break;
 
 			case "Cast":
@@ -39,47 +50,129 @@ public static class FlagellantAnimationPatch
 				PlayAnim(__instance, "flagellant_deaths_door_loop");
 				break;
 
-			default:
-				PlayAnim(__instance, "flagellant_idle_A");
-				break;
-		}
-	}
+           case "Idle":
+                PlayAnim(__instance, "Idle");
+                break;
 
-	private static void PlayAnim(NCreature node, string animName, float speed = 1f, bool fromEnd = false)
+            /*default:
+                PlayAnim(__instance, "Idle");
+                break;*/
+        }
+    }
+
+	private static void PlayAnim(NCreature node, string animName, bool playImmediately = false, bool isCardPlayAnim = false)
 	{
-		bool bFromEnd = fromEnd;
 		var visual = node.GetNodeOrNull<Node2D>("TestFlagellant");
 		if (visual == null) return;
 
-		var animplayer = visual.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-		if (animplayer == null) return;
+		var animPlayer = visual.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+		if (animPlayer == null) return;
 
-		// 切换动画
-		if(!(animplayer.CurrentAnimation == "flagellant_attackD_bloodpull_antic" 
-			&& animName == "flagellant_attackD_bloodpull_antic"))
-		{
-			//攻击动画很长，多次攻击先不打断播放
-			animplayer.Stop();
-		}
-		animplayer.Play(animName, -1f, speed, fromEnd);
+		var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
+		if (animTree == null) return;
 
-		// 只有非 Idle 动画才需要结束后切回 Idle
-		if (animName != "flagellant_idle_A")
+		var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/playback");
+
+		if (state_machine != null)
 		{
-			animplayer.Connect(AnimationPlayer.SignalName.AnimationFinished, Callable.From((StringName finishedAnim) =>
+			//animPlayer.Stop(); //animPlayer.Stop对状态机没用?
+			if(playImmediately && !isCardPlayAnim)
 			{
-				Log.Info(">>>" + finishedAnim + "Animation Finished ! ");
-
-				if (finishedAnim == "flagellant_attackD_bloodpull_antic" && !bFromEnd)
-				{
-					//攻击动作的收手动作，反向播放一下
-					PlayAnim(node, "flagellant_attackD_bloodpull_recover");
-				}
-				else
-				{
-					PlayAnim(node, "flagellant_idle_A");
-				}
-			}), (uint)ConnectFlags.OneShot);
-		}
+                state_machine.Start(animName);
+            }
+            else
+            {
+                state_machine.Travel(animName);
+            }
+			if (isCardPlayAnim) //打出卡牌动画先传送到CardPlay状态机再在内部传送到子动画
+			{
+                var Attack_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardPlay/playback");
+                if (Attack_SM != null)
+                {
+                    state_machine.Travel("CardPlay");
+                    Attack_SM.Travel(animName);
+                    //单独调整melee_recover动画，把前面的头掐掉看着更顺畅
+                    if(animName == "Punish")
+                    {
+                        animTree.Set("parameters/StateMachine/CardPlay/Melee_Recover/TimeSeek/seek_request", 0.35f);
+                    }
+                }
+            }
+        }
 	}
+}
+
+[HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardSelected")]
+public class FlagellantOnSelectedPatch
+{
+	public static void Postfix(CardModel cardModel)
+	{
+        NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(cardModel.Owner.Creature);
+		if(CharNode == null) return;
+
+        var visual = CharNode.GetNodeOrNull<Node2D>("TestFlagellant");
+        if (visual == null) return;
+
+        var animPlayer = visual.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        if (animPlayer == null) return;
+
+        var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
+        if (animTree == null) return;
+
+        var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/playback");
+        var AR_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardSelect/playback");
+
+        if (state_machine != null && AR_SM != null)
+        {
+            FlagellantCard MyCard = (FlagellantCard)cardModel;
+            if (MyCard != null)
+            {
+                state_machine.Start("CardSelect");
+                AR_SM.Travel(MyCard.CardSelectAnimName);
+            }
+        }
+    }
+}
+
+//[HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardDeselected")]
+[HarmonyPatch(typeof(NCardPlay), "CancelPlayCard")] //不要使用OnLocalCardDeselected，这在卡牌被打出之后也会被执行，导致跳转到攻击动画后又立刻跳转回到Idle
+public class FlagellantCancelPlayCardPatch
+{
+    public static void Prefix(NCardPlay __instance)
+    {
+        CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
+        if (Card == null) return;
+
+        NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(Card.Owner.Creature);
+        if (CharNode == null) return;
+
+        var visual = CharNode.GetNodeOrNull<Node2D>("TestFlagellant");
+        if (visual == null) return;
+
+        var animPlayer = visual.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        if (animPlayer == null) return;
+
+        var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
+        if (animTree == null) return;
+
+        var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/playback");
+
+        if (state_machine != null)
+        {
+            state_machine.Travel("Idle");
+        }
+    }
+}
+
+[HarmonyPatch(typeof(AttackCommand), "FromCard")]
+public class FlagellantAttackCommandPatch
+{
+    public static void Postfix(AttackCommand __instance, CardModel card)
+    {
+		FlagellantCard MyCard = (FlagellantCard)card;
+		String NewAttackerAnimName = "Punish";
+
+        if (MyCard != null) NewAttackerAnimName = MyCard.CardPlayAnimName;
+        Traverse.Create(__instance).Field("_attackerAnimName").SetValue(NewAttackerAnimName);
+    }
 }

@@ -16,7 +16,7 @@ public abstract class FlagellantRelics : CustomRelicModel
         get
         {
             var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".RelicImagePath();
-            return ResourceLoader.Exists(path) ? path : "relic.png".RelicImagePath();
+            return ResourceLoader.Exists(path) ? path : "manbo_toy.png".RelicImagePath();
         }
     }
 
@@ -25,7 +25,7 @@ public abstract class FlagellantRelics : CustomRelicModel
         get
         {
             var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}_outline.png".RelicImagePath();
-            return ResourceLoader.Exists(path) ? path : "relic_outline.png".RelicImagePath();
+            return ResourceLoader.Exists(path) ? path : "manbo_toy_outline.png".RelicImagePath();
         }
     }
 
@@ -34,7 +34,7 @@ public abstract class FlagellantRelics : CustomRelicModel
         get
         {
             var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigRelicImagePath();
-            return ResourceLoader.Exists(path) ? path : "relic.png".BigRelicImagePath();
+            return ResourceLoader.Exists(path) ? path : "manbo_toy.png".BigRelicImagePath();
         }
     }
 }

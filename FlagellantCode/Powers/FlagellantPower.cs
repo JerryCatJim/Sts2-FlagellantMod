@@ -12,7 +12,7 @@ public abstract class FlagellantPower : CustomPowerModel
 		get
 		{
 			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
-			return ResourceLoader.Exists(path) ? path : "power.png".PowerImagePath();
+			return ResourceLoader.Exists(path) ? path : "relly_power.png".PowerImagePath();
 		}
 	}
 
@@ -21,7 +21,7 @@ public abstract class FlagellantPower : CustomPowerModel
 		get
 		{
 			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
-			return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
+			return ResourceLoader.Exists(path) ? path : "relly_power.png".BigPowerImagePath();
 		}
 	}
 }

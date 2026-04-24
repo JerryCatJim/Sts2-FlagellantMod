@@ -49,6 +49,11 @@ _subresources={
 "use_external/fallback_path": "res://flagellant_asset/WPN_Mat.tres",
 "use_external/path": "uid://bhin3f1hn066e"
 }
+},
+"nodes": {
+"PATH:flagellant_wpn_scourge_art_prefab/mdl_flagellant/SHJntGrp/Skeleton3D/Chain_a_jot9/vfx_whip_blood_drip_recover_1": {
+"node/node_type": "Node3D"
+}
 }
 }
 gltf/naming_version=2

@@ -87,7 +87,7 @@
             <Private>false</Private>
         </Reference>
         <Reference Include="BaseLib">
-          <HintPath>..\..\Steam\steamapps\common\Slay the Spire 2\BaseLib\BaseLib.dll</HintPath>
+          <HintPath>$(Sts2Path)/BaseLib/BaseLib.dll</HintPath>
         </Reference>
         <Reference Include="GodotSharp">
           <HintPath>..\..\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\GodotSharp.dll</HintPath>
@@ -100,10 +100,9 @@
             <HintPath>$(Sts2DataDir)/SmartFormat.dll</HintPath>
             <Private>false</Private>
         </Reference>
-
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.0.2" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.0.2" />
         <!--Reference Include="BaseLib">
-            <HintPath>C:\Users\lamal\Desktop\Programmieren\sts2mods\BaseLib-StS2\publish\BaseLib.dll</HintPath>
+            <HintPath>$(Sts2Path)/BaseLib/BaseLib.dll</HintPath>
             <Private>false</Private>
         </Reference-->
         
@@ -138,7 +137,7 @@
 
         <Message Text="Copying BaseLib to mods folder." Importance="high" />
         <ItemGroup>
-            <BaseLibFiles Include="$(NuGetPackageRoot)alchyr.sts2.baselib/**/lib/**/BaseLib.dll;$(NuGetPackageRoot)alchyr.sts2.baselib/**/Content/BaseLib.pck;$(NuGetPackageRoot)alchyr.sts2.baselib/**/Content/BaseLib.json;" />
+            <BaseLibFiles Include="$(Sts2Path)/BaseLib/BaseLib.dll;$(Sts2Path)/BaseLib/BaseLib.pck;$(Sts2Path)/BaseLib/BaseLib.json;" />
         </ItemGroup>
         <Copy SourceFiles="@(BaseLibFiles)" DestinationFolder="$(ModsPath)BaseLib/" />
     </Target>
