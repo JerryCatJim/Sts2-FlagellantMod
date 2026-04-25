@@ -15,7 +15,7 @@ using Flagellant.Abstract;
 
 namespace Flagellant.Cards;
 
-public class FlagellantBlock() : FlagellantCard(1,
+public class FlagellantDefend() : FlagellantCard(1,
 	CardType.Skill, CardRarity.Basic,
 	TargetType.Self)
 {

@@ -25,9 +25,9 @@ public class Flagellant : PlaceholderCharacterModel
 	public override int StartingHp => 70;
 
 	public override IEnumerable<CardModel> StartingDeck => [
-		ModelDb.Card<FlagellantAttack>(),
-		ModelDb.Card<FlagellantAttack>(),
-		ModelDb.Card<FlagellantBlock>(),
+		ModelDb.Card<FlagellantStrike>(),
+		ModelDb.Card<FlagellantStrike>(),
+		ModelDb.Card<FlagellantDefend>(),
 		ModelDb.Card<FlagellantRelly>(),
 		ModelDb.Card<FlagellantPowerUp>()
 	];

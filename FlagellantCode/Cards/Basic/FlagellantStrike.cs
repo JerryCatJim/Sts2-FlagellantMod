@@ -15,9 +15,9 @@ using Flagellant.Abstract;
 
 namespace Flagellant.Cards;
 
-public class FlagellantAttack : FlagellantCard
+public class FlagellantStrike : FlagellantCard
 {
-    public FlagellantAttack() : base(1,
+    public FlagellantStrike() : base(1,
     CardType.Attack, CardRarity.Basic,
     TargetType.AnyEnemy)
     {

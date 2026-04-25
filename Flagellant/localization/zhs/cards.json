@@ -1,8 +1,8 @@
 {
-  "FLAGELLANT-FLAGELLANT_ATTACK.description": "造成{Damage:diff()}点伤害",
-  "FLAGELLANT-FLAGELLANT_ATTACK.title": "曼波打击",
-  "FLAGELLANT-FLAGELLANT_BLOCK.description": "获得{Block:diff()}点防御",
-  "FLAGELLANT-FLAGELLANT_BLOCK.title": "曼波防御",
+  "FLAGELLANT-FLAGELLANT_STRIKE.description": "造成{Damage:diff()}点伤害",
+  "FLAGELLANT-FLAGELLANT_STRIKE.title": "曼波打击",
+  "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御",
+  "FLAGELLANT-FLAGELLANT_DEFEND.title": "曼波防御",
   "FLAGELLANT-FLAGELLANT_RELLY.description": "消耗{RellyPower:diff()}层傻了吧唧，获得{StrengthPower:diff()}点力量",
   "FLAGELLANT-FLAGELLANT_RELLY.title": "重振",
   "FLAGELLANT-FLAGELLANT_POWER_UP.description": "获得{RellyPower:diff()}层傻了吧唧",
