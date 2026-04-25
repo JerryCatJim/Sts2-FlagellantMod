@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://imne6kge8rmg"]
+[gd_scene load_steps=89 format=3 uid="uid://imne6kge8rmg"]
 
 [ext_resource type="PackedScene" uid="uid://ra7injoopate" path="res://Flagellant/Scenes/flagellant_model.tscn" id="2_mretl"]
 [ext_resource type="AnimationLibrary" uid="uid://dptdm08jt2wl5" path="res://Flagellant/flagellant_animlib.tres" id="3_mretl"]
@@ -261,6 +261,37 @@ states/Start/position = Vector2(187, 100)
 transitions = ["Start", "Punish", SubResource("AnimationNodeStateMachineTransition_k741q"), "Start", "Fester", SubResource("AnimationNodeStateMachineTransition_h84tg"), "Start", "Deathless", SubResource("AnimationNodeStateMachineTransition_2oghv"), "Start", "Lash", SubResource("AnimationNodeStateMachineTransition_j6ta8"), "Start", "AcidRain", SubResource("AnimationNodeStateMachineTransition_qs8hf"), "Start", "Sepsis", SubResource("AnimationNodeStateMachineTransition_5i2yv"), "Punish", "End", SubResource("AnimationNodeStateMachineTransition_qgb44"), "Fester", "End", SubResource("AnimationNodeStateMachineTransition_pqny0"), "Deathless", "End", SubResource("AnimationNodeStateMachineTransition_y7gnr"), "Lash", "End", SubResource("AnimationNodeStateMachineTransition_jxd84"), "AcidRain", "End", SubResource("AnimationNodeStateMachineTransition_m8nte"), "Sepsis", "End", SubResource("AnimationNodeStateMachineTransition_i01gg")]
 graph_offset = Vector2(91, -19)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jxd84"]
+animation = &"flagellant_idle_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m8nte"]
+animation = &"flagellant_deaths_door"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i01gg"]
+animation = &"flagellant_deaths_door_loop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_si0iq"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lmxbh"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dhgnp"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_85eep"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_er4gp"]
+state_machine_type = 2
+states/End/position = Vector2(598, 100)
+states/Out/node = SubResource("AnimationNodeAnimation_jxd84")
+states/Out/position = Vector2(598, 174)
+states/flagellant_deaths_door/node = SubResource("AnimationNodeAnimation_m8nte")
+states/flagellant_deaths_door/position = Vector2(389, 100)
+states/flagellant_deaths_door_loop/node = SubResource("AnimationNodeAnimation_i01gg")
+states/flagellant_deaths_door_loop/position = Vector2(389, 174)
+transitions = ["Start", "flagellant_deaths_door", SubResource("AnimationNodeStateMachineTransition_si0iq"), "flagellant_deaths_door", "flagellant_deaths_door_loop", SubResource("AnimationNodeStateMachineTransition_lmxbh"), "flagellant_deaths_door_loop", "Out", SubResource("AnimationNodeStateMachineTransition_dhgnp"), "Out", "End", SubResource("AnimationNodeStateMachineTransition_85eep")]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_er7cl"]
 animation = &"flagellant_idle_B"
 
@@ -298,19 +329,21 @@ states/CardPlay/node = SubResource("AnimationNodeStateMachine_h84tg")
 states/CardPlay/position = Vector2(644, 131)
 states/CardSelect/node = SubResource("AnimationNodeStateMachine_g8hwi")
 states/CardSelect/position = Vector2(489, 26)
+states/DeathDoor/node = SubResource("AnimationNodeStateMachine_er4gp")
+states/DeathDoor/position = Vector2(376, 259)
 states/End/position = Vector2(901, 131)
 states/EnemyRoundIdle/node = SubResource("AnimationNodeAnimation_er7cl")
-states/EnemyRoundIdle/position = Vector2(233, 202)
+states/EnemyRoundIdle/position = Vector2(230, 210)
 states/Hit/node = SubResource("AnimationNodeAnimation_pxdve")
 states/Hit/position = Vector2(478, 210)
 states/Idle/node = SubResource("AnimationNodeAnimation_fuh4o")
 states/Idle/position = Vector2(376, 131)
 states/Start/position = Vector2(197, 131)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_0f1q7"), "CardPlay", "Idle", SubResource("AnimationNodeStateMachineTransition_er7cl"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_2mqne"), "Idle", "CardSelect", SubResource("AnimationNodeStateMachineTransition_fuh4o"), "CardSelect", "CardPlay", SubResource("AnimationNodeStateMachineTransition_8lvay"), "CardSelect", "Idle", SubResource("AnimationNodeStateMachineTransition_pxdve")]
-graph_offset = Vector2(89, -52)
+graph_offset = Vector2(93, -17)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_c8t88"]
-graph_offset = Vector2(-264, 1)
+graph_offset = Vector2(-196, 23)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_pxdve")
 nodes/StateMachine/position = Vector2(-120, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -376,6 +409,7 @@ position = Vector2(0, -500)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, -240)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

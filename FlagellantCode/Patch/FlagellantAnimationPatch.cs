@@ -37,30 +37,27 @@ public static class FlagellantAnimationPatch
 				PlayAnim(__instance, "Hit", true);
 				break;
 
-            default:
-            //case "Attack":
-				PlayAnim(__instance, trigger, false, true);
+            case "Cast":    //是丢东西的动作吗?
+            case "Attack":  //攻击卡牌在attackcmd里默认赋值trigger为attack,所以传入的是attack的话什么也不做
+            case "DoNothing":
+                break;
+
+			case "Dead":  //疑似只在多人模式生效
+				PlayAnim(__instance, "DeathDoor", true);
 				break;
 
-			case "Cast":
-				PlayAnim(__instance, "flagellant_attackD_bloodpull_antic");
-				break;
-
-			case "Dead":
-				PlayAnim(__instance, "flagellant_deaths_door_loop");
-				break;
-
+           case "Revive":
            case "Idle":
                 PlayAnim(__instance, "Idle");
                 break;
 
-            /*default:
-                PlayAnim(__instance, "Idle");
-                break;*/
+            default:
+                PlayAnim(__instance, trigger, false, true);
+                break;
         }
     }
 
-	private static void PlayAnim(NCreature node, string animName, bool playImmediately = false, bool isCardPlayAnim = false)
+	private static void PlayAnim(NCreature node, string animName, bool playImmediately = false, bool bCardPlayAnim = false)
 	{
 		var visual = node.GetNodeOrNull<Node2D>("TestFlagellant");
 		if (visual == null) return;
@@ -76,7 +73,7 @@ public static class FlagellantAnimationPatch
 		if (state_machine != null)
 		{
 			//animPlayer.Stop(); //animPlayer.Stop对状态机没用?
-			if(playImmediately && !isCardPlayAnim)
+			if(playImmediately && !bCardPlayAnim)
 			{
                 state_machine.Start(animName);
             }
@@ -84,7 +81,7 @@ public static class FlagellantAnimationPatch
             {
                 state_machine.Travel(animName);
             }
-			if (isCardPlayAnim) //打出卡牌动画先传送到CardPlay状态机再在内部传送到子动画
+			if (bCardPlayAnim) //打出卡牌动画先传送到CardPlay状态机再在内部传送到子动画
 			{
                 var Attack_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardPlay/playback");
                 if (Attack_SM != null)
@@ -107,6 +104,9 @@ public class FlagellantOnSelectedPatch
 {
 	public static void Postfix(CardModel cardModel)
 	{
+        FlagellantCard MyCard = (FlagellantCard)cardModel;
+        if (MyCard == null || MyCard.CardSelectAnimName == "DoNothing") return;
+
         NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(cardModel.Owner.Creature);
 		if(CharNode == null) return;
 
@@ -124,12 +124,8 @@ public class FlagellantOnSelectedPatch
 
         if (state_machine != null && AR_SM != null)
         {
-            FlagellantCard MyCard = (FlagellantCard)cardModel;
-            if (MyCard != null)
-            {
-                state_machine.Start("CardSelect");
-                AR_SM.Travel(MyCard.CardSelectAnimName);
-            }
+            state_machine.Start("CardSelect");
+            AR_SM.Travel(MyCard.CardSelectAnimName);
         }
     }
 }
@@ -170,9 +166,18 @@ public class FlagellantAttackCommandPatch
     public static void Postfix(AttackCommand __instance, CardModel card)
     {
 		FlagellantCard MyCard = (FlagellantCard)card;
-		String NewAttackerAnimName = "Punish";
+        if (MyCard != null && MyCard.CardPlayAnimName != "DoNothing")
+        {
+            Traverse.Create(__instance).Field("_attackerAnimName").SetValue(MyCard.CardPlayAnimName);
+        }
+    }
+}
 
-        if (MyCard != null) NewAttackerAnimName = MyCard.CardPlayAnimName;
-        Traverse.Create(__instance).Field("_attackerAnimName").SetValue(NewAttackerAnimName);
+[HarmonyPatch(typeof(NCreature), "StartDeathAnim")]
+public class FlagellantDeathAnimPatch
+{
+    public static void Postfix(NCreature __instance)
+    {
+        __instance.SetAnimationTrigger("Dead");
     }
 }
