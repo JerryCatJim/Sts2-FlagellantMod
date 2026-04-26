@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w7cpuk65lu6n"
-path="res://.godot/imported/manbo_attack.png-fc842419bfcc0775a4cb2fa75c064ce9.ctex"
+uid="uid://bbyrfm4dmgj0k"
+path="res://.godot/imported/fester.png-197faa19344a4c21d8cd328eb29f75c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/manbo_attack.png"
-dest_files=["res://.godot/imported/manbo_attack.png-fc842419bfcc0775a4cb2fa75c064ce9.ctex"]
+source_file="res://Flagellant/Images/Cards/fester.png"
+dest_files=["res://.godot/imported/fester.png-197faa19344a4c21d8cd328eb29f75c6.ctex"]
 
 [params]
 

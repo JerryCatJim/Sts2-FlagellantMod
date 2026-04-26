@@ -1,4 +1,5 @@
 using Flagellant.Abstract;
+using Flagellant.Audio;
 using Flagellant.Character;
 using Godot;
 using HarmonyLib;
@@ -42,7 +43,7 @@ public static class FlagellantAnimationPatch
             case "DoNothing":
                 break;
 
-			case "Dead":  //疑似只在多人模式生效
+			case "Dead":  //官方的trigger("Dead")会先判断是否有spine结点，我的MOD人物场景里没有，所以在下面patch修改强行trigger，这回死亡能走进来了
 				PlayAnim(__instance, "DeathDoor", true);
 				break;
 
@@ -88,15 +89,28 @@ public static class FlagellantAnimationPatch
                 {
                     state_machine.Travel("CardPlay");
                     Attack_SM.Travel(animName);
-                    //单独调整melee_recover动画，把前面的头掐掉看着更顺畅
-                    if(animName == "Punish")
+                    //单独调整melee_recover(Punish和Necrosis状态用的)动画，把前面的头掐掉看着更顺畅
+                    if(animName == "Punish" || animName == "Necrosis")
                     {
-                        animTree.Set("parameters/StateMachine/CardPlay/Melee_Recover/TimeSeek/seek_request", 0.35f);
+                        animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
+                    }
+                    AudioManager.PlayCardSfx("CardPlay/" + animName);
+
+                    //不要重复链接
+                    if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))
+                    {
+                        //持续监听,不要OnShot
+                        Attack_SM.Connect("state_started", _stateStartedCallable);
                     }
                 }
             }
         }
 	}
+    private static readonly Callable _stateStartedCallable = Callable.From((StringName state) =>
+    {
+        //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
+        AudioManager.PlayCardSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
+    });
 }
 
 [HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardSelected")]
@@ -126,6 +140,7 @@ public class FlagellantOnSelectedPatch
         {
             state_machine.Start("CardSelect");
             AR_SM.Travel(MyCard.CardSelectAnimName);
+            AudioManager.PlayCardSfx("CardSelect/" + MyCard.CardSelectAnimName);
         }
     }
 }
@@ -160,6 +175,7 @@ public class FlagellantCancelPlayCardPatch
     }
 }
 
+//可能改为在卡牌OnPlay时调用attackcommand.WithAttackerAnim好一些?
 [HarmonyPatch(typeof(AttackCommand), "FromCard")]
 public class FlagellantAttackCommandPatch
 {

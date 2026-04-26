@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhyi6yx4tu3vi"
-path="res://.godot/imported/card.png-8449b1bd8dbae1d3d8bd443ed45e9433.ctex"
+uid="uid://ds2blmufxv225"
+path="res://.godot/imported/endure.png-4a2426547874fb7d14995ef8b2c6dff5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/card.png"
-dest_files=["res://.godot/imported/card.png-8449b1bd8dbae1d3d8bd443ed45e9433.ctex"]
+source_file="res://Flagellant/Images/Cards/endure.png"
+dest_files=["res://.godot/imported/endure.png-4a2426547874fb7d14995ef8b2c6dff5.ctex"]
 
 [params]
 
