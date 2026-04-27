@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using Flagellant.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Flagellant.Abstract;
+using Flagellant.Abstract.Card;
 
 namespace Flagellant.Cards;
 

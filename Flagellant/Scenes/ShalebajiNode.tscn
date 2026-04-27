@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://yuuo4och7kse"]
 
-[ext_resource type="Texture2D" uid="uid://c6nbt3tp73b57" path="res://Flagellant/Images/Relics/manbo_toy.png" id="1_muak6"]
+[ext_resource type="Texture2D" uid="uid://cuuhclkqu1a46" path="res://Flagellant/Images/Powers/relly_power.png" id="1_5xvhi"]
 
 [node name="ShalebajiNode" type="Control"]
 visible = false
@@ -29,7 +29,7 @@ text = "X"
 [node name="ManboToy" type="Sprite2D" parent="."]
 position = Vector2(-3.000001, -41)
 scale = Vector2(0.054945055, 0.05494503)
-texture = ExtResource("1_muak6")
+texture = ExtResource("1_5xvhi")
 
 [node name="ShalebajiValue" type="RichTextLabel" parent="."]
 layout_mode = 0

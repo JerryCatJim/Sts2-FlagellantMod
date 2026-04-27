@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Flagellant.Abstract;
+using Flagellant.Abstract.Card;
 
 namespace Flagellant.Cards;
 

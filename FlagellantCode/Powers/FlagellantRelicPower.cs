@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using System.Threading.Tasks;
-using Flagellant.Powers;
+using Flagellant.Abstract.Powers;
 
 namespace Flagellant.Powers;
 

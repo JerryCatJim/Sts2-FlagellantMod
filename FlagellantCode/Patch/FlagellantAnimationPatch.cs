@@ -1,4 +1,4 @@
-using Flagellant.Abstract;
+using Flagellant.Abstract.Card;
 using Flagellant.Audio;
 using Flagellant.Character;
 using Godot;
@@ -168,7 +168,7 @@ public class FlagellantCancelPlayCardPatch
 
         var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/playback");
 
-        if (state_machine != null)
+        if (state_machine != null && state_machine.GetCurrentNode() != "CalmIdle")
         {
             state_machine.Travel("Idle");
         }

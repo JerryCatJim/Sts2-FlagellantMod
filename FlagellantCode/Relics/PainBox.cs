@@ -1,4 +1,3 @@
-using Flagellant.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
@@ -8,10 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Flagellant.Abstract.Relics;
+using Flagellant.Powers;
 
 namespace Flagellant.Relics;
 
-public class FlagellantToy : FlagellantRelics
+public class PainBox : FlagellantRelic
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 

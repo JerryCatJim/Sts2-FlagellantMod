@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6nbt3tp73b57"
-path="res://.godot/imported/manbo_toy.png-5bb6d4b488b9180eb85c69af374c281c.ctex"
+uid="uid://cfe3u31a15cx8"
+path="res://.godot/imported/flagellant_map_maker.png-29f92075b65d453580c4ac07babac982.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Relics/manbo_toy.png"
-dest_files=["res://.godot/imported/manbo_toy.png-5bb6d4b488b9180eb85c69af374c281c.ctex"]
+source_file="res://Flagellant/Images/Charui/flagellant_map_maker.png"
+dest_files=["res://.godot/imported/flagellant_map_maker.png-29f92075b65d453580c4ac07babac982.ctex"]
 
 [params]
 

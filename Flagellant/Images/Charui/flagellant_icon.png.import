@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brgunek2uect0"
-path="res://.godot/imported/mod_image.png-1b7906f6739acfdc01df423b41ea47b2.ctex"
+uid="uid://vix4pok45ojt"
+path="res://.godot/imported/flagellant_icon.png-8851d81c306c188a23bd2c3410dff9e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/mod_image.png"
-dest_files=["res://.godot/imported/mod_image.png-1b7906f6739acfdc01df423b41ea47b2.ctex"]
+source_file="res://Flagellant/Images/Charui/flagellant_icon.png"
+dest_files=["res://.godot/imported/flagellant_icon.png-8851d81c306c188a23bd2c3410dff9e0.ctex"]
 
 [params]
 

@@ -1,28 +1,80 @@
 using BaseLib.Abstracts;
+using Flagellant.Cards;
+using Flagellant.Extensions;
+using Flagellant.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.PotionPools;
 using MegaCrit.Sts2.Core.Models.RelicPools;
-using Flagellant.Extensions;
-using Flagellant.Cards;
 using System;
-using Flagellant.Relics;
 
 namespace Flagellant.Character;
 
 public class Flagellant : PlaceholderCharacterModel
 {
-	public const string CharacterId = "Flagellant";
+    public const string CharacterId = "Flagellant";
+    public override string PlaceholderID => "necrobinder";
 
-	public override string PlaceholderID => "necrobinder";
+    public static readonly Color Color = new Color("c4278a");
+    // 角色名称颜色
+    public override Color NameColor => Color;
+    // 能量图标轮廓颜色
+    public override Color EnergyLabelOutlineColor => new(0.1f, 0.1f, 1f);
+    // 地图绘制颜色
+    public override Color MapDrawingColor => new(0.5f, 0.5f, 1f);
 
-	public static readonly Color Color = new Color("c4278a");
+    // 人物性别（男女中立）
+    public override CharacterGender Gender => CharacterGender.Masculine;
 
-	public override Color NameColor => Color;
-	public override CharacterGender Gender => CharacterGender.Feminine;
-	public override int StartingHp => 70;
+    // 初始血量
+    public override int StartingHp => 80;
+
+    // 人物模型tscn路径。要自定义见下。
+    public override string CustomVisualPath => "res://Flagellant/Scenes/flagellant.tscn";
+    // 卡牌拖尾场景。
+    // public override string CustomTrailPath => "res://scenes/vfx/card_trail_ironclad.tscn";
+    // 悬浮于继续游戏时的预览的人物头像路径。
+    public override string CustomIconTexturePath => "flagellant_select.png".CharacterUiPath();
+    // 左上角人物头像,注意要是tscn。
+    public override string CustomIconPath => "res://Flagellant/Scenes/flagellant_icon.tscn";
+    // 能量表盘tscn路径。要自定义见下。
+    //public override string CustomEnergyCounterPath => "res://test/scenes/test_energy_counter.tscn";
+    // 篝火休息场景。
+    // public override string CustomRestSiteAnimPath => "res://scenes/rest_site/characters/ironclad_rest_site.tscn";
+    // 商店人物场景。
+    // public override string CustomMerchantAnimPath => "res://scenes/merchant/characters/ironclad_merchant.tscn";
+    // 多人模式-手指。
+    // public override string CustomArmPointingTexturePath => null;
+    // 多人模式剪刀石头布-石头。
+    // public override string CustomArmRockTexturePath => null;
+    // 多人模式剪刀石头布-布。
+    // public override string CustomArmPaperTexturePath => null;
+    // 多人模式剪刀石头布-剪刀。
+    // public override string CustomArmScissorsTexturePath => null;
+
+    // 人物选择背景。
+    public override string CustomCharacterSelectBg => "res://Flagellant/Scenes/flagellant_bg.tscn";
+    // 人物选择图标。
+    public override string CustomCharacterSelectIconPath => "flagellant_select.png".CharacterUiPath();
+    // 人物选择图标-锁定状态。
+    public override string CustomCharacterSelectLockedIconPath => "flagellant_select_locked.png".CharacterUiPath();
+    // 人物选择过渡动画。
+    // public override string CustomCharacterSelectTransitionPath => "res://materials/transitions/ironclad_transition_mat.tres";
+    // 地图上的角色标记图标、表情轮盘上的角色头像
+    public override string CustomMapMarkerPath => "flagellant_map_maker.png".CharacterUiPath();
+    // 攻击音效
+    // public override string CustomAttackSfx => null;
+    // 施法音效
+    // public override string CustomCastSfx => null;
+    // 死亡音效
+    // public override string CustomDeathSfx => null;
+    // 角色选择音效
+    // public override string CharacterSelectSfx => null;
+    // 过渡音效。这个不能删。
+    public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 
 	public override IEnumerable<CardModel> StartingDeck => [
 		ModelDb.Card<FlagellantStrike>(),
@@ -32,20 +84,9 @@ public class Flagellant : PlaceholderCharacterModel
 		ModelDb.Card<FlagellantPowerUp>()
 	];
 
-	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<FlagellantToy>()];
+	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];
 
 	public override CardPoolModel CardPool => ModelDb.CardPool<FlagellantCardPool>();
 	public override RelicPoolModel RelicPool => ModelDb.RelicPool<FlagellantRelicPool>();
 	public override PotionPoolModel PotionPool => ModelDb.PotionPool<SharedPotionPool>();
-
-	/*  PlaceholderCharacterModel will utilize placeholder basegame assets for most of your character assets until you
-		override all the other methods that define those assets.
-		These are just some of the simplest assets, given some placeholders to differentiate your character with.
-		You don't have to, but you're suggested to rename these images. */
-	public override string CustomVisualPath => "res://Flagellant/Scenes/flagellant.tscn";
-	public override string CustomIconTexturePath => "character_icon_char_name.png".CharacterUiPath();
-	public override string CustomCharacterSelectIconPath => "char_select_char_name.png".CharacterUiPath();
-	public override string CustomCharacterSelectLockedIconPath => "char_select_char_name_locked.png".CharacterUiPath();
-	public override string CustomCharacterSelectBg => "res://Flagellant/Scenes/flagellant_bg.tscn";
-	public override string CustomMapMarkerPath => "map_marker_char_name.png".CharacterUiPath();
 }

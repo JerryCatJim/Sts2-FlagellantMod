@@ -3,7 +3,7 @@ using BaseLib.Extensions;
 using Godot;
 using Flagellant.Extensions;
 
-namespace Flagellant.Powers;
+namespace Flagellant.Abstract.Powers;
 
 public abstract class FlagellantPower : CustomPowerModel
 {
@@ -20,8 +20,9 @@ public abstract class FlagellantPower : CustomPowerModel
 	{
 		get
 		{
-			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
-			return ResourceLoader.Exists(path) ? path : "relly_power.png".BigPowerImagePath();
+			/*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
+			return ResourceLoader.Exists(path) ? path : "relly_power.png".BigPowerImagePath();*/
+			return CustomPackedIconPath;
 		}
 	}
 }

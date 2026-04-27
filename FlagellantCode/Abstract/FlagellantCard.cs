@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Logging;
 
-namespace Flagellant.Abstract;
+namespace Flagellant.Abstract.Card;
 
 [Pool(typeof(FlagellantCardPool))]
 public abstract class FlagellantCard(int cost, CardType type, CardRarity rarity, TargetType target) :

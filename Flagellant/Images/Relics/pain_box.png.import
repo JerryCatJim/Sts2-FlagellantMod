@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckcqcf35sdoft"
-path="res://.godot/imported/manbo_toy_outline.png-ef02a47b42af44f7347ade4b78db796f.ctex"
+uid="uid://ce170ffl2o1dv"
+path="res://.godot/imported/pain_box.png-42ecfcc2f66231a4a43156f10b3020c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Relics/manbo_toy_outline.png"
-dest_files=["res://.godot/imported/manbo_toy_outline.png-ef02a47b42af44f7347ade4b78db796f.ctex"]
+source_file="res://Flagellant/Images/Relics/pain_box.png"
+dest_files=["res://.godot/imported/pain_box.png-42ecfcc2f66231a4a43156f10b3020c0.ctex"]
 
 [params]
 

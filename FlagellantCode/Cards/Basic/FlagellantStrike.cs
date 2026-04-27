@@ -1,5 +1,5 @@
 using BaseLib.Utils;
-using Flagellant.Abstract;
+using Flagellant.Abstract.Card;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Commands;
@@ -19,15 +19,10 @@ using System.Threading.Tasks;
 
 namespace Flagellant.Cards;
 
-public class FlagellantStrike : FlagellantCard
-{
-    public FlagellantStrike() : base(1,
+public class FlagellantStrike() : FlagellantCard(1,
     CardType.Attack, CardRarity.Basic,
     TargetType.AnyEnemy)
-    {
-        CardSelectAnimName = "Punish";
-        CardPlayAnimName = CardSelectAnimName;
-    }
+{
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
 
