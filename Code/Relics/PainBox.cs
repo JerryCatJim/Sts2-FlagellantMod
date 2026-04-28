@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Flagellant.Abstract.Relics;
-using Flagellant.Powers;
+using Flagellant.Code.Abstract;
+using Flagellant.Code.Powers;
 
-namespace Flagellant.Relics;
+namespace Flagellant.Code.Relics;
 
 public class PainBox : FlagellantRelic
 {

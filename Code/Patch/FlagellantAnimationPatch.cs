@@ -1,6 +1,6 @@
-using Flagellant.Abstract.Card;
+using Flagellant.Code.Abstract;
 using Flagellant.Audio;
-using Flagellant.Character;
+using Flagellant.Code.Character;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands.Builders;

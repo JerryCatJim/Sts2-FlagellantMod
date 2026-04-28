@@ -1,9 +1,9 @@
 using BaseLib.Abstracts;
 using Godot;
-using Flagellant.Character;
+using Flagellant.Code.Character;
 using System;
 
-namespace Flagellant.Character;
+namespace Flagellant.Code.Character;
 
 public partial class FlagellantRelicPool : CustomRelicPoolModel
 {

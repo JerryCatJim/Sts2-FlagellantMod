@@ -8,9 +8,9 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using System.Threading.Tasks;
-using Flagellant.Abstract.Powers;
+using Flagellant.Code.Abstract;
 
-namespace Flagellant.Powers;
+namespace Flagellant.Code.Powers;
 
 public sealed class RelicPower : FlagellantPower
 {

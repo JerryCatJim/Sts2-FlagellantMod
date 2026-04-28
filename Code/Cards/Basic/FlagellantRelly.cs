@@ -1,5 +1,4 @@
 using BaseLib.Utils;
-using Flagellant.Cards;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -13,9 +12,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 using Flagellant.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Flagellant.Abstract.Card;
+using Flagellant.Code.Abstract;
 
-namespace Flagellant.Cards;
+namespace Flagellant.Code.Cards.Basic;
 
 public class FlagellantRelly() : FlagellantCard(1,
 	CardType.Skill, CardRarity.Common,

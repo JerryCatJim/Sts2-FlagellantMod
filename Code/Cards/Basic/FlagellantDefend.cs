@@ -11,9 +11,9 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Flagellant.Abstract.Card;
+using Flagellant.Code.Abstract;
 
-namespace Flagellant.Cards;
+namespace Flagellant.Code.Cards.Basic;
 
 public class FlagellantDefend() : FlagellantCard(1,
 	CardType.Skill, CardRarity.Basic,

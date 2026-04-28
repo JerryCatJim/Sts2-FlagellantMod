@@ -1,7 +1,7 @@
 using MyMainFile = Flagellant.MainFile.MainFile;
 using MegaCrit.Sts2.Core.Logging;
 
-namespace Flagellant.Extensions;
+namespace Flagellant.Code.Extensions;
 
 //Mostly utilities to get asset paths.
 public static class StringExtensions

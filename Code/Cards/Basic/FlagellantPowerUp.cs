@@ -12,9 +12,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flagellant.Powers;
-using Flagellant.Abstract.Card;
+using Flagellant.Code.Abstract;
 
-namespace Flagellant.Cards;
+namespace Flagellant.Code.Cards.Basic;
 
 public class FlagellantPowerUp() : FlagellantCard(1,
 	CardType.Power, CardRarity.Common,

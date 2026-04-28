@@ -2,10 +2,10 @@ using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Godot;
-using Flagellant.Character;
-using Flagellant.Extensions;
+using Flagellant.Code.Character;
+using Flagellant.Code.Extensions;
 
-namespace Flagellant.Abstract.Relics;
+namespace Flagellant.Code.Abstract;
 
 [Pool(typeof(FlagellantRelicPool))]
 

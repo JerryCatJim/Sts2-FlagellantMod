@@ -1,9 +1,9 @@
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using Godot;
-using Flagellant.Extensions;
+using Flagellant.Code.Extensions;
 
-namespace Flagellant.Abstract.Powers;
+namespace Flagellant.Code.Abstract;
 
 public abstract class FlagellantPower : CustomPowerModel
 {

@@ -1,5 +1,5 @@
 using BaseLib.Utils;
-using Flagellant.Abstract.Card;
+using Flagellant.Code.Abstract;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Commands;
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Flagellant.Cards;
+namespace Flagellant.Code.Cards.Basic;
 
 public class FlagellantStrike() : FlagellantCard(1,
     CardType.Attack, CardRarity.Basic,

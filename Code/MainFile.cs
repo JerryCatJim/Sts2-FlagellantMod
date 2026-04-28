@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
 using MegaCrit.Sts2.Core.Timeline;
 
-namespace Flagellant.MainFile;
+namespace Flagellant.Code;
 
 /**
  * Ideas

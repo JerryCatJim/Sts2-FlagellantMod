@@ -1,8 +1,8 @@
 using BaseLib.Abstracts;
 using Godot;
-using Flagellant.Extensions;
+using Flagellant.Code.Extensions;
 
-namespace Flagellant.Character;
+namespace Flagellant.Code.Character;
 
 public class FlagellantCardPool : CustomCardPoolModel
 {

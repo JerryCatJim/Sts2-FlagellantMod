@@ -1,14 +1,14 @@
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
-using Flagellant.Character;
-using Flagellant.Extensions;
+using Flagellant.Code.Character;
+using Flagellant.Code.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Logging;
 
-namespace Flagellant.Abstract.Card;
+namespace Flagellant.Code.Abstract;
 
 [Pool(typeof(FlagellantCardPool))]
 public abstract class FlagellantCard(int cost, CardType type, CardRarity rarity, TargetType target) :

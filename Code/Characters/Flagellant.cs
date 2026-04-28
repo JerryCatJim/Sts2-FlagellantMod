@@ -1,7 +1,7 @@
 using BaseLib.Abstracts;
-using Flagellant.Cards;
-using Flagellant.Extensions;
-using Flagellant.Relics;
+using Flagellant.Code.Cards.Basic;
+using Flagellant.Code.Extensions;
+using Flagellant.Code.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models.PotionPools;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using System;
 
-namespace Flagellant.Character;
+namespace Flagellant.Code.Character;
 
 public class Flagellant : PlaceholderCharacterModel
 {
