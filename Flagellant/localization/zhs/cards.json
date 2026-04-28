@@ -1,8 +1,8 @@
 {
   "FLAGELLANT-FLAGELLANT_STRIKE.description": "造成{Damage:diff()}点伤害,获得{StressPower:diff()}点压力",
-  "FLAGELLANT-FLAGELLANT_STRIKE.title": "曼波打击",
-  "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御",
-  "FLAGELLANT-FLAGELLANT_DEFEND.title": "曼波防御",
+  "FLAGELLANT-FLAGELLANT_STRIKE.title": "打击",
+  "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御,减少{StressPower:diff()}点压力",
+  "FLAGELLANT-FLAGELLANT_DEFEND.title": "防御",
   "FLAGELLANT-FLAGELLANT_RELLY.description": "消耗{RelicPower:diff()}层傻了吧唧，获得{StrengthPower:diff()}点力量",
   "FLAGELLANT-FLAGELLANT_RELLY.title": "重振",
   "FLAGELLANT-FLAGELLANT_POWER_UP.description": "获得{RelicPower:diff()}层傻了吧唧",

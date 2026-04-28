@@ -20,19 +20,20 @@ namespace Flagellant.Code.Cards.Basic;
 [Pool(typeof(FlagellantCardPool))]
 public class FlagellantRelly : FlagellantCardModel
 {
+    protected override bool ShouldGlowGoldInternal => (Owner.Creature.GetPower<RelicPower>()?.Amount ?? 0) >= 5m;
     public FlagellantRelly() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 	{
-		WithPower<RelicPower>(-5, 2);
+		WithPower<RelicPower>(5, -2);
 		WithPower<StrengthPower>(5);
 	}
 
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		if((Owner.Creature.GetPower<RelicPower>()?.Amount ?? 0) >= 5m)
+		if(ShouldGlowGoldInternal)
 		{
-			await CommonActions.ApplySelf<RelicPower>(this);
-			await CommonActions.ApplySelf<StrengthPower>(this);
+            await PowerCmd.Apply<RelicPower>(Owner.Creature, -DynamicVars["RelicPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.ApplySelf<StrengthPower>(this);
         }
 	}
 }

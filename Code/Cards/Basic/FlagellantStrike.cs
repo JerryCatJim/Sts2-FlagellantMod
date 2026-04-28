@@ -29,14 +29,14 @@ public class FlagellantStrike : FlagellantCardModel
     {
         WithTags(CardTag.Strike);
         WithDamage(6, 3);
-        WithPower<StressPower>(11);
+        WithPower<StressPower>(9);
 		WithRMTip<ToxicMeltdown>();
-		//WithTip(typeof(DemonFormPower));
+        WithAnimName("Punish");
 	}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-        await CommonActions.ApplySelf<StressPower>(this);
         await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
-	}
+        await CommonActions.ApplySelf<StressPower>(this);
+    }
 }

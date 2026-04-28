@@ -94,7 +94,15 @@ public static class FlagellantAnimationPatch
                     {
                         animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
                     }
-                    AudioManager.PlayCombatSfx("CardPlay/" + animName);
+                    //鞭笞之赐的声音调大点
+                    if(animName == "Lash")
+                    {
+                        AudioManager.PlayCombatSfx("CardPlay/Lash", false, false, 0);
+                    }
+                    else
+                    {
+                        AudioManager.PlayCombatSfx("CardPlay/" + animName);
+                    }
 
                     //不要重复链接
                     if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))

@@ -21,12 +21,20 @@ public abstract class FlagellantCardModel(
     bool shouldShowInCardLibrary = true) :
     ConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
-    public String CardSelectAnimName = "DoNothing";
-    public String CardPlayAnimName = "DoNothing";
+    public String _cardSelectAnimName = "DoNothing";
+    public String _cardPlayAnimName = "DoNothing";
+    public String CardSelectAnimName => _cardSelectAnimName;
+    public String CardPlayAnimName => _cardPlayAnimName;
 
     public FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
     {
         WithTip(new TooltipSource(_ => FlagellantHoverTipFactory.FromResoluteOrMeltdown<T>()));
+        return this;
+    }
+    public FlagellantCardModel WithAnimName(String AnimName)
+    {
+        _cardSelectAnimName = AnimName;
+		_cardPlayAnimName = AnimName;
         return this;
     }
 
