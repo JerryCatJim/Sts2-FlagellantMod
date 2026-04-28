@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://yuuo4och7kse"]
 
-[ext_resource type="Texture2D" uid="uid://cuuhclkqu1a46" path="res://Flagellant/Images/Powers/relly_power.png" id="1_5xvhi"]
+[ext_resource type="Texture2D" uid="uid://cuuhclkqu1a46" path="res://Flagellant/Images/Powers/shalebaji_node.png" id="1_5xvhi"]
 
 [node name="ShalebajiNode" type="Control"]
 visible = false

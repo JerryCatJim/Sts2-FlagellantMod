@@ -9,7 +9,6 @@ using System;
 using System.Reflection.Metadata;
 
 [HarmonyPatch(typeof(NCombatUi), "_Ready")]
-
 public static class ShalebajiNodePatch
 {
 	private static Control _cachedShalebajiNode;

@@ -11,25 +11,22 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Flagellant.Powers;
+using Flagellant.Code.Powers;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Character;
 
 namespace Flagellant.Code.Cards.Basic;
 
-public class FlagellantPowerUp() : FlagellantCard(1,
-	CardType.Power, CardRarity.Common,
-	TargetType.Self)
+[Pool(typeof(FlagellantCardPool))]
+public class FlagellantPowerUp : FlagellantCardModel
 {
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("RellyPower",5m)];
-
+    public FlagellantPowerUp() : base(1, CardType.Power, CardRarity.Common, TargetType.Self)
+	{
+		WithPower<RelicPower>(5, 2);
+	}
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		await PowerCmd.Apply<RelicPower>(Owner.Creature, DynamicVars["RellyPower"].BaseValue, Owner.Creature, this);
-	}
-
-	protected override void OnUpgrade()
-	{
-		DynamicVars["RellyPower"].UpgradeValueBy(2m);
-	}
+        await CommonActions.ApplySelf<RelicPower>(this);
+    }
 }

@@ -5,14 +5,14 @@ using Flagellant.Code.Extensions;
 
 namespace Flagellant.Code.Abstract;
 
-public abstract class FlagellantPower : CustomPowerModel
+public abstract class FlagellantPowerModel : CustomPowerModel
 {
 	public override string CustomPackedIconPath
 	{
 		get
 		{
 			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
-			return ResourceLoader.Exists(path) ? path : "relly_power.png".PowerImagePath();
+			return ResourceLoader.Exists(path) ? path : "default_power.png".PowerImagePath();
 		}
 	}
 
@@ -21,7 +21,7 @@ public abstract class FlagellantPower : CustomPowerModel
 		get
 		{
 			/*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
-			return ResourceLoader.Exists(path) ? path : "relly_power.png".BigPowerImagePath();*/
+			return ResourceLoader.Exists(path) ? path : "default_power.png".BigPowerImagePath();*/
 			return CustomPackedIconPath;
 		}
 	}

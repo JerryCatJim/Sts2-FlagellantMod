@@ -7,19 +7,33 @@ using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Logging;
+using Flagellant.Code.ResoluteOrMeltdown;
+using Flagellant.Code.Core;
 
 namespace Flagellant.Code.Abstract;
 
 [Pool(typeof(FlagellantCardPool))]
-public abstract class FlagellantCard(int cost, CardType type, CardRarity rarity, TargetType target) :
-	CustomCardModel(cost, type, rarity, target)
+public abstract class FlagellantCardModel(
+    int canonicalEnergyCost,
+    CardType type,
+    CardRarity rarity,
+    TargetType targetType,
+    bool shouldShowInCardLibrary = true) :
+    ConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
     public String CardSelectAnimName = "DoNothing";
     public String CardPlayAnimName = "DoNothing";
-	//Image size:
-	//Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
-	//Full art: 606x852
-	public override string CustomPortraitPath
+
+    public FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
+    {
+        WithTip(new TooltipSource(_ => FlagellantHoverTipFactory.FromResoluteOrMeltdown<T>()));
+        return this;
+    }
+
+    //Image size:
+    //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
+    //Full art: 606x852
+    public override string CustomPortraitPath
 	{
 		get
 		{

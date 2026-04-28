@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.ResoluteOrMeltdown;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Commands;
@@ -16,27 +17,26 @@ using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Flagellant.Code.Character;
+using Flagellant.Code.Powers;
 
 namespace Flagellant.Code.Cards.Basic;
 
-public class FlagellantStrike() : FlagellantCard(1,
-    CardType.Attack, CardRarity.Basic,
-    TargetType.AnyEnemy)
+[Pool(typeof(FlagellantCardPool))]
+public class FlagellantStrike : FlagellantCardModel
 {
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
-
-	protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-		HoverTipFactory.FromPower<DemonFormPower>()
-	];
+    public FlagellantStrike() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+    {
+        WithTags(CardTag.Strike);
+        WithDamage(6, 3);
+        WithPower<StressPower>(11);
+		WithRMTip<ToxicMeltdown>();
+		//WithTip(typeof(DemonFormPower));
+	}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
+        await CommonActions.ApplySelf<StressPower>(this);
         await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
-	}
-
-	protected override void OnUpgrade()
-	{
-		DynamicVars.Damage.UpgradeValueBy(2m);
 	}
 }

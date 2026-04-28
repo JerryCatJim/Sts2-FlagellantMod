@@ -9,7 +9,7 @@ namespace Flagellant.Code.Abstract;
 
 [Pool(typeof(FlagellantRelicPool))]
 
-public abstract class FlagellantRelic : CustomRelicModel
+public abstract class FlagellantRelicModel : CustomRelicModel
 {
     public override string PackedIconPath
     {
@@ -35,7 +35,7 @@ public abstract class FlagellantRelic : CustomRelicModel
         get
         {
             /*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigRelicImagePath();
-            return ResourceLoader.Exists(path) ? path : "manbo_toy.png".BigRelicImagePath();*/
+            return ResourceLoader.Exists(path) ? path : "default_relic.png".BigRelicImagePath();*/
             return PackedIconPath;
         }
     }

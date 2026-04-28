@@ -14,7 +14,7 @@ namespace Flagellant.Audio;
 
 internal static class AudioManager
 {
-    public static void PlayCardSfx(string AudioName, bool bIsTemp = false, float VolumeDb = -10.0f) //声音素材音量太大了，减小一点
+    public static void PlayCombatSfx(string AudioName, bool bIsTemp = false, float VolumeDb = -10.0f) //声音素材音量太大了，减小一点
     {
         if (NonInteractiveMode.IsActive) return;
 

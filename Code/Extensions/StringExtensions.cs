@@ -1,4 +1,4 @@
-using MyMainFile = Flagellant.MainFile.MainFile;
+using MyMainFile = Flagellant.Code.MainFile;
 using MegaCrit.Sts2.Core.Logging;
 
 namespace Flagellant.Code.Extensions;

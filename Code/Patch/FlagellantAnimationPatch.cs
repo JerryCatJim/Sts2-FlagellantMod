@@ -94,7 +94,7 @@ public static class FlagellantAnimationPatch
                     {
                         animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
                     }
-                    AudioManager.PlayCardSfx("CardPlay/" + animName);
+                    AudioManager.PlayCombatSfx("CardPlay/" + animName);
 
                     //不要重复链接
                     if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))
@@ -109,7 +109,7 @@ public static class FlagellantAnimationPatch
     private static readonly Callable _stateStartedCallable = Callable.From((StringName state) =>
     {
         //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
-        AudioManager.PlayCardSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
+        AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
     });
 }
 
@@ -118,7 +118,7 @@ public class FlagellantOnSelectedPatch
 {
 	public static void Postfix(CardModel cardModel)
 	{
-        FlagellantCard MyCard = (FlagellantCard)cardModel;
+        FlagellantCardModel MyCard = (FlagellantCardModel)cardModel;
         if (MyCard == null || MyCard.CardSelectAnimName == "DoNothing") return;
 
         NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(cardModel.Owner.Creature);
@@ -140,7 +140,7 @@ public class FlagellantOnSelectedPatch
         {
             state_machine.Start("CardSelect");
             AR_SM.Travel(MyCard.CardSelectAnimName);
-            AudioManager.PlayCardSfx("CardSelect/" + MyCard.CardSelectAnimName);
+            AudioManager.PlayCombatSfx("CardSelect/" + MyCard.CardSelectAnimName);
         }
     }
 }
@@ -181,7 +181,7 @@ public class FlagellantAttackCommandPatch
 {
     public static void Postfix(AttackCommand __instance, CardModel card)
     {
-		FlagellantCard MyCard = (FlagellantCard)card;
+		FlagellantCardModel MyCard = (FlagellantCardModel)card;
         if (MyCard != null && MyCard.CardPlayAnimName != "DoNothing")
         {
             Traverse.Create(__instance).Field("_attackerAnimName").SetValue(MyCard.CardPlayAnimName);

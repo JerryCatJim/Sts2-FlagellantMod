@@ -9,33 +9,30 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
-using Flagellant.Powers;
+using Flagellant.Code.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Character;
 
 namespace Flagellant.Code.Cards.Basic;
 
-public class FlagellantRelly() : FlagellantCard(1,
-	CardType.Skill, CardRarity.Common,
-	TargetType.Self)
+[Pool(typeof(FlagellantCardPool))]
+public class FlagellantRelly : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => (Owner.Creature.GetPower<RelicPower>()?.Amount??0) >= 5m;
-
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("RellyPower",5m), new PowerVar<StrengthPower>(5m)];
+    public FlagellantRelly() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+	{
+		WithPower<RelicPower>(-5, 2);
+		WithPower<StrengthPower>(5);
+	}
 
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		if(ShouldGlowGoldInternal)
+		if((Owner.Creature.GetPower<RelicPower>()?.Amount ?? 0) >= 5m)
 		{
-            await PowerCmd.Apply<RelicPower>(Owner.Creature, -DynamicVars["RellyPower"].BaseValue, Owner.Creature, this);
-            await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+			await CommonActions.ApplySelf<RelicPower>(this);
+			await CommonActions.ApplySelf<StrengthPower>(this);
         }
-	}
-
-	protected override void OnUpgrade()
-	{
-		DynamicVars["RellyPower"].UpgradeValueBy(-2m);
 	}
 }

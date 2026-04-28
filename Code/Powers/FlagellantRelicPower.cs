@@ -12,7 +12,7 @@ using Flagellant.Code.Abstract;
 
 namespace Flagellant.Code.Powers;
 
-public sealed class RelicPower : FlagellantPower
+public sealed class RelicPower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 

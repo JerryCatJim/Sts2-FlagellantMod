@@ -1,5 +1,16 @@
 {
+  "FLAGELLANT-RELIC_POWER.title": "傻了吧唧",
   "FLAGELLANT-RELIC_POWER.description": "呃啊",
   "FLAGELLANT-RELIC_POWER.smartDescription": "有{Amount}层傻了吧唧",
-  "FLAGELLANT-RELIC_POWER.title": "傻了吧唧"
+  "FLAGELLANT-STRESS_POWER.title": "压力",
+  "FLAGELLANT-STRESS_POWER.description": "当压力值大于等于10点时，会进入随机的美德或折磨状态",
+  "FLAGELLANT-STRESS_POWER.smartDescription": "压力值：{Amount}，满10点进入随机美德或折磨状态",
+  "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.title": "美德和折磨的基类，不应该被展示到游戏界面",
+  "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.description": "美德和折磨的基类，不应该被展示到游戏界面",
+  "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.smartDescription": "美德和折磨的基类，不应该被展示到游戏界面",
+  "FLAGELLANT-TOXIC_MELTDOWN.title": "怨毒",
+  "FLAGELLANT-TOXIC_MELTDOWN.description": "[gold]鞭笞者专属折磨[/gold]\n造成攻击伤害时附加等量[green]中毒[/green]，在你的下个回合开始时退出此折磨",
+  "FLAGELLANT-TOXIC_POWER.title": "怨毒",
+  "FLAGELLANT-TOXIC_POWER.description": "造成攻击伤害时附加等量[green]中毒[/green]，在你的下个回合开始时退出此折磨",
+  "FLAGELLANT-TOXIC_POWER.smartDescription": "造成攻击伤害时附加等量[green]中毒[/green]，在你的下个回合开始时退出此折磨"
 }

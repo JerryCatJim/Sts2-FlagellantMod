@@ -12,7 +12,7 @@ using Flagellant.Code.Powers;
 
 namespace Flagellant.Code.Relics;
 
-public class PainBox : FlagellantRelic
+public class PainBox : FlagellantRelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 

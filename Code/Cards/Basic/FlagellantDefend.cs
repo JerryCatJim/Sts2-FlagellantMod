@@ -12,24 +12,24 @@ using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Character;
+using Flagellant.Code.Powers;
 
 namespace Flagellant.Code.Cards.Basic;
 
-public class FlagellantDefend() : FlagellantCard(1,
-	CardType.Skill, CardRarity.Basic,
-	TargetType.Self)
+[Pool(typeof(FlagellantCardPool))]
+public class FlagellantDefend : FlagellantCardModel
 {
-	protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
-
-
-	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public FlagellantDefend() : base(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 	{
-		await CommonActions.CardBlock(this, cardPlay);
+		WithTags(CardTag.Defend);
+		WithBlock(5, 3);
+		WithPower<StressPower>(-2);
 	}
 
-	protected override void OnUpgrade()
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		DynamicVars.Block.UpgradeValueBy(2m);
+		await CommonActions.ApplySelf<StressPower>(this);
+		await CommonActions.CardBlock(this, cardPlay);
 	}
 }
