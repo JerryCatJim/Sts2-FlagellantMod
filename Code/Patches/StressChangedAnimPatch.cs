@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+namespace Flagellant.Code.Patch;
 
 [HarmonyPatch(typeof(NCreature), "OnPowerIncreased")]
 public static class StressIncreaseAnimPatch

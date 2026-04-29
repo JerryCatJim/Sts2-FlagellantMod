@@ -21,6 +21,8 @@ using static Godot.GodotObject;
 using static Godot.Node;
 using static Godot.PackedScene;
 
+namespace Flagellant.Code.Patch;
+
 [HarmonyPatch(typeof(NCreature), "SetAnimationTrigger")]
 public static class FlagellantAnimationPatch
 {
