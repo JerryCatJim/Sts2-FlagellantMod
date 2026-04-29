@@ -31,7 +31,7 @@ public static class StressIncreaseAnimPatch
                 if (visual != null)
                 {
                     String NodeName = amount > 0 ? "StressUp" : "StressDown";
-                    Node2D StressNode = visual.GetNodeOrNull<Node2D>(NodeName);
+                    Node2D StressNode = visual.GetNodeOrNull<Node2D>(NodeName+"Node");
                     if (StressNode == null)
                     {
                         Log.Info("[StressIncreasePatch] " + NodeName +" In flagellant.tscn is not found.");
