@@ -26,7 +26,7 @@ public class FlagellantDefend : FlagellantCardModel
 	{
 		WithTags(CardTag.Defend);
 		WithBlock(5, 3);
-		WithPower<StressPower>(1);
+		WithPower<StressPower>(2);
 		WithAnimName("Lash");
 	}
 
