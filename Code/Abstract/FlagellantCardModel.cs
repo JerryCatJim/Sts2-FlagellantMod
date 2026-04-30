@@ -19,7 +19,7 @@ public abstract class FlagellantCardModel(
     CardRarity rarity,
     TargetType targetType,
     bool shouldShowInCardLibrary = true) :
-    ConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    MyConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
     public String _cardSelectAnimName = "DoNothing";
     public String _cardPlayAnimName = "DoNothing";

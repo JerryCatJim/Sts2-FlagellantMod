@@ -23,16 +23,22 @@ using Flagellant.Code.Powers;
 namespace Flagellant.Code.Cards.Basic;
 
 [Pool(typeof(FlagellantCardPool))]
-public class FlagellantStrike : FlagellantCardModel
+public class Punish : FlagellantCardModel
 {
-    public FlagellantStrike() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+    public Punish() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithTags(CardTag.Strike);
-        WithDamage(6, 3);
+        WithDamage(12, 4);
+        WithPoison(4,2);
+        WithLossPercent(10,-2);
+        WithAnimName("Punish");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-	{
+    {
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
         await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.Apply<PoisonPower>(cardPlay.Target, this);
+        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, GetLossPercentDamage(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
     }
 }

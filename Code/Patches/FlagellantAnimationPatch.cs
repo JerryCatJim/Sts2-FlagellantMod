@@ -128,6 +128,8 @@ public class FlagellantOnSelectedPatch
 {
 	public static void Postfix(CardModel cardModel)
 	{
+        if (cardModel is not FlagellantCardModel) return;
+
         FlagellantCardModel MyCard = (FlagellantCardModel)cardModel;
         if (MyCard == null || MyCard.CardSelectAnimName == "DoNothing") return;
 
@@ -159,8 +161,10 @@ public class FlagellantOnSelectedPatch
 [HarmonyPatch(typeof(NCardPlay), "CancelPlayCard")] //不要使用OnLocalCardDeselected，这在卡牌被打出之后也会被执行，导致跳转到攻击动画后又立刻跳转回到Idle
 public class FlagellantCancelPlayCardPatch
 {
-    public static void Prefix(NCardPlay __instance)
+    public static void Prefix(NCardPlay __instance)  //返回类型为void会继续执行原方法
     {
+        if (!GodotObject.IsInstanceValid(__instance)) return;
+
         CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
         if (Card == null) return;
 
@@ -191,7 +195,9 @@ public class FlagellantAttackCommandPatch
 {
     public static void Postfix(AttackCommand __instance, CardModel card)
     {
-		FlagellantCardModel MyCard = (FlagellantCardModel)card;
+        if (card is not FlagellantCardModel) return;
+
+        FlagellantCardModel MyCard = (FlagellantCardModel)card;
         if (MyCard != null && MyCard.CardPlayAnimName != "DoNothing")
         {
             Traverse.Create(__instance).Field("_attackerAnimName").SetValue(MyCard.CardPlayAnimName);

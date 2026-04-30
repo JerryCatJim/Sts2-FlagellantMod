@@ -26,15 +26,10 @@ public class FlagellantDefend : FlagellantCardModel
 	{
 		WithTags(CardTag.Defend);
 		WithBlock(5, 3);
-		WithPower<StressPower>(2);
-		WithAnimName("Lash");
 	}
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.TriggerAnim(base.Owner.Creature, "Lash", 0.0f);
-        //await CommonActions.CardBlock(this, cardPlay);
-        //await CommonActions.ApplySelf<StressPower>(this); //BaseLib的方法如果填入负数，就会把值存为负数，Json里就会解析出负数到卡牌界面上，所以手动修改
-        await PowerCmd.Apply<StressPower>(Owner.Creature, -DynamicVars["StressPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.CardBlock(this, cardPlay);
 	}
 }

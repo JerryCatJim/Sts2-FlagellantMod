@@ -80,8 +80,8 @@ public class Flagellant : PlaceholderCharacterModel
 		ModelDb.Card<FlagellantStrike>(),
 		ModelDb.Card<FlagellantStrike>(),
 		ModelDb.Card<FlagellantDefend>(),
-		ModelDb.Card<FlagellantRelly>(),
-		ModelDb.Card<FlagellantPowerUp>()
+		ModelDb.Card<Punish>(),
+		//ModelDb.Card<FlagellantPowerUp>()
 	];
 
 	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];

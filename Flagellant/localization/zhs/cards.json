@@ -1,10 +1,8 @@
 {
-  "FLAGELLANT-FLAGELLANT_STRIKE.description": "造成{Damage:diff()}点伤害,获得{StressPower:stressIcons()}",
+  "FLAGELLANT-FLAGELLANT_STRIKE.description": "造成{Damage:diff()}点伤害",
   "FLAGELLANT-FLAGELLANT_STRIKE.title": "打击",
-  "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御,减少{StressPower:stressIcons()}",
+  "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御",
   "FLAGELLANT-FLAGELLANT_DEFEND.title": "防御",
-  "FLAGELLANT-FLAGELLANT_RELLY.description": "消耗{RelicPower:diff()}层傻了吧唧，获得{StrengthPower:diff()}点力量",
-  "FLAGELLANT-FLAGELLANT_RELLY.title": "重振",
-  "FLAGELLANT-FLAGELLANT_POWER_UP.description": "获得{RelicPower:diff()}层傻了吧唧",
-  "FLAGELLANT-FLAGELLANT_POWER_UP.title": "咕咕嘎嘎"
+  "FLAGELLANT-PUNISH.description": "造成{Damage:diff()}点伤害。给予{PoisonPower:diff()}点[gold]中毒[/gold]。失去{LossPercent:diff()}%生命值",
+  "FLAGELLANT-PUNISH.title": "惩罚"
 }

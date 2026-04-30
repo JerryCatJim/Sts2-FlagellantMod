@@ -1,0 +1,51 @@
+using BaseLib.Extensions;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using BaseLib.Abstracts;
+using MegaCrit.Sts2.Core.Models.Powers;
+
+namespace BaseLib.Abstracts;
+
+public abstract class MyConstructedCardModel(
+    int canonicalEnergyCost,
+    CardType type,
+    CardRarity rarity,
+    TargetType targetType,
+    bool shouldShowInCardLibrary = true) :
+    ConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
+{
+    protected MyConstructedCardModel WithHpLoss(int baseVal, int upgrade = 0)
+    {
+        WithVars(new HpLossVar(baseVal).WithUpgrade(upgrade));
+        return this;
+    }
+    protected MyConstructedCardModel WithPoison(int baseVal, int upgrade = 0)
+    {
+        WithPower<PoisonPower>(baseVal, upgrade);
+        return this;
+    }
+    protected MyConstructedCardModel WithLossPercent(int baseVal, int upgrade = 0)
+    {
+        WithVar("LossPercent", baseVal, upgrade);
+        return this;
+    }
+    protected decimal GetLossPercentDamage(bool useLossPercentVar = true, decimal overridePercent = 0m)
+    {
+        decimal Percent = 0m;
+        if(useLossPercentVar)
+        {
+            bool isLossPercentExist = base.DynamicVars["LossPercent"] != null;
+            Percent = Math.Clamp(isLossPercentExist ? base.DynamicVars["LossPercent"].BaseValue : Percent, 0, 100);
+        }
+        else
+        {
+            Percent = Math.Clamp(overridePercent, 0, 100);
+        }
+        decimal Damage = Math.Round(base.Owner.Creature.CurrentHp * Percent / 100m);
+        if(Percent > 0 && Damage < 1m)
+        {
+            return 1m;
+        }
+        return Damage;
+    }
+}
