@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Characters;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -26,17 +27,13 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
         return base.OnEnterResoluteOrMeltdown(ctx, player, source);
     }
 
-    /*public override decimal ModifyDamageMultiplicative(
-        Creature? target,
-        decimal amount,
-        ValueProp props,
-        Creature? dealer,
-        CardModel? cardSource)
+    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
     {
-        if (dealer == Owner.Creature && !props.HasFlag(ValueProp.Unpowered))
-            return 3m;
-        return 1m;
-    }*/
+        if (dealer == Owner.Creature && dealer != target && result.TotalDamage > 0)
+        {
+            await PowerCmd.Apply<PoisonPower>(target, result.TotalDamage, Owner.Creature, null);
+        }
+    }
 
     public override async Task BeforeSideTurnStart(PlayerChoiceContext ctx, CombatSide side,
         CombatState combatState)

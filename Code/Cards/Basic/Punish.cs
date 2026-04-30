@@ -27,10 +27,11 @@ public class Punish : FlagellantCardModel
 {
     public Punish() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithDamage(12, 4);
-        WithPoison(4,2);
-        WithLossPercent(10,-2);
+        WithDamage(12);
+        WithPoison(4);
+        WithLossPercent(10);
         WithAnimName("Punish");
+        WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -40,5 +41,9 @@ public class Punish : FlagellantCardModel
         await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
         await CommonActions.Apply<PoisonPower>(cardPlay.Target, this);
         await CreatureCmd.Damage(choiceContext, base.Owner.Creature, GetLossPercentDamage(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        if(IsUpgraded)
+        {
+            await CommonActions.Apply<ComboPower>(cardPlay.Target, this);
+        }
     }
 }

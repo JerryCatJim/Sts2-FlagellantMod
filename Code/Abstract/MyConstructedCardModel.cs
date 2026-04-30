@@ -1,7 +1,11 @@
-using BaseLib.Extensions;
-using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using BaseLib.Abstracts;
+using BaseLib.Extensions;
+using BaseLib.Utils;
+using Flagellant.Code.Powers;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace BaseLib.Abstracts;
@@ -14,9 +18,19 @@ public abstract class MyConstructedCardModel(
     bool shouldShowInCardLibrary = true) :
     ConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
+    protected MyConstructedCardModel WithPowerTip<T>() where T : PowerModel
+    {
+        WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromPower<ComboPower>()));
+        return this;
+    }
     protected MyConstructedCardModel WithHpLoss(int baseVal, int upgrade = 0)
     {
         WithVars(new HpLossVar(baseVal).WithUpgrade(upgrade));
+        return this;
+    }
+    protected MyConstructedCardModel WithStress(int baseVal, int upgrade = 0)
+    {
+        WithPower<StressPower>(baseVal, upgrade);
         return this;
     }
     protected MyConstructedCardModel WithPoison(int baseVal, int upgrade = 0)

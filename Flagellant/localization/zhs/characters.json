@@ -7,10 +7,10 @@
   "FLAGELLANT-FLAGELLANT.pronounPossessive": "他的",
   "FLAGELLANT-FLAGELLANT.pronounSubject": "他",
   "FLAGELLANT-FLAGELLANT.cardsModifierTitle": "鞭笞者卡牌",
-  "FLAGELLANT-FLAGELLANT.cardsModifierDescription": "鞭笞者的卡牌将出现在商店与奖励中",
+  "FLAGELLANT-FLAGELLANT.cardsModifierDescription": "鞭笞者的卡牌将出现在商店与奖励中。",
   "FLAGELLANT-FLAGELLANT.aromaPrinciple": "[sine][gray]呵呵,皮开肉绽的感觉......[/gray][/sine]",
   "FLAGELLANT-FLAGELLANT.eventDeathPrevention": "死神都带不走我!",
   "FLAGELLANT-FLAGELLANT.banter.alive.endTurnPing": "痛苦时间到!",
   "FLAGELLANT-FLAGELLANT.banter.dead.endTurnPing": "再来...",
-  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]我已不需要这些身外之物[/sine]..."
+  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]我已不需要这些身外之物...[/sine]"
 }

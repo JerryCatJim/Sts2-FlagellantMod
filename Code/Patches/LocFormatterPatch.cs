@@ -21,6 +21,7 @@ public static class LocFormatterPatch
         ListFormatter listFormatter = new ListFormatter();
         SmartFormatter TempSF = Traverse.Create(typeof(LocManager)).Field("_smartFormatter").GetValue<SmartFormatter>();
         TempSF.AddExtensions(listFormatter, new StressIconsFormatter());
+        TempSF.AddExtensions(listFormatter, new ComboIconsFormatter());
         Smart.Default = TempSF;
     }
 }

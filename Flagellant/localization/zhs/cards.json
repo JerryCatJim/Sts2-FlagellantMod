@@ -1,8 +1,8 @@
 {
-  "FLAGELLANT-FLAGELLANT_STRIKE.description": "造成{Damage:diff()}点伤害",
+  "FLAGELLANT-FLAGELLANT_STRIKE.description": "造成{Damage:diff()}点伤害。",
   "FLAGELLANT-FLAGELLANT_STRIKE.title": "打击",
-  "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御",
+  "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御。",
   "FLAGELLANT-FLAGELLANT_DEFEND.title": "防御",
-  "FLAGELLANT-PUNISH.description": "造成{Damage:diff()}点伤害。给予{PoisonPower:diff()}点[gold]中毒[/gold]。失去{LossPercent:diff()}%生命值",
+  "FLAGELLANT-PUNISH.description": "造成{Damage:diff()}点伤害。\n给予{PoisonPower:diff()}点[gold]中毒[/gold]。\n失去{LossPercent:diff()}%生命值。{IfUpgraded:show:\n给予{ComboPower:comboIcons()}。}",
   "FLAGELLANT-PUNISH.title": "惩罚"
 }
