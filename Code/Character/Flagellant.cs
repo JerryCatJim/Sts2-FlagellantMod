@@ -16,15 +16,15 @@ namespace Flagellant.Code.Character;
 public class Flagellant : PlaceholderCharacterModel
 {
     public const string CharacterId = "Flagellant";
-    public override string PlaceholderID => "necrobinder";
+    public override string PlaceholderID => "silent";
 
-    public static readonly Color Color = new Color("c4278a");
+    public static readonly Color Color = new Color("808080"); //gray
     // 角色名称颜色
     public override Color NameColor => Color;
     // 能量图标轮廓颜色
-    public override Color EnergyLabelOutlineColor => new(0.1f, 0.1f, 1f);
+    //public override Color EnergyLabelOutlineColor => new Color("0000000D");
     // 地图绘制颜色
-    public override Color MapDrawingColor => new(0.5f, 0.5f, 1f);
+    public override Color MapDrawingColor => new Color("008000"); //green
 
     // 人物性别（男女中立）
     public override CharacterGender Gender => CharacterGender.Masculine;
@@ -81,7 +81,7 @@ public class Flagellant : PlaceholderCharacterModel
 		ModelDb.Card<FlagellantStrike>(),
 		ModelDb.Card<FlagellantDefend>(),
 		ModelDb.Card<Punish>(),
-		//ModelDb.Card<FlagellantPowerUp>()
+		ModelDb.Card<Fester>()
 	];
 
 	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];

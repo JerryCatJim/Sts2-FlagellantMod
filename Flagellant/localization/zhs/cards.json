@@ -4,5 +4,7 @@
   "FLAGELLANT-FLAGELLANT_DEFEND.description": "获得{Block:diff()}点防御。",
   "FLAGELLANT-FLAGELLANT_DEFEND.title": "防御",
   "FLAGELLANT-PUNISH.description": "造成{Damage:diff()}点伤害。\n给予{PoisonPower:diff()}点[gold]中毒[/gold]。\n失去{LossPercent:diff()}%生命值。{IfUpgraded:show:\n给予{ComboPower:comboIcons()}。}",
-  "FLAGELLANT-PUNISH.title": "惩罚"
+  "FLAGELLANT-PUNISH.title": "惩罚",
+  "FLAGELLANT-FESTER.description": "给予{VulnerablePower:diff()}层[gold]易伤[/gold]。\n若目标有{ComboPower:comboIcons()}，则抽{Cards:diff()}并恢复{HealingPercent:diff()}%生命值。",
+  "FLAGELLANT-FESTER.title": "溃烂"
 }

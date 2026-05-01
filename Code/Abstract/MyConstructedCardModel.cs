@@ -43,10 +43,15 @@ public abstract class MyConstructedCardModel(
         WithVar("LossPercent", baseVal, upgrade);
         return this;
     }
-    protected decimal GetLossPercentDamage(bool useLossPercentVar = true, decimal overridePercent = 0m)
+    protected MyConstructedCardModel WithHealingPercent(int baseVal, int upgrade = 0)
+    {
+        WithVar("HealingPercent", baseVal, upgrade);
+        return this;
+    }
+    protected decimal GetLossPercentHp(decimal overridePercent = 0m)
     {
         decimal Percent = 0m;
-        if(useLossPercentVar)
+        if(overridePercent == 0m)
         {
             bool isLossPercentExist = base.DynamicVars["LossPercent"] != null;
             Percent = Math.Clamp(isLossPercentExist ? base.DynamicVars["LossPercent"].BaseValue : Percent, 0, 100);
@@ -61,5 +66,19 @@ public abstract class MyConstructedCardModel(
             return 1m;
         }
         return Damage;
+    }
+    protected decimal GetHealingPercentHp(decimal overridePercent = 0m)
+    {
+        decimal Percent = 0m;
+        if (overridePercent == 0m)
+        {
+            bool isHealPercentExist = base.DynamicVars["HealingPercent"] != null;
+            Percent = Math.Clamp(isHealPercentExist ? base.DynamicVars["HealingPercent"].BaseValue : Percent, 0, 100);
+        }
+        else
+        {
+            Percent = Math.Clamp(overridePercent, 0, 100);
+        }
+        return Math.Round(base.Owner.Creature.MaxHp * Percent / 100m);
     }
 }

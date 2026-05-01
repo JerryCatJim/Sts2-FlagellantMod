@@ -130,6 +130,7 @@
 
     <ItemGroup>
       <Folder Include="Code\Cards\Common\" />
+      <Folder Include="Code\Cards\Ancient\" />
     </ItemGroup>
 
 

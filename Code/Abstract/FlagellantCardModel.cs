@@ -2,13 +2,14 @@ using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.Character;
+using Flagellant.Code.Core;
 using Flagellant.Code.Extensions;
+using Flagellant.Code.ResoluteOrMeltdown;
 using Godot;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Logging;
-using Flagellant.Code.ResoluteOrMeltdown;
-using Flagellant.Code.Core;
 
 namespace Flagellant.Code.Abstract;
 
@@ -26,18 +27,25 @@ public abstract class FlagellantCardModel(
     public String CardSelectAnimName => _cardSelectAnimName;
     public String CardPlayAnimName => _cardPlayAnimName;
 
-    public FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
+    protected FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
     {
         WithTip(new TooltipSource(_ => FlagellantHoverTipFactory.FromResoluteOrMeltdown<T>()));
         return this;
     }
-    public FlagellantCardModel WithAnimName(String AnimName)
+    protected FlagellantCardModel WithAnimName(String AnimName)
     {
         _cardSelectAnimName = AnimName;
 		_cardPlayAnimName = AnimName;
         return this;
     }
-
+    protected async Task PlaySkillAnim()
+    {
+        if(CardPlayAnimName == null || CardPlayAnimName == "" || CardPlayAnimName == "DoNothing")
+		{
+			return;
+        }
+        await CreatureCmd.TriggerAnim(Owner.Creature, CardPlayAnimName, 0.0f);
+    }
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
     //Full art: 606x852

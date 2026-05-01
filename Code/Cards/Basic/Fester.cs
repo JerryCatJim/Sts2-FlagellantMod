@@ -23,14 +23,14 @@ using Flagellant.Code.Powers;
 namespace Flagellant.Code.Cards.Basic;
 
 [Pool(typeof(FlagellantCardPool))]
-public class Punish : FlagellantCardModel
+public class Fester : FlagellantCardModel
 {
-    public Punish() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+    public Fester() : base(0, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithDamage(12);
-        WithPoison(4);
-        WithLossPercent(10);
-        WithAnimName("Punish");
+        WithAnimName("Fester");
+        WithPower<VulnerablePower>(1, 1);
+        WithHealingPercent(10, 2);
+        WithCards(1);
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
     }
 
@@ -38,12 +38,13 @@ public class Punish : FlagellantCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
-        await CommonActions.Apply<PoisonPower>(cardPlay.Target, this);
-        await CreatureCmd.Damage(choiceContext, base.Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
-        if(IsUpgraded)
+        await PlaySkillAnim();
+        await CommonActions.Apply<VulnerablePower>(cardPlay.Target, this);
+        if(cardPlay.Target.HasPower<ComboPower>())
         {
-            await CommonActions.Apply<ComboPower>(cardPlay.Target, this);
+            await PowerCmd.Remove<ComboPower>(cardPlay.Target);
+            await CommonActions.Draw(this, choiceContext);
+            await CreatureCmd.Heal(Owner.Creature, GetHealingPercentHp());
         }
     }
 }
