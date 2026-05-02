@@ -157,6 +157,16 @@ public class FlagellantOnSelectedPatch
     }
 }
 
+[HarmonyPatch(typeof(NPlayerHand), "StartCardPlay")]
+public class TestCardPlayPatch
+{
+    public static void Postfix(NPlayerHand __instance)
+    {
+        //不知道为什么，更新BaseLib 3.0.9以后会无法Patch到OnLocalCardSelected，加了这个空Patch之后就正常了？？？
+        //而且还必须放在OnLocalCardSelected的Patch的下面？？？。。。我已没招
+    }
+}
+
 //[HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardDeselected")]
 [HarmonyPatch(typeof(NCardPlay), "CancelPlayCard")] //不要使用OnLocalCardDeselected，这在卡牌被打出之后也会被执行，导致跳转到攻击动画后又立刻跳转回到Idle
 public class FlagellantCancelPlayCardPatch

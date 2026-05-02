@@ -100,7 +100,7 @@
             <HintPath>$(Sts2DataDir)/SmartFormat.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.0.2" />
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.0" />
         <!--Reference Include="BaseLib">
             <HintPath>$(Sts2Path)/BaseLib/BaseLib.dll</HintPath>
             <Private>false</Private>
