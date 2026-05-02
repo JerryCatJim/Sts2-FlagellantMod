@@ -19,7 +19,7 @@ public class FlagellantCardPool : CustomCardPoolModel
     public override float S => 0.98f;
     public override float V => 0.7f;*/
 
-    public override float H => 0.33f; //Hue; changes the color.
+    public override float H => 0.33f; //Hue; changes the color. //green
     public override float S => 0.7f; //Saturation
     public override float V => 0.7f; //Brightness
 
@@ -31,8 +31,8 @@ public class FlagellantCardPool : CustomCardPoolModel
 	}*/
 
     //Color of small card icons
-    public override Color DeckEntryCardColor => new("008000");
-    public override Color EnergyOutlineColor => new("000000");
+    public override Color DeckEntryCardColor => new("008000"); //green
+    public override Color EnergyOutlineColor => new("454545"); //dark_gray
 
     public override bool IsColorless => false;
 }

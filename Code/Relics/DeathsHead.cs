@@ -5,19 +5,22 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Logging;
 
 namespace Flagellant.Code.Relics;
 
-public class PainBox : FlagellantRelicModel
+public class DeathsHead : FlagellantRelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.Starter;
+    public override RelicRarity Rarity => RelicRarity.Ancient;
+    public int DoomPowerAmount = 0;
 
     public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
@@ -33,8 +36,26 @@ public class PainBox : FlagellantRelicModel
         }
         return amount;
     }
-    public override RelicModel? GetUpgradeReplacement()
+    public override Task AfterCombatEnd(CombatRoom room)
     {
-        return ModelDb.Relic<DeathsHead>();
+        DoomPower? DoomPower = base.Owner.Creature.GetPower<DoomPower>();
+        if (DoomPower != null)
+        {
+            DoomPowerAmount = DoomPower.Amount;
+        }
+        return base.AfterCombatEnd(room);
+    }
+    public override async Task AfterCombatVictory(CombatRoom room)
+    {
+        //CombatManager.cs的EndCombatInternal里会调用player2.AfterCombatEnd(),其中会清空所有Power,所以要在此之前记录DoomPower层数
+        if (!base.Owner.Creature.IsDead)
+        {
+            if(DoomPowerAmount > 0)
+            {
+                Flash();
+                await CreatureCmd.Heal(base.Owner.Creature, DoomPowerAmount);
+            }
+        }
+        DoomPowerAmount = 0;
     }
 }
