@@ -29,7 +29,7 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
 
     public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
     {
-        if (dealer == Owner.Creature && dealer != target && result.TotalDamage > 0)
+        if (dealer == Owner.Creature && dealer != target && result.TotalDamage > 0 && target != null && target.IsAlive)
         {
             await PowerCmd.Apply<PoisonPower>(target, result.TotalDamage, Owner.Creature, null);
         }

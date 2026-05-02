@@ -24,29 +24,20 @@ using System.Threading.Tasks;
 namespace Flagellant.Code.Cards.Basic;
 
 [Pool(typeof(FlagellantCardPool))]
-public class Fester : FlagellantCardModel
+public class Deathless : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => HasAnyComboEnemy;
-    public Fester() : base(0, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
+    public Deathless() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
-        WithAnimName("Fester");
-        WithPower<VulnerablePower>(1, 1);
-        WithHealingPercent(10, 2);
-        WithCards(1);
-        WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
+        WithAnimName("Endure");
+        WithHealingPercent(35, 5);
+        WithPowerTip<DoomPower>();
+        WithKeyword(CardKeyword.Exhaust, UpgradeType.None);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-
         await PlayCardAnim();
-        await CommonActions.Apply<VulnerablePower>(cardPlay.Target, this);
-        if(cardPlay.Target.HasPower<ComboPower>())
-        {
-            await PowerCmd.Remove<ComboPower>(cardPlay.Target);
-            await CommonActions.Draw(this, choiceContext);
-            await CreatureCmd.Heal(Owner.Creature, GetHealingPercentHp());
-        }
+        await CreatureCmd.Heal(Owner.Creature, GetHealingPercentHp());
+        await CommonActions.ApplySelf<DoomPower>(this, GetHealingPercentHp());
     }
 }

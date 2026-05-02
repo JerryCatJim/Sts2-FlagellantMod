@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using Flagellant.Code.Cards.Basic;
+using Flagellant.Code.Cards.Uncommon;
 using Flagellant.Code.Extensions;
 using Flagellant.Code.Relics;
 using Godot;
@@ -77,12 +78,17 @@ public class Flagellant : PlaceholderCharacterModel
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 
 	public override IEnumerable<CardModel> StartingDeck => [
-		ModelDb.Card<FlagellantStrike>(),
+		/*ModelDb.Card<FlagellantStrike>(),
 		ModelDb.Card<FlagellantStrike>(),
 		ModelDb.Card<FlagellantDefend>(),
 		ModelDb.Card<Punish>(),
-		ModelDb.Card<Fester>()
-	];
+		ModelDb.Card<Fester>()*/
+        ModelDb.Card<Punish>(),
+        ModelDb.Card<Fester>(),
+        ModelDb.Card<AcidRain>(),
+        ModelDb.Card<Endure>(),
+        ModelDb.Card<LashsGift>(),
+    ];
 
 	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];
 

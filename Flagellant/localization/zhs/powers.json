@@ -1,16 +1,22 @@
 {
   "FLAGELLANT-STRESS_POWER.title": "压力",
-  "FLAGELLANT-STRESS_POWER.description": "当压力值大于等于10点时，会进入随机的美德或折磨状态。",
-  "FLAGELLANT-STRESS_POWER.smartDescription": "压力值：{Amount}，满10点进入随机美德或折磨状态。",
+  "FLAGELLANT-STRESS_POWER.description": "当你获得10点压力时，会进入随机[blue]美德[/blue]或[red]折磨[/red]状态。",
+  "FLAGELLANT-STRESS_POWER.smartDescription": "满10点进入随机[blue]美德[/blue]或[red]折磨[/red]状态。",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.title": "美德和折磨的基类，不应该被展示到游戏界面。",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.description": "美德和折磨的基类，不应该被展示到游戏界面。",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.smartDescription": "美德和折磨的基类，不应该被展示到游戏界面。",
   "FLAGELLANT-TOXIC_MELTDOWN.title": "怨毒",
-  "FLAGELLANT-TOXIC_MELTDOWN.description": "[gold]鞭笞者专属折磨[/gold]\n造成攻击伤害时附加等量[green]中毒[/green]，在你的下个回合开始时退出此折磨。",
+  "FLAGELLANT-TOXIC_MELTDOWN.description": "[gold]鞭笞者专属折磨[/gold]\n造成攻击伤害时附加等量[gold]中毒[/gold]，在你的下个回合开始时退出此折磨。",
   "FLAGELLANT-TOXIC_POWER.title": "怨毒",
-  "FLAGELLANT-TOXIC_POWER.description": "造成攻击伤害时附加等量[green]中毒[/green]，在你的下个回合开始时退出此折磨。",
-  "FLAGELLANT-TOXIC_POWER.smartDescription": "造成攻击伤害时附加等量[green]中毒[/green]，在你的下个回合开始时退出此折磨。",
+  "FLAGELLANT-TOXIC_POWER.description": "造成攻击伤害时附加等量[gold]中毒[/gold]，在你的下个回合开始时退出此折磨。",
+  "FLAGELLANT-TOXIC_POWER.smartDescription": "造成攻击伤害时附加等量[gold]中毒[/gold]，在你的下个回合开始时退出此折磨。",
   "FLAGELLANT-COMBO_POWER.title": "破绽",
   "FLAGELLANT-COMBO_POWER.description": "部分卡牌可以对拥有破绽的目标造成额外效果，并在额外效果生效后移除此标记。",
-  "FLAGELLANT-COMBO_POWER.smartDescription": "作为目标时触发卡牌的额外效果。"
+  "FLAGELLANT-COMBO_POWER.smartDescription": "作为目标时触发卡牌的额外效果。",
+  "FLAGELLANT-ENDURE_POWER.title": "磨练",
+  "FLAGELLANT-ENDURE_POWER.description": "在你的回合开始时，获得[blue]X[/blue]点[gold]压力[/gold]。\n每当你在你的回合失去生命值时，获得[blue]X[/blue]点[gold]压力[/gold]。",
+  "FLAGELLANT-ENDURE_POWER.smartDescription": "在你的回合开始时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]。\n每当你在你的回合失去生命值时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]。",
+  "FLAGELLANT-ADD_COMBO_POWER.title": "给予破绽",
+  "FLAGELLANT-ADD_COMBO_POWER.description": "你打出的下一张攻击牌会给予敌人[gold]破绽[/gold]。",
+  "FLAGELLANT-ADD_COMBO_POWER.smartDescription": "你打出的下[blue]{Amount}[/blue]张攻击牌会给予敌人[gold]破绽[/gold]。"
 }

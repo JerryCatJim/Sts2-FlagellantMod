@@ -29,10 +29,9 @@ public class Punish : FlagellantCardModel, ITranscendenceCard
 {
     public Punish() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithDamage(12);
+        WithDamage(8);
         WithPoison(4);
         WithLossPercent(10);
-        WithHealingPercent(10);
         WithAnimName("Punish");
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
     }

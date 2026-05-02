@@ -4,6 +4,7 @@ using BaseLib.Utils;
 using Flagellant.Code.Character;
 using Flagellant.Code.Core;
 using Flagellant.Code.Extensions;
+using Flagellant.Code.Powers;
 using Flagellant.Code.ResoluteOrMeltdown;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
@@ -27,6 +28,7 @@ public abstract class FlagellantCardModel(
     public String CardSelectAnimName => _cardSelectAnimName;
     public String CardPlayAnimName => _cardPlayAnimName;
 
+	protected bool HasAnyComboEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
     protected FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
     {
         WithTip(new TooltipSource(_ => FlagellantHoverTipFactory.FromResoluteOrMeltdown<T>()));
@@ -38,13 +40,13 @@ public abstract class FlagellantCardModel(
 		_cardPlayAnimName = AnimName;
         return this;
     }
-    protected async Task PlaySkillAnim()
+    protected async Task PlayCardAnim(float waitTime = 0.0f)
     {
         if(CardPlayAnimName == null || CardPlayAnimName == "" || CardPlayAnimName == "DoNothing")
 		{
 			return;
         }
-        await CreatureCmd.TriggerAnim(Owner.Creature, CardPlayAnimName, 0.0f);
+        await CreatureCmd.TriggerAnim(Owner.Creature, CardPlayAnimName, waitTime);
     }
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)

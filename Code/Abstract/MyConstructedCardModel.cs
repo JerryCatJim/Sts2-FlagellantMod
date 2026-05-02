@@ -20,7 +20,7 @@ public abstract class MyConstructedCardModel(
 {
     protected MyConstructedCardModel WithPowerTip<T>() where T : PowerModel
     {
-        WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromPower<ComboPower>()));
+        WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromPower<T>()));
         return this;
     }
     protected MyConstructedCardModel WithHpLoss(int baseVal, int upgrade = 0)
