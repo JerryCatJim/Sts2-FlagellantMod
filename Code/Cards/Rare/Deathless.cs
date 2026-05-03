@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Flagellant.Code.Cards.Basic;
+namespace Flagellant.Code.Cards.Rare;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Deathless : FlagellantCardModel

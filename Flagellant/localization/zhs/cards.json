@@ -16,5 +16,9 @@
   "FLAGELLANT-LASHS_GIFT.title": "鞭笞之赐",
   "FLAGELLANT-LASHS_GIFT.description": "获得{Block:diff()}点防御。\n获得{StressPower:diff()}点[gold]压力[/gold]。\n下一张攻击牌会给予{ComboPower:comboIcons()}。",
   "FLAGELLANT-ACID_RAIN.title": "酸蚀之雨",
-  "FLAGELLANT-ACID_RAIN.description": "对所有敌人造成{Damage:diff()}点伤害，给予{PoisonPower:diff()}点[gold]中毒[/gold]。\n若目标有{ComboPower:comboIcons()}，则伤害和[gold]中毒[/gold]提高{ComboUpgraded:diff()}点。"
+  "FLAGELLANT-ACID_RAIN.description": "对所有敌人造成{Damage:diff()}点伤害，给予{PoisonPower:diff()}点[gold]中毒[/gold]。\n失去{LossPercent:diff()}%生命。\n若目标有{ComboPower:comboIcons()}，则伤害和[gold]中毒[/gold]提高{ComboUpgraded:diff()}点。",
+  "FLAGELLANT-MORE_MORE.title": "再来，再来！",
+  "FLAGELLANT-MORE_MORE.description": "给予所有敌人{WeakPower:diff()}层[gold]虚弱[/gold]和{ComboPower:comboIcons()}。\n获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-SUFFER.title": "苦楚",
+  "FLAGELLANT-SUFFER.description": "每当你在你的回合：\n回复生命时，移除等量[gold]灾厄[/gold]；\n获得[gold]压力[/gold]时，回复{HealingPercent:diff()}%生命。"
 }

@@ -1,6 +1,8 @@
 using BaseLib.Abstracts;
 using Flagellant.Code.Cards.Basic;
+using Flagellant.Code.Cards.Common;
 using Flagellant.Code.Cards.Uncommon;
+using Flagellant.Code.Cards.Rare;
 using Flagellant.Code.Extensions;
 using Flagellant.Code.Relics;
 using Godot;
@@ -83,11 +85,12 @@ public class Flagellant : PlaceholderCharacterModel
 		ModelDb.Card<FlagellantDefend>(),
 		ModelDb.Card<Punish>(),
 		ModelDb.Card<Fester>()*/
-        ModelDb.Card<Punish>(),
+        ModelDb.Card<Deathless>(),
         ModelDb.Card<Fester>(),
         ModelDb.Card<AcidRain>(),
         ModelDb.Card<Endure>(),
-        ModelDb.Card<LashsGift>(),
+        ModelDb.Card<Suffer>(),
+        ModelDb.Card<Suffer>(),
     ];
 
 	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];

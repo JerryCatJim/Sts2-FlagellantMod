@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Flagellant.Code.Cards.Basic;
+namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
 public class AcidRain : FlagellantCardModel
@@ -34,6 +34,7 @@ public class AcidRain : FlagellantCardModel
     {
         WithDamage(4);
         WithPoison(4);
+        WithLossPercent(3);
         WithAnimName("AcidRain");
         WithVar("ComboUpgraded", 2, 1);
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
@@ -60,5 +61,6 @@ public class AcidRain : FlagellantCardModel
                 CommonActions.Apply<PoisonPower>(hittableEnemy, this, poison);
             }
         }
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
     }
 }

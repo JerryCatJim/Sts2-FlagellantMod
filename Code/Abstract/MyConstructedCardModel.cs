@@ -79,6 +79,11 @@ public abstract class MyConstructedCardModel(
         {
             Percent = Math.Clamp(overridePercent, 0, 100);
         }
-        return Math.Round(base.Owner.Creature.MaxHp * Percent / 100m);
+        decimal Healing =  Math.Round(base.Owner.Creature.MaxHp * Percent / 100m);
+        if (Percent > 0 && Healing < 1m)
+        {
+            return 1m;
+        }
+        return Healing;
     }
 }

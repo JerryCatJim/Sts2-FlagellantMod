@@ -18,5 +18,8 @@
   "FLAGELLANT-ENDURE_POWER.smartDescription": "在你的回合开始时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]。\n每当你在你的回合失去生命值时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]。",
   "FLAGELLANT-ADD_COMBO_POWER.title": "给予破绽",
   "FLAGELLANT-ADD_COMBO_POWER.description": "你打出的下一张攻击牌会给予敌人[gold]破绽[/gold]。",
-  "FLAGELLANT-ADD_COMBO_POWER.smartDescription": "你打出的下[blue]{Amount}[/blue]张攻击牌会给予敌人[gold]破绽[/gold]。"
+  "FLAGELLANT-ADD_COMBO_POWER.smartDescription": "你打出的下[blue]{Amount}[/blue]张攻击牌会给予敌人[gold]破绽[/gold]。",
+  "FLAGELLANT-SUFFER_POWER.title": "苦楚",
+  "FLAGELLANT-SUFFER_POWER.description": "每当你在你的回合：\n回复生命时，移除等量[gold]灾厄[/gold]；\n获得[gold]压力[/gold]时，回复[blue]X[/blue]%生命。",
+  "FLAGELLANT-SUFFER_POWER.smartDescription": "每当你在你的回合：\n回复生命时，移除等量[gold]灾厄[/gold]；\n获得[gold]压力[/gold]时，回复[blue]{Amount}[/blue]%生命。"
 }

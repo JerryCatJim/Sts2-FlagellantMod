@@ -20,22 +20,23 @@ using System.Threading.Tasks;
 namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
-public class LashsGift : FlagellantCardModel
+public class MoreMore : FlagellantCardModel
 {
-    public LashsGift() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public MoreMore() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithAnimName("Lash");
-        WithBlock(8, 4);
-        WithStress(1);
-        WithPower<AddComboPower>(1);
+        WithAnimName("More");
+        WithPower<WeakPower>(2);
+        WithStress(2);
         WithPower<ComboPower>(1);
+        WithCostUpgradeBy(-1);
+        WithKeyword(CardKeyword.Exhaust, UpgradeType.None);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.CardBlock(this, cardPlay);
+        await CommonActions.Apply<WeakPower>(base.CombatState.HittableEnemies, this);
+        await CommonActions.Apply<ComboPower>(base.CombatState.HittableEnemies, this);
         await CommonActions.ApplySelf<StressPower>(this);
-        await CommonActions.ApplySelf<AddComboPower>(this);
     }
 }

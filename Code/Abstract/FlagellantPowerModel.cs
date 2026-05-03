@@ -25,4 +25,14 @@ public abstract class FlagellantPowerModel : CustomPowerModel
 			return CustomPackedIconPath;
 		}
 	}
+    protected decimal GetHealingPercentHp(decimal overridePercent)
+    {
+        decimal Percent = Math.Clamp(overridePercent, 0, 100);
+        decimal Healing = Math.Round(base.Owner.MaxHp * Percent / 100m);
+        if (Percent > 0 && Healing < 1m)
+        {
+            return 1m;
+        }
+        return Healing;
+    }
 }
