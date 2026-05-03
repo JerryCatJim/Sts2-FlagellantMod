@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Abstract;
 
@@ -28,7 +29,8 @@ public abstract class FlagellantCardModel(
     public String CardSelectAnimName => _cardSelectAnimName;
     public String CardPlayAnimName => _cardPlayAnimName;
 
-	protected bool HasAnyComboEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
+	protected bool HasAnyComboMarkedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
+    protected bool HasAnyPoisonedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>()) ?? false;
     protected FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
     {
         WithTip(new TooltipSource(_ => FlagellantHoverTipFactory.FromResoluteOrMeltdown<T>()));

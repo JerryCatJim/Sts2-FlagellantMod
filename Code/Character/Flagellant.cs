@@ -85,12 +85,11 @@ public class Flagellant : PlaceholderCharacterModel
 		ModelDb.Card<FlagellantDefend>(),
 		ModelDb.Card<Punish>(),
 		ModelDb.Card<Fester>()*/
-        ModelDb.Card<Deathless>(),
+        ModelDb.Card<Punish>(),
         ModelDb.Card<Fester>(),
         ModelDb.Card<AcidRain>(),
-        ModelDb.Card<Endure>(),
-        ModelDb.Card<Suffer>(),
-        ModelDb.Card<Suffer>(),
+        ModelDb.Card<LashsGift>(),
+        ModelDb.Card<Sepsis>(),
     ];
 
 	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];

@@ -67,7 +67,8 @@ public sealed class EndurePower : FlagellantPowerModel
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target == base.Owner && result.UnblockedDamage > 0 && base.CombatState.CurrentSide == base.Owner.Side)
+        if (CombatManager.Instance.IsInProgress && target == base.Owner 
+            && result.UnblockedDamage > 0 && base.CombatState.CurrentSide == base.Owner.Side)
         {
             if (cardSource == null || !GetInternalData<Data>().playedCards.ContainsKey(cardSource))
             {

@@ -1,5 +1,3 @@
-using BaseLib.Diagnostics;
-using Godot;
 using BaseLib.Config;
 
 namespace Flagellant.Code.Config;

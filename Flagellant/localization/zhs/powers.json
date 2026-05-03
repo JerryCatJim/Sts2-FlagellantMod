@@ -21,5 +21,8 @@
   "FLAGELLANT-ADD_COMBO_POWER.smartDescription": "你打出的下[blue]{Amount}[/blue]张攻击牌会给予敌人[gold]破绽[/gold]。",
   "FLAGELLANT-SUFFER_POWER.title": "苦楚",
   "FLAGELLANT-SUFFER_POWER.description": "每当你在你的回合：\n回复生命时，移除等量[gold]灾厄[/gold]；\n获得[gold]压力[/gold]时，回复[blue]X[/blue]%生命。",
-  "FLAGELLANT-SUFFER_POWER.smartDescription": "每当你在你的回合：\n回复生命时，移除等量[gold]灾厄[/gold]；\n获得[gold]压力[/gold]时，回复[blue]{Amount}[/blue]%生命。"
+  "FLAGELLANT-SUFFER_POWER.smartDescription": "每当你在你的回合：\n回复生命时，移除等量[gold]灾厄[/gold]；\n获得[gold]压力[/gold]时，回复[blue]{Amount}[/blue]%生命。",
+  "FLAGELLANT-UNDYING_POWER.title": "蔑死",
+  "FLAGELLANT-UNDYING_POWER.description": "每当你在你的回合第一次失去生命时，抽取[blue]X[/blue]张牌。",
+  "FLAGELLANT-UNDYING_POWER.smartDescription": "每当你在你的回合第一次失去生命时，抽取[blue]{Amount}[/blue]张牌。"
 }

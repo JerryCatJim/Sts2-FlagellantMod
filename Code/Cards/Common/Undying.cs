@@ -5,22 +5,20 @@ using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
-namespace Flagellant.Code.Cards.Rare;
+namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
-public class Suffer : FlagellantCardModel
+public class Undying : FlagellantCardModel
 {
-    public Suffer() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public Undying() : base(1, CardType.Power, CardRarity.Common, TargetType.Self)
     {
-        WithAnimName("Suffer");
-        WithPowerTip<SufferPower>();
-        WithHealingPercent(1);
-        WithCostUpgradeBy(-1);
+        WithAnimName("Undying");
+        WithPower<UndyingPower>(1);
+        WithKeyword(CardKeyword.Innate, UpgradeType.Add);
     }
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<SufferPower>(this, base.DynamicVars["HealingPercent"].BaseValue);
+        await CommonActions.ApplySelf<UndyingPower>(this);
     }
 }
