@@ -1,3 +1,4 @@
+using BaseLib.Config;
 using BaseLib.Utils;
 using Flagellant.Code.Events;
 using Godot.Bridge;
@@ -10,6 +11,7 @@ using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
 using MegaCrit.Sts2.Core.Timeline;
 using System.Reflection;
+using Flagellant.Code.Config;
 
 namespace Flagellant.Code;
 
@@ -36,7 +38,10 @@ public class MainFile
 	public static void Initialize()
 	{
 		FlagellantSubscriber.Subscribe();
-		Harmony harmony = new(ModId);
+
+        ModConfigRegistry.Register(ModId, new FlagellantConfig());
+
+        Harmony harmony = new(ModId);
         var assembly = Assembly.GetExecutingAssembly();
         ScriptManagerBridge.LookupScriptsInAssembly(assembly);
         harmony.PatchAll();

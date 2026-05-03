@@ -17,9 +17,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.RestSite;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Runs;
-using static Godot.GodotObject;
-using static Godot.Node;
-using static Godot.PackedScene;
+using Flagellant.Code.Config;
 
 namespace Flagellant.Code.Patch;
 
@@ -62,6 +60,8 @@ public static class FlagellantAnimationPatch
 
 	private static void PlayAnim(NCreature node, string animName, bool playImmediately = false, bool bCardPlayAnim = false)
 	{
+        if (!FlagellantConfig.ShouldPlayCardAnimAndSound) return;
+
 		var visual = node.GetNodeOrNull<Node2D>("TestFlagellant");
 		if (visual == null) return;
 
@@ -128,6 +128,8 @@ public class FlagellantOnSelectedPatch
 {
 	public static void Postfix(CardModel cardModel)
 	{
+        if (!FlagellantConfig.ShouldPlayCardAnimAndSound) return;
+
         if (cardModel is not FlagellantCardModel) return;
 
         FlagellantCardModel MyCard = (FlagellantCardModel)cardModel;
@@ -173,6 +175,8 @@ public class FlagellantCancelPlayCardPatch
 {
     public static void Prefix(NCardPlay __instance)  //返回类型为void会继续执行原方法
     {
+        if (!FlagellantConfig.ShouldPlayCardAnimAndSound) return;
+
         if (!GodotObject.IsInstanceValid(__instance)) return;
 
         CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();

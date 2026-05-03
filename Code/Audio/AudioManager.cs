@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Flagellant.Code.Config;
 
 namespace Flagellant.Audio;
 
@@ -16,6 +17,8 @@ internal static class AudioManager
 {
     public static void PlayCombatSfx(string AudioName, bool bIsTemp = false, bool bIsFullPathName = false, float VolumeDb = -10.0f) //声音素材音量太大了，减小一点
     {
+        if (FlagellantConfig.ShouldMuteSeparately) return;
+
         if (NonInteractiveMode.IsActive) return;
 
         AudioStream stream;
@@ -36,7 +39,7 @@ internal static class AudioManager
         var audioPlayer = bIsTemp ? new AudioStreamPlayer() : CombatCardAudioPlayer.audioPlayer;
 
         audioPlayer.VolumeDb = 0.0f;
-        audioPlayer.VolumeDb += VolumeDb;
+        audioPlayer.VolumeDb += VolumeDb + FlagellantConfig.FlagellantAnimSoundVolume;
         audioPlayer.Stream = stream;
         audioPlayer.Bus = "SFX";
         if(bIsTemp)
