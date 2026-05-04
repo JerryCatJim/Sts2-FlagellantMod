@@ -8,11 +8,7 @@ using Flagellant.Code.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
-using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.PotionPools;
-using MegaCrit.Sts2.Core.Models.RelicPools;
-using System;
 
 namespace Flagellant.Code.Character;
 
@@ -80,16 +76,11 @@ public class Flagellant : PlaceholderCharacterModel
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 
 	public override IEnumerable<CardModel> StartingDeck => [
-		/*ModelDb.Card<FlagellantStrike>(),
+		ModelDb.Card<FlagellantStrike>(),
 		ModelDb.Card<FlagellantStrike>(),
 		ModelDb.Card<FlagellantDefend>(),
 		ModelDb.Card<Punish>(),
-		ModelDb.Card<Fester>()*/
-        ModelDb.Card<Punish>(),
-        ModelDb.Card<Fester>(),
-        ModelDb.Card<AcidRain>(),
-        ModelDb.Card<Endure>(),
-        ModelDb.Card<Sepsis>(),
+		ModelDb.Card<Fester>()
     ];
 
 	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];

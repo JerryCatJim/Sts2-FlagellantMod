@@ -11,7 +11,7 @@
   "FLAGELLANT-TOXIC_POWER.description": "造成攻击伤害时附加等量[gold]中毒[/gold]，在你的下个回合开始时退出此折磨。",
   "FLAGELLANT-TOXIC_POWER.smartDescription": "造成攻击伤害时附加等量[gold]中毒[/gold]，在你的下个回合开始时退出此折磨。",
   "FLAGELLANT-COMBO_POWER.title": "破绽",
-  "FLAGELLANT-COMBO_POWER.description": "部分卡牌可以对拥有破绽的目标造成额外效果，并在额外效果生效后移除此标记。",
+  "FLAGELLANT-COMBO_POWER.description": "部分卡牌可以对拥有[gold]破绽[/gold]的目标造成额外效果，并在额外效果生效后移除此标记。",
   "FLAGELLANT-COMBO_POWER.smartDescription": "作为目标时触发卡牌的额外效果。",
   "FLAGELLANT-ENDURE_POWER.title": "磨练",
   "FLAGELLANT-ENDURE_POWER.description": "在你的回合开始时，获得[blue]X[/blue]点[gold]压力[/gold]。\n每当你在你的回合失去生命值时，获得[blue]X[/blue]点[gold]压力[/gold]。",
