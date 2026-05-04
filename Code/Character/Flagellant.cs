@@ -88,7 +88,7 @@ public class Flagellant : PlaceholderCharacterModel
         ModelDb.Card<Punish>(),
         ModelDb.Card<Fester>(),
         ModelDb.Card<AcidRain>(),
-        ModelDb.Card<LashsGift>(),
+        ModelDb.Card<Endure>(),
         ModelDb.Card<Sepsis>(),
     ];
 

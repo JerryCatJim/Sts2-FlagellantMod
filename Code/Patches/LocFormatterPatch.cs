@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using SmartFormat;
 using Flagellant.Code.Formatters;
 
-namespace Flagellant.Code.Patch;
+namespace Flagellant.Code.Patches;
 
 [HarmonyPatch(typeof(LocManager), "LoadLocFormatters")]
 public static class LocFormatterPatch

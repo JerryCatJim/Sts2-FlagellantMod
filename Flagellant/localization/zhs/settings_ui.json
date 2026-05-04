@@ -3,11 +3,11 @@
   "FLAGELLANT-ANIM_SECTION.title": "动画选项",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_AND_SOUND.title": "是否播放卡牌的选择和打出动画以及对应声音",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_AND_SOUND.hover.title": "是否播放卡牌的选择和打出动画以及对应声音",
-  "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_AND_SOUND.hover.desc": "鞭笞者的部分卡牌拥有独立的选择和打出动画以及对应声音。",
+  "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_AND_SOUND.hover.desc": "鞭笞者的部分卡牌拥有特殊的选择和打出动画以及对应声音。",
   "FLAGELLANT-SHOULD_MUTE_SEPARATELY.title": "是否只静音卡牌音效",
   "FLAGELLANT-SHOULD_MUTE_SEPARATELY.hover.title": "是否想只播放动画而不播放音效",
-  "FLAGELLANT-SHOULD_MUTE_SEPARATELY.hover.desc": "是否想只播放动画而不播放音效。",
-  "FLAGELLANT-FLAGELLANT_ANIM_SOUND_VOLUME.title": "卡牌音效的音量",
-  "FLAGELLANT-FLAGELLANT_ANIM_SOUND_VOLUME.hover.title": "卡牌音效的音量",
-  "FLAGELLANT-FLAGELLANT_ANIM_SOUND_VOLUME.hover.desc": "游戏音量全100的情况下，0dB的卡牌音量就已经很高了哦！（注意音量值，保护耳朵！）"
+  "FLAGELLANT-SHOULD_MUTE_SEPARATELY.hover.desc": "只影响鞭笞者独有的卡牌选中和打出音效。",
+  "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.title": "卡牌和特殊效果的音量",
+  "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.hover.title": "鞭笞者独有的卡牌选择和打出/压力变化/进入怨毒等状态的音量",
+  "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.hover.desc": "游戏音量全100的情况下，0dB的音量就已经很高了哦！（注意音量值，保护耳朵！）"
 }

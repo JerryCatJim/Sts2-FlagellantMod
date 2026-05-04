@@ -1,25 +1,17 @@
-using Flagellant.Code.Abstract;
 using Flagellant.Audio;
-using Flagellant.Code.Character;
+using Flagellant.Code.Abstract;
+using Flagellant.Code.Config;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands.Builders;
-using MegaCrit.Sts2.Core.Context;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Logging;
-using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Multiplayer.Game.PeerInput;
-using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Nodes.RestSite;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Runs;
-using Flagellant.Code.Config;
 
-namespace Flagellant.Code.Patch;
+namespace Flagellant.Code.Patches;
 
 [HarmonyPatch(typeof(NCreature), "SetAnimationTrigger")]
 public static class FlagellantAnimationPatch
@@ -96,14 +88,18 @@ public static class FlagellantAnimationPatch
                     {
                         animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
                     }
-                    //鞭笞之赐的声音调大点
-                    if(animName == "Lash")
+
+                    if(!FlagellantConfig.ShouldMuteSeparately)
                     {
-                        AudioManager.PlayCombatSfx("CardPlay/Lash", false, false, 0);
-                    }
-                    else
-                    {
-                        AudioManager.PlayCombatSfx("CardPlay/" + animName);
+                        //鞭笞之赐的声音调大点
+                        if (animName == "Lash")
+                        {
+                            AudioManager.PlayCombatSfx("CardPlay/Lash", false, false, 0);
+                        }
+                        else
+                        {
+                            AudioManager.PlayCombatSfx("CardPlay/" + animName);
+                        }
                     }
 
                     //不要重复链接
@@ -118,8 +114,11 @@ public static class FlagellantAnimationPatch
 	}
     private static readonly Callable _stateStartedCallable = Callable.From((StringName state) =>
     {
-        //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
-        AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
+        if(!FlagellantConfig.ShouldMuteSeparately)
+        {
+            //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
+            AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
+        }
     });
 }
 
@@ -154,7 +153,10 @@ public class FlagellantOnSelectedPatch
         {
             state_machine.Start("CardSelect");
             AR_SM.Travel(MyCard.CardSelectAnimName);
-            AudioManager.PlayCombatSfx("CardSelect/" + MyCard.CardSelectAnimName);
+            if(!FlagellantConfig.ShouldMuteSeparately)
+            {
+                AudioManager.PlayCombatSfx("CardSelect/" + MyCard.CardSelectAnimName);
+            }
         }
     }
 }
@@ -169,8 +171,9 @@ public class TestCardPlayPatch
     }
 }
 
-//[HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardDeselected")]
-[HarmonyPatch(typeof(NCardPlay), "CancelPlayCard")] //不要使用OnLocalCardDeselected，这在卡牌被打出之后也会被执行，导致跳转到攻击动画后又立刻跳转回到Idle
+//DO NOT USE : [HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardDeselected")]
+//Because it is [OnSelected -> CancelPlayCard -> OnPlay] BUT [OnSelected -> CancelPlayCard -> OnPlay -> OnLocalCardDeselected]
+[HarmonyPatch(typeof(NCardPlay), "CancelPlayCard")]
 public class FlagellantCancelPlayCardPatch
 {
     public static void Prefix(NCardPlay __instance)  //返回类型为void会继续执行原方法
@@ -181,6 +184,33 @@ public class FlagellantCancelPlayCardPatch
 
         CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
         if (Card == null) return;
+
+        #region FixPowerCardPlayedTravelToIdle
+        //发现PowerCard在打出时会先停顿一小会再播放打出动画(Attack和Skill倒是会立刻播放，但其实也经历了Travel到Idle的过程，只不过随后又立刻切换了)。
+        //由于打出卡牌后会先触发CancelPlayCard再触发OnPlay,所以检测到卡牌不是手动取消时,直接返回不Travel到Idle以保持动画流畅
+
+        //为什么打出卡牌前会先触发一次CancelPlayCard？
+        //NMouseCardPlay或者NControllerCardPlay中的_Input()函数中会接收到取消按键时调用CancelPlayCard()
+        //而正常打出卡牌时，可能是因为NMouseCardPlay打出卡牌时点击了左键，被_EnterTree中链接的NControllerManager.SignalName.MouseDetected捕获到按键而调用CancelCardPlay?
+        //用控制器打出卡牌时没看到NControllerCardPlay中有类似的一检测到按键就CancelCardPlay的信号链接，可能走的NPlayerHand中_UnhandledInput中的Mode.Play里的CancelCardPlay？
+        if (!(MouseAndControllerPatch.isMouseCanceled || MouseAndControllerPatch.isControllerCanceled)) return;
+
+        /*//本来没用新的patch记录是否由按键手动取消卡牌，用的下面的堆栈检测是否是_Input里调用的CancelCardPlay
+        //但是发现NControllerCardPlay里的_Input发送打出卡牌通知后会在Start中TaskHelper.RunSafely(SingleCreatureTargeting(base.Card.TargetType));
+        //导致用Controller打出单体卡牌时无法查看堆栈来把是否有_Input作为条件，想了想还是直接patch按键事件算了。
+        var stack = new System.Diagnostics.StackTrace();
+        bool isManuallyCancel = false;
+        foreach (var frame in stack.GetFrames())
+        {
+            //从堆栈中检测这个CancelPlayCard是不是由_Input()函数引起的
+            var method = frame.GetMethod();
+            if (method != null && method.Name == "_Input")
+            {
+                isManuallyCancel =  true; // 执行原方法
+            }
+        }
+        if (!isManuallyCancel) return;*/
+        #endregion FixPowerCardPlayedTravelToIdle
 
         NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(Card.Owner.Creature);
         if (CharNode == null) return;
@@ -198,6 +228,8 @@ public class FlagellantCancelPlayCardPatch
 
         if (state_machine != null && state_machine.GetCurrentNode() != "CalmIdle")
         {
+            //卡牌打出流程：OnSelected -> CancelPlayCard -> OnPlay
+            Log.Info("[>>>FlagellantLog] Cancel Play Card: " + Card);
             state_machine.Travel("Idle");
         }
     }

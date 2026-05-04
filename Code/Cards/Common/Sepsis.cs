@@ -19,6 +19,7 @@ public class Sepsis : FlagellantCardModel
     {
         WithAnimName("Sepsis");
         WithVar("TriggerPoison", 2, 1);
+        WithPowerTip<PoisonPower>();
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

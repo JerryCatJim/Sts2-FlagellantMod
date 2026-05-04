@@ -20,6 +20,7 @@ public class Necrosis : FlagellantCardModel
     {
         WithAnimName("Necrosis");
         WithPower<ComboPower>(1);
+        WithPowerTip<PoisonPower>();
         WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

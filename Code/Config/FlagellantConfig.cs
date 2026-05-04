@@ -12,5 +12,5 @@ internal class FlagellantConfig : SimpleModConfig
     public static bool ShouldMuteSeparately { get; set; } = false;
 
     [ConfigSlider(-40, 20, 1, Format = "{0:0} dB")]
-    public static int FlagellantAnimSoundVolume { get; set; } = 0;
+    public static int FlagellantAudioSoundVolume { get; set; } = 0;
 }
