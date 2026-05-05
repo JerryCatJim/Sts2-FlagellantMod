@@ -1,25 +1,21 @@
-using BaseLib.Utils;
 using Flagellant.Code.Commands;
 using Flagellant.Code.Powers;
-using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Characters;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Nodes.Cards;
-using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
 using MegaCrit.Sts2.Core.ValueProps;
-using SmartFormat.Core.Extensions;
 
 namespace Flagellant.Code.ResoluteOrMeltdown;
 
 public class ToxicMeltdown : ResoluteOrMeltdownModel
 {
     public override bool ShouldReceiveCombatHooks => true;
+
+    public override ResoluteOrMeltdownType RMType => ResoluteOrMeltdownType.Toxic;
 
     public override Task OnEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? source)
     {

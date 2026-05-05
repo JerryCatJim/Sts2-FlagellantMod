@@ -193,7 +193,7 @@ public class FlagellantCancelPlayCardPatch
         //NMouseCardPlay或者NControllerCardPlay中的_Input()函数中会接收到取消按键时调用CancelPlayCard()
         //而正常打出卡牌时，可能是因为NMouseCardPlay打出卡牌时点击了左键，被_EnterTree中链接的NControllerManager.SignalName.MouseDetected捕获到按键而调用CancelCardPlay?
         //用控制器打出卡牌时没看到NControllerCardPlay中有类似的一检测到按键就CancelCardPlay的信号链接，可能走的NPlayerHand中_UnhandledInput中的Mode.Play里的CancelCardPlay？
-        if (!(MouseAndControllerPatch.isMouseCanceled || MouseAndControllerPatch.isControllerCanceled)) return;
+        if (!(MouseAndControllerPatch.isMouseCanceled || MouseAndControllerPatch.isControllerCanceled) && Traverse.Create(Card).Property("IsPlayable").GetValue<bool>()) return;
 
         /*//本来没用新的patch记录是否由按键手动取消卡牌，用的下面的堆栈检测是否是_Input里调用的CancelCardPlay
         //但是发现NControllerCardPlay里的_Input发送打出卡牌通知后会在Start中TaskHelper.RunSafely(SingleCreatureTargeting(base.Card.TargetType));

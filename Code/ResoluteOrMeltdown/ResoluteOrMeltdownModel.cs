@@ -6,23 +6,27 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
 using Flagellant.Code.Character;
 using Flagellant.Code.Extensions;
-using Flagellant.Code;
+using Flagellant.Code.ResoluteOrMeltdown.Vfx;
 
 namespace Flagellant.Code.ResoluteOrMeltdown;
 
+public enum ResoluteOrMeltdownType
+{
+    None,
+    Resolute,
+    Meltdown,
+    Toxic //You can add more types.
+}
+
 public abstract class ResoluteOrMeltdownModel : AbstractModel
 {
-    //public override PowerType Type => PowerType.Buff;
-    //public override PowerStackType StackType => PowerStackType.None;
-    //protected override bool IsVisibleInternal => false;
-
-    //public override string CustomPackedIconPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
-    //public override string CustomBigIconPath => CustomPackedIconPath;
-
     private Player? _player;
     public Player Owner => _player ?? throw new InvalidOperationException("Not a mutable instance");
+
+    public abstract ResoluteOrMeltdownType RMType {get;}
 
     public ResoluteOrMeltdownModel ToMutable(Player player)
     {
@@ -54,23 +58,44 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
         description.Add("energyPrefix", EnergyIconHelper.GetPrefix(pool));
     }
 
+    protected virtual VfxConfig FlagellantVfxConfig => new (
+        EnterSfxPath: GetEnterSfxPath(),
+        ScreenShakeStrength: ShakeStrength.Strong
+    );
 
-    /*protected abstract StanceVfxConfig VfxConfig { get; }
+    private VfxController? _vfx;
 
-    private StanceVfxController? _vfx;
-
-    public IEnumerable<string> AssetPaths => VfxConfig.AssetPaths;*/
+    //public IEnumerable<string> AssetPaths => VfxConfig.AssetPaths;
 
     public virtual async Task OnEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player owner, CardModel? source)
     {
-        //_vfx = new StanceVfxController(VfxConfig);
-        //await _vfx.OnEnter(owner.Creature);
+        _vfx = new VfxController(FlagellantVfxConfig);
+        await _vfx.OnEnter(owner.Creature);
+
     }
 
     public virtual async Task OnExitResoluteOrMeltdown(PlayerChoiceContext ctx, Player owner, CardModel? source)
     {
-        /*if (_vfx != null)
+        if (_vfx != null)
             await _vfx.OnExit(owner.Creature);
-        _vfx = null;*/
+        _vfx = null;
+    }
+
+    private String GetEnterSfxPath()
+    {
+        String Path = "";
+        switch(RMType)
+        {
+            case ResoluteOrMeltdownType.Resolute:
+                Path = "res://Flagellant/Sounds/Resolute/sfx_battle_status_resolute.wav";
+                break;
+            case ResoluteOrMeltdownType.Meltdown:
+            case ResoluteOrMeltdownType.Toxic:
+                Path = "res://Flagellant/Sounds/Meltdown/sfx_battle_status_meltdown.wav";
+                break;
+            default:
+                break;
+        }
+        return Path;
     }
 }
