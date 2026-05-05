@@ -1,4 +1,6 @@
+using BaseLib.Utils;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
@@ -9,6 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Relics;
 
+[Pool(typeof(FlagellantRelicPool))]
 public class DeathsHead : FlagellantRelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Ancient;

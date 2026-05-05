@@ -11,7 +11,7 @@ namespace Flagellant.Code.Abstract;
 
 public abstract class FlagellantRelicModel : CustomRelicModel
 {
-    public override string PackedIconPath
+    protected override string BigIconPath
     {
         get
         {
@@ -19,24 +19,22 @@ public abstract class FlagellantRelicModel : CustomRelicModel
             return ResourceLoader.Exists(path) ? path : "default_relic.png".RelicImagePath();
         }
     }
-
+    public override string PackedIconPath
+    {
+        get
+        {
+            /*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".RelicImagePath();
+            return ResourceLoader.Exists(path) ? path : "default_relic.png".RelicImagePath();*/
+            return BigIconPath;
+        }
+    }
     protected override string PackedIconOutlinePath
     {
         get
         {
             /*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}_outline.png".RelicImagePath();
             return ResourceLoader.Exists(path) ? path : "default_relic_outline.png".RelicImagePath();*/
-            return PackedIconPath;
-        }
-    }
-
-    protected override string BigIconPath
-    {
-        get
-        {
-            /*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigRelicImagePath();
-            return ResourceLoader.Exists(path) ? path : "default_relic.png".BigRelicImagePath();*/
-            return PackedIconPath;
+            return BigIconPath;
         }
     }
 }

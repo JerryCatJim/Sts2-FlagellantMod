@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://de0c1jampe4xv"
-path="res://.godot/imported/execution.png-2f58b7fed030260dc4e5a1680a6160f4.ctex"
+uid="uid://ok04354oe132"
+path="res://.godot/imported/combo_potion.png-e30dc99aa585eae0b6aa234175e7f87e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/execution.png"
-dest_files=["res://.godot/imported/execution.png-2f58b7fed030260dc4e5a1680a6160f4.ctex"]
+source_file="res://Flagellant/Images/Potions/combo_potion.png"
+dest_files=["res://.godot/imported/combo_potion.png-e30dc99aa585eae0b6aa234175e7f87e.ctex"]
 
 [params]
 

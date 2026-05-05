@@ -87,5 +87,5 @@ public class Flagellant : PlaceholderCharacterModel
 
 	public override CardPoolModel CardPool => ModelDb.CardPool<FlagellantCardPool>();
 	public override RelicPoolModel RelicPool => ModelDb.RelicPool<FlagellantRelicPool>();
-	public override PotionPoolModel PotionPool => ModelDb.PotionPool<SharedPotionPool>();
+	public override PotionPoolModel PotionPool => ModelDb.PotionPool<FlagellantPotionPool>();
 }

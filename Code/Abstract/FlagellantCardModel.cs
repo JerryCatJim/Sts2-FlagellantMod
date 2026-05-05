@@ -58,7 +58,6 @@ public abstract class FlagellantCardModel(
 		get
 		{
 			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			Log.Info(">>>[FlagellantMod]CardPath=" + path, 2);
 			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
 		}
 	}
@@ -73,7 +72,6 @@ public abstract class FlagellantCardModel(
 		get
 		{
 			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			Log.Info(">>>[FlagellantMod]CardPath=" + path, 2);
 			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
 		}
 	}
@@ -84,7 +82,6 @@ public abstract class FlagellantCardModel(
 		get
 		{
 			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			Log.Info(">>>[FlagellantMod]CardPath=" + path, 2);
 			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
 		}
 	}
