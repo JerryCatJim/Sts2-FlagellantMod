@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvpyvlui34ppr"
-path="res://.godot/imported/default_relic.png-062c6f91aa3f2b08dd456ae0619c79bb.ctex"
+uid="uid://bijk15old6vlc"
+path="res://.godot/imported/rapturous.png-a66421003184783abed86f777f9516b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Relics/default_relic.png"
-dest_files=["res://.godot/imported/default_relic.png-062c6f91aa3f2b08dd456ae0619c79bb.ctex"]
+source_file="res://Flagellant/Images/Cards/rapturous.png"
+dest_files=["res://.godot/imported/rapturous.png-a66421003184783abed86f777f9516b0.ctex"]
 
 [params]
 

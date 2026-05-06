@@ -9,6 +9,8 @@
   "FLAGELLANT-FESTER.description": "给予{VulnerablePower:diff()}层[gold]易伤[/gold]。\n若目标有{ComboPower:comboIcons()}，则抽{Cards:diff()}并回复{HealingPercent:diff()}%生命。",
   "FLAGELLANT-EXECUTION.title": "处决",
   "FLAGELLANT-EXECUTION.description": "造成{Damage:diff()}点伤害。\n给予{PoisonPower:diff()}点[gold]中毒[/gold]。\n回复{HealingPercent:diff()}%生命。{IfUpgraded:show:\n给予{ComboPower:comboIcons()}。}",
+  "FLAGELLANT-RAPTUROUS.title": "狂喜",
+  "FLAGELLANT-RAPTUROUS.description": "每当你获得[gold]压力[/gold]时多获得{StressPower:diff()}点。\n回合结束时减少{StressDecrease:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-DEATHLESS.title": "不亡",
   "FLAGELLANT-DEATHLESS.description": "回复{HealingPercent:diff()}%生命，获得等量[gold]灾厄[/gold]。",
   "FLAGELLANT-ENDURE.title": "磨练",
@@ -27,8 +29,8 @@
   "FLAGELLANT-UNDYING.description": "每当你在你的回合第一次失去生命时，抽取{UndyingPower:diff()}张牌。",
   "FLAGELLANT-NECROSIS.title": "坏死",
   "FLAGELLANT-NECROSIS.description": "获得一个拥有{ComboPower:comboIcons()}的目标的[gold]中毒[/gold]层数的[gold]格挡[/gold]。",
-  "FLAGELLANT-PLACE_HOLDER_RARE_ATTACK.title": "占位金打击",
-  "FLAGELLANT-PLACE_HOLDER_RARE_ATTACK.description": "造成{Damage:diff()}点伤害。",
-  "FLAGELLANT-PLACE_HOLDER_COMMON_ATTACK.title": "占位白打击",
-  "FLAGELLANT-PLACE_HOLDER_COMMON_ATTACK.description": "造成{Damage:diff()}点伤害。"
+  "FLAGELLANT-PAIN_STRIKE.title": "痛苦打击",
+  "FLAGELLANT-PAIN_STRIKE.description": "造成{Damage:diff()}点伤害，每有1点[gold]压力[/gold]增加{Multiplier:diff()}点伤害。",
+  "FLAGELLANT-FATAL_STRIKE.title": "夺命打击",
+  "FLAGELLANT-FATAL_STRIKE.description": "造成已损失生命的伤害。\n减少{StressPower:diff()}点[gold]压力[/gold]。"
 }

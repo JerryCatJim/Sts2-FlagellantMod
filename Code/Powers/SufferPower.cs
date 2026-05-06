@@ -32,7 +32,7 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
     }
     public async Task AfterStressAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (base.CombatState.CurrentSide != base.Owner.Side) return;
+        if (base.CombatState.CurrentSide != base.Owner.Side || amount <= 0m) return;
         await CreatureCmd.Heal(base.Owner, GetHealingPercentHp(Amount));
     }
 }
