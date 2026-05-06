@@ -21,6 +21,18 @@ public enum ResoluteOrMeltdownType
     Toxic //You can add more types.
 }
 
+public enum ResoluteType
+{
+    None, //Delete None when you adding your own types.
+    //You can add more types.
+}
+
+public enum MeltdownType
+{
+    None, //Delete None when you adding your own types.
+    //You can add more types.
+}
+
 public abstract class ResoluteOrMeltdownModel : AbstractModel
 {
     private Player? _player;
