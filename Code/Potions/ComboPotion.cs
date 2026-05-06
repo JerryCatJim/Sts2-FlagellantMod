@@ -27,7 +27,6 @@ public class ComboPotion : FlagellantPotionModel
 
     protected override async Task OnUse(PlayerChoiceContext ctx, Creature? target)
     {
-        if (target?.Player == null) return;
         if (target != null)
         {
             await PowerCmd.Apply<ComboPower>(target, 1, Owner.Creature, null);

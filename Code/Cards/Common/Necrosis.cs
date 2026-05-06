@@ -14,25 +14,27 @@ namespace Flagellant.Code.Cards.Common;
 [Pool(typeof(FlagellantCardPool))]
 public class Necrosis : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>() && e.HasPower<ComboPower>()) ?? false;
-    protected override bool IsPlayable => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>() && e.HasPower<ComboPower>()) ?? false;
     public Necrosis() : base(2, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithAnimName("Necrosis");
-        WithPower<ComboPower>(1);
+        WithPowerTip<StressPower>();
         WithPowerTip<PoisonPower>();
-        WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
+        WithCostUpgradeBy(-1);
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Target != null && cardPlay.Target.HasPower<PoisonPower>() && cardPlay.Target.HasPower<ComboPower>())
         {
             await PlayCardAnim();
-            PoisonPower? PP = cardPlay.Target.GetPower<PoisonPower>();
-            if (PP != null && PP.Amount > 0)
+            decimal StressNum = Owner.Creature.GetPower<StressPower>()?.Amount ?? 0;
+            if(StressNum > 0)
             {
-                await PowerCmd.Remove<ComboPower>(cardPlay.Target);
-                await CreatureCmd.GainBlock(base.Owner.Creature, PP.Amount, ValueProp.Move, cardPlay);
+                await CommonActions.Apply<PoisonPower>(cardPlay.Target, this, StressNum);
+            }
+            decimal blockNum = cardPlay.Target.GetPower<PoisonPower>()?.Amount ?? 0;
+            if (blockNum > 0)
+            {
+                await CreatureCmd.GainBlock(base.Owner.Creature, blockNum, ValueProp.Move, cardPlay);
             }
         }
     }

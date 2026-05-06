@@ -28,7 +28,7 @@
   "FLAGELLANT-UNDYING.title": "蔑死",
   "FLAGELLANT-UNDYING.description": "每当你在你的回合第一次失去生命时，抽取{UndyingPower:diff()}张牌。",
   "FLAGELLANT-NECROSIS.title": "坏死",
-  "FLAGELLANT-NECROSIS.description": "获得一个拥有{ComboPower:comboIcons()}的目标的[gold]中毒[/gold]层数的[gold]格挡[/gold]。",
+  "FLAGELLANT-NECROSIS.description": "给予等同于[gold]压力[/gold]的[gold]中毒[/gold]层数。\n获得等同于[gold]中毒[/gold]层数的[gold]格挡[/gold]。",
   "FLAGELLANT-PAIN_STRIKE.title": "痛苦打击",
   "FLAGELLANT-PAIN_STRIKE.description": "造成{Damage:diff()}点伤害，每有1点[gold]压力[/gold]增加{Multiplier:diff()}点伤害。",
   "FLAGELLANT-FATAL_STRIKE.title": "夺命打击",
