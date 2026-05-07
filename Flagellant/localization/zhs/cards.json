@@ -32,5 +32,13 @@
   "FLAGELLANT-PAIN_STRIKE.title": "痛苦打击",
   "FLAGELLANT-PAIN_STRIKE.description": "造成{Damage:diff()}点伤害，每有1点[gold]压力[/gold]增加{Multiplier:diff()}点伤害。",
   "FLAGELLANT-FATAL_STRIKE.title": "夺命打击",
-  "FLAGELLANT-FATAL_STRIKE.description": "造成已损失生命的伤害。\n减少{StressPower:diff()}点[gold]压力[/gold]。"
+  "FLAGELLANT-FATAL_STRIKE.description": "造成已损失生命的伤害。\n减少{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-CRIPPLING_STRIKE.title": "致残打击",
+  "FLAGELLANT-CRIPPLING_STRIKE.description": "造成{Damage:diff()}点伤害。\n给予{PoisonPower:diff()}点[gold]中毒[/gold]。\n抽{Cards:diff()}张牌。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。",
+  "FLAGELLANT-SCOURGE_FORM.title": "天灾形态",
+  "FLAGELLANT-SCOURGE_FORM.description": "每当你失去生命时，给予所有敌人{PoisonPower:diff()}层[gold]中毒[/gold]。",
+  "FLAGELLANT-EXANIMATE_FORM.title": "躯壳形态",
+  "FLAGELLANT-EXANIMATE_FORM.description": "每当你获得[gold]压力[/gold]时，给予所有敌人{PoisonPower:diff()}层[gold]中毒[/gold]。",
+  "FLAGELLANT-SCOURGE.title": "天灾",
+  "FLAGELLANT-SCOURGE.description": "回复等同于[gold]灾厄[/gold]的生命，给予所有敌人等量[gold]中毒[/gold]。"
 }

@@ -77,10 +77,15 @@ public class Flagellant : PlaceholderCharacterModel
 
 	public override IEnumerable<CardModel> StartingDeck => [
 		ModelDb.Card<FlagellantStrike>(),
-		ModelDb.Card<FlagellantDefend>(),
-		ModelDb.Card<Punish>(),
+        ModelDb.Card<FlagellantStrike>(),
+        ModelDb.Card<FlagellantStrike>(),
+        ModelDb.Card<FlagellantStrike>(),
+        ModelDb.Card<FlagellantDefend>(),
+        ModelDb.Card<FlagellantDefend>(),
+        ModelDb.Card<FlagellantDefend>(),
+        ModelDb.Card<FlagellantDefend>(),
+        ModelDb.Card<Punish>(),
 		ModelDb.Card<Fester>(),
-        ModelDb.Card<FatalStrike>()
     ];
 
 	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<PainBox>()];
