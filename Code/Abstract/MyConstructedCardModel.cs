@@ -1,6 +1,6 @@
-using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
+using Flagellant.Code.DisplayHpVar;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -41,11 +41,23 @@ public abstract class MyConstructedCardModel(
     protected MyConstructedCardModel WithLossPercent(int baseVal, int upgrade = 0)
     {
         WithVar("LossPercent", baseVal, upgrade);
+        WithLossCurrentHpDisplay();
         return this;
     }
     protected MyConstructedCardModel WithHealingPercent(int baseVal, int upgrade = 0)
     {
         WithVar("HealingPercent", baseVal, upgrade);
+        WithHealingMaxHpDisplay();
+        return this;
+    }
+    protected MyConstructedCardModel WithLossCurrentHpDisplay()
+    {
+        WithVars(new LossCurrentHpVar(0));
+        return this;
+    }
+    protected MyConstructedCardModel WithHealingMaxHpDisplay()
+    {
+        WithVars(new HealingMaxHpVar(0));
         return this;
     }
     protected decimal GetLossPercentHp(decimal overridePercent = 0m)
@@ -53,8 +65,7 @@ public abstract class MyConstructedCardModel(
         decimal Percent = 0m;
         if(overridePercent == 0m)
         {
-            bool isLossPercentExist = base.DynamicVars["LossPercent"] != null;
-            Percent = Math.Clamp(isLossPercentExist ? base.DynamicVars["LossPercent"].BaseValue : Percent, 0, 100);
+            Percent = Math.Clamp(base.DynamicVars["LossPercent"]?.BaseValue ?? Percent, 0, 100);
         }
         else
         {
@@ -72,8 +83,7 @@ public abstract class MyConstructedCardModel(
         decimal Percent = 0m;
         if (overridePercent == 0m)
         {
-            bool isHealPercentExist = base.DynamicVars["HealingPercent"] != null;
-            Percent = Math.Clamp(isHealPercentExist ? base.DynamicVars["HealingPercent"].BaseValue : Percent, 0, 100);
+            Percent = Math.Clamp(base.DynamicVars["HealingPercent"]?.BaseValue ?? Percent, 0, 100);
         }
         else
         {
