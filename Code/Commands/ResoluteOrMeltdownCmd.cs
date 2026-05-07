@@ -35,11 +35,13 @@ public static class RMCmd
     private static Task EnterRandomResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
         //You can also use official RNG class to get syncable random values.
-        int handCount = player.PlayerCombatState?.Hand?.Cards?.Count ?? 0;
+        int floorCount  = player.RunState.TotalFloor;
+        int roomCount   = player.RunState.CurrentRoomCount;
         int roundNumber = player.Creature?.CombatState?.RoundNumber ?? 0;
-        int index1 = (player.RunState.TotalFloor * 7 + roundNumber * 13 + handCount * 3) % 10;
-        int index2 = (player.RunState.TotalFloor * 7 + roundNumber * 13 + handCount * 3) % Enum.GetNames(typeof(ResoluteType)).Length;
-        int index3 = (player.RunState.TotalFloor * 7 + roundNumber * 13 + handCount * 3) % Enum.GetNames(typeof(MeltdownType)).Length;
+
+        int index1 = GetRandomIndex(floorCount, roomCount, roundNumber, 10);
+        int index2 = GetRandomIndex(floorCount, roomCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
+        int index3 = GetRandomIndex(floorCount, roomCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
 
         bool isMeltdown = index1 >= 2; //0到9,Meltdown概率80%，所以2到9为Meltdown, 0和1为Resolute
         if(isMeltdown)
@@ -60,5 +62,31 @@ public static class RMCmd
                 //_ => EnterResoluteOrMeltdown<YourMeltdownClassDefault>(ctx, player, cardSource),
             };
         }
+    }
+    public static int GetRandomIndex(int a, int b, int c, int N)
+    {
+        if (N <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(N), "N must be greater than 0.");
+        }
+        // a: 1~3 (如楼层)
+        // b: 1~20 (如房间号)
+        // c: 1~∞ (如回合数，通常十几)
+        // N: 数组长度，通常 ≤10
+
+        uint seed = 123456789u;               // 固定盐值，增加分散度
+
+        seed = (seed ^ (uint)a) * 0x9E3779B9u; // 混入 a
+        seed = (seed ^ (uint)b) * 0x85EBCA6Bu; // 混入 b
+        seed = (seed ^ (uint)c) * 0x7A3CFD3Bu; // 混入 c
+
+        // 额外扩散：让高位和低位互相影响
+        seed ^= (seed >> 16);
+        seed *= 0x85EBCA6Bu;
+        seed ^= (seed >> 13);
+        seed *= 0x7A3CFD3Bu;
+        seed ^= (seed >> 16);
+
+        return (int)(seed % (uint)N);
     }
 }
