@@ -33,7 +33,7 @@ public static class CreatureCmdHealPatch
         {
             if (item is IModifyHpAmountReceived myModel)
             {
-                myModel.TryModifyHpAmountReceived(creature, amount, out var myModifiedAmount);
+                myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
                 num = myModifiedAmount;
                 //list.Add(item);
             }

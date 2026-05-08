@@ -17,3 +17,7 @@ public interface IModifyHpAmountReceived
         return false;
     }
 }
+public interface IAfterComboChanged
+{
+    public Task AfterComboChanged(PowerModel power, decimal amount, Creature applier, CardModel? cardSource);
+}

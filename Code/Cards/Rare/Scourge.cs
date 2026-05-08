@@ -23,7 +23,10 @@ public class Scourge : FlagellantCardModel
     {
         await PlayCardAnim();
         decimal doomNum = Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
-        await CreatureCmd.Heal(Owner.Creature, doomNum);
-        await PowerCmd.Apply<PoisonPower>(base.CombatState.HittableEnemies, doomNum, base.Owner.Creature, this);
+        if (doomNum > 0)
+        {
+            await CreatureCmd.Heal(Owner.Creature, doomNum);
+            await PowerCmd.Apply<PoisonPower>(base.CombatState.HittableEnemies, doomNum, base.Owner.Creature, this);
+        }
     }
 }

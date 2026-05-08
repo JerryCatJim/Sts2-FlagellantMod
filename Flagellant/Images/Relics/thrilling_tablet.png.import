@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqolxr1fwuxe4"
-path="res://.godot/imported/dismas_head.png-2ce70e9aec998b1c8e7e9e19b038b619.ctex"
+uid="uid://72twjg41vh5w"
+path="res://.godot/imported/thrilling_tablet.png-82799bf5194839a16b1bdd03aa7de247.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Relics/dismas_head.png"
-dest_files=["res://.godot/imported/dismas_head.png-2ce70e9aec998b1c8e7e9e19b038b619.ctex"]
+source_file="res://Flagellant/Images/Relics/thrilling_tablet.png"
+dest_files=["res://.godot/imported/thrilling_tablet.png-82799bf5194839a16b1bdd03aa7de247.ctex"]
 
 [params]
 
