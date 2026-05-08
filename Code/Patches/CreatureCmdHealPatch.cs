@@ -1,0 +1,44 @@
+using Flagellant.Code.Abstract;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Runs;
+
+namespace Flagellant.Code.Patches;
+
+[HarmonyPatch(typeof(CreatureCmd), "Heal")]
+public static class CreatureCmdHealPatch
+{
+    public static bool Prefix(Creature creature, ref decimal amount)
+    {
+        if (CombatManager.Instance.IsEnding && !creature.IsPlayer)
+        {
+            return true; //return false也可以
+        }
+        IRunState? runState = creature.Player?.RunState; //不用combatState，保留在战斗外监听血量回复的可能
+        if (runState != null)
+        {
+            amount = ModifyHpAmountReceived(runState, creature, amount);
+        }
+        return true;
+    }
+    public static decimal ModifyHpAmountReceived(IRunState runState, Creature creature, decimal amount)//, out IEnumerable<AbstractModel> modifiers)
+    {
+        decimal num = amount;
+        //List<AbstractModel> list = new List<AbstractModel>();
+        foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+        {
+            if (item is IModifyHpAmountReceived myModel)
+            {
+                myModel.TryModifyHpAmountReceived(creature, amount, out var myModifiedAmount);
+                num = myModifiedAmount;
+                //list.Add(item);
+            }
+        }
+        //modifiers = list;
+        return num;
+    }
+}

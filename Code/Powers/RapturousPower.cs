@@ -27,7 +27,7 @@ public sealed class RapturousPower : FlagellantPowerModel
 
     public override bool TryModifyPowerAmountReceived(PowerModel canonicalPower, Creature target, decimal amount, Creature? applier, out decimal modifiedAmount)
     {
-        if(canonicalPower != null && canonicalPower is StressPower && amount > 0m)
+        if(canonicalPower != null && canonicalPower is StressPower && amount > 0m && target == Owner)
         {
             modifiedAmount = amount + Amount;
             return true;
