@@ -39,9 +39,10 @@ public static class RMCmd
         int roomCount   = player.RunState.CurrentRoomCount;
         int roundNumber = player.Creature?.CombatState?.RoundNumber ?? 0;
 
-        int index1 = GetRandomIndex(floorCount, roomCount, roundNumber, 10);
-        int index2 = GetRandomIndex(floorCount, roomCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
-        int index3 = GetRandomIndex(floorCount, roomCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
+        //int index0 = player.PlayerRng.Transformations.NextInt(0, 9);
+        int index1 = GetRandomIndex(player, floorCount, roomCount, roundNumber, 10);
+        int index2 = GetRandomIndex(player, floorCount, roomCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
+        int index3 = GetRandomIndex(player, floorCount, roomCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
 
         bool isMeltdown = index1 >= 2; //0到9,Meltdown概率80%，所以2到9为Meltdown, 0和1为Resolute
         if(isMeltdown)
@@ -63,7 +64,7 @@ public static class RMCmd
             };
         }
     }
-    public static int GetRandomIndex(int a, int b, int c, int N)
+    public static int GetRandomIndex(Player player, int a, int b, int c, int N)
     {
         if (N <= 0)
         {
@@ -74,7 +75,7 @@ public static class RMCmd
         // c: 1~∞ (如回合数，通常十几)
         // N: 数组长度，通常 ≤10
 
-        uint seed = 123456789u;               // 固定盐值，增加分散度
+        uint seed = player.PlayerRng.Seed; //123456789u;               //盐值，增加分散度
 
         seed = (seed ^ (uint)a) * 0x9E3779B9u; // 混入 a
         seed = (seed ^ (uint)b) * 0x85EBCA6Bu; // 混入 b
