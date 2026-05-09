@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Flagellant.Code.Powers;
@@ -27,14 +28,17 @@ public sealed class StressPower : FlagellantPowerModel
         PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         var player = Owner.Player;
-        if (power is not StressPower || applier != Owner || player == null)
+        if (power is not StressPower || amount == 0m || applier != Owner || player == null)
             return;
 
         if(Amount < 0)
         {
             //不太完美，会有负数的StressPowerIcon一闪而过，但我追踪到Powercmd里尝试重写PowerModel的TryModifyPowerAmountReceived没有效果，先这样吧
             await PowerCmd.Remove(this);
-            await BroadcastStressChangedEvent(power, amount + Amount, applier, cardSource);
+            if(amount - Amount != 0m)
+            {
+                await BroadcastStressChangedEvent(power, amount - Amount, applier, cardSource);
+            }
             return;
         }
 

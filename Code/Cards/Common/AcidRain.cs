@@ -33,17 +33,16 @@ public class AcidRain : FlagellantCardModel
         {
             decimal damage = base.DynamicVars.Damage.BaseValue;
             decimal poison = base.DynamicVars["PoisonPower"].BaseValue;
-            if (hittableEnemy.IsAlive && hittableEnemy.HasPower<ComboPower>())
+            if (hittableEnemy.IsAlive && hittableEnemy.GetPower<ComboPower>() is ComboPower comboP)
             {
                 damage += base.DynamicVars["ComboUpgraded"].BaseValue;
                 poison += base.DynamicVars["ComboUpgraded"].BaseValue;
-                await PowerCmd.Remove<ComboPower>(hittableEnemy);
+                await PowerCmd.Decrement(comboP);
             }
-            //await CommonActions.CardAttack(this, hittableEnemy, damage).Execute(choiceContext);
-            DamageCmd.Attack(damage).FromCard(this).Targeting(hittableEnemy).Execute(choiceContext);
+            await DamageCmd.Attack(damage).FromCard(this).Targeting(hittableEnemy).Execute(choiceContext);
             if (hittableEnemy != null && hittableEnemy.IsAlive)
             {
-                CommonActions.Apply<PoisonPower>(hittableEnemy, this, poison);
+                await CommonActions.Apply<PoisonPower>(hittableEnemy, this, poison);
             }
         }
         await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);

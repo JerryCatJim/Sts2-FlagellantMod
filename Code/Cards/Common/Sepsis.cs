@@ -29,9 +29,9 @@ public class Sepsis : FlagellantCardModel
             await PlayCardAnim();
             PoisonPower? PP = cardPlay.Target.GetPower<PoisonPower>();
             int TriggerTimes = (int)(base.DynamicVars["TriggerPoison"]?.BaseValue ?? 0) + (cardPlay.Target.HasPower<ComboPower>() ? 1 : 0);
-            if(cardPlay.Target.HasPower<ComboPower>())
+            if(cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
             {
-                await PowerCmd.Remove<ComboPower>(cardPlay.Target);
+                await PowerCmd.Decrement(comboP);
             }
             for(int i = 0; i < TriggerTimes; i++)
             {

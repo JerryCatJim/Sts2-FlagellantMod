@@ -16,5 +16,14 @@
   "FLAGELLANT-JUNIAS_HEAD.description": "每当你在战斗中回复生命时，多回复[blue]1[/blue]点。",
   "FLAGELLANT-THRILLING_TABLET.title": "孤注石板",
   "FLAGELLANT-THRILLING_TABLET.flavor": "[red]冰冷的队友化为了温暖的最大生命值。[/red]",
-  "FLAGELLANT-THRILLING_TABLET.description": "拾起时，将你的最大生命值翻倍，并回复所有生命。"
+  "FLAGELLANT-THRILLING_TABLET.description": "拾起时，将你的最大生命值翻倍，并回复所有生命。",
+  "FLAGELLANT-EMANCIPATION.title": "彻底解放",
+  "FLAGELLANT-EMANCIPATION.flavor": "[red]追求痛苦，但拒绝死亡。[/red]",
+  "FLAGELLANT-EMANCIPATION.description": "每当你获得[gold]灾厄[/gold]时，获得[blue]1[/blue]点[gold]压力[/gold]。",
+  "FLAGELLANT-SEARING_SCRIPTURE.title": "炽热圣符",
+  "FLAGELLANT-SEARING_SCRIPTURE.flavor": "[red]让火焰净化一切！[/red]",
+  "FLAGELLANT-SEARING_SCRIPTURE.description": "每场战斗中，你打出的第一张攻击牌会给予[gold]破绽[/gold]。",
+  "FLAGELLANT-HIS_PRISON.title": "本我囚笼",
+  "FLAGELLANT-HIS_PRISON.flavor": "[red]追求痛苦的灵魂被困在了不死的躯壳中。[/red]",
+  "FLAGELLANT-HIS_PRISON.description": "当被攻击命中时，给予攻击者[blue]1[/blue]层[gold]中毒[/gold]。"
 }

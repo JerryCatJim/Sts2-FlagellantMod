@@ -28,9 +28,10 @@ public class Fester : FlagellantCardModel
 
         await PlayCardAnim();
         await CommonActions.Apply<VulnerablePower>(cardPlay.Target, this);
-        if(cardPlay.Target.HasPower<ComboPower>())
+        if(cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
         {
-            await PowerCmd.Remove<ComboPower>(cardPlay.Target);
+            //Use Decrement instead of Remove, to trigger ComboPower amount decreased Event by "AfterComboChanged"(IAfterComboChanged Interface).
+            await PowerCmd.Decrement(comboP);
             await CommonActions.Draw(this, choiceContext);
             await CreatureCmd.Heal(Owner.Creature, GetHealingPercentHp());
         }
