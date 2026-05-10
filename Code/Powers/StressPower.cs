@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Flagellant.Code.Powers;
@@ -57,24 +56,13 @@ public sealed class StressPower : FlagellantPowerModel
     
     private Task BroadcastStressChangedEvent(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (amount == 0m) return Task.CompletedTask;
+        if (amount == 0m || base.Owner.CombatState == null) return Task.CompletedTask;
 
-        //给房间内人物的所有Power和玩家的所有遗物广播压力变化事件
-        foreach(PowerModel PM in Owner.GetPowerInstances<PowerModel>())
+        foreach (AbstractModel item in base.Owner.CombatState.IterateHookListeners())
         {
-            if (PM is IAfterStressChanged target)
+            if (item is IAfterStressChanged myModel)
             {
-                target.AfterStressAmountChanged(power, amount, applier, cardSource);
-            }
-        }
-
-        if(Owner.Player == null) return Task.CompletedTask;
-
-        foreach (RelicModel RM in Owner.Player.Relics)
-        {
-            if (RM is IAfterStressChanged target)
-            {
-                target.AfterStressAmountChanged(power, amount, applier, cardSource);
+                myModel.AfterStressAmountChanged(power, amount, applier, cardSource);
             }
         }
         return Task.CompletedTask;

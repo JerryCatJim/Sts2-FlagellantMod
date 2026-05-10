@@ -4,7 +4,6 @@ using Flagellant.Code.Config;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands.Builders;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game.PeerInput;
@@ -22,7 +21,9 @@ public static class FlagellantAnimationPatch
 			return;
 
 		if (__instance.Entity.ModelId.ToString() == "CHARACTER.FLAGELLANT-FLAGELLANT")
-			Log.Info("[>>>Flagellant AnimeTrigger=]" + trigger);
+        {
+			//Log.Info("[>>>Flagellant AnimeTrigger=]" + trigger);
+        }
 
 		switch (trigger)
 		{
@@ -229,7 +230,7 @@ public class FlagellantCancelPlayCardPatch
         if (state_machine != null && state_machine.GetCurrentNode() != "CalmIdle")
         {
             //卡牌打出流程：OnSelected -> CancelPlayCard -> OnPlay
-            Log.Info("[>>>FlagellantLog] Cancel Play Card: " + Card);
+            //Log.Info("[>>>FlagellantLog] Cancel Play Card: " + Card);
             state_machine.Travel("Idle");
         }
     }

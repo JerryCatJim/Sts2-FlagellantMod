@@ -64,5 +64,17 @@
   "FLAGELLANT-RAPID_HEALING.title": "快速愈合",
   "FLAGELLANT-RAPID_HEALING.description": "回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n若生命小于等于30%，则先获得{Block:diff()}点[gold]格挡[/gold]。",
   "FLAGELLANT-LASH.title": "鞭笞",
-  "FLAGELLANT-LASH.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n获得{StressPower:diff()}点[gold]压力[/gold]。"
+  "FLAGELLANT-LASH.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-DEATH_COMES.title": "死神降临",
+  "FLAGELLANT-DEATH_COMES.description": "获得等同于生命的[gold]灾厄[/gold]。\n获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-FEAR_ERUPTION.title": "恐惧爆发",
+  "FLAGELLANT-FEAR_ERUPTION.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n对所有敌人造成等同于[gold]压力[/gold]的伤害。",
+  "FLAGELLANT-MEDITATION.title": "冥想",
+  "FLAGELLANT-MEDITATION.description": "获得{IfUpgraded:show:X+1|X}层[gold]再生[/gold]。\n获得{IfUpgraded:show:X+1|X}点[gold]压力[/gold]。",
+  "FLAGELLANT-COERCE.title": "施压",
+  "FLAGELLANT-COERCE.description": "造成{Damage:diff()}点伤害。\n你在本回合内每获得过一次[gold]压力[/gold]，其耗能减少1{energyPrefix:energyIcons(1)}。",
+  "FLAGELLANT-NERVOUS.title": "紧张",
+  "FLAGELLANT-NERVOUS.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n获得等同于[gold]压力[/gold]的[gold]格挡[/gold]。",
+  "FLAGELLANT-SPREADING_ANXIETY.title": "传播焦虑",
+  "FLAGELLANT-SPREADING_ANXIETY.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n所有敌人在本回合失去等同于[gold]压力[/gold]的[gold]力量[/gold]。"
 }
