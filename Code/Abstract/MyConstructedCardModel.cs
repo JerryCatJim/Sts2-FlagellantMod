@@ -60,6 +60,11 @@ public abstract class MyConstructedCardModel(
         WithVars(new HealingMaxHpVar(0));
         return this;
     }
+    protected MyConstructedCardModel WithLostHpThisTurnDisplay()
+    {
+        WithVars(new LostHpThisTurnVar(0));
+        return this;
+    }
     protected decimal GetLossPercentHp(decimal overridePercent = 0m)
     {
         decimal Percent = 0m;

@@ -42,5 +42,8 @@
   "FLAGELLANT-ANEMIA_POWER.smartDescription": "每当你在你的回合失去生命时，获得等量[gold]格挡[/gold]。",
   "FLAGELLANT-SACRIFICE_POWER.title": "牺牲",
   "FLAGELLANT-SACRIFICE_POWER.description": "每当你在你的回合第一次失去生命时，获得[blue]X[/blue]点{energyPrefix:energyIcons(1)}。",
-  "FLAGELLANT-SACRIFICE_POWER.smartDescription": "每当你在你的回合第一次失去生命时，获得[blue]{Amount}[/blue]点{energyPrefix:energyIcons(1)}。"
+  "FLAGELLANT-SACRIFICE_POWER.smartDescription": "每当你在你的回合第一次失去生命时，获得[blue]{Amount}[/blue]点{energyPrefix:energyIcons(1)}。",
+  "FLAGELLANT-BLACK_BLOOD_POWER.title": "黑血",
+  "FLAGELLANT-BLACK_BLOOD_POWER.description": "在本回合内，每当你失去生命时，对所有敌人造成等量伤害。",
+  "FLAGELLANT-BLACK_BLOOD_POWER.smartDescription": "在本回合内，每当你失去生命时，对所有敌人造成等量伤害。"
 }
