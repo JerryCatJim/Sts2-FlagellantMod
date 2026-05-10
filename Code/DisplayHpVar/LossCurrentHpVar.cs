@@ -7,6 +7,7 @@ namespace Flagellant.Code.DisplayHpVar;
 public sealed class LossCurrentHpVar : DynamicVar
 {
     public const string defaultName = "LossCurrentHp";
+    public string postFix = "";
 
     public LossCurrentHpVar(decimal baseValue)
         : base("LossCurrentHp", baseValue)
@@ -15,7 +16,10 @@ public sealed class LossCurrentHpVar : DynamicVar
     }
     public LossCurrentHpVar(string name, decimal baseValue) : base(name, baseValue)
     {
-        
+        if (name.Contains(defaultName))
+        {
+            postFix = name.Replace(defaultName, "");
+        }
     }
 
     public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
@@ -27,7 +31,7 @@ public sealed class LossCurrentHpVar : DynamicVar
         if (card == null) return 0m;
 
         decimal Percent = 0m;
-        Percent = Math.Clamp(card.DynamicVars["LossPercent"]?.BaseValue ?? Percent, 0, 100);
+        Percent = Math.Clamp(card.DynamicVars["LossPercent" + postFix]?.BaseValue ?? Percent, 0, 100);
         decimal Damage = Math.Round(card.Owner.Creature.CurrentHp * Percent / 100m);
         if (Percent > 0 && Damage < 1m)
         {
@@ -40,7 +44,7 @@ public sealed class LossCurrentHpVar : DynamicVar
         if (card == null) return 0m;
 
         decimal Percent = 0m;
-        Percent = Math.Clamp(card.DynamicVars["HealingPercent"]?.BaseValue ?? Percent, 0, 100);
+        Percent = Math.Clamp(card.DynamicVars["HealingPercent" + postFix]?.BaseValue ?? Percent, 0, 100);
         decimal Healing = Math.Round(card.Owner.Creature.MaxHp * Percent / 100m);
         if (Percent > 0 && Healing < 1m)
         {
