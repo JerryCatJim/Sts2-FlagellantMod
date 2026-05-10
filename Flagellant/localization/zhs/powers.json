@@ -36,5 +36,11 @@
   "FLAGELLANT-EXANIMATE_FORM_POWER.smartDescription": "每当你获得[gold]压力[/gold]时，给予所有敌人[blue]{Amount}[/blue]层[gold]中毒[/gold]。",
   "FLAGELLANT-MANIAC_FORM_POWER.title": "狂人形态",
   "FLAGELLANT-MANIAC_FORM_POWER.description": "每当你回复生命时，多回复[blue]X[/blue]点。",
-  "FLAGELLANT-MANIAC_FORM_POWER.smartDescription": "每当你回复生命时，多回复[blue]{Amount}[/blue]点。"
+  "FLAGELLANT-MANIAC_FORM_POWER.smartDescription": "每当你回复生命时，多回复[blue]{Amount}[/blue]点。",
+  "FLAGELLANT-ANEMIA_POWER.title": "贫血",
+  "FLAGELLANT-ANEMIA_POWER.description": "每当你在你的回合失去生命时，获得等量[gold]格挡[/gold]。",
+  "FLAGELLANT-ANEMIA_POWER.smartDescription": "每当你在你的回合失去生命时，获得等量[gold]格挡[/gold]。",
+  "FLAGELLANT-SACRIFICE_POWER.title": "牺牲",
+  "FLAGELLANT-SACRIFICE_POWER.description": "每当你在你的回合第一次失去生命时，获得[blue]X[/blue]点{energyPrefix:energyIcons(1)}。",
+  "FLAGELLANT-SACRIFICE_POWER.smartDescription": "每当你在你的回合第一次失去生命时，获得[blue]{Amount}[/blue]点{energyPrefix:energyIcons(1)}。"
 }

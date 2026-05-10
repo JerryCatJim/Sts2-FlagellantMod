@@ -40,7 +40,15 @@
   "FLAGELLANT-EXANIMATE_FORM.title": "躯壳形态",
   "FLAGELLANT-EXANIMATE_FORM.description": "每当你获得[gold]压力[/gold]时，给予所有敌人{PoisonPower:diff()}层[gold]中毒[/gold]。",
   "FLAGELLANT-MANIAC_FORM.title": "狂人形态",
-  "FLAGELLANT-MANIAC_FORM.description": "每当你回复生命时，多回复1点。",
+  "FLAGELLANT-MANIAC_FORM.description": "每当你回复生命时，多回复{ManiacPower:diff()}点。",
   "FLAGELLANT-SCOURGE.title": "天灾",
-  "FLAGELLANT-SCOURGE.description": "回复等同于[gold]灾厄[/gold]的生命，给予所有敌人等量[gold]中毒[/gold]。"
+  "FLAGELLANT-SCOURGE.description": "回复等同于[gold]灾厄[/gold]的生命，给予所有敌人等量[gold]中毒[/gold]。",
+  "FLAGELLANT-SPREADING_PLAGUE.title": "传播瘟疫",
+  "FLAGELLANT-SPREADING_PLAGUE.description": "造成{Damage:diff()}点伤害。\n若目标没有[gold]中毒[/gold]，则改为给予{Damage:diff()}层[gold]中毒[/gold]。",
+  "FLAGELLANT-BLOOD_DONATION.title": "献血",
+  "FLAGELLANT-BLOOD_DONATION.description": "对所有敌人造成你最大生命值{HealingPercent:diff()}%({HealingMaxHp:diff()})的伤害。\n损失{LossPercent:diff()}%({LossCurrentHp:diff()})生命。",
+  "FLAGELLANT-ANEMIA.title": "贫血",
+  "FLAGELLANT-ANEMIA.description": "每当你在你的回合失去生命时，获得等量[gold]格挡[/gold]。",
+  "FLAGELLANT-SACRIFICE.title": "牺牲",
+  "FLAGELLANT-SACRIFICE.description": "每当你在你的回合第一次失去生命时，获得{Energy:energyIcons()}。"
 }

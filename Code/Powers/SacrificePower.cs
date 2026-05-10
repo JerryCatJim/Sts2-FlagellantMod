@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Powers;
 
-public class UndyingPower : FlagellantPowerModel
+public class SacrificePower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
@@ -31,19 +31,17 @@ public class UndyingPower : FlagellantPowerModel
             }
         }
     }
-
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (CombatManager.Instance.IsInProgress && target == base.Owner 
+        if (CombatManager.Instance.IsInProgress && target == base.Owner
             && result.UnblockedDamage > 0 && base.CombatState.CurrentSide == base.Owner.Side
             && !UsedThisTurn && base.Owner != null && base.Owner.Player != null)
         {
             Flash();
             UsedThisTurn = true;
-            await CardPileCmd.Draw(choiceContext, Amount, base.Owner.Player);
+            await PlayerCmd.GainEnergy(Amount, base.Owner.Player);
         }
     }
-
     public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != base.Owner.Side) return Task.CompletedTask;

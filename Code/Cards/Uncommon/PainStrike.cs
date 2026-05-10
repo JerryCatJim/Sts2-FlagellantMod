@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 
-namespace Flagellant.Code.Cards.Rare;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class PainStrike : FlagellantCardModel

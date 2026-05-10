@@ -19,7 +19,7 @@ public class DeathsHead : FlagellantRelicModel
 
     public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != Owner.Creature)
+        if (target != Owner.Creature || amount <= 0m)
         {
             return amount;
         }
@@ -33,10 +33,9 @@ public class DeathsHead : FlagellantRelicModel
     }
     public override Task AfterCombatEnd(CombatRoom room)
     {
-        DoomPower? DoomPower = base.Owner.Creature.GetPower<DoomPower>();
-        if (DoomPower != null)
+        if (base.Owner.Creature.GetPower<DoomPower>() is DoomPower doomPower)
         {
-            DoomPowerAmount = DoomPower.Amount;
+            DoomPowerAmount = doomPower.Amount;
         }
         return base.AfterCombatEnd(room);
     }

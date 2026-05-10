@@ -17,7 +17,7 @@ public class PainBox : FlagellantRelicModel
 
     public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != Owner.Creature)
+        if (target != Owner.Creature || amount <= 0m)
         {
             return amount;
         }
