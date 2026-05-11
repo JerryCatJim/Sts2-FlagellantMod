@@ -18,7 +18,7 @@ public class Emancipation : FlagellantRelicModel
     public override async Task AfterPowerAmountChanged(
         PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (power is not DoomPower || amount <= 0m)
+        if (power is not DoomPower || amount <= 0m || power.Owner != base.Owner.Creature)
             return;
 
         Flash();

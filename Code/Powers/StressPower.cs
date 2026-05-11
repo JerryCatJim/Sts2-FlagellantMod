@@ -13,7 +13,7 @@ namespace Flagellant.Code.Powers;
 
 public sealed class StressPower : FlagellantPowerModel
 {
-    public override bool AllowNegative => true; //Creature.cs里的InvokePowerModified()要求 AllowNegative==true才能把层数减少时间传过来
+    public override bool AllowNegative => true; //Creature.cs里的InvokePowerModified()要求 AllowNegative==true才能把层数减少的事件传过来
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -27,7 +27,7 @@ public sealed class StressPower : FlagellantPowerModel
         PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         var player = Owner.Player;
-        if (power is not StressPower || amount == 0m || applier != Owner || player == null)
+        if (amount == 0m || power is not StressPower || power != this || applier != Owner || player == null)
             return;
 
         if(Amount < 0)

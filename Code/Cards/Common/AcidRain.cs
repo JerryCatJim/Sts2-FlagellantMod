@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using static Godot.HttpRequest;
 
 namespace Flagellant.Code.Cards.Common;
 
@@ -37,7 +38,7 @@ public class AcidRain : FlagellantCardModel
             {
                 damage += base.DynamicVars["ComboUpgraded"].BaseValue;
                 poison += base.DynamicVars["ComboUpgraded"].BaseValue;
-                await PowerCmd.Decrement(comboP);
+                await PowerCmd.ModifyAmount(comboP, -1, Owner.Creature, this);
             }
             await DamageCmd.Attack(damage).FromCard(this).Targeting(hittableEnemy).Execute(choiceContext);
             if (hittableEnemy != null && hittableEnemy.IsAlive)
