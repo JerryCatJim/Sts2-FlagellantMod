@@ -32,9 +32,8 @@ public abstract class FlagellantRelicModel : CustomRelicModel
     {
         get
         {
-            /*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}_outline.png".RelicImagePath();
-            return ResourceLoader.Exists(path) ? path : "default_relic_outline.png".RelicImagePath();*/
-            return BigIconPath;
+            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}_outline.png".RelicImagePath();
+            return ResourceLoader.Exists(path) ? path : "default_relic_outline.png".RelicImagePath();
         }
     }
 }

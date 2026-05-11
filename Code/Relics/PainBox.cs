@@ -23,6 +23,7 @@ public class PainBox : FlagellantRelicModel
         }
         if (Owner.Creature.CurrentHp <= amount) //已经是除去格挡值后的伤害了
         {
+            Flash();
             //PowerCmd.Apply<DoomPower>(Owner.Creature, Owner.Creature.CurrentHp, Owner.Creature, null);
             PowerCmd.Apply<DoomPower>(Owner.Creature, amount, Owner.Creature, null);
             return 0m;

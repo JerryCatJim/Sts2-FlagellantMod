@@ -21,6 +21,7 @@ public class HisPrison : FlagellantRelicModel
         //ThornsPower is ValueProp.SkipHurtAnim, don't trigger relic when received damage from it.
         if (target == base.Owner.Creature && dealer != null && dealer.IsMonster && props != ValueProp.SkipHurtAnim)
         {
+            Flash();
             await PowerCmd.Apply<PoisonPower>(dealer, 1, Owner.Creature, null);
         }
     }

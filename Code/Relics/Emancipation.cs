@@ -21,6 +21,7 @@ public class Emancipation : FlagellantRelicModel
         if (power is not DoomPower || amount <= 0m)
             return;
 
+        Flash();
         await PowerCmd.Apply<StressPower>(Owner.Creature, 1, Owner.Creature, null);
     }
 }

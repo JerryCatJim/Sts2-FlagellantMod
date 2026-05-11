@@ -17,6 +17,7 @@ public class SearingScripture : FlagellantRelicModel
     {
         if (room is CombatRoom)
         {
+            Flash();
             await PowerCmd.Apply<AddComboPower>(Owner.Creature, 1 ,Owner.Creature, null);
         }
     }
