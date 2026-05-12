@@ -16,14 +16,14 @@ public class AbsorbPain : FlagellantCardModel
         WithPowerTip<StressPower>();
         WithPowerTip<RegenPower>();
         WithKeyword(CardKeyword.Exhaust);
+        WithStress(2);
         WithCostUpgradeBy(-1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if(base.Owner.Creature.GetPower<StressPower>() is StressPower SP)
-        {
-            await CommonActions.ApplySelf<RegenPower>(this, SP.Amount);
-        }
+        decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
+        await CommonActions.ApplySelf<StressPower>(this);
+        await CommonActions.ApplySelf<RegenPower>(this, stressNum + base.DynamicVars["StressPower"].BaseValue);
     }
 }

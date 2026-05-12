@@ -17,7 +17,8 @@ public class Fester : FlagellantCardModel
     {
         WithAnimName("Fester");
         WithPower<VulnerablePower>(1, 1);
-        WithHealingPercent(8, 2);
+        WithStress(1,1);
+        WithHealingPercent(8);
         WithCards(1);
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
     }
@@ -27,6 +28,7 @@ public class Fester : FlagellantCardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
         await PlayCardAnim();
+        await CommonActions.ApplySelf<StressPower>(this);
         await CommonActions.Apply<VulnerablePower>(cardPlay.Target, this);
         if(cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
         {

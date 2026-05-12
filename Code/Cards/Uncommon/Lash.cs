@@ -12,12 +12,12 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class Lash : FlagellantCardModel
 {
-    public Lash() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public Lash() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithAnimName("Lash");
         WithLossPercent(8, -2);
         WithHealingPercent(12, 3);
-        WithStress(1);
+        WithStress(1,1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

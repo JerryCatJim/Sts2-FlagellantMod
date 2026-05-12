@@ -13,8 +13,8 @@ public class LashsGift : FlagellantCardModel
     public LashsGift() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithAnimName("Lash");
-        WithBlock(8, 4);
-        WithStress(1);
+        WithBlock(8,4);
+        WithStress(2,1);
         WithPower<AddComboPower>(1);
         WithPower<ComboPower>(1);
     }

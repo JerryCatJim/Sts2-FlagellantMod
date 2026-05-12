@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
-using static Godot.HttpRequest;
 
 namespace Flagellant.Code.Cards.Common;
 
@@ -18,9 +17,9 @@ public class AcidRain : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
     public AcidRain() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        WithDamage(4);
-        WithPoison(4);
-        WithLossPercent(5,-2);
+        WithDamage(4,1);
+        WithPoison(4,1);
+        WithLossPercent(5);
         WithAnimName("AcidRain");
         WithVar("ComboUpgraded", 2, 1);
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式

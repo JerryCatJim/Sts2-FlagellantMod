@@ -9,12 +9,12 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
-public class PressThisAdvantage : FlagellantCardModel
+public class GiveNoQuarter : FlagellantCardModel
 {
     protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
-    public PressThisAdvantage() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public GiveNoQuarter() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithPower<PressThisAdvantagePower>(1);
+        WithPower<GiveNoQuarterPower>(1);
         WithPower<ComboPower>(1);
         WithDamage(6,3);
     }
@@ -25,7 +25,7 @@ public class PressThisAdvantage : FlagellantCardModel
         if(cardPlay.Target !=  null && cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
         {
             await PowerCmd.ModifyAmount(comboP, -1, base.Owner.Creature, this);
-            await CommonActions.ApplySelf<PressThisAdvantagePower>(this);
+            await CommonActions.ApplySelf<GiveNoQuarterPower>(this);
         }
     }
 }

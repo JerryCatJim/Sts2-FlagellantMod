@@ -18,7 +18,7 @@ public class Martyrdom : FlagellantCardModel
     {
         WithPowerTip<DoomPower>();
         WithPower<ComboPower>(1);
-        WithAnimName("Fester");
+        WithAnimName("Lash");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -27,7 +27,8 @@ public class Martyrdom : FlagellantCardModel
         if(doomNum > 0m)
         {
             await CreatureCmd.Damage(choiceContext, Owner.Creature, doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
-            await DamageCmd.Attack(doomNum).FromCard(this).TargetingAllOpponents(base.CombatState).Execute(choiceContext);
+            decimal newDoomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? doomNum;
+            await DamageCmd.Attack(newDoomNum).FromCard(this).TargetingAllOpponents(base.CombatState).Execute(choiceContext);
             if(IsUpgraded)
             {
                 await PowerCmd.Apply<ComboPower>(base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);

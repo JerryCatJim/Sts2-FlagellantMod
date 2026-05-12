@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace Flagellant.Code.Powers;
 
-public class PressThisAdvantagePower : FlagellantPowerModel
+public class GiveNoQuarterPower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
