@@ -19,6 +19,7 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
 
     public override Task OnEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? source)
     {
+        PowerCmd.Apply<ScourgeFormPower>(Owner.Creature, 2, Owner.Creature, source);
         PowerCmd.Apply<ToxicPower>(Owner.Creature, 1, Owner.Creature, source);
         return base.OnEnterResoluteOrMeltdown(ctx, player, source);
     }

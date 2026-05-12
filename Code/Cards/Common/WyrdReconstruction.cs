@@ -3,6 +3,7 @@ using Flagellant.Audio;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
 using Flagellant.Code.DisplayHpVar;
+using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -19,6 +20,7 @@ public class WyrdReconstruction : FlagellantCardModel
         WithHealingPercent(15, 3);
         WithVar("HealingPercentLow", 25, 5);
         WithVars(new HealingMaxHpVar("HealingMaxHpLow", 0));
+        WithPowerTip<StableReconstructionPower>();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

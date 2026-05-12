@@ -15,7 +15,7 @@ public class Execution : FlagellantCardModel
     public Execution() : base(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
     {
         WithDamage(12,4);
-        WithPoison(4,2);
+        WithPoison(6,2);
         WithHealingPercent(10);
         WithAnimName("Punish");
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式

@@ -15,6 +15,7 @@ public class Nervous : FlagellantCardModel
     public Nervous() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithPower<StressPower>(2);
+        WithBlock(1); //Just for displaying keyword.
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);
     }
 

@@ -4,6 +4,7 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Cards.Rare;
 
@@ -14,6 +15,8 @@ public class Suffer : FlagellantCardModel
     {
         WithAnimName("Suffer");
         WithPowerTip<SufferPower>();
+        WithPowerTip<DoomPower>();
+        WithPowerTip<StressPower>();
         WithHealingPercent(1);
         WithCostUpgradeBy(-1);
     }

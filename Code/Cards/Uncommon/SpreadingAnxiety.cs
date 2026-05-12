@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Cards.Uncommon;
 
@@ -18,6 +19,7 @@ public class SpreadingAnxiety : FlagellantCardModel
         WithStress(2);
         WithCostUpgradeBy(-1);
         WithKeyword(CardKeyword.Exhaust);
+        WithPowerTip<StrengthPower>();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

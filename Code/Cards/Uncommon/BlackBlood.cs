@@ -14,6 +14,7 @@ public class BlackBlood : FlagellantCardModel
     {
         WithPower<BlackBloodPower>(1);
         WithCostUpgradeBy(-1);
+        WithBlock(1); //Just for displaying keyword.
         WithKeyword(CardKeyword.Exhaust);
     }
 

@@ -15,6 +15,7 @@ public class ExanimateForm : FlagellantCardModel
     {
         WithAnimName("Lash");
         WithPower<PoisonPower>(1);
+        WithPowerTip<StressPower>();
         WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
     }
 

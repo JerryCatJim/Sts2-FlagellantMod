@@ -1,7 +1,6 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -17,7 +16,6 @@ public class BackToThePit : FlagellantCardModel
     public BackToThePit() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithDamage(12,3);
-        WithPowerTip<StressPower>();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -47,7 +45,7 @@ public class BackToThePit : FlagellantCardModel
 
     public override Task AfterCurrentHpChanged(Creature creature, decimal delta)
     {
-        if (delta >= 0m)
+        if (delta >= 0m || creature != Owner.Creature)
         {
             return Task.CompletedTask;
         }

@@ -29,9 +29,10 @@ public class Martyrdom : FlagellantCardModel
             await CreatureCmd.Damage(choiceContext, Owner.Creature, doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
             decimal newDoomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? doomNum;
             await DamageCmd.Attack(newDoomNum).FromCard(this).TargetingAllOpponents(base.CombatState).Execute(choiceContext);
-            if(IsUpgraded)
+            await PowerCmd.Apply<ComboPower>(base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);
+            if (IsUpgraded)
             {
-                await PowerCmd.Apply<ComboPower>(base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);
+                await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
             }
         }
     }

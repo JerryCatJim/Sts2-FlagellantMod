@@ -17,8 +17,8 @@ public class AcidRain : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
     public AcidRain() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        WithDamage(4,1);
-        WithPoison(4,1);
+        WithDamage(4,2);
+        WithPoison(4,2);
         WithLossPercent(5);
         WithAnimName("AcidRain");
         WithVar("ComboUpgraded", 2, 1);

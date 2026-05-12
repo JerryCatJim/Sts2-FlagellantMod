@@ -13,6 +13,7 @@ public class Anemia : FlagellantCardModel
     public Anemia() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithPower<AnemiaPower>(1);
+        WithBlock(1); //Just for displaying keyword.
         WithKeyword(CardKeyword.Innate, UpgradeType.Add);
     }
 
