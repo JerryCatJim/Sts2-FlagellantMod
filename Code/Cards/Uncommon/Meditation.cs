@@ -15,15 +15,18 @@ public class Meditation : FlagellantCardModel
     protected override bool HasEnergyCostX => true;
     public Meditation() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithPower<RegenPower>(1);
-        WithStress(1);
+        WithPowerTip<RegenPower>();
+        WithPowerTip<StressPower>();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int num = ResolveEnergyXValue();
         num += IsUpgraded ? 1 : 0;
-        await PowerCmd.Apply<RegenPower>(base.Owner.Creature, num, base.Owner.Creature, this);
-        await PowerCmd.Apply<StressPower>(base.Owner.Creature, num, base.Owner.Creature, this);
+        if(num > 0)
+        {
+            await PowerCmd.Apply<RegenPower>(base.Owner.Creature, num * 2, base.Owner.Creature, this);
+            await PowerCmd.Apply<StressPower>(base.Owner.Creature, num, base.Owner.Creature, this);
+        }
     }
 }

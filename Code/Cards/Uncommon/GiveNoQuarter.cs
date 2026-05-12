@@ -16,7 +16,7 @@ public class GiveNoQuarter : FlagellantCardModel
     {
         WithPower<GiveNoQuarterPower>(1);
         WithPower<ComboPower>(1);
-        WithDamage(6,3);
+        WithDamage(8,2);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

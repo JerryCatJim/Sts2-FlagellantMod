@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://siogb50b5t0s"
-path="res://.godot/imported/press_this_advantage.png-bab7fc194538729e8b8a7a11697e5ca9.ctex"
+path="res://.godot/imported/give_no_quarter.png-390327845c64d4b9bbbf138b5351de8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/press_this_advantage.png"
-dest_files=["res://.godot/imported/press_this_advantage.png-bab7fc194538729e8b8a7a11697e5ca9.ctex"]
+source_file="res://Flagellant/Images/Cards/give_no_quarter.png"
+dest_files=["res://.godot/imported/give_no_quarter.png-390327845c64d4b9bbbf138b5351de8c.ctex"]
 
 [params]
 
