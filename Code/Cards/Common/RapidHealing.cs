@@ -29,6 +29,6 @@ public class RapidHealing : FlagellantCardModel
     {
         if (base.Owner.Creature == null) return false;
 
-        return base.Owner.Creature.CurrentHp / base.Owner.Creature.MaxHp * 100m <= Percent;
+        return (decimal)base.Owner.Creature.CurrentHp/ (decimal)base.Owner.Creature.MaxHp * 100m <= Percent;
     }
 }

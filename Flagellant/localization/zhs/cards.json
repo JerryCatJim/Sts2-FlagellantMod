@@ -86,5 +86,13 @@
   "FLAGELLANT-TRANSFER_MISFORTUNE.title": "癌情转移",
   "FLAGELLANT-TRANSFER_MISFORTUNE.description": "移除你的所有[gold]灾厄[/gold]。\n给予所有敌人等量[gold]灾厄[/gold]。\n抽{Cards:diff()}张牌。",
   "FLAGELLANT-HOLD_THE_LINE.title": "坚守阵地",
-  "FLAGELLANT-HOLD_THE_LINE.description": "每当你给予的{ComboPower:comboIcons()}被触发，抽{HoldTheLinePower:diff()}张牌。"
+  "FLAGELLANT-HOLD_THE_LINE.description": "每当你给予的{ComboPower:comboIcons()}被触发，抽{HoldTheLinePower:diff()}张牌。",
+  "FLAGELLANT-PRESS_THIS_ADVANTAGE.title": "乘胜追击",
+  "FLAGELLANT-PRESS_THIS_ADVANTAGE.description": "造成{Damage:diff()}点伤害。\n若目标有{ComboPower:comboIcons()}，则你打出的下一张牌耗能变为0{energyPrefix:energyIcons(1)}。",
+  "FLAGELLANT-OVERDRAW_LIFE.title": "透支生命",
+  "FLAGELLANT-OVERDRAW_LIFE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n获得{DoomPower:diff()}层[gold]灾厄[/gold]。",
+  "FLAGELLANT-MARTYRDOM.title": "殉道",
+  "FLAGELLANT-MARTYRDOM.description": "失去等同于你[gold]灾厄[/gold]层数的生命。\n对所有敌人造成等同于你[gold]灾厄[/gold]层数的伤害。{IfUpgraded:show:\n给予所有敌人{ComboPower:comboIcons()}。}",
+  "FLAGELLANT-BATTLEFIELD_MEDICINE.title": "战地医疗",
+  "FLAGELLANT-BATTLEFIELD_MEDICINE.description": "获得{RegenPower:diff()}层[gold]再生[/gold]。\n抽{Cards:diff()}张牌。"
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxuakafqxofoe"
-path="res://.godot/imported/battlefield_medicine.png-58c4d39cf7ed53e3b25af2acb96b34ab.ctex"
+uid="uid://ywd31doy7s3p"
+path="res://.godot/imported/transfer_misfortune.png-6eb8e95f155b33b33b30bfc8bf761ead.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/battlefield_medicine.png"
-dest_files=["res://.godot/imported/battlefield_medicine.png-58c4d39cf7ed53e3b25af2acb96b34ab.ctex"]
+source_file="res://Flagellant/Images/Cards/transfer_misfortune.png"
+dest_files=["res://.godot/imported/transfer_misfortune.png-6eb8e95f155b33b33b30bfc8bf761ead.ctex"]
 
 [params]
 

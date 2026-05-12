@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxuakafqxofoe"
-path="res://.godot/imported/battlefield_medicine.png-58c4d39cf7ed53e3b25af2acb96b34ab.ctex"
+uid="uid://siogb50b5t0s"
+path="res://.godot/imported/press_this_advantage.png-bab7fc194538729e8b8a7a11697e5ca9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/battlefield_medicine.png"
-dest_files=["res://.godot/imported/battlefield_medicine.png-58c4d39cf7ed53e3b25af2acb96b34ab.ctex"]
+source_file="res://Flagellant/Images/Cards/press_this_advantage.png"
+dest_files=["res://.godot/imported/press_this_advantage.png-bab7fc194538729e8b8a7a11697e5ca9.ctex"]
 
 [params]
 
