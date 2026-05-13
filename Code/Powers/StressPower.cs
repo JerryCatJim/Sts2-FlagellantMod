@@ -4,6 +4,7 @@ using Flagellant.Code.Core;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -27,8 +28,7 @@ public sealed class StressPower : FlagellantPowerModel
     public override async Task AfterPowerAmountChanged(
         PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        var player = Owner.Player;
-        if (amount == 0m || power is not StressPower || power != this || applier != Owner || player == null)
+        if (amount == 0m || power is not StressPower || power != this)
             return;
 
         if(Amount < 0)
@@ -50,8 +50,11 @@ public sealed class StressPower : FlagellantPowerModel
             //await PowerCmd.ModifyAmount(this, -Amount, Owner, cardSource);
             await PowerCmd.Remove(this);
             await BroadcastStressChangedEvent(power, -Amount, applier, cardSource);
-            var ctx = new ThrowingPlayerChoiceContext();
-            await RMCmd.EnterResoluteOrMeltdownRandomly(ctx, player, cardSource);
+            if (Owner.Player is Player player)
+            {   
+                var ctx = new ThrowingPlayerChoiceContext();
+                await RMCmd.EnterResoluteOrMeltdownRandomly(ctx, player, cardSource);
+            }
         }
     }
     

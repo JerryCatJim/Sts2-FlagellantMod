@@ -15,8 +15,8 @@ public sealed class ComboPower : FlagellantPowerModel
     public override async Task AfterPowerAmountChanged(
         PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        //PowerCmd.Remove不会触发ModifyAmount，所以不会走进这里，Decrement可以
-        //而我触发Combo后都是直接Remove的......如果需要监听Combo减少的变化，需要改为Decrement
+        //PowerCmd.Remove不会触发ModifyAmount，所以不会走进这里
+        //Decrement可以触发ModifyAmount但是applier为null，所以触发ComboPower要直接用PowerCmd.ModifyAmount并传入applier
         if (amount == 0m || power is not ComboPower || power != this || applier == null || applier.Player == null) return;
 
         await BroadcastComboChangedEvent(power, amount, applier, cardSource);

@@ -4,23 +4,23 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Necrosis : FlagellantCardModel
 {
-    public Necrosis() : base(2, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
+    public Necrosis() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithAnimName("Necrosis");
         WithPowerTip<StressPower>();
         WithPowerTip<PoisonPower>();
-        WithBlock(1); //Just for displaying keyword.
+        WithKeyword(CardKeyword.Exhaust);
         WithCostUpgradeBy(-1);
+        WithBlock(1); //Just for displaying keyword.
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

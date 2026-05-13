@@ -6,12 +6,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace Flagellant.Code.Cards.Uncommon;
+namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
 public class BloodWave : FlagellantCardModel
 {
-    public BloodWave() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public BloodWave() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithHealingPercent(6, 2);
         WithDamage(5, 2);

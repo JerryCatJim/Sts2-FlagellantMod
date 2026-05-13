@@ -8,14 +8,14 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Sepsis : FlagellantCardModel
 {
     protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
     protected override bool IsPlayable => HasAnyPoisonedEnemy;
-    public Sepsis() : base(2, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
+    public Sepsis() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithAnimName("Sepsis");
         WithVar("TriggerPoison", 2, 1);

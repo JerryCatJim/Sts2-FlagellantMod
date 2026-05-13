@@ -63,5 +63,8 @@
   "FLAGELLANT-GIVE_NO_QUARTER_POWER.smartDescription": "你打出的下[blue]{Amount}[/blue]张牌耗能变为0{energyPrefix:energyIcons(1)}。",
   "FLAGELLANT-WEIGHT_TRAINING_POWER.title": "负重训练",
   "FLAGELLANT-WEIGHT_TRAINING_POWER.description": "每当你获得[gold]灾厄[/gold]时，获得[blue]X[/blue]点[gold]压力[/gold]。",
-  "FLAGELLANT-WEIGHT_TRAINING_POWER.smartDescription": "每当你获得[gold]灾厄[/gold]时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]。"
+  "FLAGELLANT-WEIGHT_TRAINING_POWER.smartDescription": "每当你获得[gold]灾厄[/gold]时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]。",
+  "FLAGELLANT-CORPSE_INSTABILITY_POWER.title": "尸体不稳定",
+  "FLAGELLANT-CORPSE_INSTABILITY_POWER.description": "打出此牌后，你的生命在本回合每变化一次，就给予所有敌人[blue]X[/blue]层[gold]中毒[/gold]。",
+  "FLAGELLANT-CORPSE_INSTABILITY_POWER.smartDescription": "打出此牌后，你的生命在本回合每变化一次，就给予所有敌人[blue]{Amount}[/blue]层[gold]中毒[/gold]。"
 }
