@@ -21,8 +21,9 @@ public sealed class ExanimateFormPower : FlagellantPowerModel, IAfterStressChang
     ];
     public async Task AfterStressAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (amount <= 0) return;
+        if (amount <= 0 || power.Owner != base.Owner) return;
 
+        Flash();
         await PowerCmd.Apply<PoisonPower>(base.CombatState.HittableEnemies, base.Amount, base.Owner, null);
     }
 }

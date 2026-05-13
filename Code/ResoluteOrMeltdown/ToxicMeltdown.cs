@@ -28,6 +28,10 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
     {
         if (dealer == Owner.Creature && dealer != target && result.TotalDamage > 0 && target != null && target.IsAlive)
         {
+            if(Owner.Creature.GetPower<ToxicPower>() is ToxicPower toxicPower)
+            {
+                toxicPower.ToxicPowerFlash();
+            }
             await PowerCmd.Apply<PoisonPower>(target, result.TotalDamage, Owner.Creature, null);
         }
     }

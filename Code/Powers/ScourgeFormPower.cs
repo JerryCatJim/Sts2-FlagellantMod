@@ -22,6 +22,7 @@ public sealed class ScourgeFormPower : FlagellantPowerModel
     {
         if (delta >= 0m || creature == null || creature != Owner) return;
 
+        Flash();
         await PowerCmd.Apply<PoisonPower>(base.CombatState.HittableEnemies, base.Amount, base.Owner, null);
     }
 }
