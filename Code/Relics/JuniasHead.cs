@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 
@@ -13,9 +14,8 @@ public class JuniasHead : FlagellantRelicModel, IModifyHpAmountReceived
 
     public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount)
     {
-        if (amount <= 0m || Owner.Creature.CombatState == null || creature == null || creature != Owner.Creature)
+        if (amount <= 0m || Owner.Creature.CombatState == null || CombatManager.Instance.IsOverOrEnding || creature == null || creature != Owner.Creature)
         {
-            //战斗刚结束，还未进入下一房间时CombatState还不为空，但应该没人会在这个时间点回血，否则他会发现多回了1点。
             modifiedAmount = amount;
             return false;
         }
