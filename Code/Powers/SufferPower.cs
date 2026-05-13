@@ -27,7 +27,7 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
         DoomPower? DPwr = creature.GetPower<DoomPower>();
         if (DPwr != null)
         {
-            await PowerCmd.ModifyAmount(DPwr, -Math.Round(delta), creature, ModelDb.Card<Suffer>());
+            await PowerCmd.ModifyAmount(DPwr, -Math.Round(delta) * Amount, creature, ModelDb.Card<Suffer>());
         }
     }
     public async Task AfterStressAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)

@@ -1,4 +1,5 @@
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Cards.Ancient;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -38,7 +39,7 @@ public sealed class RapturousPower : FlagellantPowerModel
         StressPower? SP = Owner.GetPower<StressPower>();
         if(SP != null)
         {
-            await PowerCmd.Decrement(SP);
+            await PowerCmd.ModifyAmount(SP, -Amount, base.Owner, ModelDb.Card<Rapturous>());
         }
     }
 }

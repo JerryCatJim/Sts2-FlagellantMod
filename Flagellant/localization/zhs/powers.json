@@ -60,5 +60,8 @@
   "FLAGELLANT-HOLD_THE_LINE_POWER.smartDescription": "每当你给予的[gold]破绽[/gold]被触发，抽[blue]{Amount}[/blue]张牌。",
   "FLAGELLANT-GIVE_NO_QUARTER_POWER.title": "毫不留情",
   "FLAGELLANT-GIVE_NO_QUARTER_POWER.description": "你打出的下[blue]X[/blue]张牌耗能变为0{energyPrefix:energyIcons(1)}。",
-  "FLAGELLANT-GIVE_NO_QUARTER_POWER.smartDescription": "你打出的下[blue]{Amount}[/blue]张牌耗能变为0{energyPrefix:energyIcons(1)}。"
+  "FLAGELLANT-GIVE_NO_QUARTER_POWER.smartDescription": "你打出的下[blue]{Amount}[/blue]张牌耗能变为0{energyPrefix:energyIcons(1)}。",
+  "FLAGELLANT-WEIGHT_TRAINING_POWER.title": "负重训练",
+  "FLAGELLANT-WEIGHT_TRAINING_POWER.description": "每当你获得[gold]灾厄[/gold]时，获得[blue]X[/blue]点[gold]压力[/gold]。",
+  "FLAGELLANT-WEIGHT_TRAINING_POWER.smartDescription": "每当你获得[gold]灾厄[/gold]时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]。"
 }

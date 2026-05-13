@@ -102,5 +102,9 @@
   "FLAGELLANT-RESTRAINT.title": "克己",
   "FLAGELLANT-RESTRAINT.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。\n获得{StressPower:diff()}点[gold]压力[/gold]。\n在下个回合获得{Energy:energyIcons()}。",
   "FLAGELLANT-TRUDGE.title": "跋涉",
-  "FLAGELLANT-TRUDGE.description": "造成{Damage:diff()}点伤害。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。"
+  "FLAGELLANT-TRUDGE.description": "造成{Damage:diff()}点伤害。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。",
+  "FLAGELLANT-WEIGHT_TRAINING.title": "负重训练",
+  "FLAGELLANT-WEIGHT_TRAINING.description": "每当你获得[gold]灾厄[/gold]时，获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-SETBACKS_TO_COURGE.title": "愈挫愈勇",
+  "FLAGELLANT-SETBACKS_TO_COURGE.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n抽{Cards:diff()}张牌。\n这张牌获得的[gold]压力[/gold]加1，耗能加1{energyPrefix:energyIcons(1)}。"
 }
