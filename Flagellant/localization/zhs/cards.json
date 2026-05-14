@@ -108,5 +108,15 @@
   "FLAGELLANT-SETBACKS_TO_COURGE.title": "愈挫愈勇",
   "FLAGELLANT-SETBACKS_TO_COURGE.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n抽{Cards:diff()}张牌。\n这张牌获得的[gold]压力[/gold]加1，耗能加1{energyPrefix:energyIcons(1)}。",
   "FLAGELLANT-CORPSE_INSTABILITY.title": "尸体不稳定",
-  "FLAGELLANT-CORPSE_INSTABILITY.description": "打出此牌后，你的生命在本回合每变化一次，就给予所有敌人{CorpseInstabilityPower:diff()}层[gold]中毒[/gold]。"
+  "FLAGELLANT-CORPSE_INSTABILITY.description": "打出此牌后，你的生命在本回合每变化一次，就给予所有敌人{CorpseInstabilityPower:diff()}层[gold]中毒[/gold]。",
+  "FLAGELLANT-BREAKING_DEAD.title": "绝命毒尸",
+  "FLAGELLANT-BREAKING_DEAD.description": "每当你给予[gold]中毒[/gold]时，多给予{BreakingDeadPower:diff()}层。",
+  "FLAGELLANT-BONE_MELTING_PALM.title": "化骨绵掌",
+  "FLAGELLANT-BONE_MELTING_PALM.description": "造成{Damage:diff()}点伤害。\n移除目标所有[gold]灾厄[/gold]，给予等量[gold]中毒[/gold]。",
+  "FLAGELLANT-BLISS.title": "极乐",
+  "FLAGELLANT-BLISS.description": "造成{Damage:diff()}点伤害。\n打出此牌后，你每在本回合失去一次生命，就获得{BlissPower:diff()}点[gold]压力[/gold]和{BlissPower:diff()}层[gold]再生[/gold]。",
+  "FLAGELLANT-RIPOSTE.title": "反击",
+  "FLAGELLANT-RIPOSTE.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。\n随机对敌人造成等量伤害{Repeat:diff()}次。",
+  "FLAGELLANT-CHEAT_DEATH.title": "欺骗死神",
+  "FLAGELLANT-CHEAT_DEATH.description": "造成{Damage:diff()}点伤害。\n你的生命每变化{HealthChangedTimes:diff()}次，就将这张牌放入你的[gold]手牌[/gold]。"
 }
