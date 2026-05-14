@@ -21,11 +21,11 @@ public class GiveNoQuarter : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         if(cardPlay.Target !=  null && cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
         {
             await PowerCmd.ModifyAmount(comboP, -1, base.Owner.Creature, this);
             await CommonActions.ApplySelf<GiveNoQuarterPower>(this);
         }
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
     }
 }

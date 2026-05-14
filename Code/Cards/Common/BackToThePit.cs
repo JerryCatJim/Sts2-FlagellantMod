@@ -6,7 +6,6 @@ using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Flagellant.Code.Cards.Common;
@@ -49,7 +48,8 @@ public class BackToThePit : FlagellantCardModel
         //这个事件会广播给deck内的卡牌，所以记得排除
         if (!IsInCombat) return Task.CompletedTask;
 
-        if (delta >= 0m || creature != Owner.Creature || Owner.Creature.CombatState == null || CombatManager.Instance.IsOverOrEnding)
+        if (delta >= 0m || creature != Owner.Creature || base.CombatState == null || CombatManager.Instance.IsOverOrEnding
+            || base.CombatState.CurrentSide != base.Owner.Creature.Side)
         {
             return Task.CompletedTask;
         }

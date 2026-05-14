@@ -12,11 +12,12 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class CheatDeath : FlagellantCardModel
 {
-    private int _healthChangedTimes = 0;
+    private int _needChangedTimes = 3;
     public CheatDeath() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithDamage(6, 3);
-        WithVar("HealthChangedTimes", 3);
+        WithVar("NeedChangedTimes", _needChangedTimes);
+        WithVar("HealthChangedTimes", 0);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -28,15 +29,20 @@ public class CheatDeath : FlagellantCardModel
         //这个事件会广播给deck内的卡牌，所以记得排除
         if (!IsInCombat) return;
 
-        if (delta == 0m || creature != Owner.Creature || Owner.Creature.CombatState == null || CombatManager.Instance.IsOverOrEnding)
+        if (delta == 0m || creature != Owner.Creature || base.CombatState == null || CombatManager.Instance.IsOverOrEnding
+            || base.CombatState.CurrentSide != base.Owner.Creature.Side)
         {
             return;
         }
 
-        ++_healthChangedTimes;
-        if (_healthChangedTimes % 3 == 0 && base.Pile.Type != PileType.Hand)
+        base.DynamicVars["HealthChangedTimes"].BaseValue++;
+        if (base.DynamicVars["HealthChangedTimes"].BaseValue % _needChangedTimes == 0)
         {
-            await CardPileCmd.Add(this, PileType.Hand);
+            base.DynamicVars["HealthChangedTimes"].BaseValue = 0;
+            if (base.Pile.Type != PileType.Hand)
+            {
+                await CardPileCmd.Add(this, PileType.Hand);
+            }
         }
         return;
     }

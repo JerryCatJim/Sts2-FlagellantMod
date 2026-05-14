@@ -118,5 +118,7 @@
   "FLAGELLANT-RIPOSTE.title": "反击",
   "FLAGELLANT-RIPOSTE.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。\n随机对敌人造成等量伤害{Repeat:diff()}次。",
   "FLAGELLANT-CHEAT_DEATH.title": "欺骗死神",
-  "FLAGELLANT-CHEAT_DEATH.description": "造成{Damage:diff()}点伤害。\n你的生命每变化{HealthChangedTimes:diff()}次，就将这张牌放入你的[gold]手牌[/gold]。"
+  "FLAGELLANT-CHEAT_DEATH.description": "造成{Damage:diff()}点伤害。\n每当你在你的回合变化{NeedChangedTimes:diff()}次生命，就将这张牌放入你的[gold]手牌[/gold]。{InCombat:\n(已变化{HealthChangedTimes:diff()}次)|}",
+  "FLAGELLANT-ANNIHILATE.title": "歼灭",
+  "FLAGELLANT-ANNIHILATE.description": "造成{Damage:diff()}点伤害。\n若目标有{ComboPower:comboIcons()}，则改为造成{ComboDamage:diff()}点伤害。"
 }
