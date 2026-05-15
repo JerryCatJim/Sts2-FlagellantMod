@@ -20,6 +20,6 @@ public class FearEruption : FlagellantCardModel
     {
         decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
         await CommonActions.ApplySelf<StressPower>(this);
-        await DamageCmd.Attack(stressNum + base.DynamicVars["StressPower"].BaseValue).FromCard(this).TargetingAllOpponents(base.CombatState).Execute(choiceContext);
+        await DamageCmd.Attack(stressNum + GetStressBeforeReceived()).FromCard(this).TargetingAllOpponents(base.CombatState).Execute(choiceContext);
     }
 }

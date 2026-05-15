@@ -29,7 +29,7 @@ public class SpreadingAnxiety : FlagellantCardModel
         await CommonActions.ApplySelf<StressPower>(this);
         foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<SpreadingAnxietyPower>(hittableEnemy, -(stressNum + base.DynamicVars["StressPower"].BaseValue), base.Owner.Creature, this);
+            await PowerCmd.Apply<SpreadingAnxietyPower>(hittableEnemy, -(stressNum + GetStressBeforeReceived()), base.Owner.Creature, this);
         }
     }
 }

@@ -23,6 +23,6 @@ public class Nervous : FlagellantCardModel
     {
         decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
         await CommonActions.ApplySelf<StressPower>(this);
-        await CreatureCmd.GainBlock(base.Owner.Creature, stressNum + base.DynamicVars["StressPower"].BaseValue, ValueProp.Move, cardPlay);
+        await CreatureCmd.GainBlock(base.Owner.Creature, stressNum + GetStressBeforeReceived(), ValueProp.Move, cardPlay);
     }
 }

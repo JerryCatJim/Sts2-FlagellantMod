@@ -24,6 +24,6 @@ public class AbsorbPain : FlagellantCardModel
     {
         decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
         await CommonActions.ApplySelf<StressPower>(this);
-        await CommonActions.ApplySelf<RegenPower>(this, stressNum + base.DynamicVars["StressPower"].BaseValue);
+        await CommonActions.ApplySelf<RegenPower>(this, stressNum + GetStressBeforeReceived());
     }
 }
