@@ -2,6 +2,7 @@ using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -10,7 +11,7 @@ namespace Flagellant.Code.Cards.Common;
 [Pool(typeof(FlagellantCardPool))]
 public class SpreadingPlague : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => !HasAnyPoisonedEnemy;
+    protected override bool ShouldGlowGoldInternal => base.CombatState?.HittableEnemies.Any((Creature e) => !e.HasPower<PoisonPower>()) ?? false;
     public SpreadingPlague() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithDamage(10,3);

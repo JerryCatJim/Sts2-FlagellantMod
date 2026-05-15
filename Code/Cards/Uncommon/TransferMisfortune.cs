@@ -15,8 +15,7 @@ public class TransferMisfortune : FlagellantCardModel
     public TransferMisfortune() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithPowerTip<DoomPower>();
-        WithCards(1);
-        WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
+        WithCards(1,1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

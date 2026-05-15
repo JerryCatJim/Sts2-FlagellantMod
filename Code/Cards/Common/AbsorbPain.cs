@@ -16,7 +16,7 @@ public class AbsorbPain : FlagellantCardModel
         WithPowerTip<StressPower>();
         WithPowerTip<RegenPower>();
         WithKeyword(CardKeyword.Exhaust);
-        WithStress(2);
+        WithStress(1);
         WithCostUpgradeBy(-1);
     }
 
