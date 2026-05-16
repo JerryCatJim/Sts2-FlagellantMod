@@ -27,7 +27,7 @@ public class Execution : FlagellantCardModel
 
         await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
         await CommonActions.Apply<PoisonPower>(cardPlay.Target, this);
-        await CreatureCmd.Heal(Owner.Creature, GetLossPercentHp());
+        await CreatureCmd.Heal(Owner.Creature, GetHealingPercentHp());
         if (IsUpgraded)
         {
             await CommonActions.Apply<ComboPower>(cardPlay.Target, this);
