@@ -14,6 +14,8 @@ namespace Flagellant.Code.Character;
 
 public class Flagellant : PlaceholderCharacterModel
 {
+    public override float DeathAnimTime => 0f;
+
     public const string CharacterId = "Flagellant";
     public override string PlaceholderID => "silent";
 
