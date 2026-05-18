@@ -3,6 +3,7 @@ using Flagellant.Code.Abstract;
 using Flagellant.Code.Config;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
@@ -17,12 +18,12 @@ public static class FlagellantAnimationPatch
 {
 	public static void Postfix(NCreature __instance, string trigger)
 	{
-		if (__instance.Entity == null || !__instance.Entity.IsPlayer)
+		if (__instance.Entity == null || !__instance.Entity.IsPlayer || __instance.Entity.Player?.Character is not Flagellant.Code.Character.Flagellant)
 			return;
 
 		if (__instance.Entity.ModelId.ToString() == "CHARACTER.FLAGELLANT-FLAGELLANT")
         {
-			//Log.Info("[>>>Flagellant AnimeTrigger=]" + trigger);
+            //Log.Info("[>>>Flagellant AnimeTrigger=]" + trigger);
         }
 
 		switch (trigger)
@@ -51,7 +52,7 @@ public static class FlagellantAnimationPatch
         }
     }
 
-	private static void PlayAnim(NCreature node, string animName, bool playImmediately = false, bool bCardPlayAnim = false)
+	private static void PlayAnim(NCreature node, string animName, bool playImmediately = false, bool bHasChildStateMachine = false)
 	{
         if (!FlagellantConfig.ShouldPlayCardAnimAndSound) return;
 
@@ -69,45 +70,69 @@ public static class FlagellantAnimationPatch
 		if (state_machine != null)
 		{
 			//animPlayer.Stop(); //animPlayer.Stop对状态机没用?
-			if(playImmediately && !bCardPlayAnim)
-			{
-                state_machine.Start(animName);
-            }
-            else
+			if(!bHasChildStateMachine)
             {
-                state_machine.Travel(animName);
-            }
-			if (bCardPlayAnim) //打出卡牌动画先传送到CardPlay状态机再在内部传送到子动画
-			{
-                var Attack_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardPlay/playback");
-                if (Attack_SM != null)
+                if(playImmediately)
                 {
-                    state_machine.Travel("CardPlay");
-                    Attack_SM.Travel(animName);
-                    //单独调整melee_recover(Punish和Necrosis状态用的)动画，把前面的头掐掉看着更顺畅
-                    if(animName == "Punish" || animName == "Necrosis")
-                    {
-                        animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
-                    }
+                    state_machine.Start(animName);
+                }
+                else
+                {
+                    state_machine.Travel(animName);
+                }
+            }
+			if (bHasChildStateMachine) //打出卡牌动画先传送到CardPlay状态机再在内部传送到子动画
+			{
+                if(animName.Contains("CardSelect/"))
+                {
+                    var AR_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardSelect/playback");
 
-                    if(!FlagellantConfig.ShouldMuteSeparately)
+                    if (state_machine != null && AR_SM != null)
                     {
-                        //鞭笞之赐的声音调大点
-                        if (animName == "Lash")
+                        string cardAnimName = animName.Replace("CardSelect/", "");
+                        if(!String.IsNullOrEmpty(cardAnimName) && cardAnimName != "DoNothing")
                         {
-                            AudioManager.PlayCombatSfx("CardPlay/Lash", false, false, 0);
-                        }
-                        else
-                        {
-                            AudioManager.PlayCombatSfx("CardPlay/" + animName);
+                            state_machine.Start("CardSelect");
+                            AR_SM.Travel(cardAnimName);
+                            if (!FlagellantConfig.ShouldMuteSeparately)
+                            {
+                                AudioManager.PlayCombatSfx("CardSelect/" + cardAnimName);
+                            }
                         }
                     }
-
-                    //不要重复链接
-                    if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))
+                }
+                else
+                {
+                    var Attack_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardPlay/playback");
+                    if (Attack_SM != null)
                     {
-                        //持续监听,不要OnShot
-                        Attack_SM.Connect("state_started", _stateStartedCallable);
+                        state_machine.Travel("CardPlay");
+                        Attack_SM.Travel(animName);
+                        //单独调整melee_recover(Punish和Necrosis状态用的)动画，把前面的头掐掉看着更顺畅
+                        if (animName == "Punish" || animName == "Necrosis")
+                        {
+                            animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
+                        }
+
+                        if (!FlagellantConfig.ShouldMuteSeparately)
+                        {
+                            //鞭笞之赐的声音调大点
+                            if (animName == "Lash")
+                            {
+                                AudioManager.PlayCombatSfx("CardPlay/Lash", false, false, 0);
+                            }
+                            else
+                            {
+                                AudioManager.PlayCombatSfx("CardPlay/" + animName);
+                            }
+                        }
+
+                        //不要重复链接
+                        if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))
+                        {
+                            //持续监听,不要OnShot
+                            Attack_SM.Connect("state_started", _stateStartedCallable);
+                        }
                     }
                 }
             }
@@ -121,6 +146,26 @@ public static class FlagellantAnimationPatch
             AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
         }
     });
+    public static void PrintNodeTreeToLog(Node startNode, string indent = "")
+    {
+        var room = NCombatRoom.Instance;
+        if (room != null)
+        {
+            // 方式1：直接获取所有生物视觉节点（包括玩家和敌人）
+            foreach (var nc in room.CreatureNodes) // 返回 IEnumerable<NCreature>
+            {
+                // 检查有效性
+                if (GodotObject.IsInstanceValid(nc))
+                {
+                    Log.Info($"NCreature: {nc.Name}, Entity: {nc.Entity?.GetType().Name}, Side: {nc.Entity?.Side}, Player: {nc.Entity?.Player?.Character?.Id}");
+                }
+            }
+
+            // 方式2：通过 Creature 对象获取对应视觉节点
+            // var creature = ...;  // 某个 Creature 实例
+            // NCreature node = room.GetCreatureNode(creature);
+        }
+    }
 }
 
 [HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardSelected")]
@@ -135,8 +180,11 @@ public class FlagellantOnSelectedPatch
         FlagellantCardModel MyCard = (FlagellantCardModel)cardModel;
         if (MyCard == null || MyCard.CardSelectAnimName == "DoNothing") return;
 
-        NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(cardModel.Owner.Creature);
-		if(CharNode == null) return;
+        //
+        CreatureCmd.TriggerAnim(cardModel.Owner.Creature, "CardSelect/"+MyCard.CardSelectAnimName, 0);
+
+        /*NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(cardModel.Owner.Creature);
+        if (CharNode == null) return;
 
         var visual = CharNode.GetNodeOrNull<Node2D>("TestFlagellant");
         if (visual == null) return;
@@ -158,7 +206,7 @@ public class FlagellantOnSelectedPatch
             {
                 AudioManager.PlayCombatSfx("CardSelect/" + MyCard.CardSelectAnimName);
             }
-        }
+        }*/
     }
 }
 
@@ -185,6 +233,8 @@ public class FlagellantCancelPlayCardPatch
 
         CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
         if (Card == null) return;
+
+        if (Card.Owner.Character is not Flagellant.Code.Character.Flagellant) return;
 
         #region FixPowerCardPlayedTravelToIdle
         //发现PowerCard在打出时会先停顿一小会再播放打出动画(Attack和Skill倒是会立刻播放，但其实也经历了Travel到Idle的过程，只不过随后又立刻切换了)。
@@ -213,7 +263,10 @@ public class FlagellantCancelPlayCardPatch
         if (!isManuallyCancel) return;*/
         #endregion FixPowerCardPlayedTravelToIdle
 
-        NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(Card.Owner.Creature);
+        //
+        CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
+
+        /*NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(Card.Owner.Creature);
         if (CharNode == null) return;
 
         var visual = CharNode.GetNodeOrNull<Node2D>("TestFlagellant");
@@ -232,7 +285,7 @@ public class FlagellantCancelPlayCardPatch
             //卡牌打出流程：OnSelected -> CancelPlayCard -> OnPlay
             //Log.Info("[>>>FlagellantLog] Cancel Play Card: " + Card);
             state_machine.Travel("Idle");
-        }
+        }*/
     }
 }
 
@@ -243,6 +296,8 @@ public class FlagellantAttackCommandPatch
     public static void Postfix(AttackCommand __instance, CardModel card)
     {
         if (card is not FlagellantCardModel) return;
+
+        if (card.Owner.Character is not Flagellant.Code.Character.Flagellant) return;
 
         FlagellantCardModel MyCard = (FlagellantCardModel)card;
         if (MyCard != null && MyCard.CardPlayAnimName != "DoNothing")
@@ -257,6 +312,8 @@ public class FlagellantDeathAnimPatch
 {
     public static void Postfix(NCreature __instance)
     {
+        if (__instance.Entity.Player?.Character is not Flagellant.Code.Character.Flagellant) return;
+
         __instance.SetAnimationTrigger("Dead");
     }
 }

@@ -10,9 +10,9 @@ namespace Flagellant.Code.Commands;
 
 public static class RMCmd
 {
-    public static Task EnterResoluteOrMeltdownRandomly(PlayerChoiceContext ctx, Player player, CardModel? cardSource, bool isFlagellant = true)
+    public static Task TryEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
-        if(isFlagellant)
+        if(player.Character is Flagellant.Code.Character.Flagellant)
         {
             return EnterToxic(ctx, player, cardSource);
         }
@@ -52,6 +52,7 @@ public static class RMCmd
                 //0 => EnterResoluteOrMeltdown<YourResoluteClass>(ctx, player, cardSource),
                 //1 => and so on...
                 //_ => EnterResoluteOrMeltdown<YourResoluteClassDefault>(ctx, player, cardSource),
+                _ => EnterResoluteOrMeltdown<NoResoluteAndMeltdown>(ctx, player, cardSource)
             };
         }
         else
@@ -61,6 +62,7 @@ public static class RMCmd
                 //0 => EnterResoluteOrMeltdown<YourMeltdownClass>(ctx, player, cardSource),
                 //1 => and so on...
                 //_ => EnterResoluteOrMeltdown<YourMeltdownClassDefault>(ctx, player, cardSource),
+                _ => EnterResoluteOrMeltdown<NoResoluteAndMeltdown>(ctx, player, cardSource)
             };
         }
     }

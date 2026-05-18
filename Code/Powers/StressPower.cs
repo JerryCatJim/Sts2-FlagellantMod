@@ -53,7 +53,7 @@ public sealed class StressPower : FlagellantPowerModel
             if (Owner.Player is Player player)
             {   
                 var ctx = new ThrowingPlayerChoiceContext();
-                await RMCmd.EnterResoluteOrMeltdownRandomly(ctx, player, cardSource);
+                await RMCmd.TryEnterResoluteOrMeltdown(ctx, player, cardSource);
             }
         }
     }
