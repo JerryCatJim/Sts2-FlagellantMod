@@ -4,7 +4,9 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -21,6 +23,20 @@ public class Sepsis : FlagellantCardModel
         WithVar("TriggerPoison", 2, 1);
         WithPowerTip<PoisonPower>();
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
+        WithCalculatedVar("PoisonDamage", 0,
+            ((CardModel card, Creature? target) =>
+            {
+                if (target == null || !target.HasPower<PoisonPower>()) return 0;
+
+                int poisonTimes = target.HasPower<ComboPower>() ? card.DynamicVars["TriggerPoison"].IntValue + 1 : card.DynamicVars["TriggerPoison"].IntValue;
+                decimal damageNum = 0;
+                for(int  i = 0; i < poisonTimes; i++)
+                {
+                    damageNum += Math.Max(0, target?.GetPower<PoisonPower>()?.Amount - i ?? 0);
+                }
+                return damageNum;
+            }
+            ));
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

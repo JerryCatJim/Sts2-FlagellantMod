@@ -623,10 +623,9 @@ shadow_enabled = true
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -209.0
-offset_top = -416.0
-offset_right = 208.0
-offset_bottom = -2.0
+offset_left = -150.0
+offset_top = -380.0
+offset_right = 150.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true

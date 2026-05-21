@@ -4,7 +4,9 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -13,27 +15,47 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class Martyrdom : FlagellantCardModel
 {
-    protected override bool IsPlayable => base.Owner.Creature.HasPower<DoomPower>();
+    private decimal _doomNum = 0;
     public Martyrdom() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithPowerTip<DoomPower>();
         WithPower<ComboPower>(1);
-        WithAnimName("Lash");
+        WithAnimName("Deathless");
+        WithCalculatedDamage(0, ((CardModel card, Creature? c) =>
+        {
+            if (card != null && card is Martyrdom myCard)
+            {
+                if (myCard._doomNum != 0)
+                {
+                    return myCard._doomNum;
+                }
+                else
+                {
+                    return myCard.Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
+                }
+            }
+            return 0;
+        }
+        ));
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        decimal doomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
-        if(doomNum > 0m)
+        await PlayCardAnim();
+        _doomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
+        if(_doomNum > 0 || base.DynamicVars.CalculatedDamage.EnchantedValue > 0)
         {
-            await CreatureCmd.Damage(choiceContext, Owner.Creature, doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
-            decimal newDoomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? doomNum;
-            await DamageCmd.Attack(newDoomNum).FromCard(this).TargetingAllOpponents(base.CombatState).Execute(choiceContext);
-            await PowerCmd.Apply<ComboPower>(base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);
-            if (IsUpgraded)
-            {
-                await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
-            }
+            await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
         }
+        if(_doomNum > 0m)
+        {
+            await CreatureCmd.Damage(choiceContext, Owner.Creature, _doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        }
+        await PowerCmd.Apply<ComboPower>(base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);
+        if (IsUpgraded)
+        {
+            await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
+        }
+        _doomNum = 0;
     }
 }

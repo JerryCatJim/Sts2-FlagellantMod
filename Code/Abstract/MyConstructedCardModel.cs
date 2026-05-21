@@ -105,6 +105,13 @@ public abstract class MyConstructedCardModel(
     {
         //目前只有RapturousPower会预先修改Stress的获得量(Stress一旦大于等于10点就会立刻归零，没啥好地方去接收归零前的实际值，先这样取巧地修改一下吧)
         decimal rapturousAmount = base.Owner.Creature.GetPower<RapturousPower>()?.Amount ?? 0;
-        return base.DynamicVars["StressPower"].BaseValue + rapturousAmount;
+        if (base.DynamicVars.ContainsKey("StressPower"))
+        {
+            return base.DynamicVars["StressPower"].BaseValue + (base.DynamicVars["StressPower"].BaseValue > 0 ? rapturousAmount : 0);
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
