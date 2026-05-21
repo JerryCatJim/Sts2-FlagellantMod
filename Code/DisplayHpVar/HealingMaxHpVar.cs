@@ -1,3 +1,5 @@
+using Flagellant.Code.Powers;
+using Flagellant.Code.Relics;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -25,6 +27,16 @@ public sealed class HealingMaxHpVar : DynamicVar
     public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
     {
         BaseValue = GetHealingPercentHp(card);
+        if(card.IsInCombat)
+        {
+            Creature myTarget = target == null ? card.Owner.Creature : target;
+            decimal modifiedNum = myTarget.GetPower<ManiacFormPower>()?.Amount ?? 0;
+            modifiedNum += myTarget.Player?.Relics.Count(e => e is JuniasHead) ?? 0;
+            if (modifiedNum != 0)
+            {
+                PreviewValue = BaseValue + modifiedNum;
+            }
+        }
     }
     protected decimal GetLossPercentHp(CardModel card)
     {

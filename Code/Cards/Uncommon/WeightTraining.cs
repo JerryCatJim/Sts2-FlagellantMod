@@ -13,7 +13,7 @@ public class WeightTraining : FlagellantCardModel
     public WeightTraining() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithPowerTip<WeightTrainingPower>();
-        WithPower<StressPower>(1);
+        WithStress(1);
         WithCostUpgradeBy(-1);
     }
 

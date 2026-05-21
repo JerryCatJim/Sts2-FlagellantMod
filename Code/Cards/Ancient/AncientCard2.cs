@@ -14,7 +14,7 @@ public class Rapturous : FlagellantCardModel
     {
         WithAnimName("Deathless");
         WithPowerTip<RapturousPower>();
-        WithPower<StressPower>(1);
+        WithStress(1);
         WithCostUpgradeBy(-1);
         WithVar("StressDecrease", 1);
     }

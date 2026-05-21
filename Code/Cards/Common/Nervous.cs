@@ -15,7 +15,7 @@ public class Nervous : FlagellantCardModel
     private decimal _calculatedStress = 0;
     public Nervous() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithPower<StressPower>(2);
+        WithStress(2);
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);
         WithCalculatedBlock(0, ((CardModel card, Creature? c) =>
         {
@@ -40,7 +40,6 @@ public class Nervous : FlagellantCardModel
         _calculatedStress = (base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m) + GetStressBeforeReceived();
         await CommonActions.ApplySelf<StressPower>(this);
         await CommonActions.CardBlock(this, base.DynamicVars.CalculatedBlock, cardPlay);
-        //await CreatureCmd.GainBlock(base.Owner.Creature, stressNum, ValueProp.Move, cardPlay);
         _calculatedStress = 0;
     }
 }
