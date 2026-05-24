@@ -1,12 +1,13 @@
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Rare;
 
@@ -17,7 +18,7 @@ public class Annihilate : FlagellantCardModel
     public Annihilate() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithDamage(12,4);
-        WithVar("ComboDamage", 24, 8);
+        WithVars(new DamageVar("ComboDamage",24,ValueProp.Move).WithUpgrade(8));
         WithPower<ComboPower>(1);
     }
 
