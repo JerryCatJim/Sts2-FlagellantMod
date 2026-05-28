@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ra7injoopate" path="res://Flagellant/Scenes/flagellant_model.tscn" id="2_mretl"]
 [ext_resource type="PackedScene" uid="uid://clir4kmgk1dvu" path="res://Flagellant/Scenes/StressUp.tscn" id="3_8lvay"]
-[ext_resource type="AnimationLibrary" uid="uid://dptdm08jt2wl5" path="res://flagellant_asset/flagellant_animlib.tres" id="3_mretl"]
+[ext_resource type="AnimationLibrary" uid="uid://dptdm08jt2wl5" path="res://flagellant_asset/combat_animlib.tres" id="3_mretl"]
 [ext_resource type="PackedScene" uid="uid://dsjb0pxmkqrgg" path="res://Flagellant/Scenes/StressDown.tscn" id="4_0f1q7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ydqrq"]

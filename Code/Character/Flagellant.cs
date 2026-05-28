@@ -34,7 +34,7 @@ public class Flagellant : PlaceholderCharacterModel
     public override int StartingHp => 80;
 
     // 人物模型tscn路径。要自定义见下。
-    public override string CustomVisualPath => "res://Flagellant/Scenes/flagellant.tscn";
+    public override string CustomVisualPath => "res://Flagellant/Scenes/combat_flagellant.tscn";
     // 卡牌拖尾场景。
     // public override string CustomTrailPath => "res://scenes/vfx/card_trail_ironclad.tscn";
     // 悬浮于继续游戏时的预览的人物头像路径。
@@ -44,9 +44,9 @@ public class Flagellant : PlaceholderCharacterModel
     // 能量表盘tscn路径。要自定义见下。
     //public override string CustomEnergyCounterPath => "res://test/scenes/test_energy_counter.tscn";
     // 篝火休息场景。
-    // public override string CustomRestSiteAnimPath => "res://scenes/rest_site/characters/ironclad_rest_site.tscn";
+    public override string CustomRestSiteAnimPath => "res://Flagellant/Scenes/campfire_flagellant.tscn";
     // 商店人物场景。
-    // public override string CustomMerchantAnimPath => "res://scenes/merchant/characters/ironclad_merchant.tscn";
+    public override string CustomMerchantAnimPath => "res://Flagellant/Scenes/shop_flagellant.tscn";
     // 多人模式-手指。
     // public override string CustomArmPointingTexturePath => null;
     // 多人模式剪刀石头布-石头。
