@@ -1,15 +1,15 @@
 using Flagellant.Audio;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Config;
+using Flagellant.Code.GameActions;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game.PeerInput;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Patches;
 
@@ -72,7 +72,12 @@ public static class FlagellantAnimationPatch
 			//animPlayer.Stop(); //animPlayer.Stop对状态机没用?
 			if(!bHasChildStateMachine)
             {
-                if(playImmediately)
+                if (animName == "Idle" && (state_machine.GetCurrentNode() == "Idle" || state_machine.GetCurrentNode() == "CalmIdle"))
+                {
+                    //已经在CalmIdle(Idle_A)状态时收到取消打出卡牌信号后不再调为Idle(Idle_B)状态
+                    return;
+                }
+                if (playImmediately)
                 {
                     state_machine.Start(animName);
                 }
@@ -146,26 +151,6 @@ public static class FlagellantAnimationPatch
             AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
         }
     });
-    public static void PrintNodeTreeToLog(Node startNode, string indent = "")
-    {
-        var room = NCombatRoom.Instance;
-        if (room != null)
-        {
-            // 方式1：直接获取所有生物视觉节点（包括玩家和敌人）
-            foreach (var nc in room.CreatureNodes) // 返回 IEnumerable<NCreature>
-            {
-                // 检查有效性
-                if (GodotObject.IsInstanceValid(nc))
-                {
-                    Log.Info($"NCreature: {nc.Name}, Entity: {nc.Entity?.GetType().Name}, Side: {nc.Entity?.Side}, Player: {nc.Entity?.Player?.Character?.Id}");
-                }
-            }
-
-            // 方式2：通过 Creature 对象获取对应视觉节点
-            // var creature = ...;  // 某个 Creature 实例
-            // NCreature node = room.GetCreatureNode(creature);
-        }
-    }
 }
 
 [HarmonyPatch(typeof(HoveredModelTracker), "OnLocalCardSelected")]
@@ -177,36 +162,19 @@ public class FlagellantOnSelectedPatch
 
         if (cardModel is not FlagellantCardModel) return;
 
-        FlagellantCardModel MyCard = (FlagellantCardModel)cardModel;
+        FlagellantCardModel? MyCard = cardModel as FlagellantCardModel;
         if (MyCard == null || MyCard.CardSelectAnimName == "DoNothing") return;
 
-        //
-        CreatureCmd.TriggerAnim(cardModel.Owner.Creature, "CardSelect/"+MyCard.CardSelectAnimName, 0);
-
-        /*NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(cardModel.Owner.Creature);
-        if (CharNode == null) return;
-
-        var visual = CharNode.GetNodeOrNull<Node2D>("TestFlagellant");
-        if (visual == null) return;
-
-        var animPlayer = visual.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-        if (animPlayer == null) return;
-
-        var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
-        if (animTree == null) return;
-
-        var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/playback");
-        var AR_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardSelect/playback");
-
-        if (state_machine != null && AR_SM != null)
+        if (FlagellantConfig.ShouldPlayCardAnimNetBroadcast)
         {
-            state_machine.Start("CardSelect");
-            AR_SM.Travel(MyCard.CardSelectAnimName);
-            if(!FlagellantConfig.ShouldMuteSeparately)
-            {
-                AudioManager.PlayCombatSfx("CardSelect/" + MyCard.CardSelectAnimName);
-            }
-        }*/
+            //为了网络同步播放动画
+            var action = new PlayCardAnimAction(MyCard, "CardSelect/" + MyCard.CardSelectAnimName, 0);
+            RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(action);
+        }
+        else
+        {
+            CreatureCmd.TriggerAnim(cardModel.Owner.Creature, "CardSelect/" + MyCard.CardSelectAnimName, 0);
+        }
     }
 }
 
@@ -232,9 +200,7 @@ public class FlagellantCancelPlayCardPatch
         if (!GodotObject.IsInstanceValid(__instance)) return;
 
         CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
-        if (Card == null) return;
-
-        if (Card.Owner.Character is not Flagellant.Code.Character.Flagellant) return;
+        if (Card == null || Card is not FlagellantCardModel) return;
 
         #region FixPowerCardPlayedTravelToIdle
         //发现PowerCard在打出时会先停顿一小会再播放打出动画(Attack和Skill倒是会立刻播放，但其实也经历了Travel到Idle的过程，只不过随后又立刻切换了)。
@@ -263,29 +229,16 @@ public class FlagellantCancelPlayCardPatch
         if (!isManuallyCancel) return;*/
         #endregion FixPowerCardPlayedTravelToIdle
 
-        //
-        CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
-
-        /*NCreature CharNode = NCombatRoom.Instance?.GetCreatureNode(Card.Owner.Creature);
-        if (CharNode == null) return;
-
-        var visual = CharNode.GetNodeOrNull<Node2D>("TestFlagellant");
-        if (visual == null) return;
-
-        var animPlayer = visual.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-        if (animPlayer == null) return;
-
-        var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
-        if (animTree == null) return;
-
-        var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/playback");
-
-        if (state_machine != null && state_machine.GetCurrentNode() != "CalmIdle")
+        if(FlagellantConfig.ShouldPlayCardAnimNetBroadcast)
         {
-            //卡牌打出流程：OnSelected -> CancelPlayCard -> OnPlay
-            //Log.Info("[>>>FlagellantLog] Cancel Play Card: " + Card);
-            state_machine.Travel("Idle");
-        }*/
+            //为了网络同步播放动画
+            var action = new PlayCardAnimAction(Card, "Idle", 0);
+            RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(action);
+        }
+        else
+        {
+            CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
+        }
     }
 }
 
