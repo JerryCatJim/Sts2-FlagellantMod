@@ -1,0 +1,16 @@
+{
+  "FLAGELLANT-FLAGELLANT.title": "Flagellant",
+  "FLAGELLANT-FLAGELLANT.titleObject": "Flagellant",
+  "FLAGELLANT-FLAGELLANT.description": "A living corpse whose flesh has festered from prolonged lashing.\nWhen the old crisis was resolved, the longing for pain in his mind guided him to the Spire, continuing his pilgrimage.",
+  "FLAGELLANT-FLAGELLANT.pronounObject": "He",
+  "FLAGELLANT-FLAGELLANT.possessiveAdjective": "His",
+  "FLAGELLANT-FLAGELLANT.pronounPossessive": "His",
+  "FLAGELLANT-FLAGELLANT.pronounSubject": "He",
+  "FLAGELLANT-FLAGELLANT.cardsModifierTitle": "Flagellant's Card",
+  "FLAGELLANT-FLAGELLANT.cardsModifierDescription": "The card of the Flagellant will appear in the store and rewards.",
+  "FLAGELLANT-FLAGELLANT.aromaPrinciple": "[sine][gray]Heh, the feeling of flesh being torn apart...[/gray][/sine]",
+  "FLAGELLANT-FLAGELLANT.eventDeathPrevention": "Even the Death can't take me away!",
+  "FLAGELLANT-FLAGELLANT.banter.alive.endTurnPing": "Time for pain!",
+  "FLAGELLANT-FLAGELLANT.banter.dead.endTurnPing": "More...",
+  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]I no longer need these worldly possessions...[/sine]"
+}

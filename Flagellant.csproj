@@ -118,10 +118,7 @@
     <ReadLinesFromFile File="Flagellant_Template.json">
         <Output TaskParameter="Lines" ItemName="JsonLines" />
     </ReadLinesFromFile>
-    <WriteLinesToFile
-        File="Flagellant.json"
-        Lines="@(JsonLines->Replace('$VERSION$', '$(Version)'))"
-        Overwrite="true" />
+    <WriteLinesToFile File="Flagellant.json" Lines="@(JsonLines-&gt;Replace('$VERSION$', '$(Version)'))" Overwrite="true" />
 </Target>
   <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
     <Message Text="Copying .dll and manifest to mods folder." Importance="high" />

@@ -12,16 +12,15 @@ public class Rapturous : FlagellantCardModel
 {
     public Rapturous() : base(2, CardType.Power, CardRarity.Ancient, TargetType.Self)
     {
-        WithAnimName("Deathless");
-        WithPowerTip<RapturousPower>();
-        WithStress(1);
+        WithAnimName("More");
+        WithPower<RapturousPower>(1);
+        WithPowerTip<StressPower>();
         WithCostUpgradeBy(-1);
-        WithVar("StressDecrease", 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<RapturousPower>(this, base.DynamicVars["StressPower"]?.BaseValue ?? 0);
+        await CommonActions.ApplySelf<RapturousPower>(this);
     }
 }

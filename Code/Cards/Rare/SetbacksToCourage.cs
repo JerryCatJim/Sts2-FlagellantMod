@@ -8,9 +8,9 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Flagellant.Code.Cards.Rare;
 
 [Pool(typeof(FlagellantCardPool))]
-public class SetbacksToCourge : FlagellantCardModel
+public class SetbacksToCourage : FlagellantCardModel
 {
-    public SetbacksToCourge() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public SetbacksToCourage() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithCards(1, 1);
         WithStress(1);

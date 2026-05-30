@@ -1,0 +1,8 @@
+{
+  "FLAGELLANT-HOPE_CANDLE.title": "Hope Candle",
+  "FLAGELLANT-HOPE_CANDLE.description": "Gain [gold]Strength[/gold] equal to your [gold]Stress[/gold].",
+  "FLAGELLANT-COMBO_POTION.title": "Combo Potion",
+  "FLAGELLANT-COMBO_POTION.description": "Apply [gold]Combo[/gold] to an enemy.",
+  "FLAGELLANT-SCOURGE_POTION.title": "Scourge Potion",
+  "FLAGELLANT-SCOURGE_POTION.description": "Set a player's HP to [blue]45%[/blue] of their max HP, and apply [blue]10[/blue] [gold]Stress[/gold] to them."
+}
