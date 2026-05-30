@@ -23,7 +23,8 @@ public class HopeCandle : FlagellantPotionModel
 
     public override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<StressPower>()
+        HoverTipFactory.FromPower<StressPower>(),
+        HoverTipFactory.FromPower<StrengthPower>()
     ];
 
     protected override async Task OnUse(PlayerChoiceContext ctx, Creature? target)

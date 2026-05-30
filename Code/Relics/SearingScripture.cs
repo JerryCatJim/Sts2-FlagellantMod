@@ -4,6 +4,7 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Rooms;
 
 namespace Flagellant.Code.Relics;
@@ -12,6 +13,10 @@ namespace Flagellant.Code.Relics;
 public class SearingScripture : FlagellantRelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Common;
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<ComboPower>()
+    ];
 
     public override async Task AfterRoomEntered(AbstractRoom room)
     {
