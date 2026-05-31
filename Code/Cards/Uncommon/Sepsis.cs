@@ -23,7 +23,7 @@ public class Sepsis : FlagellantCardModel
         WithVar("TriggerPoison", 2, 1);
         WithPowerTip<PoisonPower>();
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
-        WithCalculatedVar("PoisonDamage", 0,
+        WithCalculatedVar("CalculatedPoisonDamage", 0,
             ((CardModel card, Creature? target) =>
             {
                 if (target == null || !target.HasPower<PoisonPower>()) return 0;
