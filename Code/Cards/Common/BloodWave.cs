@@ -13,7 +13,7 @@ public class BloodWave : FlagellantCardModel
 {
     public BloodWave() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithHealingPercent(6, 2);
+        WithHealingPercent(5, 2);
         WithDamage(5, 2);
         WithPowerTip<RegenPower>();
     }

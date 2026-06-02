@@ -1,10 +1,10 @@
 {
   "FLAGELLANT-PAIN_BOX.title": "痛苦之匣",
   "FLAGELLANT-PAIN_BOX.flavor": "[red]恐惧是心灵的杀手......[/red]",
-  "FLAGELLANT-PAIN_BOX.description": "受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。",
+  "FLAGELLANT-PAIN_BOX.description": "在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。",
   "FLAGELLANT-DEATHS_HEAD.title": "死神之颅",
   "FLAGELLANT-DEATHS_HEAD.flavor": "[red]等等，你说这是谁的头颅？[/red]",
-  "FLAGELLANT-DEATHS_HEAD.description": "受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。\n在战斗结束时，回复等同于[gold]灾厄[/gold]层数的生命。",
+  "FLAGELLANT-DEATHS_HEAD.description": "在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。\n在战斗结束时，回复等同于[gold]灾厄[/gold]层数的生命。",
   "FLAGELLANT-BARRISTANS_HEAD.title": "老兵之颅",
   "FLAGELLANT-BARRISTANS_HEAD.flavor": "[red]傲慢的代价。[/red]",
   "FLAGELLANT-BARRISTANS_HEAD.description": "在你的回合结束时，获得等同于[gold]压力[/gold]的[gold]格挡[/gold]。",

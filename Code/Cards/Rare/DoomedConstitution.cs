@@ -15,7 +15,7 @@ public class DoomedConstitution : FlagellantCardModel
     {
         WithPowerTip<DoomPower>();
         WithPower<DoomedConstitutionPower>(1);
-        WithCostUpgradeBy(-1);
+        WithKeyword(CardKeyword.Innate, UpgradeType.Add);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
