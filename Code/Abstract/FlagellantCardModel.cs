@@ -1,4 +1,3 @@
-using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.Character;
@@ -10,7 +9,6 @@ using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Abstract;

@@ -1,0 +1,219 @@
+[gd_scene load_steps=32 format=3 uid="uid://bsk2bex2vik0u"]
+
+[ext_resource type="PackedScene" uid="uid://pu8kf1r8loor" path="res://Flagellant/Monster_Death/mdl_shard_death.tscn" id="1_cwawx"]
+[ext_resource type="AnimationLibrary" uid="uid://bwgjem6cbuqu" path="res://Flagellant/Monster_Death/Death_AnimLib.tres" id="2_cwawx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cwawx"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_d8xao"]
+sky_material = SubResource("ProceduralSkyMaterial_cwawx")
+
+[sub_resource type="Environment" id="Environment_5oia2"]
+background_mode = 2
+sky = SubResource("Sky_d8xao")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bi4if"]
+animation = &"shared_death_spawn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_55qdu"]
+animation = &"shared_death_attack_C_action"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yxteo"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jnqev"]
+graph_offset = Vector2(-373, 40)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_yxteo")
+nodes/TimeScale/position = Vector2(80, 140)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_55qdu")
+nodes/Animation/position = Vector2(-280, 140)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d8xao"]
+animation = &"shared_death_attack_C_recover"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yxteo"]
+animation = &"shared_death_attack_C_antic"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jnqev"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a1vgq"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_d8xao"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24943817, 0.076033115), 0.0, 0.0, 0, 0, Vector2(0.7505617, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_06o3x"]
+xfade_time = 0.3
+xfade_curve = SubResource("Curve_d8xao")
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_55qdu"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49662924, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bi4if"]
+xfade_time = 0.5
+xfade_curve = SubResource("Curve_55qdu")
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yxteo"]
+state_machine_type = 1
+states/C_Action/node = SubResource("AnimationNodeBlendTree_jnqev")
+states/C_Action/position = Vector2(385, 203)
+states/shared_death_attack_B_recover/node = SubResource("AnimationNodeAnimation_d8xao")
+states/shared_death_attack_B_recover/position = Vector2(689, 100)
+states/shared_death_attack_C_antic/node = SubResource("AnimationNodeAnimation_yxteo")
+states/shared_death_attack_C_antic/position = Vector2(385, 81)
+transitions = ["Start", "shared_death_attack_C_antic", SubResource("AnimationNodeStateMachineTransition_jnqev"), "shared_death_attack_B_recover", "End", SubResource("AnimationNodeStateMachineTransition_a1vgq"), "shared_death_attack_C_antic", "C_Action", SubResource("AnimationNodeStateMachineTransition_06o3x"), "C_Action", "shared_death_attack_B_recover", SubResource("AnimationNodeStateMachineTransition_bi4if")]
+graph_offset = Vector2(36, 28)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jnqev"]
+animation = &"shared_death_impact_action"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_06o3x"]
+animation = &"shared_death_impact_recover"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3v2fr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a0grd"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bgy3i"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_23xe1"]
+states/shared_death_impact_action/node = SubResource("AnimationNodeAnimation_jnqev")
+states/shared_death_impact_action/position = Vector2(393, 49)
+states/shared_death_impact_recover/node = SubResource("AnimationNodeAnimation_06o3x")
+states/shared_death_impact_recover/position = Vector2(561, 134)
+transitions = ["Start", "shared_death_impact_action", SubResource("AnimationNodeStateMachineTransition_3v2fr"), "shared_death_impact_action", "shared_death_impact_recover", SubResource("AnimationNodeStateMachineTransition_a0grd"), "shared_death_impact_recover", "End", SubResource("AnimationNodeStateMachineTransition_bgy3i")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ao6me"]
+animation = &"shared_death_idle_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wadpr"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_11wwl"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ygjl1"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_23xe1"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ao6me"]
+xfade_time = 0.5
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_jnqev"]
+states/Spawn/node = SubResource("AnimationNodeAnimation_bi4if")
+states/Spawn/position = Vector2(344, 100)
+states/Start/position = Vector2(216, 100)
+states/attack/node = SubResource("AnimationNodeStateMachine_yxteo")
+states/attack/position = Vector2(655, 45)
+states/hurt/node = SubResource("AnimationNodeStateMachine_23xe1")
+states/hurt/position = Vector2(655, 155)
+states/idle/node = SubResource("AnimationNodeAnimation_ao6me")
+states/idle/position = Vector2(470, 100)
+transitions = ["idle", "attack", SubResource("AnimationNodeStateMachineTransition_wadpr"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_11wwl"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_ygjl1"), "Start", "Spawn", SubResource("AnimationNodeStateMachineTransition_23xe1"), "Spawn", "idle", SubResource("AnimationNodeStateMachineTransition_ao6me")]
+graph_offset = Vector2(12, 1)
+
+[node name="TestDeath" type="Node2D"]
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(-1, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Visuals"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -790.0
+offset_right = 450.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Visuals/SubViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(900, 900)
+render_target_update_mode = 4
+
+[node name="mdl_shard_death" parent="Visuals/SubViewportContainer/SubViewport" instance=ExtResource("1_cwawx")]
+transform = Transform3D(-34.20201, 0, 93.96925, 0, 99.99999, 0, -93.96926, 0, -34.20201, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Visuals/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 1.7, 3.4)
+near = 0.001
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Visuals/SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Visuals/SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_5oia2")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -512.0
+offset_right = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -580)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -256)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/mdl_shard_death")
+libraries = {
+&"": ExtResource("2_cwawx")
+}
+autoplay = "shared_death_idle_A"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%Visuals/SubViewportContainer/SubViewport/mdl_shard_death")
+tree_root = SubResource("AnimationNodeStateMachine_jnqev")
+anim_player = NodePath("../AnimationPlayer")
+parameters/attack/C_Action/TimeScale/scale = 5.0

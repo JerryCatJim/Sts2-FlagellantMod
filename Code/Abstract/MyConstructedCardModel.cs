@@ -1,3 +1,4 @@
+using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.DisplayHpVar;
@@ -8,7 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace BaseLib.Abstracts;
+namespace Flagellant.Code.Abstract;
 
 public abstract class MyConstructedCardModel(
     int canonicalEnergyCost,
