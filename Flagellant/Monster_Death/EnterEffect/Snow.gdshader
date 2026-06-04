@@ -1,7 +1,5 @@
 shader_type canvas_item;
-
-// 屏幕纹理，用于获取游戏画面背景
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+render_mode blend_mix;
 
 // Snow appearance parameters
 uniform float spread : hint_range(0.0, 1.5) = 0.5;
@@ -55,10 +53,8 @@ void fragment() {
     }
 
     float snow_intensity = clamp(length(snow_accumulation), 0.0, 1.0);
-    // 关键修改：采样屏幕背景，而不是 TEXTURE
-    vec4 base_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+    vec4 snow_color_mod = snow_color;
+    snow_color_mod.a *= snow_intensity;
 
-    vec4 transparency_color = vec4(snow_color.rgb * (1.0 + snow_transparency), snow_intensity);
-
-    COLOR = mix(base_color, transparency_color, snow_intensity);
+    COLOR = snow_color_mod;  // 直接输出白色雪花，不混合任何背景
 }

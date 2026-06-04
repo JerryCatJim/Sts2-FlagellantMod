@@ -114,6 +114,10 @@
     <Content Include=".editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Code\Nodes\" />
+  </ItemGroup>
+
 <Target Name="GenerateModJson" BeforeTargets="CopyToModsFolderOnBuild">
     <ReadLinesFromFile File="Flagellant_Template.json">
         <Output TaskParameter="Lines" ItemName="JsonLines" />

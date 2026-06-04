@@ -20,29 +20,26 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Monster;
 
-// 创建一个简单的怪物，意图1和意图2循环
-// 意图1：造成伤害，获得格挡
-// 意图2：重击
 public class Death : CustomMonsterModel
 {
-    // 根据进阶提高最小血量，进阶8及以上为120，否则为100
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 120, 100);
+    // 根据进阶提高最小血量，进阶8及以上为A，否则为B
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 80, 110);
 
-    // 根据进阶提高最大血量，进阶8及以上为140，否则为120
-    public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 140, 120);
+    // 根据进阶提高最大血量，进阶8及以上为A，否则为B
+    public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 90, 120);
 
-    // 意图1的数值，伤害和格挡，根据进阶提高伤害
+    // 意图1的数值，伤害和格挡，进阶9提高伤害
     private int BasicDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 12, 10);
     private int BasicBlock => 8;
 
-    // 意图2的数值，重击伤害，根据进阶提高伤害
+    // 意图2的数值，重击伤害，进阶9提高伤害
     private int HeavyDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 24, 20);
 
     // 怪物场景，如果你的场景没有挂载脚本，参考这个
     public override NCreatureVisuals? CreateCustomVisuals() => NodeFactory<NCreatureVisuals>.CreateFromScene("res://Flagellant/Monster_Death/Death.tscn");
 
-    // 如果你挂载了自己的自定义脚本，使用这个
-    // public override string? CustomVisualPath => "res://Flagellant/Monster_Death/Death.tscn";
+    // 如果你挂载了自己的自定义脚本，使用这个(挂了也用上面的，这个会卡死)
+    //public override string? CustomVisualPath => "res://Flagellant/Monster_Death/Death.tscn";
 
     private Node2D? _vfxInstance;
 
@@ -55,7 +52,7 @@ public class Death : CustomMonsterModel
         _vfxInstance.Position = Vector2.Zero;
         _vfxInstance.Scale = Vector2.One;
 
-        AudioManager.PlayCombatSfx("res://Flagellant/Monster_Death/Sound_Death/death_intro_v4.wav", true, true);
+        AudioManager.PlayMonsterSfx("Spawn", true, false, -4);
         var combatRoom = NCombatRoom.Instance;
         if (combatRoom != null)
         {
@@ -64,16 +61,37 @@ public class Death : CustomMonsterModel
                 combatRoom.AddChild(_vfxInstance);
             }
         }
+
+        //给SubViewportContainer挂了cs脚本，无需在代码中检测
+        /*NCreature? node = NCombatRoom.Instance?.GetCreatureNode(base.Creature);
+        if(node != null)
+        {
+            var MyNode = node.GetNodeOrNull<Node2D>("TestDeath");
+            if (MyNode != null)
+            {
+                var SVC = MyNode.GetNodeOrNull<SubViewportContainer>("Visuals/SubViewportContainer");
+                if(SVC != null)
+                {
+                    await Cmd.CustomScaledWait(3.5f, 3.5f);
+                    SVC.Material = null;
+                }
+            }
+        }*/
         return Task.CompletedTask;
     }
 
-    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature target, bool wasRemovalPrevented, float deathAnimLength)
+    public override async Task BeforeDeath(Creature creature)
     {
+        if (creature != Creature) return;
+
+        AudioManager.PlayMonsterSfx("Dead", true, false, -2);
+        await CreatureCmd.TriggerAnim(Creature, "Dead", 0);
+        await Cmd.CustomScaledWait(2f, 2f, true);
+
         if (_vfxInstance != null)
         {
             _vfxInstance.QueueFree();
         }
-        return;
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
@@ -93,6 +111,8 @@ public class Death : CustomMonsterModel
             async targets => await DamageCmd // 意图2实际执行效果，这里直接用lambda
                 .Attack(HeavyDamage)
                 .FromMonster(this)
+                .WithAttackerAnim("Attack/Attack_B", 0f) // 如果有攻击动画，可以取消注释并替换成实际动画名称和延迟
+                .WithWaitBeforeHit(1, 1)
                 .WithAttackerFx(null, AttackSfx)
                 .WithHitFx("vfx/vfx_attack_blunt")
                 .Execute(null),
@@ -117,7 +137,8 @@ public class Death : CustomMonsterModel
         await DamageCmd
             .Attack(BasicDamage)
             .FromMonster(this)
-            .WithAttackerAnim("Attack", 0.5f) // 如果有攻击动画，可以取消注释并替换成实际动画名称和延迟
+            .WithAttackerAnim("Attack/Attack_Point", 0f)
+            .WithWaitBeforeHit(1, 1)
             .WithAttackerFx(null, AttackSfx) // 攻击音效
             .WithHitFx("vfx/vfx_attack_blunt") // 攻击特效
             .Execute(null);

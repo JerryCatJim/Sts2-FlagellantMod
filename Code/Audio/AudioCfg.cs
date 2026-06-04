@@ -8,7 +8,7 @@ namespace Flagellant.Audio
 {
     internal static class AudioCfg
     {
-        public static String GetPath(String AudioName)
+        public static String GetFlagellantPath(String AudioName)
         {
             String FileName = "";
             String PathHead = "res://Flagellant/Sounds/";
@@ -93,6 +93,35 @@ namespace Flagellant.Audio
                     break;
             }
             return FileName == "" ? FileName : PathHead+FileName+FileEnd;
+        }
+
+        public static String GetDeathPath(String AudioName)
+        {
+            String FileName = "";
+            String PathHead = "res://Flagellant/Monster_Death/Sound_Death/";
+            String FileEnd = ".wav";
+
+            switch (AudioName)
+            {
+                case "Spawn":
+                    FileName = "death_intro_v4";
+                    break;
+                case "Hit":
+                    FileName = "vo_monster_death_hurt_0" + CombatAudioPlayer.HitCount;
+                    CombatAudioPlayer.HitCount++;
+                    break;
+                case "Dead":
+                    FileName = "sfx_death_death";
+                    break;
+                case "Attack/Attack_C":
+                case "Attack/Attack_B":
+                case "Attack/Attack_Point":
+                case "Attack/Attack_Trample":
+                //DoNothing
+                default:
+                    break;
+            }
+            return FileName == "" ? FileName : PathHead + FileName + FileEnd;
         }
     }
 }
