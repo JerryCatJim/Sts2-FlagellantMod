@@ -113,10 +113,49 @@ namespace Flagellant.Audio
                 case "Dead":
                     FileName = "sfx_death_death";
                     break;
-                case "Attack/Attack_C":
-                case "Attack/Attack_B":
-                case "Attack/Attack_Point":
-                case "Attack/Attack_Trample":
+
+                //Attack_XXX
+                case "Attack_Point":
+                    FileName = "sfx_death_mm_antic";
+                    break;
+                case "Attack_B":
+                    FileName = "sfx_death_reaver_antic";
+                    break;
+                case "Attack_C":
+                    FileName = "sfx_death_waning_antic";
+                    break;
+                case "Attack_Trample":
+                    FileName = "sfx_death_trample_antic";
+                    break;
+
+                //XXX_Action
+                case "Point_Action":
+                    FileName = "sfx_death_mm_use";
+                    break;
+                case "B_Action":
+                    FileName = "sfx_death_reaver_use";
+                    break;
+                case "C_Action":
+                    FileName = "sfx_death_waning_use";
+                    break;
+                case "Trample_Action":
+                    FileName = "sfx_death_trample_use";
+                    break;
+
+                //XXX_Recover
+                case "Point_Recover":
+                    FileName = "sfx_death_mm_return";
+                    break;
+                case "B_Recover":
+                    FileName = "sfx_death_shadow_return";
+                    break;
+                case "C_Recover":
+                    FileName = "sfx_death_waning_return";
+                    break;
+                case "Trample_Recover":
+                    FileName = "sfx_death_trample_return";
+                    break;
+
                 //DoNothing
                 default:
                     break;

@@ -1,19 +1,16 @@
 using Flagellant.Audio;
-using Flagellant.Code.Abstract;
-using Flagellant.Code.Config;
-using Flagellant.Code.GameActions;
-using Flagellant.Code.Monster;
 using Godot;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Commands.Builders;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Logging;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Multiplayer.Game.PeerInput;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Runs;
 
-namespace Flagellant.Code.Patches;
+namespace Flagellant.Code.Monster;
 
 [HarmonyPatch(typeof(NCreature), "SetAnimationTrigger")]
 public static class DeathAnimPatch
@@ -38,7 +35,7 @@ public static class DeathAnimPatch
             case null:
                 break;
 
-            case "Dead":  //官方的trigger("Dead")会先判断是否有spine结点，我的MOD人物场景里没有，所以在下面patch修改强行trigger，这回死亡能走进来了
+            case "Dead":
                 PlayAnim(__instance, "Dead", true);
                 break;
 
@@ -87,7 +84,7 @@ public static class DeathAnimPatch
                     state_machine.Travel(animName);
                 }
             }
-            if (bHasChildStateMachine) //打出卡牌动画先传送到CardPlay状态机再在内部传送到子动画
+            if (bHasChildStateMachine)
             {
                 if (animName.Contains("Attack/"))
                 {
@@ -98,13 +95,13 @@ public static class DeathAnimPatch
                         string attackAnimName = animName.Replace("Attack/", "");
                         if (!String.IsNullOrEmpty(attackAnimName))
                         {
+                            if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))
+                            {
+                                //持续监听,不要OnShot
+                                Attack_SM.Connect("state_started", _stateStartedCallable);
+                            }
                             state_machine.Start("Attack");
                             Attack_SM.Travel(attackAnimName);
-                        }
-                        if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))
-                        {
-                            //持续监听,不要OnShot
-                            Attack_SM.Connect("state_started", _stateStartedCallable);
                         }
                     }
                 }
@@ -113,10 +110,61 @@ public static class DeathAnimPatch
     }
     private static readonly Callable _stateStartedCallable = Callable.From((StringName state) =>
     {
-        /*if (!FlagellantConfig.ShouldMuteSeparately)
-        {
-            //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
-            AudioManager.PlayCombatSfx("Attack/" + state, state.ToString().Contains("Recover"));
-        }*/
+        bool isTemp = state.ToString().Contains("Recover");// || state.ToString().Contains("Action");
+        AudioManager.PlayMonsterSfx(state, isTemp);
     });
+}
+
+[HarmonyPatch(typeof(RunManager), "OnEnded")]
+public static class OnGameEndedPatch
+{
+    public static void Postfix()
+    {
+        CheckDeathAppearSingleton.ResetValue();
+    }
+}
+
+//修复千足虫死亡后 若遭遇死神 会导致千足虫凋零后带着死神一起死亡凋零的错误
+[HarmonyPatch(typeof(ReattachPower), "DoFadeOutOnAllSegments")]
+public static class DecimillipedeAfterDeathPatch
+{
+    public static bool Prefix(ReattachPower __instance)
+    {
+        float val = 0f;
+        List<NCreature> list = new List<NCreature>();
+        foreach (Creature enemy in __instance.CombatState.Enemies)
+        {
+            //我添加的插入方法
+            if (enemy.Monster is Death) continue;
+
+            NCreature nCreature = NCombatRoom.Instance?.GetCreatureNode(enemy);
+            if (nCreature != null)
+            {
+                nCreature.AnimHideIntent();
+                val = Math.Max(val, nCreature.GetCurrentAnimationLength());
+                list.Add(nCreature);
+            }
+        }
+
+        NMonsterDeathVfx nMonsterDeathVfx = NMonsterDeathVfx.Create(list);
+        if (nMonsterDeathVfx == null || list.Count <= 0)
+        {
+            return false;
+        }
+
+        Node parent = list[0].GetParent();
+        parent.AddChildSafely(nMonsterDeathVfx);
+        parent.MoveChild(nMonsterDeathVfx, list[0].GetIndex());
+
+        var method = AccessTools.Method(typeof(ReattachPower), "PlayVfxAndThenRemoveNodes");
+        Task deathAnimationTask = TaskHelper.RunSafely((Task)method.Invoke(__instance, new object[] { nMonsterDeathVfx, list }));
+        //Task deathAnimationTask = TaskHelper.RunSafely(__instance.PlayVfxAndThenRemoveNodes(nMonsterDeathVfx, list));
+        foreach (NCreature item in list)
+        {
+            item.DeathAnimationTask = deathAnimationTask;
+            NCombatRoom.Instance?.RemoveCreatureNode(item);
+        }
+
+        return false;
+    }
 }

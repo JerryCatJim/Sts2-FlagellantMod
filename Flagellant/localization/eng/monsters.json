@@ -1,5 +1,7 @@
 {
   "FLAGELLANT-DEATH.name": "Death",
-  "FLAGELLANT-DEATH.moves.BASIC_ATTACK.title": "Test1",
-  "FLAGELLANT-DEATH.moves.HEAVY_ATTACK.title": "Test2"
+  "FLAGELLANT-DEATH.moves.MEMENTO_MORI.title": "Memento Mori",
+  "FLAGELLANT-DEATH.moves.SOUL_REAVER.title": "Soul Reaver",
+  "FLAGELLANT-DEATH.moves.WANING_CRESCENT.title": "Waning Crescent",
+  "FLAGELLANT-DEATH.moves.TRAMPLE.title": "Trample"
 }

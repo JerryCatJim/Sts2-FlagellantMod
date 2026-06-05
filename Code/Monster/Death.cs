@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
 using Flagellant.Audio;
+using Flagellant.Code.Powers;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Commands;
@@ -8,32 +9,29 @@ using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Monsters;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Monster;
 
 public class Death : CustomMonsterModel
 {
-    // 根据进阶提高最小血量，进阶8及以上为A，否则为B
+    // 根据进阶提高最小和最大血量，进阶8及以上为A，否则为B
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 80, 110);
-
-    // 根据进阶提高最大血量，进阶8及以上为A，否则为B
     public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 90, 120);
 
-    // 意图1的数值，伤害和格挡，进阶9提高伤害
-    private int BasicDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 12, 10);
-    private int BasicBlock => 8;
-
-    // 意图2的数值，重击伤害，进阶9提高伤害
-    private int HeavyDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 24, 20);
+    // 意图的数值，进阶9提高
+    private int MementoMoriDoomNum => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 9, 13);
+    private int WaningCrescentDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 15, 12);
+    private int SoulReaverDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 24, 20);
+    private int TrampleDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 8, 6);
+    private int TrampleStrength => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 3);
 
     // 怪物场景，如果你的场景没有挂载脚本，参考这个
     public override NCreatureVisuals? CreateCustomVisuals() => NodeFactory<NCreatureVisuals>.CreateFromScene("res://Flagellant/Monster_Death/Death.tscn");
@@ -44,10 +42,21 @@ public class Death : CustomMonsterModel
     private Node2D? _vfxInstance;
 
     // 战斗开始时，在这里给自己上buff之类
-    public override Task AfterAddedToRoom()
+    public override async Task AfterAddedToRoom()
     {
+        CheckDeathAppearSingleton.DeathAppearTime++;
+
+        NCreature? DeathNode = NCombatRoom.Instance?.GetCreatureNode(base.Creature);
+        if(DeathNode != null)
+        {
+            DeathNode.Visible = false;
+            DeathNode.GlobalPosition = new Vector2(1417, 739);
+            await Cmd.CustomScaledWait(0.1f, 0.1f);
+            DeathNode.Visible = true;
+        }
+
         _vfxInstance = PreloadManager.Cache.GetScene("res://Flagellant/Monster_Death/EnterEffect/EnterEffect.tscn").Instantiate<Node2D>();
-        if (_vfxInstance == null) return Task.CompletedTask;
+        if (_vfxInstance == null) return;
 
         _vfxInstance.Position = Vector2.Zero;
         _vfxInstance.Scale = Vector2.One;
@@ -77,7 +86,6 @@ public class Death : CustomMonsterModel
                 }
             }
         }*/
-        return Task.CompletedTask;
     }
 
     public override async Task BeforeDeath(Creature creature)
@@ -94,54 +102,129 @@ public class Death : CustomMonsterModel
         }
     }
 
-    protected override MonsterMoveStateMachine GenerateMoveStateMachine()
+    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        // 意图1：造成伤害，获得格挡
-        var basicAttack = new MoveState(
-            "BASIC_ATTACK", // 状态ID
-            BasicAttackMove, // 执行函数，或者直接用lambda也可
-                             // 以下是可变参数，可以填写任意数量的意图，全部展示
-            new SingleAttackIntent(BasicDamage),
-            new DefendIntent()
-        );
 
-        // 意图2：重击
-        var heavyAttack = new MoveState(
-            "HEAVY_ATTACK",
-            async targets => await DamageCmd // 意图2实际执行效果，这里直接用lambda
-                .Attack(HeavyDamage)
-                .FromMonster(this)
-                .WithAttackerAnim("Attack/Attack_B", 0f) // 如果有攻击动画，可以取消注释并替换成实际动画名称和延迟
-                .WithWaitBeforeHit(1, 1)
-                .WithAttackerFx(null, AttackSfx)
-                .WithHitFx("vfx/vfx_attack_blunt")
-                .Execute(null),
-            new SingleAttackIntent(HeavyDamage)
-        );
-
-        // 或者你也可以创建RandomBranchState（随机意图分支）和ConditionalBranchState（条件意图分支）来实现更复杂的状态转换逻辑
-
-        // 设置状态转换，意图1后接意图2，意图2后接意图1
-        basicAttack.FollowUpState = heavyAttack;
-        heavyAttack.FollowUpState = basicAttack;
-
-        // 添加2个意图，并且初始意图设成 basicAttack
-        return new MonsterMoveStateMachine([basicAttack, heavyAttack], basicAttack);
     }
 
-    // 意图1执行实际效果
-    private async Task BasicAttackMove(IReadOnlyList<Creature> targets)
+    protected override MonsterMoveStateMachine GenerateMoveStateMachine()
+    {
+        // 你也可以创建RandomBranchState（随机意图分支）和ConditionalBranchState（条件意图分支）来实现更复杂的状态转换逻辑
+        var MementoMori = new MoveState(
+            "MEMENTO_MORI",
+            MementoMoriMove,
+            new DebuffIntent(true)
+            );
+        var SoulReaver = new MoveState(
+            "SOUL_REAVER",
+            SoulReaverMove,
+            new SingleAttackIntent(SoulReaverDamage)
+            );
+        var WaningCrescent = new MoveState(
+            "WANING_CRESCENT",
+            WaningCrescentMove,
+            new SingleAttackIntent(WaningCrescentDamage),
+            new DefendIntent()
+            );
+        var Trample = new MoveState(
+            "TRAMPLE",
+            TrampleMove,
+            new SingleAttackIntent(TrampleDamage),
+            new BuffIntent(),
+            new DebuffIntent()
+            );
+
+        MementoMori.FollowUpState = SoulReaver;
+        SoulReaver.FollowUpState = WaningCrescent;
+        WaningCrescent.FollowUpState = Trample;
+        Trample.FollowUpState = MementoMori;
+
+        return new MonsterMoveStateMachine([MementoMori, SoulReaver, WaningCrescent, Trample], MementoMori);
+    }
+
+    private async Task MementoMoriMove(IReadOnlyList<Creature> targets)
+    {
+        await CreatureCmd.TriggerAnim(Creature, "Attack/Attack_Point", 0);
+        await Cmd.CustomScaledWait(1.5f, 1.5f);
+        NGame.Instance?.ScreenShake(ShakeStrength.Weak, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
+        await PowerCmd.Apply<DoomPower>(targets, MementoMoriDoomNum, Creature, null);
+        await PowerCmd.Apply<VulnerablePower>(targets, 2, Creature, null);
+        foreach (Creature target in targets)
+        {
+            if(target.Player != null && target.Player.Character is Character.Flagellant)
+            {
+                await PowerCmd.Apply<ComboPower>(target, 1, Creature, null);
+                await PowerCmd.Apply<StressPower>(target, 1, Creature, null);
+            }
+        }
+    }
+
+    private async Task SoulReaverMove(IReadOnlyList<Creature> targets)
     {
         // 说话
-        //TalkCmd.Play(L10NMonsterLookup("TEST-TEST_MONSTER.moves.BASIC_ATTACK.banter"), Creature, VfxColor.Blue);
+        //TalkCmd.Play(L10NMonsterLookup("FLAGELLANT-DEATH.moves.SOUL_REAVER.banter"), Creature, VfxColor.Blue);
         await DamageCmd
-            .Attack(BasicDamage)
+            .Attack(SoulReaverDamage)
             .FromMonster(this)
-            .WithAttackerAnim("Attack/Attack_Point", 0f)
-            .WithWaitBeforeHit(1, 1)
-            .WithAttackerFx(null, AttackSfx) // 攻击音效
+            .WithAttackerAnim("Attack/Attack_C", 0f) //原版其实是Attack_B，为了视觉冲击力，更有力量感，调换了一下动画
+            .AfterAttackerAnim(delegate
+            {
+                NGame.Instance?.ScreenShake(ShakeStrength.Medium, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
+                return Task.CompletedTask;
+            })
+            .WithWaitBeforeHit(1.2f, 1.2f)
+            .WithHitFx("vfx/vfx_attack_slash") // 攻击特效
+            .Execute(null);
+
+        foreach (Creature target in targets)
+        {
+            if (target.Player != null && target.Player.Character is Character.Flagellant)
+            {
+                await PowerCmd.Apply<StressPower>(target, 2, Creature, null);
+            }
+        }
+    }
+
+    private async Task WaningCrescentMove(IReadOnlyList<Creature> targets)
+    {
+        await DamageCmd
+            .Attack(WaningCrescentDamage)
+            .FromMonster(this)
+            .WithAttackerAnim("Attack/Attack_B", 0f) //原版其实是Attack_C
+            .AfterAttackerAnim(delegate
+            {
+                NGame.Instance?.ScreenShake(ShakeStrength.Strong, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
+                return Task.CompletedTask;
+            })
+            .WithWaitBeforeHit(1.2f, 1.2f)
+            .WithHitFx("vfx/vfx_attack_slash") // 攻击特效
+            .Execute(null);
+        await CreatureCmd.GainBlock(Creature, WaningCrescentDamage, ValueProp.Move, null);
+    }
+
+    private async Task TrampleMove(IReadOnlyList<Creature> targets)
+    {
+        await DamageCmd
+            .Attack(TrampleDamage)
+            .FromMonster(this)
+            .WithAttackerAnim("Attack/Attack_Trample", 0f)
+            .WithWaitBeforeHit(1.3f, 1.3f)
             .WithHitFx("vfx/vfx_attack_blunt") // 攻击特效
             .Execute(null);
-        await CreatureCmd.GainBlock(Creature, BasicBlock, ValueProp.Move, null);
+        foreach (Creature target in targets)
+        {
+            if (target.Player != null && target.Player.Character is Character.Flagellant)
+            {
+                if(target.GetPower<ComboPower>() is ComboPower comboP)
+                {
+                    NGame.Instance?.ScreenShake(ShakeStrength.Strong, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
+                    await PowerCmd.ModifyAmount(comboP, -1, target, null);
+                    await PowerCmd.Apply<RingingPower>(targets, 1m, Creature, null);
+                }
+                await PowerCmd.Apply<StressPower>(target, 2, Creature, null);
+            }
+        }
+        await PowerCmd.Apply<WeakPower>(targets, 2, Creature, null);
+        await PowerCmd.Apply<StrengthPower>(Creature, TrampleStrength, Creature, null);
     }
 }

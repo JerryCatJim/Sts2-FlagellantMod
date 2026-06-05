@@ -1,8 +1,9 @@
-[gd_scene load_steps=54 format=3 uid="uid://bsk2bex2vik0u"]
+[gd_scene load_steps=55 format=3 uid="uid://bsk2bex2vik0u"]
 
 [ext_resource type="Material" uid="uid://0i26vo7857ka" path="res://Flagellant/Monster_Death/Shader/Rect_Clear_MAT.tres" id="1_55qdu"]
 [ext_resource type="PackedScene" uid="uid://pu8kf1r8loor" path="res://Flagellant/Monster_Death/mdl_shard_death.tscn" id="1_cwawx"]
 [ext_resource type="AnimationLibrary" uid="uid://bwgjem6cbuqu" path="res://Flagellant/Monster_Death/Death_AnimLib.tres" id="2_cwawx"]
+[ext_resource type="Script" uid="uid://y8opi7yvyu7n" path="res://Code/Nodes/DeathSVC.cs" id="2_yxteo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cwawx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -127,21 +128,21 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yxteo"]
 state_machine_type = 1
 states/Attack_B/node = SubResource("AnimationNodeAnimation_3v2fr")
-states/Attack_B/position = Vector2(371, 130)
+states/Attack_B/position = Vector2(371, 72)
 states/Attack_C/node = SubResource("AnimationNodeAnimation_yxteo")
-states/Attack_C/position = Vector2(371, 74)
+states/Attack_C/position = Vector2(371, 130)
 states/Attack_Point/node = SubResource("AnimationNodeAnimation_wadpr")
 states/Attack_Point/position = Vector2(371, 242)
 states/Attack_Trample/node = SubResource("AnimationNodeAnimation_55qdu")
 states/Attack_Trample/position = Vector2(353, 186)
 states/B_Action/node = SubResource("AnimationNodeAnimation_a1vgq")
-states/B_Action/position = Vector2(518, 130)
+states/B_Action/position = Vector2(530, 72)
 states/B_Recover/node = SubResource("AnimationNodeAnimation_a0grd")
-states/B_Recover/position = Vector2(677, 130)
+states/B_Recover/position = Vector2(697, 72)
 states/C_Action/node = SubResource("AnimationNodeAnimation_bgy3i")
-states/C_Action/position = Vector2(518, 74)
+states/C_Action/position = Vector2(517, 130)
 states/C_Recover/node = SubResource("AnimationNodeAnimation_d8xao")
-states/C_Recover/position = Vector2(677, 74)
+states/C_Recover/position = Vector2(697, 130)
 states/End/position = Vector2(898, 162)
 states/Point_Action/node = SubResource("AnimationNodeAnimation_11wwl")
 states/Point_Action/position = Vector2(530, 242)
@@ -256,6 +257,7 @@ grow_vertical = 2
 pivot_offset = Vector2(0.5, 0.5)
 mouse_filter = 2
 stretch = true
+script = ExtResource("2_yxteo")
 
 [node name="SubViewport" type="SubViewport" parent="Visuals/SubViewportContainer"]
 own_world_3d = true

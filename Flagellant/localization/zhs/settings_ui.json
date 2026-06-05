@@ -12,5 +12,16 @@
   "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.hover.desc": "游戏音量全100的情况下，0dB的音量就已经很高了哦！快速连续打出相同带音效卡牌时可能会因为音效重叠而音量突然增高！（注意音量值，保护耳朵！）",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.title": "是否网络同步选牌动画",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.title": "是否想让联机的队友看到你的选牌动画",
-  "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.desc": "勾选后可以让联机模式的队友看到你的选牌动画。"
+  "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.desc": "勾选后可以让联机模式的队友看到你的选牌动画。",
+  "FLAGELLANT-DEATH_ENCOUNTER.title": "遭遇死神",
+  "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.title": "死神是否只猎杀鞭笞者",
+  "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.title": "取消勾选后所有角色都有概率遭遇死神",
+  "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.desc": "取消勾选后所有角色都有概率遭遇死神。",
+  "FLAGELLANT-DEATH_ENCOUNTER_CHANCE.title": "遭遇特殊怪物死神的概率",
+  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.title": "单局游戏内死神出现的最大次数",
+  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.title": "单局游戏内死神出现的最大次数",
+  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "关闭游戏进程后再打开会导致当前计数清零，请尽量一口气通关一局游戏。",
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "死神是否在小怪房间出现",
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "死神是否在精英房间出现",
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "死神是否在BOSS房间出现"
 }

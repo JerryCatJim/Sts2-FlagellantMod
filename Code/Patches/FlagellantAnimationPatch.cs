@@ -111,25 +111,10 @@ public static class FlagellantAnimationPatch
                     var Attack_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardPlay/playback");
                     if (Attack_SM != null)
                     {
-                        state_machine.Travel("CardPlay");
-                        Attack_SM.Travel(animName);
                         //单独调整melee_recover(Punish和Necrosis状态用的)动画，把前面的头掐掉看着更顺畅
                         if (animName == "Punish" || animName == "Necrosis")
                         {
                             animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
-                        }
-
-                        if (!FlagellantConfig.ShouldMuteSeparately)
-                        {
-                            //鞭笞之赐的声音调大点
-                            if (animName == "Lash")
-                            {
-                                AudioManager.PlayCombatSfx("CardPlay/Lash", false, false, 0);
-                            }
-                            else
-                            {
-                                AudioManager.PlayCombatSfx("CardPlay/" + animName);
-                            }
                         }
 
                         //不要重复链接
@@ -138,6 +123,9 @@ public static class FlagellantAnimationPatch
                             //持续监听,不要OnShot
                             Attack_SM.Connect("state_started", _stateStartedCallable);
                         }
+
+                        state_machine.Travel("CardPlay");
+                        Attack_SM.Travel(animName);
                     }
                 }
             }
@@ -147,8 +135,9 @@ public static class FlagellantAnimationPatch
     {
         if(!FlagellantConfig.ShouldMuteSeparately)
         {
+            float VolumeDB = state == "Lash" ? -4 : -10;
             //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
-            AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"));
+            AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"), false, VolumeDB);
         }
     });
 }

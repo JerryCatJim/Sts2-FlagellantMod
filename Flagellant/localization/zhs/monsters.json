@@ -1,5 +1,7 @@
 {
-  "FLAGELLANT-DEATH.name": "Death",
-  "FLAGELLANT-DEATH.moves.BASIC_ATTACK.title": "Test1",
-  "FLAGELLANT-DEATH.moves.HEAVY_ATTACK.title": "Test2"
+  "FLAGELLANT-DEATH.name": "死神",
+  "FLAGELLANT-DEATH.moves.MEMENTO_MORI.title": "难逃一死",
+  "FLAGELLANT-DEATH.moves.SOUL_REAVER.title": "灵魂剥夺",
+  "FLAGELLANT-DEATH.moves.WANING_CRESCENT.title": "残月收割",
+  "FLAGELLANT-DEATH.moves.TRAMPLE.title": "践踏"
 }

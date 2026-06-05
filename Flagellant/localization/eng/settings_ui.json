@@ -12,5 +12,16 @@
   "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.hover.desc": "With the game volume at 100, 0dB is already quite high! Playing the same cards with sound effects rapidly may cause the volume to suddenly increase due to overlapping sound effects! (Please be mindful of the volume level and protect your ears!)",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.title": "Should Play Card Anim Net Broadcast",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.title": "Should Allow Teammate See Play Card Anim",
-  "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.desc": "Checking this option will allow your teammates in online mode to see your card select animation."
+  "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.desc": "Checking this option will allow your teammates in online mode to see your card select animation.",
+  "FLAGELLANT-DEATH_ENCOUNTER.title": "Death Encounter",
+  "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.title": "Should Death Only Hunt Flagellant",
+  "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.title": "Cancel toggle will allow all characters meet Death",
+  "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.desc": "Cancel toggle will allow all characters meet Death.",
+  "FLAGELLANT-DEATH_ENCOUNTER_CHANCE.title": "The Special Enemy Death Encounter Chance",
+  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.title": "Death Appear Max Time in Single Round Game",
+  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.title": "Death Appear Max Time in Single Round Game",
+  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "Close the game will cause the Appear Counter be 0, please try finish the game without an exit.",
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "Should Death Appear in Monster Room",
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "Should Death Appear in Elite Room",
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "Should Death Appear in Boss Room"
 }

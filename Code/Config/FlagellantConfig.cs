@@ -15,4 +15,16 @@ internal class FlagellantConfig : SimpleModConfig
     public static int FlagellantAudioSoundVolume { get; set; } = 0;
 
     public static bool ShouldPlayCardAnimNetBroadcast { get; set; } = true;
+
+    [ConfigSection("DeathEncounter")]
+    public static bool ShouldDeathOnlyHuntFlagellant { get; set; } = true;
+
+    [ConfigSlider(0, 100, 1, Format = "{0:0}%")]
+    public static int DeathEncounterChance { get; set; } = 6;
+
+    [ConfigSlider(1, 99, 1)]
+    public static int DeathAppearMaxTime { get; set; } = 1;
+    public static bool ShouldDeathAppearInMonsterRoom { get; set; } = true;
+    public static bool ShouldDeathAppearInEliteRoom { get; set; } = false;
+    public static bool ShouldDeathAppearInBossRoom { get; set; } = false;
 }
