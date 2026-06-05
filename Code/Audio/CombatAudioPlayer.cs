@@ -32,18 +32,5 @@ namespace Flagellant.Audio
                 return _monsterAudioPlayer;
             }
         }
-
-        private static int _hitCount = 1;
-        public static int HitCount
-        {
-            get
-            { 
-                return _hitCount; 
-            }
-            set
-            {
-                _hitCount = (_hitCount + value) % 5 + 1;
-            }
-        }
     }
 }

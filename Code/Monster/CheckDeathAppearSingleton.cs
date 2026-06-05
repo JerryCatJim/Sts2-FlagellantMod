@@ -12,18 +12,32 @@ namespace Flagellant.Code.Monster;
 
 public class CheckDeathAppearSingleton : CustomSingletonModel
 {
+    public CheckDeathAppearSingleton() : base(true, true)
+    {
+    }
+
     //Bug : 关闭游戏后再打开游戏会导致次数清零，单例也没法用[SavedProperty]保存，专门搞个计数遗物也没必要，先不管了
     public static int DeathAppearTime { get; set; } = 0;
 
     public static bool ShouldSpawnDeathThisRoom { get; set; } = false;
 
-    public CheckDeathAppearSingleton() : base(true, true)
+    private static int _hitCount = 0;
+    public static int HitCount
     {
+        get
+        {
+            return _hitCount;
+        }
+        set
+        {
+            _hitCount = value % 5;
+        }
     }
 
     public static void ResetValue()
     {
         DeathAppearTime = 0;
+        HitCount = 0;
     }
 
     public override Task AfterRoomEntered(AbstractRoom room)

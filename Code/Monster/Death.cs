@@ -23,11 +23,11 @@ namespace Flagellant.Code.Monster;
 public class Death : CustomMonsterModel
 {
     // 根据进阶提高最小和最大血量，进阶8及以上为A，否则为B
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 80, 110);
-    public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 90, 120);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 110, 80);
+    public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 120, 90);
 
     // 意图的数值，进阶9提高
-    private int MementoMoriDoomNum => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 9, 13);
+    private int MementoMoriDoomNum => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 13, 9);
     private int WaningCrescentDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 15, 12);
     private int SoulReaverDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 24, 20);
     private int TrampleDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 8, 6);
@@ -44,8 +44,6 @@ public class Death : CustomMonsterModel
     // 战斗开始时，在这里给自己上buff之类
     public override async Task AfterAddedToRoom()
     {
-        CheckDeathAppearSingleton.DeathAppearTime++;
-
         NCreature? DeathNode = NCombatRoom.Instance?.GetCreatureNode(base.Creature);
         if(DeathNode != null)
         {
@@ -104,7 +102,7 @@ public class Death : CustomMonsterModel
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-
+        CheckDeathAppearSingleton.DeathAppearTime++;
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
@@ -208,7 +206,7 @@ public class Death : CustomMonsterModel
             .Attack(TrampleDamage)
             .FromMonster(this)
             .WithAttackerAnim("Attack/Attack_Trample", 0f)
-            .WithWaitBeforeHit(1.3f, 1.3f)
+            .WithWaitBeforeHit(1.2f, 1.2f)
             .WithHitFx("vfx/vfx_attack_blunt") // 攻击特效
             .Execute(null);
         foreach (Creature target in targets)
