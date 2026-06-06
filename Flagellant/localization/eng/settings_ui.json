@@ -13,7 +13,7 @@
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.title": "Should Play Card Anim Net Broadcast",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.title": "Should Allow Teammate See Play Card Anim",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.desc": "Checking this option will allow your teammates in online mode to see your card select animation.",
-  "FLAGELLANT-DEATH_ENCOUNTER.title": "Death Encounter",
+  "FLAGELLANT-DEATH_ENCOUNTER.title": "Death Encounter (Would not in Weak Encounter)",
   "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.title": "Should Death Only Hunt Flagellant",
   "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.title": "Cancel toggle will allow all characters meet Death",
   "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.desc": "Cancel toggle will allow all characters meet Death.",

@@ -13,7 +13,7 @@
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.title": "是否网络同步选牌动画",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.title": "是否想让联机的队友看到你的选牌动画",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_NET_BROADCAST.hover.desc": "勾选后可以让联机模式的队友看到你的选牌动画。",
-  "FLAGELLANT-DEATH_ENCOUNTER.title": "遭遇死神",
+  "FLAGELLANT-DEATH_ENCOUNTER.title": "遭遇死神（不会出现在弱怪池）",
   "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.title": "死神是否只猎杀鞭笞者",
   "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.title": "取消勾选后所有角色都有概率遭遇死神",
   "FLAGELLANT-SHOULD_DEATH_ONLY_HUNT_FLAGELLANT.hover.desc": "取消勾选后所有角色都有概率遭遇死神。",

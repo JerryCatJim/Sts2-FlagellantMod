@@ -51,7 +51,7 @@ public class CheckDeathAppearSingleton : CustomSingletonModel
                 return Task.CompletedTask;
             }
 
-            if(DeathAppearTime >= FlagellantConfig.DeathAppearMaxTime)
+            if(combatRoom.Encounter.IsWeak || DeathAppearTime >= FlagellantConfig.DeathAppearMaxTime)
             {
                 return Task.CompletedTask;
             }
