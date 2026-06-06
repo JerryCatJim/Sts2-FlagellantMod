@@ -11,11 +11,13 @@ using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
@@ -73,31 +75,25 @@ public class Death : CustomMonsterModel
             {
                 combatRoom.AddChild(_vfxInstance);
             }
+            NRunMusicController.Instance?.StopMusic();
+            AudioManager.PlayMonsterBgm();
         }
-
-        //给SubViewportContainer挂了cs脚本，无需在代码中检测
-        /*NCreature? node = NCombatRoom.Instance?.GetCreatureNode(base.Creature);
-        if(node != null)
-        {
-            var MyNode = node.GetNodeOrNull<Node2D>("TestDeath");
-            if (MyNode != null)
-            {
-                var SVC = MyNode.GetNodeOrNull<SubViewportContainer>("Visuals/SubViewportContainer");
-                if(SVC != null)
-                {
-                    await Cmd.CustomScaledWait(3.5f, 3.5f);
-                    SVC.Material = null;
-                }
-            }
-        }*/
     }
 
     public override async Task BeforeDeath(Creature creature)
     {
         if (creature != Creature) return;
 
+        NRunMusicController.Instance?.UpdateMusic();
+        NRunMusicController.Instance?.UpdateTrack();
+        if (Creature.CombatState != null && Creature.CombatState.Encounter != null && Creature.CombatState.Encounter.HasBgm)
+        {
+            NRunMusicController.Instance?.PlayCustomMusic(Creature.CombatState.Encounter.CustomBgm);
+        }
+        AudioManager.StopMonsterBgm();
         AudioManager.PlayMonsterSfx("Dead", true, false, -2);
         await CreatureCmd.TriggerAnim(Creature, "Dead", 0);
+
         await Cmd.CustomScaledWait(2f, 2f, true);
 
         if (_vfxInstance != null)
@@ -108,7 +104,10 @@ public class Death : CustomMonsterModel
 
     public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
+        if (creature != Creature) return Task.CompletedTask;
+
         CheckDeathAppearSingleton.DeathAppearTime++;
+
         AbstractRoom? currentRoom = base.CombatState.RunState.CurrentRoom;
         if (currentRoom is CombatRoom combatRoom)
         {

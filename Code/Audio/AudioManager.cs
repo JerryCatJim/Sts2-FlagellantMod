@@ -95,5 +95,42 @@ internal static class AudioManager
             audioPlayer.QueueFree();
         }
     }
+    public static void PlayMonsterBgm(float VolumeDb = -4f)
+    {
+        AudioStream stream;
+        String path = "res://Flagellant/Monster_Death/Bgm/dd1_wild_bgm.mp3";
+        try
+        {
+            stream = PreloadManager.Cache.GetAsset<AudioStream>(path);
+        }
+        catch
+        {
+            GD.PrintErr($"[AudioManager] Could not load audio: {path}");
+            return;
+        }
+
+        //单例模式的audioPlayer，不要手动释放
+        var audioPlayer = CombatAudioPlayer.MonsterBgmPlayer;
+
+        audioPlayer.VolumeDb = 0.0f;
+        audioPlayer.VolumeDb += VolumeDb;// + FlagellantConfig.FlagellantAudioSoundVolume;
+        audioPlayer.Stream = stream;
+        audioPlayer.Bus = "SFX";
+
+        var combatRoom = NCombatRoom.Instance;
+        if (combatRoom != null)
+        {
+            if (audioPlayer.GetParent() == null)
+            {
+                combatRoom.AddChild(audioPlayer);
+            }
+            audioPlayer.Play();
+        }
+    }
+    public static void StopMonsterBgm()
+    {
+        var audioPlayer = CombatAudioPlayer.MonsterBgmPlayer;
+        audioPlayer.Stop();
+    }
 }
 

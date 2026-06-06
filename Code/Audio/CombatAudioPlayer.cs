@@ -32,5 +32,18 @@ namespace Flagellant.Audio
                 return _monsterAudioPlayer;
             }
         }
+        private static AudioStreamPlayer? _monsterBgmPlayer;
+        public static AudioStreamPlayer MonsterBgmPlayer
+        {
+            get
+            {
+                // IsInstanceValid 能同时检测 null 和已被 QueueFree 的对象
+                if (!GodotObject.IsInstanceValid(_monsterBgmPlayer))
+                {
+                    _monsterBgmPlayer = new AudioStreamPlayer();
+                }
+                return _monsterBgmPlayer;
+            }
+        }
     }
 }
