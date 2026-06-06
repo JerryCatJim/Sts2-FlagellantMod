@@ -1,61 +1,61 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
-using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Rooms;
-using MegaCrit.Sts2.Core.ValueProps;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.RelicPools;
+using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace Flagellant.Code.Relics;
 
-[Pool(typeof(FlagellantRelicPool))]
+[Pool(typeof(SharedRelicPool))]
 public class DeathsHead : FlagellantRelicModel
 {
+    private bool _wasUsed;
+
     public override RelicRarity Rarity => RelicRarity.Ancient;
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipFactory.FromPower<DoomPower>()
-    ];
 
-    public int DoomPowerAmount = 0;
+    public override bool IsUsedUp => _wasUsed;
 
-    public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(100m)];
+
+    [SavedProperty]
+    public bool WasUsed
     {
-        if (target != Owner.Creature || amount <= 0m)
+        get
         {
-            return amount;
+            return _wasUsed;
         }
-        if (Owner.Creature.CurrentHp <= amount && Owner.Creature.CombatState != null) //已经是除去格挡值后的伤害了
+        set
         {
-            Flash();
-            PowerCmd.Apply<DoomPower>(Owner.Creature, amount, Owner.Creature, null);
-            return 0m;
-        }
-        return amount;
-    }
-    public override Task AfterCombatEnd(CombatRoom room)
-    {
-        if (base.Owner.Creature.GetPower<DoomPower>() is DoomPower doomPower)
-        {
-            DoomPowerAmount = doomPower.Amount;
-        }
-        return base.AfterCombatEnd(room);
-    }
-    public override async Task AfterCombatVictory(CombatRoom room)
-    {
-        //CombatManager.cs的EndCombatInternal里会调用player2.AfterCombatEnd(),其中会清空所有Power,所以要在此之前记录DoomPower层数
-        if (!base.Owner.Creature.IsDead)
-        {
-            if(DoomPowerAmount > 0)
+            AssertMutable();
+            _wasUsed = value;
+            if (IsUsedUp)
             {
-                Flash();
-                await CreatureCmd.Heal(base.Owner.Creature, DoomPowerAmount);
+                base.Status = RelicStatus.Disabled;
             }
         }
-        DoomPowerAmount = 0;
+    }
+
+    public override bool ShouldDieLate(Creature creature)
+    {
+        if (creature != base.Owner.Creature)
+        {
+            return true;
+        }
+        if (WasUsed)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override async Task AfterPreventingDeath(Creature creature)
+    {
+        Flash();
+        WasUsed = true;
+        decimal amount = Math.Max(1m, (decimal)creature.MaxHp * (base.DynamicVars.Heal.BaseValue / 100m));
+        await CreatureCmd.Heal(creature, amount);
     }
 }

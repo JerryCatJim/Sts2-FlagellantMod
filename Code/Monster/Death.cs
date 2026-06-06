@@ -1,7 +1,9 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
 using Flagellant.Audio;
+using Flagellant.Code.Potions;
 using Flagellant.Code.Powers;
+using Flagellant.Code.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Commands;
@@ -9,6 +11,7 @@ using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
@@ -16,6 +19,9 @@ using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
+using MegaCrit.Sts2.Core.Rewards;
+using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Monster;
@@ -100,9 +106,20 @@ public class Death : CustomMonsterModel
         }
     }
 
-    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
         CheckDeathAppearSingleton.DeathAppearTime++;
+        AbstractRoom? currentRoom = base.CombatState.RunState.CurrentRoom;
+        if (currentRoom is CombatRoom combatRoom)
+        {
+            foreach(var player in combatRoom.CombatState.Players)
+            {
+                combatRoom.AddExtraReward(player, new CardReward(CardCreationOptions.ForRoom(player, RoomType.Boss), 3, player));
+                combatRoom.AddExtraReward(player, new RelicReward(ModelDb.Relic<DeathsHead>().ToMutable(), player));
+                combatRoom.AddExtraReward(player, new PotionReward(ModelDb.Potion<ScourgePotion>().ToMutable(), player));
+            }
+        }
+        return Task.CompletedTask;
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()

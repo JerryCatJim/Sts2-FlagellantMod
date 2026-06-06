@@ -7,18 +7,21 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Relics;
 
 [Pool(typeof(FlagellantRelicPool))]
-public class PainBox : FlagellantRelicModel
+public class DarkImpulse : FlagellantRelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.Starter;
+    public override RelicRarity Rarity => RelicRarity.Ancient;
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<DoomPower>()
     ];
+
+    public int DoomPowerAmount = 0;
 
     public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
@@ -34,8 +37,25 @@ public class PainBox : FlagellantRelicModel
         }
         return amount;
     }
-    public override RelicModel? GetUpgradeReplacement()
+    public override Task AfterCombatEnd(CombatRoom room)
     {
-        return ModelDb.Relic<DarkImpulse>();
+        if (base.Owner.Creature.GetPower<DoomPower>() is DoomPower doomPower)
+        {
+            DoomPowerAmount = doomPower.Amount;
+        }
+        return base.AfterCombatEnd(room);
+    }
+    public override async Task AfterCombatVictory(CombatRoom room)
+    {
+        //CombatManager.cs的EndCombatInternal里会调用player2.AfterCombatEnd(),其中会清空所有Power,所以要在此之前记录DoomPower层数
+        if (!base.Owner.Creature.IsDead)
+        {
+            if (DoomPowerAmount > 0)
+            {
+                Flash();
+                await CreatureCmd.Heal(base.Owner.Creature, DoomPowerAmount);
+            }
+        }
+        DoomPowerAmount = 0;
     }
 }

@@ -64,7 +64,7 @@ public class CheckDeathAppearSingleton : CustomSingletonModel
 
             if(CheckRoomTypeForSpawningDeath(combatRoom))
             {
-                //按理说应该只让这个Rng方法只在所有玩家内执行一次，多次执行会多人模式数据不同步，但是我没找到好的位置，所以自己写个哈希凑合一下
+                //按理说应该只让这个Rng方法在所有玩家内只执行一次，多次执行会多人模式数据不同步，但是我没找到好的位置，所以自己写个哈希凑合一下
                 //int index0 = combatRoom.CombatState.RunState.Rng.UpFront.NextInt(0, 99);
                 int CurrentHP = 1;
                 IRunState RunState = combatRoom.CombatState.RunState;
@@ -92,7 +92,7 @@ public class CheckDeathAppearSingleton : CustomSingletonModel
         {
             if(ShouldSpawnDeathThisRoom == true)
             {
-                await PowerCmd.Apply<SpawnDeathPower>(creature.CombatState.HittableEnemies, 1, null, null);
+                await PowerCmd.Apply<SpawnDeathPower>(creature, 1, null, null);
             }
         }
     }

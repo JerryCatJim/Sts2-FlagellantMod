@@ -19,7 +19,7 @@ public sealed class SpawnDeathPower : CustomPowerModel
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature target, bool wasRemovalPrevented, float deathAnimLength)
     {
-        if (!wasRemovalPrevented && target.IsEnemy && target.IsPrimaryEnemy && target.Monster is not Death
+        if (!wasRemovalPrevented && target == base.Owner && target.IsPrimaryEnemy && target.Monster is not Death
             && !target.HasPower<InfestedPower>() && !target.HasPower<StockPower>()) //排除蛆和斧头机器人的死亡后召唤power
         {
             if (target.CombatState != null)

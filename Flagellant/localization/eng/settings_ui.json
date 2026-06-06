@@ -20,7 +20,7 @@
   "FLAGELLANT-DEATH_ENCOUNTER_CHANCE.title": "The Special Enemy Death Encounter Chance",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.title": "Death Appear Max Time in Single Round Game",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.title": "Death Appear Max Time in Single Round Game",
-  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "Close the game will cause the Appear Counter be 0, please try finish the game without an exit.",
+  "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "Close the game will cause the Appear Counter be 0, please try finish the game without an exit(SL is OK).",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "Should Death Appear in Monster Room",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "Should Death Appear in Elite Room",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "Should Death Appear in Boss Room"
