@@ -24,6 +24,7 @@ internal class FlagellantConfig : SimpleModConfig
 
     [ConfigSlider(1, 99, 1)]
     public static int DeathAppearMaxTime { get; set; } = 1;
+    public static bool PredictWhetherDeathWillAppear { get; set; } = false;
     public static bool ShouldDeathAppearInMonsterRoom { get; set; } = true;
     public static bool ShouldDeathAppearInEliteRoom { get; set; } = false;
     public static bool ShouldDeathAppearInBossRoom { get; set; } = false;

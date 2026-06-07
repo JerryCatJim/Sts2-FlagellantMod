@@ -3,7 +3,7 @@ using Godot;
 
 namespace Flagellant.Audio
 {
-    public class CombatAudioPlayer() : CustomSingletonModel(true, false)
+    public class CombatAudioPlayer() : CustomSingletonModel(HookType.Run)
     {
         private static AudioStreamPlayer? _playerAudioPlayer;
         public static AudioStreamPlayer PlayerAudioPlayer

@@ -1,4 +1,5 @@
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Config;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -15,7 +16,7 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
 
     public override PowerStackType StackType => PowerStackType.Single;
 
-    //protected override bool IsVisibleInternal => false;
+    protected override bool IsVisibleInternal => FlagellantConfig.PredictWhetherDeathWillAppear;
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature target, bool wasRemovalPrevented, float deathAnimLength)
     {

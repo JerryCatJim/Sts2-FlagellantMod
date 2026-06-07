@@ -5,8 +5,10 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves;
 
 namespace Flagellant.Code.Monster;
 
@@ -49,6 +51,8 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
 
     public override Task AfterRoomEntered(AbstractRoom room)
     {
+        NAudioManager.Instance?.SetBgmVol(SaveManager.Instance.SettingsSave.VolumeBgm);
+
         ResetValue(false);
         if (room is CombatRoom combatRoom)
         {
@@ -62,16 +66,6 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
             }
         }
         return Task.CompletedTask;
-    }
-
-    public override async Task AfterCreatureAddedToCombat(Creature creature)
-    {
-        if (!ShouldSpawnDeathThisRoom) return;
-
-        if(creature.IsMonster && !creature.HasPower<StockPower>())
-        {
-            await PowerCmd.Apply<SpawnDeathPower>(creature, 1, null, null);
-        }
     }
 
     private static int GetRandomIndex(IRunState runState, int a, int b, int c, int N)

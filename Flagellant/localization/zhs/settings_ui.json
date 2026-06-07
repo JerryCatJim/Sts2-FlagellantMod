@@ -21,6 +21,7 @@
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.title": "单局游戏内死神出现的最大次数",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.title": "单局游戏内死神出现的最大次数",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "关闭游戏进程后再打开会导致当前计数清零，请尽量一口气通关一局游戏。(SL不影响)",
+  "FLAGELLANT-PREDICT_WHETHER_DEATH_WILL_APPEAR.title": "预测当前战斗是否会出现死神",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "死神是否在小怪房间出现",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "死神是否在精英房间出现",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "死神是否在BOSS房间出现"

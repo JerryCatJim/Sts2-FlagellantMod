@@ -88,9 +88,9 @@ public class Death : CustomMonsterModel
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = true;
     }
 
-    public override Task BeforeDeath(Creature creature)
+    public override async Task BeforeDeath(Creature creature)
     {
-        if (creature != Creature) return Task.CompletedTask;
+        if (creature != Creature) return;
 
         //奖励生成别放在AfterDeath，多人模式会不生效（可能是结算顺序问题）
         AbstractRoom? currentRoom = base.CombatState.RunState.CurrentRoom;
@@ -107,20 +107,20 @@ public class Death : CustomMonsterModel
                 combatRoom.AddExtraReward(player, new GoldReward(66, player));
             }
         }
-        return Task.CompletedTask;
-    }
-
-    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
-    {
-        if (creature != Creature) return;
 
         AudioManager.PlayMonsterSfx("Dead", true, false, -2);
         await CreatureCmd.TriggerAnim(Creature, "Dead", 0);
+        await Cmd.CustomScaledWait(2f, 2f, true);
+    }
+
+    public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    {
+        if (creature != Creature) return Task.CompletedTask;
 
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = CombatState.HittableEnemies.Any((Creature c) => c.IsAlive && c.Monster is Death);
         if(DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
         {
-            await Cmd.CustomScaledWait(2f, 2f, true);
+            //await Cmd.CustomScaledWait(2f, 2f, true);
             AudioManager.StopMonsterBgm();
             if (_vfxInstance != null)
             {
@@ -128,6 +128,7 @@ public class Death : CustomMonsterModel
             }
             DeathListenForRunStateSingleton.DeathAppearTime++;
         }
+        return Task.CompletedTask;
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
