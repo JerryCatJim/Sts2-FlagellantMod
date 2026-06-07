@@ -1,8 +1,14 @@
-using Godot;
-using MegaCrit.Sts2.Core.Assets;
-using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
 using Flagellant.Code.Config;
+using Flagellant.Code.Monster;
+using Godot;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Assets;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes.Audio;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Screens.Settings;
+using MegaCrit.Sts2.Core.Saves;
 
 namespace Flagellant.Audio;
 
@@ -35,7 +41,7 @@ internal static class AudioManager
         audioPlayer.Bus = "SFX";
         if(bIsTemp)
         {
-            audioPlayer.Finished += () => audioPlayer.QueueFree();
+            audioPlayer.Finished += () => audioPlayer.QueueFreeSafely();
         }
 
         var combatRoom = NCombatRoom.Instance;
@@ -49,7 +55,7 @@ internal static class AudioManager
         }
         else if(bIsTemp)
         {
-            audioPlayer.QueueFree();
+            audioPlayer.QueueFreeSafely();
         }
     }
 
@@ -73,12 +79,12 @@ internal static class AudioManager
         var audioPlayer = bIsTemp ? new AudioStreamPlayer() : CombatAudioPlayer.MonsterAudioPlayer;
 
         audioPlayer.VolumeDb = 0.0f;
-        audioPlayer.VolumeDb += VolumeDb;// + FlagellantConfig.FlagellantAudioSoundVolume;
+        audioPlayer.VolumeDb += VolumeDb;
         audioPlayer.Stream = stream;
         audioPlayer.Bus = "SFX";
         if (bIsTemp)
         {
-            audioPlayer.Finished += () => audioPlayer.QueueFree();
+            audioPlayer.Finished += () => audioPlayer.QueueFreeSafely();
         }
 
         var combatRoom = NCombatRoom.Instance;
@@ -92,7 +98,7 @@ internal static class AudioManager
         }
         else if (bIsTemp)
         {
-            audioPlayer.QueueFree();
+            audioPlayer.QueueFreeSafely();
         }
     }
     public static void PlayMonsterBgm(float VolumeDb = -4f)
@@ -113,9 +119,11 @@ internal static class AudioManager
         var audioPlayer = CombatAudioPlayer.MonsterBgmPlayer;
 
         audioPlayer.VolumeDb = 0.0f;
-        audioPlayer.VolumeDb += VolumeDb;// + FlagellantConfig.FlagellantAudioSoundVolume;
+        audioPlayer.VolumeDb += VolumeDb;
         audioPlayer.Stream = stream;
         audioPlayer.Bus = "SFX";
+
+        SetMonsterBgmPlayerVolumeByPercent(SaveManager.Instance.SettingsSave.VolumeBgm);
 
         var combatRoom = NCombatRoom.Instance;
         if (combatRoom != null)
@@ -123,14 +131,36 @@ internal static class AudioManager
             if (audioPlayer.GetParent() == null)
             {
                 combatRoom.AddChild(audioPlayer);
+                audioPlayer.Play();
+                NAudioManager.Instance?.SetBgmVol(0);
             }
-            audioPlayer.Play();
         }
     }
     public static void StopMonsterBgm()
     {
         var audioPlayer = CombatAudioPlayer.MonsterBgmPlayer;
         audioPlayer.Stop();
+        audioPlayer.QueueFreeSafely();
+        NAudioManager.Instance?.SetBgmVol(SaveManager.Instance.SettingsSave.VolumeBgm);
+    }
+
+    public static void SetMonsterBgmPlayerVolumeByPercent(float percent)
+    {
+        //SaveManager.Instance.SettingsSave.VolumeBgm在 [NBgmVolumeSlider] 类 的 "OnValueChanged"函数里接收的值已经/100.0了
+        CombatAudioPlayer.MonsterBgmPlayer.VolumeLinear = Math.Clamp(percent, 0, 1);
     }
 }
 
+[HarmonyPatch(typeof(NBgmVolumeSlider), "OnValueChanged")]
+public static class CreatureCmdHealPatch
+{
+    public static void Postfix(double value)
+    {
+        //从死神的战斗中退回到主界面会导致BGM音量为0，调一下滑动条就恢复正常了，没找到退回到主界面事件，懒得修了
+        if(CombatManager.Instance.IsInProgress && DeathListenForRunStateSingleton.IsDeathExistingInCombat == true)
+        {
+            NAudioManager.Instance?.SetBgmVol(0);
+            AudioManager.SetMonsterBgmPlayerVolumeByPercent((float)(value / 100.0));
+        }
+    }
+}

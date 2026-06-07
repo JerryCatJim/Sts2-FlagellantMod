@@ -120,7 +120,7 @@ public static class OnGameEndedPatch
 {
     public static void Postfix()
     {
-        CheckDeathAppearSingleton.ResetValue();
+        DeathListenForRunStateSingleton.ResetValue();
     }
 }
 

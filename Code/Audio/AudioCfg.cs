@@ -108,8 +108,8 @@ namespace Flagellant.Audio
                     FileName = "death_intro_v4";
                     break;
                 case "Hit":
-                    FileName = "vo_monster_death_hurt_0" + (CheckDeathAppearSingleton.HitCount + 1);
-                    CheckDeathAppearSingleton.HitCount++;
+                    FileName = "vo_monster_death_hurt_0" + (DeathListenForRunStateSingleton.HitCount + 1);
+                    DeathListenForRunStateSingleton.HitCount++;
                     break;
                 case "Dead":
                     FileName = "sfx_death_death";

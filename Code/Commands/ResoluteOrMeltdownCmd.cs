@@ -35,14 +35,14 @@ public static class RMCmd
     private static Task EnterRandomResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
         //You can also use official RNG class to get syncable random values.
+        int actIndex = player.RunState.CurrentActIndex;
         int floorCount  = player.RunState.TotalFloor;
-        int roomCount   = player.RunState.CurrentRoomCount;
-        int roundNumber = player.Creature?.CombatState?.RoundNumber ?? 0;
+        int roundNumber = player.Creature.CombatState?.RoundNumber ?? 0;
 
         //int index0 = player.PlayerRng.Transformations.NextInt(0, 9);
-        int index1 = GetRandomIndex(player, floorCount, roomCount, roundNumber, 10);
-        int index2 = GetRandomIndex(player, floorCount, roomCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
-        int index3 = GetRandomIndex(player, floorCount, roomCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
+        int index1 = GetRandomIndex(player, actIndex, floorCount, roundNumber, 10);
+        int index2 = GetRandomIndex(player, actIndex, floorCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
+        int index3 = GetRandomIndex(player, actIndex, floorCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
 
         bool isMeltdown = index1 >= 2; //0到9,Meltdown概率80%，所以2到9为Meltdown, 0和1为Resolute
         if(isMeltdown)

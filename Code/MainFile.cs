@@ -6,6 +6,8 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using System.Reflection;
 using Flagellant.Code.Config;
+using Logger = MegaCrit.Sts2.Core.Logging.Logger;
+using Godot;
 
 namespace Flagellant.Code;
 
@@ -22,7 +24,7 @@ namespace Flagellant.Code;
  * */
 
 [ModInitializer(nameof(Initialize))]
-public class MainFile
+public partial class MainFile// : Node
 {
 	public const string ModId = "Flagellant"; //At the moment, this is used only for the Logger and harmony names.
 

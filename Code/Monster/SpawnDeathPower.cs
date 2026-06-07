@@ -1,4 +1,4 @@
-using BaseLib.Abstracts;
+using Flagellant.Code.Abstract;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -9,18 +9,20 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Monster;
 
-public sealed class SpawnDeathPower : CustomPowerModel
+public sealed class SpawnDeathPower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.None;
 
     public override PowerStackType StackType => PowerStackType.Single;
 
-    protected override bool IsVisibleInternal => false;
+    //protected override bool IsVisibleInternal => false;
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature target, bool wasRemovalPrevented, float deathAnimLength)
     {
         if (!wasRemovalPrevented && target == base.Owner && target.IsPrimaryEnemy && target.Monster is not Death
-            && !target.HasPower<InfestedPower>() && !target.HasPower<StockPower>()) //排除蛆和斧头机器人的死亡后召唤power
+            && !target.HasPower<InfestedPower>() 
+            && !target.HasPower<StockPower>() 
+            && !target.HasPower<SurprisePower>()) //排除蛆,地精和斧头机器人的死亡后召唤power
         {
             if (target.CombatState != null)
             {

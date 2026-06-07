@@ -26,7 +26,7 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
 
     public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
     {
-        if (dealer == Owner.Creature && dealer != target && result.TotalDamage > 0 && target != null && target.IsAlive)
+        if (dealer == Owner.Creature && dealer != target && result.TotalDamage > 0 && result.Props.IsPoweredAttack())
         {
             if(Owner.Creature.GetPower<ToxicPower>() is ToxicPower toxicPower)
             {

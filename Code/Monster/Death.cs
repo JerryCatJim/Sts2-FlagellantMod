@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
@@ -25,21 +24,25 @@ using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
+using System;
 
 namespace Flagellant.Code.Monster;
 
 public class Death : CustomMonsterModel
 {
+    int CurrentActIndex => DeathListenForRunStateSingleton.CombatState?.RunState.CurrentActIndex ?? 0; //从0开始
     // 根据进阶提高最小和最大血量，进阶8及以上为A，否则为B
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 110, 80);
-    public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 120, 90);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 110, 80) + CurrentActIndex * 20;
+    public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 120, 90) + CurrentActIndex * 20;
 
     // 意图的数值，进阶9提高
-    private int MementoMoriDoomNum => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 13, 9);
-    private int WaningCrescentDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 15, 12);
-    private int SoulReaverDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 24, 20);
-    private int TrampleDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 8, 6);
-    private int TrampleStrength => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 3);
+    private int MementoMoriDoomNum => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 9, 9) + CurrentActIndex * 2;
+    private int WaningCrescentDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 12, 10) + CurrentActIndex * 2;
+    private int SoulReaverDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 20, 16) + CurrentActIndex * 2;
+    private int TrampleDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 8, 6) + CurrentActIndex * 2;
+    private int TrampleStrength => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 3) + CurrentActIndex * 1;
+    private bool ShouldApplyVulunerable => CurrentActIndex >= 2; //(第三层出现时给易伤)
+    private bool ShouldApplyWeak => CurrentActIndex >= 1; //(第二层出现时给虚弱)
 
     // 怪物场景，如果你的场景没有挂载脚本，参考这个
     public override NCreatureVisuals? CreateCustomVisuals() => NodeFactory<NCreatureVisuals>.CreateFromScene("res://Flagellant/Monster_Death/Death.tscn");
@@ -61,64 +64,70 @@ public class Death : CustomMonsterModel
             DeathNode.Visible = true;
         }
 
-        _vfxInstance = PreloadManager.Cache.GetScene("res://Flagellant/Monster_Death/EnterEffect/EnterEffect.tscn").Instantiate<Node2D>();
-        if (_vfxInstance == null) return;
-
-        _vfxInstance.Position = Vector2.Zero;
-        _vfxInstance.Scale = Vector2.One;
-
-        AudioManager.PlayMonsterSfx("Spawn", true, false, -4);
-        var combatRoom = NCombatRoom.Instance;
-        if (combatRoom != null)
+        //若多个死神同时出现只加载一次滤镜和BGM
+        if (DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
         {
-            if (_vfxInstance.GetParent() == null)
+            _vfxInstance = PreloadManager.Cache.GetScene("res://Flagellant/Monster_Death/EnterEffect/EnterEffect.tscn").Instantiate<Node2D>();
+            if (_vfxInstance == null) return;
+
+            _vfxInstance.Position = Vector2.Zero;
+            _vfxInstance.Scale = Vector2.One;
+
+            var combatRoom = NCombatRoom.Instance;
+            if (combatRoom != null)
             {
-                combatRoom.AddChild(_vfxInstance);
+                if (_vfxInstance.GetParent() == null)
+                {
+                    combatRoom.AddChild(_vfxInstance);
+                }
             }
-            NRunMusicController.Instance?.StopMusic();
             AudioManager.PlayMonsterBgm();
         }
+
+        AudioManager.PlayMonsterSfx("Spawn", true, false, -4);
+        DeathListenForRunStateSingleton.IsDeathExistingInCombat = true;
     }
 
-    public override async Task BeforeDeath(Creature creature)
-    {
-        if (creature != Creature) return;
-
-        NRunMusicController.Instance?.UpdateMusic();
-        NRunMusicController.Instance?.UpdateTrack();
-        if (Creature.CombatState != null && Creature.CombatState.Encounter != null && Creature.CombatState.Encounter.HasBgm)
-        {
-            NRunMusicController.Instance?.PlayCustomMusic(Creature.CombatState.Encounter.CustomBgm);
-        }
-        AudioManager.StopMonsterBgm();
-        AudioManager.PlayMonsterSfx("Dead", true, false, -2);
-        await CreatureCmd.TriggerAnim(Creature, "Dead", 0);
-
-        await Cmd.CustomScaledWait(2f, 2f, true);
-
-        if (_vfxInstance != null)
-        {
-            _vfxInstance.QueueFree();
-        }
-    }
-
-    public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    public override Task BeforeDeath(Creature creature)
     {
         if (creature != Creature) return Task.CompletedTask;
 
-        CheckDeathAppearSingleton.DeathAppearTime++;
-
+        //奖励生成别放在AfterDeath，多人模式会不生效（可能是结算顺序问题）
         AbstractRoom? currentRoom = base.CombatState.RunState.CurrentRoom;
         if (currentRoom is CombatRoom combatRoom)
         {
-            foreach(var player in combatRoom.CombatState.Players)
+            foreach (var player in combatRoom.CombatState.Players)
             {
+                PotionReward potionReward = (player.Character is Character.Flagellant) ?
+                    new PotionReward(ModelDb.Potion<ScourgePotion>().ToMutable(), player)
+                    : new PotionReward(player);
                 combatRoom.AddExtraReward(player, new CardReward(CardCreationOptions.ForRoom(player, RoomType.Boss), 3, player));
                 combatRoom.AddExtraReward(player, new RelicReward(ModelDb.Relic<DeathsHead>().ToMutable(), player));
-                combatRoom.AddExtraReward(player, new PotionReward(ModelDb.Potion<ScourgePotion>().ToMutable(), player));
+                combatRoom.AddExtraReward(player, potionReward);
+                combatRoom.AddExtraReward(player, new GoldReward(66, player));
             }
         }
         return Task.CompletedTask;
+    }
+
+    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    {
+        if (creature != Creature) return;
+
+        AudioManager.PlayMonsterSfx("Dead", true, false, -2);
+        await CreatureCmd.TriggerAnim(Creature, "Dead", 0);
+
+        DeathListenForRunStateSingleton.IsDeathExistingInCombat = CombatState.HittableEnemies.Any((Creature c) => c.IsAlive && c.Monster is Death);
+        if(DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
+        {
+            await Cmd.CustomScaledWait(2f, 2f, true);
+            AudioManager.StopMonsterBgm();
+            if (_vfxInstance != null)
+            {
+                _vfxInstance.QueueFree();
+            }
+            DeathListenForRunStateSingleton.DeathAppearTime++;
+        }
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
@@ -162,13 +171,16 @@ public class Death : CustomMonsterModel
         await Cmd.CustomScaledWait(1.5f, 1.5f);
         NGame.Instance?.ScreenShake(ShakeStrength.Weak, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
         await PowerCmd.Apply<DoomPower>(targets, MementoMoriDoomNum, Creature, null);
-        await PowerCmd.Apply<VulnerablePower>(targets, 2, Creature, null);
-        foreach (Creature target in targets)
+        foreach (Creature creature in targets)
         {
-            if(target.Player != null && target.Player.Character is Character.Flagellant)
+            if (creature.Player != null && creature.Player.Character is Character.Flagellant)
             {
-                await PowerCmd.Apply<ComboPower>(target, 1, Creature, null);
-                await PowerCmd.Apply<StressPower>(target, 1, Creature, null);
+                await PowerCmd.Apply<ComboPower>(creature, 1, Creature, null);
+                await PowerCmd.Apply<StressPower>(creature, 1, Creature, null);
+            }
+            if (ShouldApplyVulunerable || (creature.Player != null && creature.Player.Character is Character.Flagellant))
+            {
+                await PowerCmd.Apply<VulnerablePower>(creature, 2, Creature, null);
             }
         }
     }
@@ -190,11 +202,11 @@ public class Death : CustomMonsterModel
             .WithHitFx("vfx/vfx_attack_slash") // 攻击特效
             .Execute(null);
 
-        foreach (Creature target in targets)
+        foreach (Creature creature in targets)
         {
-            if (target.Player != null && target.Player.Character is Character.Flagellant)
+            if (creature.Player != null && creature.Player.Character is Character.Flagellant)
             {
-                await PowerCmd.Apply<StressPower>(target, 2, Creature, null);
+                await PowerCmd.Apply<StressPower>(creature, 2, Creature, null);
             }
         }
     }
@@ -213,6 +225,7 @@ public class Death : CustomMonsterModel
             .WithWaitBeforeHit(1.2f, 1.2f)
             .WithHitFx("vfx/vfx_attack_slash") // 攻击特效
             .Execute(null);
+        //await CreatureCmd.GainBlock(Creature, WaningCrescentDamage * CombatState.Players.Count, ValueProp.Move, null);
         await CreatureCmd.GainBlock(Creature, WaningCrescentDamage, ValueProp.Move, null);
     }
 
@@ -225,20 +238,23 @@ public class Death : CustomMonsterModel
             .WithWaitBeforeHit(1.2f, 1.2f)
             .WithHitFx("vfx/vfx_attack_blunt") // 攻击特效
             .Execute(null);
-        foreach (Creature target in targets)
+        foreach (Creature creature in targets)
         {
-            if (target.Player != null && target.Player.Character is Character.Flagellant)
+            if (creature.Player != null && creature.Player.Character is Character.Flagellant)
             {
-                if(target.GetPower<ComboPower>() is ComboPower comboP)
+                if(creature.GetPower<ComboPower>() is ComboPower comboP)
                 {
                     NGame.Instance?.ScreenShake(ShakeStrength.Strong, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
-                    await PowerCmd.ModifyAmount(comboP, -1, target, null);
-                    await PowerCmd.Apply<RingingPower>(targets, 1m, Creature, null);
+                    await PowerCmd.ModifyAmount(comboP, -1, creature, null);
+                    await PowerCmd.Apply<RingingPower>(creature, 1m, Creature, null);
                 }
-                await PowerCmd.Apply<StressPower>(target, 2, Creature, null);
+                await PowerCmd.Apply<StressPower>(creature, 2, Creature, null);
+            }
+            if (ShouldApplyWeak || (creature.Player != null && creature.Player.Character is Character.Flagellant))
+            {
+                await PowerCmd.Apply<WeakPower>(creature, 2, Creature, null);
             }
         }
-        await PowerCmd.Apply<WeakPower>(targets, 2, Creature, null);
         await PowerCmd.Apply<StrengthPower>(Creature, TrampleStrength, Creature, null);
     }
 }

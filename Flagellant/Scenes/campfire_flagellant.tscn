@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnplxa45ucmlm"]
+[gd_scene load_steps=9 format=3 uid="uid://cnplxa45ucmlm"]
 
 [ext_resource type="PackedScene" uid="uid://ra7injoopate" path="res://Flagellant/Scenes/flagellant_model.tscn" id="1_70dyi"]
+[ext_resource type="Script" uid="uid://b63cvk40irkn4" path="res://Code/Nodes/FlagellantNRestSiteCharacter.cs" id="1_l7vq5"]
 [ext_resource type="AnimationLibrary" uid="uid://b7bf02uvl0c8l" path="res://flagellant_asset/campfire_animlib.tres" id="2_70dyi"]
+[ext_resource type="PackedScene" uid="uid://cftw6csox0fhd" path="res://Flagellant/Scenes/selection_reticle.tscn" id="3_34dk0"]
+[ext_resource type="Script" uid="uid://d06d3w5af6d70" path="res://Code/Nodes/FlagellantNSelectionReticle.cs" id="4_l7vq5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ydqrq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -17,9 +20,9 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="TestFlagellant" type="Node2D"]
+script = ExtResource("1_l7vq5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
 root_node = NodePath("../ControlRoot/Visuals/SubViewportContainer/SubViewport/flagellant_model")
 libraries = {
 &"": ExtResource("2_70dyi")
@@ -27,18 +30,18 @@ libraries = {
 autoplay = "flagellant_inn_idle"
 
 [node name="ControlRoot" type="Control" parent="."]
-unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 
-[node name="SelectionReticle" type="Control" parent="ControlRoot"]
+[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_34dk0")]
 unique_name_in_owner = true
-anchors_preset = 0
+layout_mode = 0
 offset_left = -180.0
 offset_top = -230.0
 offset_right = 180.0
 offset_bottom = 230.0
 pivot_offset = Vector2(0.5, 0.5)
+script = ExtResource("4_l7vq5")
 
 [node name="Hitbox" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true
@@ -66,7 +69,6 @@ offset_right = -100.0
 offset_bottom = -160.0
 
 [node name="Visuals" type="Node2D" parent="ControlRoot"]
-unique_name_in_owner = true
 position = Vector2(0, 190)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="ControlRoot/Visuals"]
