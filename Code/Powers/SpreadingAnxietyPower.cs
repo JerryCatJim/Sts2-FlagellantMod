@@ -1,13 +1,16 @@
 using BaseLib.Abstracts;
+using BaseLib.Extensions;
 using Flagellant.Code.Cards.Uncommon;
+using Flagellant.Code.Extensions;
+using Godot;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Powers;
 
-public class SpreadingAnxietyPower : CustomTemporaryPowerModelWrapper<SpreadingAnxiety, StrengthPower>
+public class SpreadingAnxietyPower : TemporaryStrengthPower, ICustomPower
 {
-    //protected override int LastForXExtraTurns => 0;  //BUFF可以存在几回合
-    /*public override string CustomPackedIconPath
+    public virtual string CustomBigIconPath
     {
         get
         {
@@ -15,15 +18,10 @@ public class SpreadingAnxietyPower : CustomTemporaryPowerModelWrapper<SpreadingA
             return ResourceLoader.Exists(path) ? path : "default_power.png".PowerImagePath();
         }
     }
-    public override string CustomBigIconPath => CustomPackedIconPath;*/
+    public virtual string CustomPackedIconPath => CustomBigIconPath;
+    public virtual string CustomBigBetaIconPath => CustomBigIconPath;
 
-    //public override AbstractModel OriginModel => ModelDb.Card<SpreadingAnxiety>();
+    public override AbstractModel OriginModel => ModelDb.Card<SpreadingAnxiety>();
 
-    //public override PowerModel InternallyAppliedPower => ModelDb.Power<StrengthPower>();
-    /*protected override Func<PlayerChoiceContext, Creature, decimal, Creature?, CardModel?, bool, Task> ApplyPowerFunc =>
-        (context, target, amount, applier, cardSource, silent) =>
-        {
-            // 在这里实现你自定义的 Power 应用逻辑
-            return PowerCmd.Apply<StrengthPower>(target, amount, applier, cardSource, silent); //new ThrowingPlayerChoiceContext(),
-        };*/
+    protected override bool IsPositive => false;
 }
