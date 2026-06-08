@@ -4,7 +4,7 @@
 "name": "Flagellant",
 "author": "Jerry",
 "description": "A character mod for Slay the Spire 2, Just for practicing.",
-"version": "0.1.5",
+"version": "0.1.6",
 "has_pck": true, // 是否有 .pck 资源包
 "has_dll": true, // 是否有 .dll 代码
 "dependencies": [ "BaseLib" ], // 依赖的其他mod id
