@@ -16,7 +16,7 @@ public class DeathListenForCombatStateSingleton : CustomSingletonModel
     {
         if (!DeathListenForRunStateSingleton.ShouldSpawnDeathThisRoom) return;
 
-        if (creature.IsMonster 
+        if (creature.IsMonster && creature.Side != MegaCrit.Sts2.Core.Combat.CombatSide.Player
             && creature.Monster is not Death 
             && !creature.HasPower<StockPower>()
             && !creature.HasPower<InfestedPower>()

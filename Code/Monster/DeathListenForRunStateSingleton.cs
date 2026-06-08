@@ -1,10 +1,11 @@
 using BaseLib.Abstracts;
 using Flagellant.Code.Config;
+using Flagellant.Code.Relics;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
@@ -19,7 +20,8 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
         
     }
 
-    //Bug : 关闭游戏后再打开游戏会导致次数清零，单例也没法用[SavedProperty]保存，专门搞个计数遗物也没必要，先不管了
+    private static bool UseMultiplayerDefaultCondition => CombatState?.Players.Count > 1 && FlagellantConfig.ShouldMultiplayerUseDefaultCondition;
+    public static bool ShouldPredictWhetherDeathWillAppear => UseMultiplayerDefaultCondition ? true : FlagellantConfig.PredictWhetherDeathWillAppear;
     public static int DeathAppearTime { get; set; } = 0;
     public static bool ShouldSpawnDeathThisRoom { get; set; } = false;
 
@@ -57,9 +59,16 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
         if (room is CombatRoom combatRoom)
         {
             CombatState = combatRoom.CombatState;
-            IsDeathExistingInCombat = CombatState.HittableEnemies.Any((Creature c) => c.IsMonster && c.Monster is Death);
-            ShouldSpawnDeathThisRoom = CheckSpawnDeathCondition(combatRoom);
+            //优化一下死神出现次数的计数逻辑 ：改为取房间内拥有死神之颅数量最多的玩家的死神之颅拥有数(因为击败一次死神掉一个这个遗物)
+            //以便中途关闭游戏后再打开游戏进程可以正确计数
+            //潜在问题：如果击败死神后没拾取其遗物，退出进程后重进游戏会少次数（但应该不会有人不捡吧？实在不想搞个空的纯计数遗物SaveProperty了）
+            DeathAppearTime = CombatState?.Players.Max((Player p) => p.Relics.Count((RelicModel r) => r is DeathsHead)) ?? 0;
 
+            IsDeathExistingInCombat = CombatState?.HittableEnemies.Any((Creature c) => c.IsMonster && c.Monster is Death) ?? false;
+
+            ShouldSpawnDeathThisRoom = UseMultiplayerDefaultCondition ? 
+                CheckSpawnDeathConditionForMultiplayerDefault(combatRoom)
+                : CheckSpawnDeathCondition(combatRoom);
             if(ShouldSpawnDeathThisRoom)
             {
                 PowerCmd.Apply<SpawnDeathPower>(combatRoom.CombatState.HittableEnemies, 1, null, null);
@@ -74,12 +83,8 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
         {
             throw new ArgumentOutOfRangeException(nameof(N), "N must be greater than 0.");
         }
-        // a: 1~3 (如楼层)
-        // b: 1~十几 (如房间号)
-        // c: 房间内第一个怪物的血量
-        // N: 数组长度，固定传入100
 
-        uint seed = runState.Rng.Seed; //123456789u;               //盐值，增加分散度
+        uint seed = runState.Rng.Seed;         //盐值，增加分散度
 
         seed = (seed ^ (uint)a) * 0x9E3779B9u; // 混入 a
         seed = (seed ^ (uint)b) * 0x85EBCA6Bu; // 混入 b
@@ -100,7 +105,7 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
         if (room is CombatRoom combatRoom)
         {
             if (FlagellantConfig.ShouldDeathOnlyHuntFlagellant
-                && !combatRoom.CombatState.RunState.Players.Any((Player p) => p.Character is Character.Flagellant))
+                && !combatRoom.CombatState.Players.Any((Player p) => p.Character is Character.Flagellant))
             {
                 return false;
             }
@@ -121,7 +126,9 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
                 //按理说应该只让这个Rng方法在所有玩家内只执行一次，多次执行会多人模式数据不同步，但是我没找到好的位置，所以自己写个哈希凑合一下
                 //int index0 = combatRoom.CombatState.RunState.Rng.UpFront.NextInt(0, 99);
                 IRunState RunState = combatRoom.CombatState.RunState;
-                int index0 = GetRandomIndex(RunState, RunState.CurrentActIndex, RunState.TotalFloor, RunState.ActFloor, 100);
+                int AllPlayersHP = combatRoom.CombatState.Players.Sum((Player p) => p.Creature?.CurrentHp ?? 0);
+                int AllEnemiesHP = combatRoom.CombatState.HittableEnemies.Sum((Creature c) => c?.CurrentHp ?? 0);
+                int index0 = GetRandomIndex(RunState, AllPlayersHP, AllEnemiesHP, RunState.TotalFloor, 100);
                 if (index0 < EncounterChance)
                 {
                     return true;
@@ -136,5 +143,34 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
         return (FlagellantConfig.ShouldDeathAppearInMonsterRoom && room.RoomType == RoomType.Monster)
             || (FlagellantConfig.ShouldDeathAppearInEliteRoom && room.RoomType == RoomType.Elite)
             || (FlagellantConfig.ShouldDeathAppearInBossRoom && room.RoomType == RoomType.Boss);
+    }
+
+    private bool CheckSpawnDeathConditionForMultiplayerDefault(AbstractRoom room)
+    {
+        if (room is CombatRoom combatRoom)
+        {
+            if (!combatRoom.CombatState.Players.Any((Player p) => p.Character is Character.Flagellant))
+            {
+                return false;
+            }
+
+            if (combatRoom.Encounter.IsWeak || DeathAppearTime >= 1 )
+            {
+                return false;
+            }
+
+            if (combatRoom.RoomType == RoomType.Monster)
+            {
+                //按理说应该只让这个Rng方法在所有玩家内只执行一次，多次执行会多人模式数据不同步，但是我没找到好的位置，所以自己写个哈希凑合一下
+                //int index0 = combatRoom.CombatState.RunState.Rng.UpFront.NextInt(0, 99);
+                IRunState RunState = combatRoom.CombatState.RunState;
+                int index0 = GetRandomIndex(RunState, RunState.CurrentActIndex, RunState.TotalFloor, RunState.ActFloor, 100);
+                if (index0 < 6)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

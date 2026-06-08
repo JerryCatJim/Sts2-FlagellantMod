@@ -17,6 +17,7 @@ internal class FlagellantConfig : SimpleModConfig
     public static bool ShouldPlayCardAnimNetBroadcast { get; set; } = true;
 
     [ConfigSection("DeathEncounter")]
+    public static bool ShouldMultiplayerUseDefaultCondition { get; set; } = true;
     public static bool ShouldDeathOnlyHuntFlagellant { get; set; } = true;
 
     [ConfigSlider(0, 100, 1, Format = "{0:0}%")]
@@ -24,7 +25,7 @@ internal class FlagellantConfig : SimpleModConfig
 
     [ConfigSlider(1, 99, 1)]
     public static int DeathAppearMaxTime { get; set; } = 1;
-    public static bool PredictWhetherDeathWillAppear { get; set; } = false;
+    public static bool PredictWhetherDeathWillAppear { get; set; } = true;
     public static bool ShouldDeathAppearInMonsterRoom { get; set; } = true;
     public static bool ShouldDeathAppearInEliteRoom { get; set; } = false;
     public static bool ShouldDeathAppearInBossRoom { get; set; } = false;

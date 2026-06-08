@@ -1,7 +1,5 @@
 using Flagellant.Code.Core;
 using Flagellant.Code.ResoluteOrMeltdown;
-using Godot;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -35,14 +33,14 @@ public static class RMCmd
     private static Task EnterRandomResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
         //You can also use official RNG class to get syncable random values.
-        int actIndex = player.RunState.CurrentActIndex;
-        int floorCount  = player.RunState.TotalFloor;
-        int roundNumber = player.Creature.CombatState?.RoundNumber ?? 0;
+        int playerMaxHP = player.Creature?.MaxHp ?? 0;
+        int floorCount  = player.RunState?.TotalFloor ?? 0;
+        int roundNumber = player.Creature?.CombatState?.RoundNumber ?? 0;
 
         //int index0 = player.PlayerRng.Transformations.NextInt(0, 9);
-        int index1 = GetRandomIndex(player, actIndex, floorCount, roundNumber, 10);
-        int index2 = GetRandomIndex(player, actIndex, floorCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
-        int index3 = GetRandomIndex(player, actIndex, floorCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
+        int index1 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, 10);
+        int index2 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
+        int index3 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
 
         bool isMeltdown = index1 >= 2; //0到9,Meltdown概率80%，所以2到9为Meltdown, 0和1为Resolute
         if(isMeltdown)
@@ -72,12 +70,8 @@ public static class RMCmd
         {
             throw new ArgumentOutOfRangeException(nameof(N), "N must be greater than 0.");
         }
-        // a: 1~3 (如楼层)
-        // b: 1~20 (如房间号)
-        // c: 1~∞ (如回合数，通常十几)
-        // N: 数组长度，通常 ≤10
 
-        uint seed = player.PlayerRng.Seed; //123456789u;               //盐值，增加分散度
+        uint seed = player.PlayerRng.Seed;     //盐值，增加分散度
 
         seed = (seed ^ (uint)a) * 0x9E3779B9u; // 混入 a
         seed = (seed ^ (uint)b) * 0x85EBCA6Bu; // 混入 b

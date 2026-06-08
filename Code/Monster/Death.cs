@@ -117,6 +117,8 @@ public class Death : CustomMonsterModel
     {
         if (creature != Creature) return Task.CompletedTask;
 
+        DeathListenForRunStateSingleton.DeathAppearTime++;
+
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = CombatState.HittableEnemies.Any((Creature c) => c.IsAlive && c.Monster is Death);
         if(DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
         {
@@ -126,7 +128,6 @@ public class Death : CustomMonsterModel
             {
                 _vfxInstance.QueueFree();
             }
-            DeathListenForRunStateSingleton.DeathAppearTime++;
         }
         return Task.CompletedTask;
     }

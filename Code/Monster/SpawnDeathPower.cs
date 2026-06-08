@@ -16,7 +16,7 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
 
     public override PowerStackType StackType => PowerStackType.Single;
 
-    protected override bool IsVisibleInternal => FlagellantConfig.PredictWhetherDeathWillAppear;
+    protected override bool IsVisibleInternal => DeathListenForRunStateSingleton.ShouldPredictWhetherDeathWillAppear;
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature target, bool wasRemovalPrevented, float deathAnimLength)
     {
