@@ -5,6 +5,12 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iydd2"]
 shader = ExtResource("4_e7tx7")
+shader_parameter/hide = false
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/strength = 1.4
+shader_parameter/gray_brightness = 0.2000000095
+shader_parameter/gray_tint = Color(0.9, 0.9, 0.9, 1)
+shader_parameter/brightness = 0.9
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4nsw0"]
 shader = ExtResource("3_xdhkd")

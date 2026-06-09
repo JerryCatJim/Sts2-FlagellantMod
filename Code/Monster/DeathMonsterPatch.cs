@@ -71,7 +71,7 @@ public static class DeathAnimPatch
             }
             if (animName == "Hit")
             {
-                AudioManager.PlayMonsterSfx("Hit",true,false,-2f);
+                AudioManager.PlayMonsterSfx("Hit",true);
             }
             if (!bHasChildStateMachine)
             {

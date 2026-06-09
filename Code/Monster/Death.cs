@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
@@ -84,7 +85,7 @@ public class Death : CustomMonsterModel
             AudioManager.PlayMonsterBgm();
         }
 
-        AudioManager.PlayMonsterSfx("Spawn", true, false, -4);
+        AudioManager.PlayMonsterSfx("Spawn", true);
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = true;
     }
 
@@ -108,7 +109,7 @@ public class Death : CustomMonsterModel
             }
         }
 
-        AudioManager.PlayMonsterSfx("Dead", true, false, -2);
+        AudioManager.PlayMonsterSfx("Dead", true);
         await CreatureCmd.TriggerAnim(Creature, "Dead", 0);
         await Cmd.CustomScaledWait(2f, 2f, true);
     }

@@ -101,10 +101,10 @@ internal static class AudioManager
             audioPlayer.QueueFreeSafely();
         }
     }
-    public static void PlayMonsterBgm(float VolumeDb = -4f)
+    public static void PlayMonsterBgm(float VolumeDb = 0f)
     {
         AudioStream stream;
-        String path = "res://Flagellant/Monster_Death/Bgm/dd1_wild_bgm.mp3";
+        String path = "res://Flagellant/Monster_Death/Bgm/DD2_TheMountain_BGM.mp3";
         try
         {
             stream = PreloadManager.Cache.GetAsset<AudioStream>(path);
@@ -122,6 +122,8 @@ internal static class AudioManager
         audioPlayer.VolumeDb += VolumeDb;
         audioPlayer.Stream = stream;
         audioPlayer.Bus = "SFX";
+
+        CombatAudioPlayer.ModifiedMonsterBgmLinear = audioPlayer.VolumeLinear;
 
         SetMonsterBgmPlayerVolumeByPercent(SaveManager.Instance.SettingsSave.VolumeBgm);
 
@@ -147,7 +149,8 @@ internal static class AudioManager
     public static void SetMonsterBgmPlayerVolumeByPercent(float percent)
     {
         //SaveManager.Instance.SettingsSave.VolumeBgm在 [NBgmVolumeSlider] 类 的 "OnValueChanged"函数里接收的值已经/100.0了
-        CombatAudioPlayer.MonsterBgmPlayer.VolumeLinear = Math.Clamp(percent, 0, 1);
+        //VolumeLinear会把VolumeDb覆盖，所以要把修改过的Volume先记录再应用百分比
+        CombatAudioPlayer.MonsterBgmPlayer.VolumeLinear = CombatAudioPlayer.ModifiedMonsterBgmLinear * Math.Clamp(percent, 0, 1);
     }
 }
 

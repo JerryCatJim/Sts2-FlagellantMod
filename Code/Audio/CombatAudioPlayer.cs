@@ -45,5 +45,6 @@ namespace Flagellant.Audio
                 return _monsterBgmPlayer;
             }
         }
+        public static float ModifiedMonsterBgmLinear { get; set; } = 0.0f;
     }
 }
