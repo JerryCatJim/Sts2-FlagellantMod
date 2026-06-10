@@ -1,4 +1,4 @@
-using Flagellant.Audio;
+using Flagellant.Code.Audio;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Config;
 using Flagellant.Code.GameActions;

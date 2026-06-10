@@ -1,6 +1,6 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
-using Flagellant.Audio;
+using Flagellant.Code.Audio;
 using Flagellant.Code.Potions;
 using Flagellant.Code.Powers;
 using Flagellant.Code.Relics;

@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens.Settings;
 using MegaCrit.Sts2.Core.Saves;
 
-namespace Flagellant.Audio;
+namespace Flagellant.Code.Audio;
 
 internal static class AudioManager
 {

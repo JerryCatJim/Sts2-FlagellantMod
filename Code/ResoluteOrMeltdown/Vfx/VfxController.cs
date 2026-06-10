@@ -1,4 +1,4 @@
-using Flagellant.Audio;
+using Flagellant.Code.Audio;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Context;

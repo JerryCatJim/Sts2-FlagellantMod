@@ -1,7 +1,7 @@
 using BaseLib.Abstracts;
 using Godot;
 
-namespace Flagellant.Audio
+namespace Flagellant.Code.Audio
 {
     public class CombatAudioPlayer() : CustomSingletonModel(HookType.Run)
     {

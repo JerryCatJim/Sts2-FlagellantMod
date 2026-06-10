@@ -1,4 +1,4 @@
-using Flagellant.Audio;
+using Flagellant.Code.Audio;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Logging;

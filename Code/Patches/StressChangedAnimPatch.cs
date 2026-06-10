@@ -1,4 +1,4 @@
-using Flagellant.Audio;
+using Flagellant.Code.Audio;
 using Flagellant.Code.Powers;
 using Godot;
 using HarmonyLib;

@@ -1,5 +1,5 @@
 using BaseLib.Utils;
-using Flagellant.Audio;
+using Flagellant.Code.Audio;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
 using Flagellant.Code.DisplayHpVar;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Flagellant.Audio
+namespace Flagellant.Code.Audio
 {
     internal static class AudioCfg
     {
