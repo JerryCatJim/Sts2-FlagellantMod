@@ -1,13 +1,8 @@
 using Flagellant.Audio;
 using Godot;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Logging;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Monster;
@@ -121,50 +116,5 @@ public static class OnGameEndedPatch
     public static void Postfix()
     {
         DeathListenForRunStateSingleton.ResetValue();
-    }
-}
-
-//修复千足虫死亡后 若遭遇死神 会导致千足虫凋零后带着死神一起死亡凋零的错误
-[HarmonyPatch(typeof(ReattachPower), "DoFadeOutOnAllSegments")]
-public static class DecimillipedeAfterDeathPatch
-{
-    public static bool Prefix(ReattachPower __instance)
-    {
-        float val = 0f;
-        List<NCreature> list = new List<NCreature>();
-        foreach (Creature enemy in __instance.CombatState.Enemies)
-        {
-            //我添加的插入方法
-            if (enemy.Monster is Death) continue;
-
-            NCreature nCreature = NCombatRoom.Instance?.GetCreatureNode(enemy);
-            if (nCreature != null)
-            {
-                nCreature.AnimHideIntent();
-                val = Math.Max(val, nCreature.GetCurrentAnimationLength());
-                list.Add(nCreature);
-            }
-        }
-
-        NMonsterDeathVfx nMonsterDeathVfx = NMonsterDeathVfx.Create(list);
-        if (nMonsterDeathVfx == null || list.Count <= 0)
-        {
-            return false;
-        }
-
-        Node parent = list[0].GetParent();
-        parent.AddChildSafely(nMonsterDeathVfx);
-        parent.MoveChild(nMonsterDeathVfx, list[0].GetIndex());
-
-        var method = AccessTools.Method(typeof(ReattachPower), "PlayVfxAndThenRemoveNodes");
-        Task deathAnimationTask = TaskHelper.RunSafely((Task)method.Invoke(__instance, new object[] { nMonsterDeathVfx, list }));
-        //Task deathAnimationTask = TaskHelper.RunSafely(__instance.PlayVfxAndThenRemoveNodes(nMonsterDeathVfx, list));
-        foreach (NCreature item in list)
-        {
-            item.DeathAnimationTask = deathAnimationTask;
-            NCombatRoom.Instance?.RemoveCreatureNode(item);
-        }
-
-        return false;
     }
 }

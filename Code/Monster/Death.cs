@@ -11,13 +11,11 @@ using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Nodes;
-using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
@@ -25,7 +23,6 @@ using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
-using System;
 
 namespace Flagellant.Code.Monster;
 
@@ -44,6 +41,9 @@ public class Death : CustomMonsterModel
     private int TrampleStrength => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 3) + CurrentActIndex * 1;
     private bool ShouldApplyVulunerable => CurrentActIndex >= 2; //(第三层出现时给易伤)
     private bool ShouldApplyWeak => CurrentActIndex >= 1; //(第二层出现时给虚弱)
+    //private bool ShouldReduceStrengthAndDexterity => CurrentActIndex >= 1; //(第二层出现时难逃一死削力量和敏捷)
+
+    private int MementoMoriUsedTimes { get; set; } = 0;
 
     // 怪物场景，如果你的场景没有挂载脚本，参考这个
     public override NCreatureVisuals? CreateCustomVisuals() => NodeFactory<NCreatureVisuals>.CreateFromScene("res://Flagellant/Monster_Death/Death.tscn");
@@ -170,20 +170,37 @@ public class Death : CustomMonsterModel
 
     private async Task MementoMoriMove(IReadOnlyList<Creature> targets)
     {
+        MementoMoriUsedTimes++;
+
         await CreatureCmd.TriggerAnim(Creature, "Attack/Attack_Point", 0);
         await Cmd.CustomScaledWait(1.5f, 1.5f);
         NGame.Instance?.ScreenShake(ShakeStrength.Weak, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
-        await PowerCmd.Apply<DoomPower>(targets, MementoMoriDoomNum, Creature, null);
         foreach (Creature creature in targets)
         {
-            if (creature.Player != null && creature.Player.Character is Character.Flagellant)
+            //玩家反馈 : 对战活雾时被死神入侵会导致活雾的debuff未被消除而难以战斗
+            if (MementoMoriUsedTimes == 1)
+            {
+                foreach (PowerModel p in creature.Powers.Where(
+                       p => p.Type == MegaCrit.Sts2.Core.Entities.Powers.PowerType.Debuff).ToList())
+                {
+                    await PowerCmd.Remove(p);
+                }
+            }
+
+            await PowerCmd.Apply<DoomPower>(creature, MementoMoriDoomNum, Creature, null);
+            if (ShouldApplyVulunerable || IsFlagellant(creature))
+            {
+                await PowerCmd.Apply<VulnerablePower>(creature, 2, Creature, null);
+            }
+            /*if(ShouldReduceStrengthAndDexterity || IsFlagellant(creature))
+            {
+                await PowerCmd.Apply<StrengthPower>(creature, -MementoMoriUsedTimes, Creature, null);
+                await PowerCmd.Apply<DexterityPower>(creature, -MementoMoriUsedTimes, Creature, null);
+            }*/
+            if (IsFlagellant(creature))
             {
                 await PowerCmd.Apply<ComboPower>(creature, 1, Creature, null);
                 await PowerCmd.Apply<StressPower>(creature, 1, Creature, null);
-            }
-            if (ShouldApplyVulunerable || (creature.Player != null && creature.Player.Character is Character.Flagellant))
-            {
-                await PowerCmd.Apply<VulnerablePower>(creature, 2, Creature, null);
             }
         }
     }
@@ -207,7 +224,7 @@ public class Death : CustomMonsterModel
 
         foreach (Creature creature in targets)
         {
-            if (creature.Player != null && creature.Player.Character is Character.Flagellant)
+            if (IsFlagellant(creature))
             {
                 await PowerCmd.Apply<StressPower>(creature, 2, Creature, null);
             }
@@ -228,7 +245,7 @@ public class Death : CustomMonsterModel
             .WithWaitBeforeHit(1.2f, 1.2f)
             .WithHitFx("vfx/vfx_attack_slash") // 攻击特效
             .Execute(null);
-        //await CreatureCmd.GainBlock(Creature, WaningCrescentDamage * CombatState.Players.Count, ValueProp.Move, null);
+        //多人模式 游戏会自动将格挡按人数增值
         await CreatureCmd.GainBlock(Creature, WaningCrescentDamage, ValueProp.Move, null);
     }
 
@@ -243,7 +260,7 @@ public class Death : CustomMonsterModel
             .Execute(null);
         foreach (Creature creature in targets)
         {
-            if (creature.Player != null && creature.Player.Character is Character.Flagellant)
+            if (IsFlagellant(creature))
             {
                 if(creature.GetPower<ComboPower>() is ComboPower comboP)
                 {
@@ -253,11 +270,16 @@ public class Death : CustomMonsterModel
                 }
                 await PowerCmd.Apply<StressPower>(creature, 2, Creature, null);
             }
-            if (ShouldApplyWeak || (creature.Player != null && creature.Player.Character is Character.Flagellant))
+            if (ShouldApplyWeak || IsFlagellant(creature))
             {
                 await PowerCmd.Apply<WeakPower>(creature, 2, Creature, null);
             }
         }
         await PowerCmd.Apply<StrengthPower>(Creature, TrampleStrength, Creature, null);
+    }
+
+    private bool IsFlagellant(Creature creature)
+    {
+        return creature.Player != null && creature.Player.Character is Character.Flagellant;
     }
 }

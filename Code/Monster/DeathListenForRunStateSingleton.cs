@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Rooms;
@@ -69,10 +70,17 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
             ShouldSpawnDeathThisRoom = UseMultiplayerDefaultCondition ? 
                 CheckSpawnDeathConditionForMultiplayerDefault(combatRoom)
                 : CheckSpawnDeathCondition(combatRoom);
-            if(ShouldSpawnDeathThisRoom)
-            {
-                PowerCmd.Apply<SpawnDeathPower>(combatRoom.CombatState.HittableEnemies, 1, null, null);
-            }
+        }
+        return Task.CompletedTask;
+    }
+
+    public override Task BeforeCombatStart()
+    {
+        if (ShouldSpawnDeathThisRoom && CombatState != null)
+        {
+            //一定要在怪物初始化之后再应用，以便最后结算生成死神。
+            //若最先结算，例如千足虫等拥有ShouldCreatureBeRemovedFromCombatAfterDeath()且死后特殊处理的怪会出很多问题
+            PowerCmd.Apply<SpawnDeathPower>(CombatState.HittableEnemies, 1, null, null, true);
         }
         return Task.CompletedTask;
     }
