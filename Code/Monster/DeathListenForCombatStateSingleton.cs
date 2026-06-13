@@ -23,7 +23,7 @@ public class DeathListenForCombatStateSingleton : CustomSingletonModel
             && !creature.HasPower<SurprisePower>()
             )
         {
-            await PowerCmd.Apply<SpawnDeathPower>(creature, 1, null, null);
+            await PowerCmd.Apply<SpawnDeathPower>(creature, 1, null, null, true);
         }
     }
 }

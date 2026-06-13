@@ -27,7 +27,7 @@ public class StressIconsFormatter : IFormatter
 
     public bool TryEvaluateFormat(IFormattingInfo formattingInfo)
     {
-        object currentValue = formattingInfo.CurrentValue;
+        object? currentValue = formattingInfo.CurrentValue;
         int result = 0;
         if (!(currentValue is PowerVar<StressPower> stressVar))
         {

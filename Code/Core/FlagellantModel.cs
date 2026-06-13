@@ -1,6 +1,5 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -11,7 +10,7 @@ using Flagellant.Code.ResoluteOrMeltdown;
 
 namespace Flagellant.Code.Core;
 
-public class FlagellantModel() : CustomSingletonModel(true, false)
+public class FlagellantModel() : CustomSingletonModel(HookType.Combat)
 {
     private static readonly SpireField<Player, ResoluteOrMeltdownModel> ActiveRM =
         new(FlagellantModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>);
@@ -49,12 +48,17 @@ public class FlagellantModel() : CustomSingletonModel(true, false)
         await FlagellantHook.OnResoluteOrMeltdownChanged(ctx, player, current!, ActiveRM[player]!);
     }
 
-    public override async Task BeforeCombatStart()
+    public override Task BeforeCombatStart()
     {
         var state = CombatManager.Instance.DebugOnlyGetState();
-        if (state == null) return;
+        if (state == null) return Task.CompletedTask;
+
         foreach (var player in state.Players)
+        {
             ActiveRM[player] = FlagellantModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
+        }
+
+        return Task.CompletedTask;
     }
     public override bool ShouldReceiveCombatHooks => true;
 }
