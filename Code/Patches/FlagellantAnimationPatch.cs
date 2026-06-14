@@ -1,5 +1,5 @@
-using Flagellant.Code.Audio;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Audio;
 using Flagellant.Code.Config;
 using Flagellant.Code.GameActions;
 using Godot;
@@ -65,7 +65,7 @@ public static class FlagellantAnimationPatch
 		var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
 		if (animTree == null) return;
 
-		var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/playback");
+		var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/playback");
 
 		if (state_machine != null)
 		{
@@ -90,7 +90,7 @@ public static class FlagellantAnimationPatch
 			{
                 if(animName.Contains("CardSelect/"))
                 {
-                    var AR_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardSelect/playback");
+                    var AR_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/CardSelect/playback");
 
                     if (state_machine != null && AR_SM != null)
                     {
@@ -108,13 +108,13 @@ public static class FlagellantAnimationPatch
                 }
                 else
                 {
-                    var Attack_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/StateMachine/CardPlay/playback");
+                    var Attack_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/CardPlay/playback");
                     if (Attack_SM != null)
                     {
                         //单独调整melee_recover(Punish和Necrosis状态用的)动画，把前面的头掐掉看着更顺畅
                         if (animName == "Punish" || animName == "Necrosis")
                         {
-                            animTree.Set("parameters/StateMachine/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
+                            animTree.Set("parameters/CardPlay/" + animName + "_Recover/TimeSeek/seek_request", 0.35f);
                         }
 
                         //不要重复链接
