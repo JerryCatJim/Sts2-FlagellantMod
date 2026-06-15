@@ -17,8 +17,8 @@ public class Annihilate : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
     public Annihilate() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
-        WithDamage(12,4);
-        WithVars(new DamageVar("ComboDamage",24,ValueProp.Move).WithUpgrade(8));
+        WithDamage(13,4);
+        WithVars(new DamageVar("ComboDamage",26,ValueProp.Move).WithUpgrade(8));
         WithPower<ComboPower>(1);
     }
 

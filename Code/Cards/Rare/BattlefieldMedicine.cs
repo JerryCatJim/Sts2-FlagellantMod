@@ -13,7 +13,7 @@ public class BattlefieldMedicine : FlagellantCardModel
     public BattlefieldMedicine() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithPower<RegenPower>(2,1);
-        WithCards(1);
+        WithCards(1,1);
         WithKeyword(CardKeyword.Exhaust);
     }
 

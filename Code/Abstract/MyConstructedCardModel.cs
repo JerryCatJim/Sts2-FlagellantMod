@@ -105,6 +105,14 @@ public abstract class MyConstructedCardModel(
         }
         return Healing;
     }
+
+    protected bool IsLowHealth(decimal Percent = 30m)
+    {
+        if (base.Owner.Creature == null) return false;
+
+        return (decimal)base.Owner.Creature.CurrentHp / (decimal)base.Owner.Creature.MaxHp * 100m <= Percent;
+    }
+
     protected decimal GetStressBeforeReceived()
     {
         //目前只有RapturousPower会预先修改Stress的获得量(Stress一旦大于等于10点就会立刻归零，没啥好地方去接收归零前的实际值，先这样取巧地修改一下吧)
@@ -128,7 +136,7 @@ public abstract class MyConstructedCardModel(
             {
                 if (item is IModifyHpAmountReceived myModel)
                 {
-                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
+                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
                     num = myModifiedAmount;
                 }
             }

@@ -11,7 +11,7 @@ public interface IAfterStressChanged
 public interface IModifyHpAmountReceived
 {
     //New version source code changes the CombatState Class into Interface ICombatState.
-    public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount)
+    public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
     {
         modifiedAmount = amount;
         return false;

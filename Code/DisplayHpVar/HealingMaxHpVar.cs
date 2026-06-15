@@ -58,7 +58,7 @@ public sealed class HealingMaxHpVar : DynamicVar
             {
                 if (item is IModifyHpAmountReceived myModel)
                 {
-                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
+                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
                     num = myModifiedAmount;
                 }
             }

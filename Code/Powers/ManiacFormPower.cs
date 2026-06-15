@@ -15,12 +15,16 @@ public sealed class ManiacFormPower : FlagellantPowerModel, IModifyHpAmountRecei
     [
         
     ];
-    public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount)
+    public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
     {
         if (amount <= 0m || base.CombatState == null || creature == null || creature != Owner)
         {
             modifiedAmount = amount;
             return false;
+        }
+        if(!silent)
+        {
+            Flash();
         }
         modifiedAmount = amount + Amount;
         return true;

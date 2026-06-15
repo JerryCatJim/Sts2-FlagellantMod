@@ -25,7 +25,7 @@ public static class CreatureCmdHealPatch
         }
         return true;
     }
-    public static decimal ModifyHpAmountReceived(IRunState runState, Creature creature, decimal amount)
+    public static decimal ModifyHpAmountReceived(IRunState runState, Creature creature, decimal amount, bool silent = false)
     {
         decimal num = amount;
         if(runState != null)
@@ -34,7 +34,7 @@ public static class CreatureCmdHealPatch
             {
                 if (item is IModifyHpAmountReceived myModel)
                 {
-                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
+                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, silent);
                     num = myModifiedAmount;
                 }
             }

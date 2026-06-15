@@ -12,14 +12,17 @@ public class JuniasHead : FlagellantRelicModel, IModifyHpAmountReceived
 {
     public override RelicRarity Rarity => RelicRarity.Rare;
 
-    public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount)
+    public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
     {
         if (amount <= 0m || Owner.Creature.CombatState == null || CombatManager.Instance.IsOverOrEnding || creature == null || creature != Owner.Creature)
         {
             modifiedAmount = amount;
             return false;
         }
-        Flash();
+        if (!silent)
+        {
+            Flash();
+        }
         modifiedAmount = amount + 1;
         return true;
     }

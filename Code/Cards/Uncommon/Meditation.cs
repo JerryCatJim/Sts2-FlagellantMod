@@ -22,6 +22,8 @@ public class Meditation : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await PlayCardAnim();
+
         int num = ResolveEnergyXValue();
         num += IsUpgraded ? 1 : 0;
         if(num > 0)

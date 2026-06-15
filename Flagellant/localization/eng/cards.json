@@ -86,7 +86,7 @@
   "FLAGELLANT-TRANSFER_MISFORTUNE.title": "Transfer Misfortune",
   "FLAGELLANT-TRANSFER_MISFORTUNE.description": "Remove all your [gold]Doom[/gold].\nApply that much [gold]Doom[/gold] to all enemies.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
   "FLAGELLANT-HOLD_THE_LINE.title": "Hold The Line",
-  "FLAGELLANT-HOLD_THE_LINE.description": "Whenever the {ComboPower:comboIcons()} you apply is triggered, draw {HoldTheLinePower:diff()} card.",
+  "FLAGELLANT-HOLD_THE_LINE.description": "Whenever {ComboPower:comboIcons()} you apply is triggered, draw {HoldTheLinePower:diff()} card.",
   "FLAGELLANT-GIVE_NO_QUARTER.title": "Give No Quarter",
   "FLAGELLANT-GIVE_NO_QUARTER.description": "Deal {Damage:diff()} damage.\nIf the target has {ComboPower:comboIcons()}, the next card you play costs 0{energyPrefix:energyIcons(1)}.",
   "FLAGELLANT-OVERDRAW_LIFE.title": "Overdraw Life",
@@ -122,5 +122,11 @@
   "FLAGELLANT-SUFFER_ALONE.title": "Suffer Alone",
   "FLAGELLANT-SUFFER_ALONE.description": "Deal {Damage:diff()} damage.\nLose {LossPercent:diff()}%({LossCurrentHp:diff()}) HP.",
   "FLAGELLANT-SETBACKS_TO_COURAGE.title": "Setbacks To Courage",
-  "FLAGELLANT-SETBACKS_TO_COURAGE.description": "Gain {StressPower:diff()} [gold]Stress[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.\nIncrease this card's [gold]Stress[/gold] by 1, increase this card's cost by 1{energyPrefix:energyIcons(1)}."
+  "FLAGELLANT-SETBACKS_TO_COURAGE.description": "Gain {StressPower:diff()} [gold]Stress[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.\nIncrease this card's [gold]Stress[/gold] by 1, increase this card's cost by 1{energyPrefix:energyIcons(1)}.",
+  "FLAGELLANT-BEYOND_CURE.title": "Beyond Cure",
+  "FLAGELLANT-BEYOND_CURE.description": "Gain {SelfPoison:diff()} [gold]Poison[/gold].\nApply {PoisonPower:diff()} [gold]Poison[/gold].\nApply {WeakPower:diff()} [gold]Weak[/gold].",
+  "FLAGELLANT-PSYCHOLOGY_CONSULTING.title": "Psychology Consulting",
+  "FLAGELLANT-PSYCHOLOGY_CONSULTING.description": "Remove all your [gold]Stress[/gold], heal HP equal to {Multiplier:diff()} times your [gold]Stress[/gold]{InCombat:({CalculatedHealing:diff()})|}.",
+  "FLAGELLANT-DESPERATE_FIGHT.title": "Desperate Fight",
+  "FLAGELLANT-DESPERATE_FIGHT.description": "Deal {Damage:diff()} damage.\nHeal {HealingPercent:diff()}% ({HealingMaxHp:diff()}) HP.\nIf your HP is 30% or less, gain {RegenPower:diff()} [gold]Regen[/gold] first."
 }

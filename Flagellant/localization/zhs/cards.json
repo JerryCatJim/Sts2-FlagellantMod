@@ -122,5 +122,11 @@
   "FLAGELLANT-ANNIHILATE.title": "歼灭",
   "FLAGELLANT-ANNIHILATE.description": "造成{Damage:diff()}点伤害。\n若目标有{ComboPower:comboIcons()}，则改为造成{ComboDamage:diff()}点伤害。",
   "FLAGELLANT-SUFFER_ALONE.title": "独享苦难",
-  "FLAGELLANT-SUFFER_ALONE.description": "造成{Damage:diff()}点伤害。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。"
+  "FLAGELLANT-SUFFER_ALONE.description": "造成{Damage:diff()}点伤害。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。",
+  "FLAGELLANT-BEYOND_CURE.title": "病入膏肓",
+  "FLAGELLANT-BEYOND_CURE.description": "获得{SelfPoison:diff()}层[gold]中毒[/gold]。\n给予{PoisonPower:diff()}层[gold]中毒[/gold]。\n给予{WeakPower:diff()}层[gold]虚弱[/gold]。",
+  "FLAGELLANT-PSYCHOLOGY_CONSULTING.title": "心理咨询",
+  "FLAGELLANT-PSYCHOLOGY_CONSULTING.description": "移除你的所有[gold]压力[/gold]，回复{Multiplier:diff()}倍于[gold]压力[/gold]的生命{InCombat:({CalculatedHealing:diff()})|}。",
+  "FLAGELLANT-DESPERATE_FIGHT.title": "背水一战",
+  "FLAGELLANT-DESPERATE_FIGHT.description": "造成{Damage:diff()}点伤害。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n若生命小于等于30%，则先获得{RegenPower:diff()}层[gold]再生[/gold]。"
 }

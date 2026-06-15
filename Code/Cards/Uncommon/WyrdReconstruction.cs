@@ -35,11 +35,4 @@ public class WyrdReconstruction : FlagellantCardModel
             await CreatureCmd.Heal(base.Owner.Creature, GetHealingPercentHp());
         }
     }
-
-    private bool IsLowHealth(decimal Percent = 30m)
-    {
-        if (base.Owner.Creature == null) return false;
-
-        return (decimal)base.Owner.Creature.CurrentHp / (decimal)base.Owner.Creature.MaxHp * 100m <= Percent;
-    }
 }
