@@ -75,5 +75,11 @@
   "FLAGELLANT-BLISS_POWER.smartDescription": "每当你在本回合失去生命时，获得[blue]{Amount}[/blue]点[gold]压力[/gold]和[blue]{Amount}[/blue]层[gold]再生[/gold]。",
   "FLAGELLANT-SPAWN_DEATH_POWER.title": "死神降临...",
   "FLAGELLANT-SPAWN_DEATH_POWER.description": "死神降临...",
-  "FLAGELLANT-SPAWN_DEATH_POWER.smartDescription": "死神降临..."
+  "FLAGELLANT-SPAWN_DEATH_POWER.smartDescription": "死神降临...",
+  "FLAGELLANT-BEING_TOWARDS_DEATH_POWER.title": "向死而生",
+  "FLAGELLANT-BEING_TOWARDS_DEATH_POWER.description": "每当你受到攻击伤害时，获得[blue]X[/blue]层[gold]再生[/gold]。",
+  "FLAGELLANT-BEING_TOWARDS_DEATH_POWER.smartDescription": "每当你受到攻击伤害时，获得[blue]{Amount}[/blue]层[gold]再生[/gold]。",
+  "FLAGELLANT-GOSPEL_POWER.title": "福音",
+  "FLAGELLANT-GOSPEL_POWER.description": "每当你回复生命时，给予所有敌人等量[gold]灾厄[/gold]。",
+  "FLAGELLANT-GOSPEL_POWER.smartDescription": "每当你回复生命时，给予所有敌人等量[gold]灾厄[/gold]。"
 }

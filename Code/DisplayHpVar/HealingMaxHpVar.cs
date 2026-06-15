@@ -31,7 +31,8 @@ public sealed class HealingMaxHpVar : DynamicVar
         BaseValue = GetHealingPercentHp(card);
         if(card.IsInCombat)
         {
-            Creature myTarget = target == null ? card.Owner.Creature : target;
+            //Creature myTarget = (card.TargetType != TargetType.Self && target != null) ? target : card.Owner.Creature;
+            Creature myTarget = card.Owner.Creature;
             PreviewValue = BaseValue + GetExtraHealingHp(myTarget);
         }
     }

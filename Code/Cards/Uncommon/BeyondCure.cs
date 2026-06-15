@@ -15,10 +15,12 @@ public class BeyondCure : FlagellantCardModel
         WithVar("SelfPoison", 3, 1);
         WithPower<PoisonPower>(9, 1);
         WithPower<WeakPower>(1, 1);
+        WithAnimName("Sepsis");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await PlayCardAnim();
         await CommonActions.ApplySelf<PoisonPower>(this, base.DynamicVars["SelfPoison"].BaseValue);
         await CommonActions.Apply<PoisonPower>(cardPlay.Target, this);
         await CommonActions.Apply<WeakPower>(cardPlay.Target, this);

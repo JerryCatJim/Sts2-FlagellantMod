@@ -16,7 +16,7 @@ public static class CreatureCmdHealPatch
     {
         if (CombatManager.Instance.IsEnding && !creature.IsPlayer)
         {
-            return true; //return false也可以
+            return true;
         }
         IRunState? runState = creature.Player?.RunState; //不用combatState，保留在战斗外监听血量回复的可能
         if (runState != null)

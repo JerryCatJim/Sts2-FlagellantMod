@@ -128,5 +128,13 @@
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.title": "Psychology Consulting",
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.description": "Remove all your [gold]Stress[/gold], heal HP equal to {Multiplier:diff()} times your [gold]Stress[/gold]{InCombat:({CalculatedHealing:diff()})|}.",
   "FLAGELLANT-DESPERATE_FIGHT.title": "Desperate Fight",
-  "FLAGELLANT-DESPERATE_FIGHT.description": "Deal {Damage:diff()} damage.\nHeal {HealingPercent:diff()}% ({HealingMaxHp:diff()}) HP.\nIf your HP is 30% or less, gain {RegenPower:diff()} [gold]Regen[/gold] first."
+  "FLAGELLANT-DESPERATE_FIGHT.description": "Deal {Damage:diff()} damage.\nHeal {HealingPercent:diff()}% ({HealingMaxHp:diff()}) HP.\nIf your HP is 30% or less, gain {RegenPower:diff()} [gold]Regen[/gold] first.",
+  "FLAGELLANT-BEING_TOWARDS_DEATH.title": "Being Towards Death",
+  "FLAGELLANT-BEING_TOWARDS_DEATH.description": "Whenever you take attack damage, gain {BeingTowardsDeathPower:diff()} [gold]Regen[/gold].",
+  "FLAGELLANT-PURIFY_MIND.title": "Purify Mind",
+  "FLAGELLANT-PURIFY_MIND.description": "Choose {Cards:diff()} {Cards:plural:card|cards} in your [gold]Hand[/gold] to [gold]Transform[/gold] into [gold]{Cards:plural:{IfUpgraded:show:Penance+|Penance}[/gold]|{IfUpgraded:show:Penances+|Penances}[/gold]}.",
+  "FLAGELLANT-PENANCE.title": "Penance",
+  "FLAGELLANT-PENANCE.description": "Gain {StressPower:diff()} [gold]Stress[/gold].\nDraw {Cards:diff()} cards.\nLose {LossPercent:diff()}% ({LossCurrentHp:diff()}) HP.",
+  "FLAGELLANT-GOSPEL.title": "Gospel",
+  "FLAGELLANT-GOSPEL.description": "Whenever you heal HP, apply an equal amount of [gold]Doom[/gold] to all enemies."
 }
