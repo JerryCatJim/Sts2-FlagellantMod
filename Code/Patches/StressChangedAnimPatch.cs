@@ -5,13 +5,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Characters;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Flagellant.Code.Patches;
 
@@ -22,6 +16,8 @@ public static class StressIncreaseAnimPatch
     public static bool Prefix(NCreature __instance, PowerModel power, int amount)
     {
         if (!CombatManager.Instance.IsInProgress) return false;
+
+        if (__instance.Entity.Player?.Character is not Character.Flagellant) return true;
         if (amount == 0) return true;
 
         if (power is StressPower)// || power is ResoluteOrMeltdownPowerModel)

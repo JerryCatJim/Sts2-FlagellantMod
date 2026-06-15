@@ -14,7 +14,7 @@ public class SpreadingPlague : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => base.CombatState?.HittableEnemies.Any((Creature e) => !e.HasPower<PoisonPower>()) ?? false;
     public SpreadingPlague() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(10,3);
+        WithDamage(9,4);
         WithPowerTip<PoisonPower>();
         WithAnimName("Punish");
     }

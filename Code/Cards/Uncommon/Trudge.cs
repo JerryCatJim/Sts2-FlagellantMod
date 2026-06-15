@@ -12,7 +12,7 @@ public class Trudge : FlagellantCardModel
 {
     public Trudge() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithHealingPercent(12, 3);
+        WithHealingPercent(10, 3);
         WithDamage(10, 3);
     }
 

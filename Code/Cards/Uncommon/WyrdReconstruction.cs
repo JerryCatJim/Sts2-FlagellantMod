@@ -8,14 +8,14 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class WyrdReconstruction : FlagellantCardModel
 {
     protected override bool ShouldGlowGoldInternal => IsLowHealth();
 
-    public WyrdReconstruction() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public WyrdReconstruction() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithHealingPercent(15, 3);
         WithVar("HealingPercentLow", 25, 5);

@@ -12,7 +12,7 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class FatalStrike : FlagellantCardModel
 {
-    public FatalStrike() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public FatalStrike() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithTags(CardTag.Strike);
         WithStress(3);
