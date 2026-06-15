@@ -3,11 +3,14 @@ using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.DisplayHpVar;
 using Flagellant.Code.Powers;
+using Flagellant.Code.Relics;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Abstract;
 
@@ -114,5 +117,22 @@ public abstract class MyConstructedCardModel(
         {
             return 0;
         }
+    }
+    protected decimal GetExtraHealingHp(Creature creature)
+    {
+        decimal num = 999;
+        IRunState? runState = creature.Player?.RunState;
+        if (runState != null)
+        {
+            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+            {
+                if (item is IModifyHpAmountReceived myModel)
+                {
+                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
+                    num = myModifiedAmount;
+                }
+            }
+        }
+        return num - 999;
     }
 }

@@ -7,15 +7,15 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace Flagellant.Code.Cards.Rare;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class BoneMeltingPalm : FlagellantCardModel
 {
     protected override bool ShouldGlowGoldInternal => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<DoomPower>()) ?? false;
-    public BoneMeltingPalm() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public BoneMeltingPalm() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(10, 3);
+        WithDamage(6, 3);
         WithPowerTip<DoomPower>();
         WithPowerTip<PoisonPower>();
     }

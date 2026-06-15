@@ -25,20 +25,20 @@ public static class CreatureCmdHealPatch
         }
         return true;
     }
-    public static decimal ModifyHpAmountReceived(IRunState runState, Creature creature, decimal amount)//, out IEnumerable<AbstractModel> modifiers)
+    public static decimal ModifyHpAmountReceived(IRunState runState, Creature creature, decimal amount)
     {
         decimal num = amount;
-        //List<AbstractModel> list = new List<AbstractModel>();
-        foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+        if(runState != null)
         {
-            if (item is IModifyHpAmountReceived myModel)
+            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
             {
-                myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
-                num = myModifiedAmount;
-                //list.Add(item);
+                if (item is IModifyHpAmountReceived myModel)
+                {
+                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
+                    num = myModifiedAmount;
+                }
             }
         }
-        //modifiers = list;
         return num;
     }
 }

@@ -1,9 +1,11 @@
+using Flagellant.Code.Abstract;
 using Flagellant.Code.Powers;
 using Flagellant.Code.Relics;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.DisplayHpVar;
 public sealed class HealingMaxHpVar : DynamicVar
@@ -30,28 +32,10 @@ public sealed class HealingMaxHpVar : DynamicVar
         if(card.IsInCombat)
         {
             Creature myTarget = target == null ? card.Owner.Creature : target;
-            decimal modifiedNum = myTarget.GetPower<ManiacFormPower>()?.Amount ?? 0;
-            modifiedNum += myTarget.Player?.Relics.Count(e => e is JuniasHead) ?? 0;
-            if (modifiedNum != 0)
-            {
-                PreviewValue = BaseValue + modifiedNum;
-            }
+            PreviewValue = BaseValue + GetExtraHealingHp(myTarget);
         }
     }
-    protected decimal GetLossPercentHp(CardModel card)
-    {
-        if (card == null) return 0m;
-
-        decimal Percent = 0m;
-        Percent = Math.Clamp(card.DynamicVars["LossPercent" + postFix]?.BaseValue ?? Percent, 0, 100);
-        decimal Damage = Math.Round(card.Owner.Creature.CurrentHp * Percent / 100m);
-        if (Percent > 0 && Damage < 1m)
-        {
-            return 1m;
-        }
-        return Damage;
-    }
-    protected decimal GetHealingPercentHp(CardModel card)
+    private decimal GetHealingPercentHp(CardModel card)
     {
         if (card == null) return 0m;
 
@@ -63,5 +47,22 @@ public sealed class HealingMaxHpVar : DynamicVar
             return 1m;
         }
         return Healing;
+    }
+    private decimal GetExtraHealingHp(Creature creature)
+    {
+        decimal num = 999;
+        IRunState? runState = creature.Player?.RunState;
+        if(runState != null)
+        {
+            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+            {
+                if (item is IModifyHpAmountReceived myModel)
+                {
+                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount);
+                    num = myModifiedAmount;
+                }
+            }
+        }
+        return num - 999;
     }
 }

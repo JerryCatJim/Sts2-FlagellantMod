@@ -27,12 +27,15 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
         DoomPower? DPwr = creature.GetPower<DoomPower>();
         if (DPwr != null)
         {
+            Flash();
             await PowerCmd.ModifyAmount(DPwr, -Math.Round(delta) * Amount, creature, ModelDb.Card<Suffer>());
         }
     }
     public async Task AfterStressAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (base.CombatState.CurrentSide != base.Owner.Side || amount <= 0m) return;
+
+        Flash();
         await CreatureCmd.Heal(base.Owner, GetHealingPercentHp(Amount));
     }
 }

@@ -24,7 +24,7 @@ public sealed class LostHpThisTurnVar : DynamicVar
     {
         BaseValue = LostHpThisTurnNum(card.Owner.Creature);
     }
-    protected decimal LostHpThisTurnNum(Creature creature)
+    private decimal LostHpThisTurnNum(Creature creature)
     {
         if (creature == null) return 0m;
 

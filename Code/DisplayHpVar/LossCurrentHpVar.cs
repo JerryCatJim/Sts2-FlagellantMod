@@ -26,7 +26,7 @@ public sealed class LossCurrentHpVar : DynamicVar
     {
         BaseValue = GetLossPercentHp(card);
     }
-    protected decimal GetLossPercentHp(CardModel card)
+    private decimal GetLossPercentHp(CardModel card)
     {
         if (card == null) return 0m;
 
@@ -38,18 +38,5 @@ public sealed class LossCurrentHpVar : DynamicVar
             return 1m;
         }
         return Damage;
-    }
-    protected decimal GetHealingPercentHp(CardModel card)
-    {
-        if (card == null) return 0m;
-
-        decimal Percent = 0m;
-        Percent = Math.Clamp(card.DynamicVars["HealingPercent" + postFix]?.BaseValue ?? Percent, 0, 100);
-        decimal Healing = Math.Round(card.Owner.Creature.MaxHp * Percent / 100m);
-        if (Percent > 0 && Healing < 1m)
-        {
-            return 1m;
-        }
-        return Healing;
     }
 }
