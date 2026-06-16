@@ -128,19 +128,23 @@ public abstract class MyConstructedCardModel(
     }
     protected decimal GetExtraHealingHp(Creature creature)
     {
-        decimal num = 999;
-        IRunState? runState = creature.Player?.RunState;
-        if (runState != null)
+        if(base.IsInCombat)
         {
-            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+            decimal num = 999;
+            IRunState? runState = creature.Player?.RunState;
+            if (runState != null)
             {
-                if (item is IModifyHpAmountReceived myModel)
+                foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
                 {
-                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
-                    num = myModifiedAmount;
+                    if (item is IModifyHpAmountReceived myModel)
+                    {
+                        myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
+                        num = myModifiedAmount;
+                    }
                 }
             }
+            return num - 999;
         }
-        return num - 999;
+        return 0;
     }
 }

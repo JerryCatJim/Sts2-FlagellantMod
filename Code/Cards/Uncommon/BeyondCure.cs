@@ -12,7 +12,7 @@ public class BeyondCure : FlagellantCardModel
 {
     public BeyondCure() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithVar("SelfPoison", 3, 1);
+        WithVar("SelfPoison", 3, -1);
         WithPower<PoisonPower>(9, 1);
         WithPower<WeakPower>(1, 1);
         WithAnimName("Sepsis");

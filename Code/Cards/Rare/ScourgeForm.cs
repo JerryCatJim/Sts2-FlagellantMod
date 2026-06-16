@@ -14,12 +14,13 @@ public class ScourgeForm : FlagellantCardModel
     public ScourgeForm() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithAnimName("More");
-        WithPower<PoisonPower>(1,1);
+        WithPower<ScourgeFormPower>(1,1);
+        WithPowerTip<PoisonPower>();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<ScourgeFormPower>(this, base.DynamicVars["PoisonPower"].BaseValue);
+        await CommonActions.ApplySelf<ScourgeFormPower>(this);
     }
 }
