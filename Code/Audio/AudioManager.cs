@@ -1,13 +1,9 @@
 using Flagellant.Code.Config;
-using Flagellant.Code.Monster;
 using Godot;
-using HarmonyLib;
 using MegaCrit.Sts2.Core.Assets;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Nodes.Screens.Settings;
 using MegaCrit.Sts2.Core.Saves;
 
 namespace Flagellant.Code.Audio;
@@ -151,19 +147,5 @@ internal static class AudioManager
         //SaveManager.Instance.SettingsSave.VolumeBgm在 [NBgmVolumeSlider] 类 的 "OnValueChanged"函数里接收的值已经/100.0了
         //VolumeLinear会把VolumeDb覆盖，所以要把修改过的Volume先记录再应用百分比
         CombatAudioPlayer.MonsterBgmPlayer.VolumeLinear = CombatAudioPlayer.ModifiedMonsterBgmLinear * Math.Clamp(percent, 0, 1);
-    }
-}
-
-[HarmonyPatch(typeof(NBgmVolumeSlider), "OnValueChanged")]
-public static class CreatureCmdHealPatch
-{
-    public static void Postfix(double value)
-    {
-        //从死神的战斗中退回到主界面会导致BGM音量为0，调一下滑动条就恢复正常了，没找到退回到主界面事件，懒得修了
-        if(CombatManager.Instance.IsInProgress && DeathListenForRunStateSingleton.IsDeathExistingInCombat == true)
-        {
-            NAudioManager.Instance?.SetBgmVol(0);
-            AudioManager.SetMonsterBgmPlayerVolumeByPercent((float)(value / 100.0));
-        }
     }
 }

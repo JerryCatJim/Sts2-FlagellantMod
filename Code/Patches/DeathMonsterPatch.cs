@@ -1,11 +1,14 @@
 using Flagellant.Code.Audio;
+using Flagellant.Code.Monster;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Nodes.Screens.Settings;
 
-namespace Flagellant.Code.Monster;
+namespace Flagellant.Code.Patches;
 
 [HarmonyPatch(typeof(NCreature), "SetAnimationTrigger")]
 public static class DeathAnimPatch
@@ -110,11 +113,16 @@ public static class DeathAnimPatch
     });
 }
 
-[HarmonyPatch(typeof(RunManager), "OnEnded")]
-public static class OnGameEndedPatch
+[HarmonyPatch(typeof(NBgmVolumeSlider), "OnValueChanged")]
+public static class DeathBgmPatch
 {
-    public static void Postfix()
+    public static void Postfix(double value)
     {
-        DeathListenForRunStateSingleton.ResetValue();
+        //从死神的战斗中退回到主界面会导致BGM音量为0，调一下滑动条就恢复正常了，没找到退回到主界面事件，懒得修了
+        if (CombatManager.Instance.IsInProgress && DeathListenForRunStateSingleton.IsDeathExistingInCombat == true)
+        {
+            NAudioManager.Instance?.SetBgmVol(0);
+            AudioManager.SetMonsterBgmPlayerVolumeByPercent((float)(value / 100.0));
+        }
     }
 }
