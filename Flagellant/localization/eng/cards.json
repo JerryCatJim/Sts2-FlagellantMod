@@ -16,7 +16,7 @@
   "FLAGELLANT-ENDURE.title": "Endure",
   "FLAGELLANT-ENDURE.description": "At the start of your turn, gain {StressPower:diff()} [gold]Stress[/gold].\nWhenever you lose HP during your turn, gain {StressPower:diff()} [gold]Stress[/gold].",
   "FLAGELLANT-LASHS_GIFT.title": "Lash's Gift",
-  "FLAGELLANT-LASHS_GIFT.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {StressPower:diff()} [gold]Stress[/gold].\nThe next Attack card you play applies {ComboPower:comboIcons()}.",
+  "FLAGELLANT-LASHS_GIFT.description": "Gain {RegenPower:diff()} [gold]Regen[/gold].\nGain {StressPower:diff()} [gold]Stress[/gold].\nThe next {AddComboPower:diff()} Attack {AddComboPower:plural:card|cards} you play {AddComboPower:plural:applies|apply} {ComboPower:comboIcons()}.",
   "FLAGELLANT-ACID_RAIN.title": "Acid Rain",
   "FLAGELLANT-ACID_RAIN.description": "Deal {Damage:diff()} damage and apply {PoisonPower:diff()} [gold]Poison[/gold] to all enemies.\nLose {LossPercent:diff()}%({LossCurrentHp:diff()}) HP.\nIncrease damage and [gold]Poison[/gold] by {ComboUpgraded:diff()} if has {ComboPower:comboIcons()}.",
   "FLAGELLANT-MORE_MORE.title": "More! More!",

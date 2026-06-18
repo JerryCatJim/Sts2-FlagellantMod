@@ -16,7 +16,7 @@
   "FLAGELLANT-ENDURE.title": "磨练",
   "FLAGELLANT-ENDURE.description": "在你的回合开始时，获得{StressPower:diff()}点[gold]压力[/gold]。\n每当你在你的回合失去生命值时，获得{StressPower:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-LASHS_GIFT.title": "鞭笞之赐",
-  "FLAGELLANT-LASHS_GIFT.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n获得{StressPower:diff()}点[gold]压力[/gold]。\n下一张攻击牌会给予{ComboPower:comboIcons()}。",
+  "FLAGELLANT-LASHS_GIFT.description": "获得{RegenPower:diff()}层[gold]再生[/gold]。\n获得{StressPower:diff()}点[gold]压力[/gold]。\n你打出的下{AddComboPower:diff()}张攻击牌会给予{ComboPower:comboIcons()}。",
   "FLAGELLANT-ACID_RAIN.title": "酸蚀之雨",
   "FLAGELLANT-ACID_RAIN.description": "对所有敌人造成{Damage:diff()}点伤害，给予{PoisonPower:diff()}层[gold]中毒[/gold]。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。\n若目标有{ComboPower:comboIcons()}，则伤害和[gold]中毒[/gold]提高{ComboUpgraded:diff()}点。",
   "FLAGELLANT-MORE_MORE.title": "再来，再来！",
