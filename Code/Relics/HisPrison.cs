@@ -27,7 +27,7 @@ public class HisPrison : FlagellantRelicModel
         if (target == base.Owner.Creature && dealer != null && dealer.IsMonster && props != ValueProp.SkipHurtAnim)
         {
             Flash();
-            await PowerCmd.Apply<PoisonPower>(dealer, 1, Owner.Creature, null);
+            await PowerCmd.Apply<PoisonPower>(choiceContext, dealer, 1, Owner.Creature, null);
         }
     }
 }

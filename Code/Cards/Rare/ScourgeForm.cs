@@ -21,6 +21,6 @@ public class ScourgeForm : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<ScourgeFormPower>(this);
+        await CommonActions.ApplySelf<ScourgeFormPower>(choiceContext, this);
     }
 }

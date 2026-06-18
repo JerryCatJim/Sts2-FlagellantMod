@@ -26,7 +26,7 @@ public sealed class BeingTowardsDeathPower : FlagellantPowerModel
             && result.UnblockedDamage > 0 && result.Props.IsPoweredAttack())
         {
             Flash();
-            await PowerCmd.Apply<RegenPower>(Owner, Amount, Owner, null);
+            await PowerCmd.Apply<RegenPower>(choiceContext, Owner, Amount, Owner, null);
         }
     }
 }

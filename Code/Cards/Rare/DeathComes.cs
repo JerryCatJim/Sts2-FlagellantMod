@@ -22,7 +22,7 @@ public class DeathComes : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<DoomPower>(base.Owner.Creature, base.Owner.Creature.CurrentHp, base.Owner.Creature, this);
-        await CommonActions.ApplySelf<StressPower>(this);
+        await PowerCmd.Apply<DoomPower>(choiceContext, base.Owner.Creature, base.Owner.Creature.CurrentHp, base.Owner.Creature, this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
     }
 }

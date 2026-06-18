@@ -20,6 +20,6 @@ public class ManiacForm : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<ManiacFormPower>(this);
+        await CommonActions.ApplySelf<ManiacFormPower>(choiceContext, this);
     }
 }

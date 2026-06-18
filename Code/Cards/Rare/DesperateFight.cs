@@ -24,7 +24,7 @@ public class DesperateFight : FlagellantCardModel
     {
         if(IsLowHealth())
         {
-            await CommonActions.ApplySelf<RegenPower>(this);
+            await CommonActions.ApplySelf<RegenPower>(choiceContext, this);
         }
         await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
         await CreatureCmd.Heal(base.Owner.Creature, GetHealingPercentHp());

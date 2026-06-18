@@ -35,7 +35,7 @@ public class HopeCandle : FlagellantPotionModel
             StressPower? SP = target.GetPower<StressPower>();
             if (SP != null && SP.Amount > 0)
             {
-                await PowerCmd.Apply<StrengthPower>(target, SP.Amount, Owner.Creature, null);
+                await PowerCmd.Apply<StrengthPower>(ctx, target, SP.Amount, Owner.Creature, null);
             }
         }
     }

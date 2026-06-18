@@ -24,9 +24,11 @@ public class Annihilate : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Target != null && cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
+        if (cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
         {
-            await PowerCmd.ModifyAmount(comboP, -1, Owner.Creature, this);
+            await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             await CommonActions.CardAttack(this, cardPlay.Target, base.DynamicVars["ComboDamage"].BaseValue).Execute(choiceContext);
         }
         else

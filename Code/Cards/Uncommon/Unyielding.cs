@@ -19,6 +19,6 @@ public class Unyielding : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<UnyieldingPower>(this);
+        await CommonActions.ApplySelf<UnyieldingPower>(choiceContext, this);
     }
 }

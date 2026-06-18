@@ -2,6 +2,7 @@ using Flagellant.Code.Abstract;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -22,7 +23,7 @@ public sealed class UnyieldingPower : FlagellantPowerModel
         }
 
         Flash();
-        PowerCmd.Apply<DoomPower>(Owner, amount, Owner, null);
+        PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner, amount, Owner, null);
         PowerCmd.Decrement(this);
         return 0m;
     }

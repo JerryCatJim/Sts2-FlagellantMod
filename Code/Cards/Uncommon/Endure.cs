@@ -21,6 +21,6 @@ public class Endure : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<EndurePower>(this, base.DynamicVars["StressPower"].BaseValue);
+        await CommonActions.ApplySelf<EndurePower>(choiceContext, this, base.DynamicVars["StressPower"].BaseValue);
     }
 }

@@ -32,7 +32,7 @@ public class ScourgePotion : FlagellantPotionModel
         {
             decimal num = Math.Round(target.MaxHp * 45 / 100m);
             await CreatureCmd.SetCurrentHp(target, num < 1m ? 1m : num);
-            await PowerCmd.Apply<StressPower>(target, 10, Owner.Creature, null);
+            await PowerCmd.Apply<StressPower>(ctx, target, 10, Owner.Creature, null);
         }
     }
 }

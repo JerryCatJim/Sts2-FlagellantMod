@@ -4,6 +4,7 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Rooms;
 
@@ -23,7 +24,7 @@ public class SearingScripture : FlagellantRelicModel
         if (room is CombatRoom)
         {
             Flash();
-            await PowerCmd.Apply<AddComboPower>(Owner.Creature, 1 ,Owner.Creature, null);
+            await PowerCmd.Apply<AddComboPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1 ,Owner.Creature, null);
         }
     }
 }

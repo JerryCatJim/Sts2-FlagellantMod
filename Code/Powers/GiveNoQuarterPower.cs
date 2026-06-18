@@ -13,10 +13,8 @@ public class GiveNoQuarterPower : FlagellantPowerModel
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    private bool _isSelfInitialized = false;
-
     //TODO: Fix it with TryModifyEnergyCostInCombatLate after the game updated.
-    public override bool TryModifyEnergyCostInCombat(CardModel card, decimal originalCost, out decimal modifiedCost)
+    public override bool TryModifyEnergyCostInCombatLate(CardModel card, decimal originalCost, out decimal modifiedCost)
     {
         if (ShouldSkip(card))
         {
@@ -27,15 +25,14 @@ public class GiveNoQuarterPower : FlagellantPowerModel
         return true;
     }
 
-    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         //刚获得能力之后会收到附加该能力卡牌的打出完成事件，需要排除
-        if(!ShouldSkip(cardPlay.Card) && _isSelfInitialized)
+        if(!ShouldSkip(cardPlay.Card)
+            && cardPlay != null && !cardPlay.IsAutoPlay && cardPlay.IsLastInSeries)
         {
-            PowerCmd.Decrement(this);
+            await PowerCmd.Decrement(this);
         }
-        _isSelfInitialized = true;
-        return Task.CompletedTask;
     }
 
     private bool ShouldSkip(CardModel card)

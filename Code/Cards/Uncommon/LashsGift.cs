@@ -23,7 +23,7 @@ public class LashsGift : FlagellantCardModel
     {
         await PlayCardAnim();
         await CommonActions.CardBlock(this, cardPlay);
-        await CommonActions.ApplySelf<StressPower>(this);
-        await CommonActions.ApplySelf<AddComboPower>(this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
+        await CommonActions.ApplySelf<AddComboPower>(choiceContext, this);
     }
 }

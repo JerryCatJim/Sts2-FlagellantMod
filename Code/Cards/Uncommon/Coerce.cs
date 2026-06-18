@@ -16,7 +16,7 @@ public class Coerce : FlagellantCardModel, IAfterStressChanged
 {
     public Coerce() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(15,4);
+        WithDamage(15, 4);
         WithPowerTip<StressPower>();
     }
 
@@ -46,9 +46,9 @@ public class Coerce : FlagellantCardModel, IAfterStressChanged
         return Task.CompletedTask;
     }
 
-    public Task AfterStressAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (amount <= 0m)
+        if (amount <= 0m || power.Owner != base.Owner.Creature)
         {
             return Task.CompletedTask;
         }

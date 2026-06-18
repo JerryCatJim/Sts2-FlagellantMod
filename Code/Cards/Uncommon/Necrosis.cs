@@ -47,7 +47,7 @@ public class Necrosis : FlagellantCardModel
             decimal StressNum = Owner.Creature.GetPower<StressPower>()?.Amount ?? 0;
             if(StressNum > 0)
             {
-                await CommonActions.Apply<PoisonPower>(cardPlay.Target, this, StressNum);
+                await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this, StressNum);
             }
             _calculatedBlockNum = cardPlay.Target.GetPower<PoisonPower>()?.Amount ?? 0;
             if (_calculatedBlockNum > 0)

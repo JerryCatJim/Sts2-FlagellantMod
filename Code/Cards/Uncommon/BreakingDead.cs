@@ -20,6 +20,6 @@ public class BreakingDead : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<BreakingDeadPower>(this);
+        await CommonActions.ApplySelf<BreakingDeadPower>(choiceContext, this);
     }
 }

@@ -32,14 +32,15 @@ public sealed class RapturousPower : FlagellantPowerModel
         return false;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if(Owner == null || side != Owner.Side) return;
+        //if (side != Owner.Side) return;
+        if (!participants.Contains(base.Owner)) return;
 
         StressPower? SP = Owner.GetPower<StressPower>();
         if(SP != null)
         {
-            await PowerCmd.ModifyAmount(SP, -Amount, base.Owner, ModelDb.Card<Rapturous>());
+            await PowerCmd.ModifyAmount(choiceContext, SP, -Amount, base.Owner, ModelDb.Card<Rapturous>());
         }
     }
 }

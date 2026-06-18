@@ -51,7 +51,7 @@ public class Martyrdom : FlagellantCardModel
         {
             await CreatureCmd.Damage(choiceContext, Owner.Creature, _doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
         }
-        await PowerCmd.Apply<ComboPower>(base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<ComboPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);
         if (IsUpgraded)
         {
             await PowerCmd.Remove<DoomPower>(base.Owner.Creature);

@@ -17,11 +17,11 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
 
     public override ResoluteOrMeltdownType RMType => ResoluteOrMeltdownType.Toxic;
 
-    public override Task OnEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? source)
+    public override Task OnEnterResoluteOrMeltdown(PlayerChoiceContext choiceContext, Player player, CardModel? source)
     {
-        PowerCmd.Apply<ScourgeFormPower>(Owner.Creature, 2, Owner.Creature, source);
-        PowerCmd.Apply<ToxicPower>(Owner.Creature, 1, Owner.Creature, source);
-        return base.OnEnterResoluteOrMeltdown(ctx, player, source);
+        PowerCmd.Apply<ScourgeFormPower>(choiceContext, Owner.Creature, 2, Owner.Creature, source);
+        PowerCmd.Apply<ToxicPower>(choiceContext, Owner.Creature, 1, Owner.Creature, source);
+        return base.OnEnterResoluteOrMeltdown(choiceContext, player, source);
     }
 
     public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
@@ -32,16 +32,15 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
             {
                 toxicPower.ToxicPowerFlash();
             }
-            await PowerCmd.Apply<PoisonPower>(target, result.TotalDamage, Owner.Creature, null);
+            await PowerCmd.Apply<PoisonPower>(choiceContext, target, result.TotalDamage, Owner.Creature, null);
         }
     }
 
-    public override async Task BeforeSideTurnStart(PlayerChoiceContext ctx, CombatSide side,
-        CombatState combatState)
+    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side != Owner.Creature.Side) return;
 
         await PowerCmd.Remove<ToxicPower>(Owner.Creature);
-        await RMCmd.ExitResoluteOrMeltdown(ctx, Owner, null);
+        await RMCmd.ExitResoluteOrMeltdown(choiceContext, Owner, null);
     }
 }

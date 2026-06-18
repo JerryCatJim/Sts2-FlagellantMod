@@ -24,7 +24,7 @@ public class TransferMisfortune : FlagellantCardModel
         if(doomNum > 0)
         {
             await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
-            await PowerCmd.Apply<DoomPower>(base.CombatState.HittableEnemies, doomNum, base.Owner.Creature, this);
+            await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, doomNum, base.Owner.Creature, this);
         }
         await CommonActions.Draw(this, choiceContext);
     }

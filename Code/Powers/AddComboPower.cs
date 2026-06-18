@@ -27,13 +27,13 @@ public sealed class AddComboPower : FlagellantPowerModel
             if (cardPlay.Card.TargetType == TargetType.AnyEnemy && cardPlay.Target != null)
             {
                 Flash();
-                await CommonActions.Apply<ComboPower>(cardPlay.Target, cardPlay.Card, 1);
+                await CommonActions.Apply<ComboPower>(context, cardPlay.Target, cardPlay.Card, 1);
                 await PowerCmd.Decrement(this);
             }
             else if(cardPlay.Card.TargetType == TargetType.AllEnemies)
             {
                 Flash();
-                await PowerCmd.Apply<ComboPower>(base.CombatState.HittableEnemies, 1, Owner, cardPlay.Card);
+                await PowerCmd.Apply<ComboPower>(context, base.CombatState.HittableEnemies, 1, Owner, cardPlay.Card);
                 await PowerCmd.Decrement(this);
             }
         }

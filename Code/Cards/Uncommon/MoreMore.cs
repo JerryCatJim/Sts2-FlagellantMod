@@ -24,8 +24,8 @@ public class MoreMore : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.Apply<WeakPower>(base.CombatState.HittableEnemies, this);
-        await CommonActions.Apply<ComboPower>(base.CombatState.HittableEnemies, this);
-        await CommonActions.ApplySelf<StressPower>(this);
+        await CommonActions.Apply<WeakPower>(choiceContext, base.CombatState.HittableEnemies, this);
+        await CommonActions.Apply<ComboPower>(choiceContext, base.CombatState.HittableEnemies, this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
     }
 }

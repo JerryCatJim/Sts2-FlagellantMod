@@ -18,7 +18,7 @@ public class SetbacksToCourage : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<StressPower>(this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CommonActions.Draw(this, choiceContext);
         base.DynamicVars["StressPower"].BaseValue += 1m;
         base.EnergyCost.AddThisCombat(1);

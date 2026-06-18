@@ -86,7 +86,7 @@
   "FLAGELLANT-TRANSFER_MISFORTUNE.title": "Transfer Misfortune",
   "FLAGELLANT-TRANSFER_MISFORTUNE.description": "Remove all your [gold]Doom[/gold].\nApply that much [gold]Doom[/gold] to all enemies.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
   "FLAGELLANT-HOLD_THE_LINE.title": "Hold The Line",
-  "FLAGELLANT-HOLD_THE_LINE.description": "Whenever {ComboPower:comboIcons()} you apply is triggered, draw {HoldTheLinePower:diff()} card.",
+  "FLAGELLANT-HOLD_THE_LINE.description": "Whenever {ComboPower:comboIcons()} you apply is triggered or overwritten, draw {HoldTheLinePower:diff()} card.",
   "FLAGELLANT-GIVE_NO_QUARTER.title": "Give No Quarter",
   "FLAGELLANT-GIVE_NO_QUARTER.description": "Deal {Damage:diff()} damage.\nIf the target has {ComboPower:comboIcons()}, the next card you play costs 0{energyPrefix:energyIcons(1)}.",
   "FLAGELLANT-OVERDRAW_LIFE.title": "Overdraw Life",

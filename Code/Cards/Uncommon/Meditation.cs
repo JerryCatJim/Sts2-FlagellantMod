@@ -28,8 +28,8 @@ public class Meditation : FlagellantCardModel
         num += IsUpgraded ? 1 : 0;
         if(num > 0)
         {
-            await PowerCmd.Apply<RegenPower>(base.Owner.Creature, num * 2, base.Owner.Creature, this);
-            await PowerCmd.Apply<StressPower>(base.Owner.Creature, num, base.Owner.Creature, this);
+            await PowerCmd.Apply<RegenPower>(choiceContext, base.Owner.Creature, num * 2, base.Owner.Creature, this);
+            await PowerCmd.Apply<StressPower>(choiceContext, base.Owner.Creature, num, base.Owner.Creature, this);
         }
     }
 }

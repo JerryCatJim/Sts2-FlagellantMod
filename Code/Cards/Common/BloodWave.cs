@@ -28,7 +28,7 @@ public class BloodWave : FlagellantCardModel
         }
         else
         {
-            await CommonActions.ApplySelf<RegenPower>(this, healNum + GetExtraHealingHp(base.Owner.Creature));
+            await CommonActions.ApplySelf<RegenPower>(choiceContext, this, healNum + GetExtraHealingHp(base.Owner.Creature));
         }
     }
 }

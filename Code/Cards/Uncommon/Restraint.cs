@@ -25,7 +25,7 @@ public class Restraint : FlagellantCardModel
     {
         await PlayCardAnim();
         await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
-        await CommonActions.ApplySelf<StressPower>(this);
-        await PowerCmd.Apply<EnergyNextTurnPower>(base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
+        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
     }
 }

@@ -44,9 +44,10 @@ public class UndyingPower : FlagellantPowerModel
         }
     }
 
-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (side != base.Owner.Side) return Task.CompletedTask;
+        //if (side != base.Owner.Side) return Task.CompletedTask;
+        if (!participants.Contains(base.Owner)) return Task.CompletedTask;
 
         UsedThisTurn = false;
         return Task.CompletedTask;

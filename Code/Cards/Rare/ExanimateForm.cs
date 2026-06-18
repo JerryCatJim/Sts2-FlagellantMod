@@ -23,6 +23,6 @@ public class ExanimateForm : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<ExanimateFormPower>(this);
+        await CommonActions.ApplySelf<ExanimateFormPower>(choiceContext, this);
     }
 }

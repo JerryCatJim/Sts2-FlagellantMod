@@ -14,11 +14,14 @@ public sealed class HoldTheLinePower : FlagellantPowerModel, IAfterComboChanged
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public async Task AfterComboChanged(PowerModel power, decimal amount, Creature applier, CardModel? cardSource)
+    public async Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource)
     {
-        if (amount >= 0m || applier != Owner || base.Owner.Player == null) return;
+        if (amount == 0m || base.Owner.Player == null) return;
 
-        Flash();
-        await CardPileCmd.Draw(new ThrowingPlayerChoiceContext(), Amount, base.Owner.Player);
+        if(power is ComboPower CP && CP.LastApplier == base.Owner)
+        {
+            Flash();
+            await CardPileCmd.Draw(choiceContext, Amount, base.Owner.Player);
+        }
     }
 }

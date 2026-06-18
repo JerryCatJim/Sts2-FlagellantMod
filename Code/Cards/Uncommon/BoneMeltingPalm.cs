@@ -27,7 +27,7 @@ public class BoneMeltingPalm : FlagellantCardModel
         {
             decimal doomNum = doomP.Amount;
             await PowerCmd.Remove(doomP);
-            await PowerCmd.Apply<PoisonPower>(cardPlay.Target, doomNum, base.Owner.Creature, this);
+            await PowerCmd.Apply<PoisonPower>(choiceContext, cardPlay.Target, doomNum, base.Owner.Creature, this);
         }
     }
 }

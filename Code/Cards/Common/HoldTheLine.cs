@@ -19,6 +19,6 @@ public class HoldTheLine : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<HoldTheLinePower>(this, base.DynamicVars["HoldTheLinePower"].BaseValue);
+        await CommonActions.ApplySelf<HoldTheLinePower>(choiceContext, this, base.DynamicVars["HoldTheLinePower"].BaseValue);
     }
 }

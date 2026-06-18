@@ -86,7 +86,7 @@
   "FLAGELLANT-TRANSFER_MISFORTUNE.title": "癌情转移",
   "FLAGELLANT-TRANSFER_MISFORTUNE.description": "移除你的所有[gold]灾厄[/gold]。\n给予所有敌人等量[gold]灾厄[/gold]。\n抽{Cards:diff()}张牌。",
   "FLAGELLANT-HOLD_THE_LINE.title": "坚守阵地",
-  "FLAGELLANT-HOLD_THE_LINE.description": "每当你给予的{ComboPower:comboIcons()}被触发，抽{HoldTheLinePower:diff()}张牌。",
+  "FLAGELLANT-HOLD_THE_LINE.description": "每当你给予的{ComboPower:comboIcons()}被触发或覆盖，抽{HoldTheLinePower:diff()}张牌。",
   "FLAGELLANT-GIVE_NO_QUARTER.title": "毫不留情",
   "FLAGELLANT-GIVE_NO_QUARTER.description": "造成{Damage:diff()}点伤害。\n若目标有{ComboPower:comboIcons()}，则你打出的下一张牌耗能变为0{energyPrefix:energyIcons(1)}。",
   "FLAGELLANT-OVERDRAW_LIFE.title": "透支生命",

@@ -24,12 +24,12 @@ public sealed class CorpseInstabilityPower : FlagellantPowerModel
             && delta != 0 && base.CombatState.CurrentSide == base.Owner.Side)
         {
             Flash();
-            await PowerCmd.Apply<PoisonPower>(base.CombatState.HittableEnemies, Amount, base.Owner, null);
+            await PowerCmd.Apply<PoisonPower>(new ThrowingPlayerChoiceContext(), base.CombatState.HittableEnemies, Amount, base.Owner, null);
         }
     }
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (side == base.Owner.Side)
+        if (participants.Contains(base.Owner))  //if (side == base.Owner.Side)
         {
             await PowerCmd.Remove(this);
         }

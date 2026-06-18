@@ -19,6 +19,6 @@ public class OverdrawLife : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CommonActions.CardBlock(this, cardPlay);
-        await CommonActions.ApplySelf<DoomPower>(this);
+        await CommonActions.ApplySelf<DoomPower>(choiceContext, this);
     }
 }

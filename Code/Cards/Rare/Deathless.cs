@@ -23,6 +23,6 @@ public class Deathless : FlagellantCardModel
     {
         await PlayCardAnim();
         await CreatureCmd.Heal(Owner.Creature, GetHealingPercentHp());
-        await CommonActions.ApplySelf<DoomPower>(this, GetHealingPercentHp() + GetExtraHealingHp(base.Owner.Creature));
+        await CommonActions.ApplySelf<DoomPower>(choiceContext, this, GetHealingPercentHp() + GetExtraHealingHp(base.Owner.Creature));
     }
 }

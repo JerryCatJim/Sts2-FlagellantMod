@@ -1,12 +1,11 @@
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Abstract;
 public interface IAfterStressChanged
 {
-    public Task AfterStressAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource);
+    public Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource);
 }
 public interface IModifyHpAmountReceived
 {
@@ -19,5 +18,5 @@ public interface IModifyHpAmountReceived
 }
 public interface IAfterComboChanged
 {
-    public Task AfterComboChanged(PowerModel power, decimal amount, Creature applier, CardModel? cardSource);
+    public Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource);
 }

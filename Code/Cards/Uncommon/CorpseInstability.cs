@@ -21,6 +21,6 @@ public class CorpseInstability : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<CorpseInstabilityPower>(this);
+        await CommonActions.ApplySelf<CorpseInstabilityPower>(choiceContext, this);
     }
 }

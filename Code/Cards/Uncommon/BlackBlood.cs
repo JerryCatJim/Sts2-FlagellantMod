@@ -22,6 +22,6 @@ public class BlackBlood : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<BlackBloodPower>(this);
+        await CommonActions.ApplySelf<BlackBloodPower>(choiceContext, this);
     }
 }

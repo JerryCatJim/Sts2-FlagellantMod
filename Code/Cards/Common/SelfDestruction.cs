@@ -19,8 +19,8 @@ public class SelfDestruction : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<DoomPower>(this);
-        await PowerCmd.Apply<DoomPower>(base.CombatState.HittableEnemies, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
+        await CommonActions.ApplySelf<DoomPower>(choiceContext, this);
+        await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
         await CommonActions.Draw(this, choiceContext);
     }
 }

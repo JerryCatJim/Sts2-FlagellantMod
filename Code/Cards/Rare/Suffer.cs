@@ -24,6 +24,6 @@ public class Suffer : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<SufferPower>(this, base.DynamicVars["HealingPercent"].BaseValue);
+        await CommonActions.ApplySelf<SufferPower>(choiceContext, this, base.DynamicVars["HealingPercent"].BaseValue);
     }
 }

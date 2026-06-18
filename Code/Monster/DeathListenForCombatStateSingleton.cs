@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Monster;
@@ -23,7 +24,7 @@ public class DeathListenForCombatStateSingleton : CustomSingletonModel
             && !creature.HasPower<SurprisePower>()
             )
         {
-            await PowerCmd.Apply<SpawnDeathPower>(creature, 1, null, null, true);
+            await PowerCmd.Apply<SpawnDeathPower>(new ThrowingPlayerChoiceContext(), creature, 1, null, null, true);
         }
     }
 }

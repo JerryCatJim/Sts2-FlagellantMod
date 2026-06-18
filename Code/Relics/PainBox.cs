@@ -4,6 +4,7 @@ using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -29,7 +30,7 @@ public class PainBox : FlagellantRelicModel
         if (Owner.Creature.CurrentHp <= amount && Owner.Creature.CombatState != null) //已经是除去格挡值后的伤害了
         {
             Flash();
-            PowerCmd.Apply<DoomPower>(Owner.Creature, amount, Owner.Creature, null);
+            PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, amount, Owner.Creature, null);
             return 0m;
         }
         return amount;

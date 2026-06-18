@@ -29,7 +29,7 @@ public class ComboPotion : FlagellantPotionModel
     {
         if (target != null)
         {
-            await PowerCmd.Apply<ComboPower>(target, 1, Owner.Creature, null);
+            await PowerCmd.Apply<ComboPower>(ctx, target, 1, Owner.Creature, null);
         }
     }
 }

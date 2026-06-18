@@ -29,7 +29,7 @@ public class SpreadingPlague : FlagellantCardModel
         else
         {
             await PlayCardAnim();
-            await CommonActions.Apply<PoisonPower>(cardPlay.Target, this, base.DynamicVars.Damage.BaseValue);
+            await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this, base.DynamicVars.Damage.BaseValue);
         }
     }
 }

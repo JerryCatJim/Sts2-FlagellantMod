@@ -19,7 +19,7 @@ public class BattlefieldMedicine : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<RegenPower>(this);
+        await CommonActions.ApplySelf<RegenPower>(choiceContext, this);
         await CommonActions.Draw(this, choiceContext);
     }
 }

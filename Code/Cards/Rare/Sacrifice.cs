@@ -19,6 +19,6 @@ public class Sacrifice : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<SacrificePower>(this, base.DynamicVars.Energy.BaseValue);
+        await CommonActions.ApplySelf<SacrificePower>(choiceContext, this, base.DynamicVars.Energy.BaseValue);
     }
 }

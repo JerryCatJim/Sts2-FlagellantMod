@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Powers;
@@ -18,7 +19,7 @@ public class GospelPower : FlagellantPowerModel
         if (CombatManager.Instance.IsInProgress && creature == base.Owner && delta > 0)
         {
             Flash();
-            await PowerCmd.Apply<DoomPower>(base.CombatState.HittableEnemies, delta * Amount, base.Owner, null);
+            await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), base.CombatState.HittableEnemies, delta * Amount, base.Owner, null);
         }
     }
 }

@@ -19,6 +19,6 @@ public class WeightTraining : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<WeightTrainingPower>(this, base.DynamicVars["StressPower"].BaseValue);
+        await CommonActions.ApplySelf<WeightTrainingPower>(choiceContext, this, base.DynamicVars["StressPower"].BaseValue);
     }
 }

@@ -21,7 +21,7 @@ public sealed class DoomedConstitutionPower : FlagellantPowerModel
         if (CombatManager.Instance.IsInProgress && target == base.Owner
             && result.UnblockedDamage > 0)// && base.CombatState.CurrentSide == base.Owner.Side)
         {
-            await PowerCmd.Apply<DoomPower>(base.CombatState.HittableEnemies, result.UnblockedDamage * Amount, base.Owner, null);
+            await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, result.UnblockedDamage * Amount, base.Owner, null);
         }
     }
 }

@@ -1,12 +1,17 @@
 {
-"id": "Flagellant", // 必填，唯一 ID，建议和项目名一致
-"pck_name": "Flagellant",
+"id": "Flagellant",
 "name": "Flagellant",
 "author": "Jerry",
 "description": "A character mod for Slay the Spire 2, Just for practicing.",
 "version": "0.1.81",
-"has_pck": true, // 是否有 .pck 资源包
-"has_dll": true, // 是否有 .dll 代码
-"dependencies": [ "BaseLib" ], // 依赖的其他mod id
-"affects_gameplay": true // 多人模式时是否影响内容，如果是替换模型和优化等不影响内容的mod可填false，默认true
+"has_pck": true,
+"has_dll": true,
+"min_game_version": "0.107.0",
+"dependencies": [
+{
+"id": "BaseLib",
+"min_version": "3.2.0"
+}
+],
+"affects_gameplay": true
 }

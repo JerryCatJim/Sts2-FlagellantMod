@@ -21,6 +21,6 @@ public class Rapturous : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<RapturousPower>(this);
+        await CommonActions.ApplySelf<RapturousPower>(choiceContext, this);
     }
 }

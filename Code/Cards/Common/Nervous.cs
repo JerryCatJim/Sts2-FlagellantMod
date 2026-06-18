@@ -38,7 +38,7 @@ public class Nervous : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _calculatedStress = (base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m) + GetStressBeforeReceived();
-        await CommonActions.ApplySelf<StressPower>(this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CommonActions.CardBlock(this, base.DynamicVars.CalculatedBlock, cardPlay);
         _calculatedStress = 0;
     }

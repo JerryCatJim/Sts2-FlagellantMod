@@ -39,7 +39,7 @@ public class CheatDeath : FlagellantCardModel
         if (base.DynamicVars["HealthChangedTimes"].BaseValue % _needChangedTimes == 0)
         {
             base.DynamicVars["HealthChangedTimes"].BaseValue = 0;
-            if (base.Pile.Type != PileType.Hand)
+            if (base.Pile != null && base.Pile.Type != PileType.Hand)
             {
                 await CardPileCmd.Add(this, PileType.Hand);
             }

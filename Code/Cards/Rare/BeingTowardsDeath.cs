@@ -20,6 +20,6 @@ public class BeingTowardsDeath : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<BeingTowardsDeathPower>(this);
+        await CommonActions.ApplySelf<BeingTowardsDeathPower>(choiceContext, this);
     }
 }

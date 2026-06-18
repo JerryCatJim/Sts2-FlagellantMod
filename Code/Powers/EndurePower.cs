@@ -57,7 +57,7 @@ public sealed class EndurePower : FlagellantPowerModel
         {
             if (cardSource == null || !GetInternalData<Data>().playedCards.ContainsKey(cardSource))
             {
-                await PowerCmd.Apply<StressPower>(base.Owner, base.Amount, base.Owner, null);
+                await PowerCmd.Apply<StressPower>(choiceContext, base.Owner, base.Amount, base.Owner, null);
             }
             else
             {
@@ -70,18 +70,17 @@ public sealed class EndurePower : FlagellantPowerModel
     {
         if (cardPlay.Card.Owner.Creature == base.Owner && GetInternalData<Data>().playedCards.Remove(cardPlay.Card, out var value))
         {
-            await CommonActions.ApplySelf<StressPower>(cardPlay.Card, value);
+            await CommonActions.ApplySelf<StressPower>(choiceContext, cardPlay.Card, value);
         }
     }
  #endregion GainStressWhenHpLoss
 
-    public override async Task BeforeHandDrawLate(Player player, PlayerChoiceContext choiceContext,
-        CombatState combatState)
+    public override async Task BeforeHandDrawLate(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         if (player != Owner.Player)
             return;
         
-        await PowerCmd.Apply<StressPower>(player.Creature, Amount, player.Creature, ModelDb.Card<Endure>());
+        await PowerCmd.Apply<StressPower>(choiceContext, player.Creature, Amount, player.Creature, ModelDb.Card<Endure>());
         Flash();
     }
 }

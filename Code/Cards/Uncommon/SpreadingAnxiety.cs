@@ -27,10 +27,10 @@ public class SpreadingAnxiety : FlagellantCardModel
         await PlayCardAnim();
         decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
         stressNum += GetStressBeforeReceived();
-        await CommonActions.ApplySelf<StressPower>(this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<SpreadingAnxietyPower>(hittableEnemy, stressNum, base.Owner.Creature, this);
+            await PowerCmd.Apply<SpreadingAnxietyPower>(choiceContext, hittableEnemy, stressNum, base.Owner.Creature, this);
         }
     }
 }

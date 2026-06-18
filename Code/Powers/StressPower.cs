@@ -25,40 +25,31 @@ public sealed class StressPower : FlagellantPowerModel
         HoverTipFactory.FromPower<ScourgeFormPower>(),
     ];
 
-    public override async Task AfterPowerAmountChanged(
-        PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (amount == 0m || power is not StressPower || power != this)
             return;
 
-        if(Amount < 0)
+        //有效的变化层数，例如Amount当前为-2，amount为-3，即修改之前Amount为1，减少了1层，所以传入的是-1
+        decimal realChangedAmount = Amount < 0 ? amount - Amount : amount;
+        if(realChangedAmount != 0m)
         {
-            //不太完美，会有负数的StressPowerIcon一闪而过，但我追踪到Powercmd里尝试重写PowerModel的TryModifyPowerAmountReceived没有效果，先这样吧
-            await PowerCmd.Remove(this);
-            if(amount - Amount != 0m)
-            {
-                await BroadcastStressChangedEvent(power, amount - Amount, applier, cardSource);
-            }
-            return;
+            await BroadcastStressChangedEvent(choiceContext, power, realChangedAmount, applier, cardSource);
         }
-
-        await BroadcastStressChangedEvent(power, amount, applier, cardSource);
 
         //满10点压力触发美德或者折磨判定，触发后把压力值归零
         if (Amount >= 10)
         {
-            //await PowerCmd.ModifyAmount(this, -Amount, Owner, cardSource);
-            await PowerCmd.Remove(this);
-            await BroadcastStressChangedEvent(power, -Amount, applier, cardSource);
+            await BroadcastStressChangedEvent(choiceContext, power, -Amount, applier, cardSource);
             if (Owner.Player is Player player)
-            {   
-                var ctx = new ThrowingPlayerChoiceContext();
-                await RMCmd.TryEnterResoluteOrMeltdown(ctx, player, cardSource);
+            {
+                await RMCmd.TryEnterResoluteOrMeltdown(choiceContext, player, cardSource);
             }
         }
+        await SetAmountBorder();
     }
     
-    private Task BroadcastStressChangedEvent(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    private Task BroadcastStressChangedEvent(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (amount == 0m || base.Owner.CombatState == null) return Task.CompletedTask;
 
@@ -66,9 +57,16 @@ public sealed class StressPower : FlagellantPowerModel
         {
             if (item is IAfterStressChanged myModel)
             {
-                myModel.AfterStressAmountChanged(power, amount, applier, cardSource);
+                myModel.AfterStressAmountChanged(choiceContext, power, amount, applier, cardSource);
             }
         }
         return Task.CompletedTask;
+    }
+    private async Task SetAmountBorder()
+    {
+        if (Amount < 0 || Amount >= 10)
+        {
+            await PowerCmd.Remove(this);
+        }
     }
 }

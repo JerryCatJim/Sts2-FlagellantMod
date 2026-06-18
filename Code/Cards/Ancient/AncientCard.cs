@@ -26,11 +26,11 @@ public class Execution : FlagellantCardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
         await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
-        await CommonActions.Apply<PoisonPower>(cardPlay.Target, this);
+        await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this);
         await CreatureCmd.Heal(Owner.Creature, GetHealingPercentHp());
         if (IsUpgraded)
         {
-            await CommonActions.Apply<ComboPower>(cardPlay.Target, this);
+            await CommonActions.Apply<ComboPower>(choiceContext, cardPlay.Target, this);
         }
     }
 }

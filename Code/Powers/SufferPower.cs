@@ -1,11 +1,12 @@
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Cards.Rare;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using Flagellant.Code.Cards.Rare;
 
 namespace Flagellant.Code.Powers;
 
@@ -28,12 +29,12 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
         if (DPwr != null)
         {
             Flash();
-            await PowerCmd.ModifyAmount(DPwr, -Math.Round(delta) * Amount, creature, ModelDb.Card<Suffer>());
+            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), DPwr, -Math.Round(delta) * Amount, creature, ModelDb.Card<Suffer>());
         }
     }
-    public async Task AfterStressAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public async Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (base.CombatState.CurrentSide != base.Owner.Side || amount <= 0m) return;
+        if (base.CombatState.CurrentSide != base.Owner.Side || amount <= 0m || power.Owner != base.Owner) return;
 
         Flash();
         await CreatureCmd.Heal(base.Owner, GetHealingPercentHp(Amount));

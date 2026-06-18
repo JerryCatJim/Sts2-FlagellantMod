@@ -187,10 +187,10 @@ public class Death : CustomMonsterModel
                 }
             }
 
-            await PowerCmd.Apply<DoomPower>(creature, MementoMoriDoomNum, Creature, null);
+            await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), creature, MementoMoriDoomNum, Creature, null);
             if (ShouldApplyVulunerable || IsFlagellant(creature))
             {
-                await PowerCmd.Apply<VulnerablePower>(creature, 2, Creature, null);
+                await PowerCmd.Apply<VulnerablePower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
             }
             /*if(ShouldReduceStrengthAndDexterity || IsFlagellant(creature))
             {
@@ -199,8 +199,8 @@ public class Death : CustomMonsterModel
             }*/
             if (IsFlagellant(creature))
             {
-                await PowerCmd.Apply<ComboPower>(creature, 1, Creature, null);
-                await PowerCmd.Apply<StressPower>(creature, 1, Creature, null);
+                await PowerCmd.Apply<ComboPower>(new ThrowingPlayerChoiceContext(), creature, 1, Creature, null);
+                await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 1, Creature, null);
             }
         }
     }
@@ -226,7 +226,7 @@ public class Death : CustomMonsterModel
         {
             if (IsFlagellant(creature))
             {
-                await PowerCmd.Apply<StressPower>(creature, 2, Creature, null);
+                await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
             }
         }
     }
@@ -265,17 +265,17 @@ public class Death : CustomMonsterModel
                 if(creature.GetPower<ComboPower>() is ComboPower comboP)
                 {
                     NGame.Instance?.ScreenShake(ShakeStrength.Strong, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
-                    await PowerCmd.ModifyAmount(comboP, -1, creature, null);
-                    await PowerCmd.Apply<RingingPower>(creature, 1m, Creature, null);
+                    await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), comboP, -1, creature, null);
+                    await PowerCmd.Apply<RingingPower>(new ThrowingPlayerChoiceContext(), creature, 1m, Creature, null);
                 }
-                await PowerCmd.Apply<StressPower>(creature, 2, Creature, null);
+                await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
             }
             if (ShouldApplyWeak || IsFlagellant(creature))
             {
-                await PowerCmd.Apply<WeakPower>(creature, 2, Creature, null);
+                await PowerCmd.Apply<WeakPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
             }
         }
-        await PowerCmd.Apply<StrengthPower>(Creature, TrampleStrength, Creature, null);
+        await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Creature, TrampleStrength, Creature, null);
     }
 
     private bool IsFlagellant(Creature creature)

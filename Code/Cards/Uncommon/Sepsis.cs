@@ -47,13 +47,13 @@ public class Sepsis : FlagellantCardModel
             int TriggerTimes = (int)(base.DynamicVars["TriggerPoison"]?.BaseValue ?? 0) + (cardPlay.Target.HasPower<ComboPower>() ? 1 : 0);
             if(cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
             {
-                await PowerCmd.ModifyAmount(comboP, -1, Owner.Creature, this);
+                await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             }
             for(int i = 0; i < TriggerTimes; i++)
             {
                 if (PP != null && PP.Amount > 0)
                 {
-                    await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), 
+                    await CreatureCmd.Damage(choiceContext,
                         cardPlay.Target, PP.Amount, ValueProp.Unblockable | ValueProp.Unpowered, 
                         null, this);
                     await PowerCmd.Decrement(PP);

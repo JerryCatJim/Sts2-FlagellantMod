@@ -19,6 +19,6 @@ public class Undying : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<UndyingPower>(this);
+        await CommonActions.ApplySelf<UndyingPower>(choiceContext, this);
     }
 }

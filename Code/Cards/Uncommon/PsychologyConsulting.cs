@@ -45,7 +45,7 @@ public class PsychologyConsulting : FlagellantCardModel
         }
         if (base.Owner.Creature.GetPower<StressPower>() is StressPower SP)
         {
-            await PowerCmd.ModifyAmount(SP, -SP.Amount, Owner.Creature, this);
+            await PowerCmd.ModifyAmount(choiceContext, SP, -SP.Amount, Owner.Creature, this);
         }
         if(healingAmount > 0)
         {

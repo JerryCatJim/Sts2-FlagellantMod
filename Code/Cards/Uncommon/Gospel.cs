@@ -20,6 +20,6 @@ public class Gospel : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<GospelPower>(this);
+        await CommonActions.ApplySelf<GospelPower>(choiceContext, this);
     }
 }

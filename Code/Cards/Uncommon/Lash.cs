@@ -25,6 +25,6 @@ public class Lash : FlagellantCardModel
         await PlayCardAnim();
         await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
         await CreatureCmd.Heal(base.Owner.Creature, GetHealingPercentHp());
-        await CommonActions.ApplySelf<StressPower>(this);
+        await CommonActions.ApplySelf<StressPower>(choiceContext, this);
     }
 }

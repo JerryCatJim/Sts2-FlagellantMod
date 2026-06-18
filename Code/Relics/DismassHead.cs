@@ -5,6 +5,7 @@ using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -21,11 +22,11 @@ public class DismassHead : FlagellantRelicModel, IAfterComboChanged
         HoverTipFactory.FromPower<VulnerablePower>()
     ];
 
-    public async Task AfterComboChanged(PowerModel power, decimal amount, Creature applier, CardModel? cardSource)
+    public async Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource)
     {
         if (amount <= 0m || applier != Owner.Creature) return;
 
         Flash();
-        await PowerCmd.Apply<VulnerablePower>(power.Owner, 1, Owner.Creature, null);
+        await PowerCmd.Apply<VulnerablePower>(choiceContext, power.Owner, 1, Owner.Creature, null);
     }
 }

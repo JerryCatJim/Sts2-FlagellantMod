@@ -21,6 +21,6 @@ public class Anemia : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.ApplySelf<AnemiaPower>(this);
+        await CommonActions.ApplySelf<AnemiaPower>(choiceContext, this);
     }
 }
