@@ -96,6 +96,73 @@ namespace Flagellant.Code.Audio
             return FileName == "" ? FileName : PathHead+FileName+FileEnd;
         }
 
+        public static float GetFlagellantVolumeDB(String AudioName)
+        {
+            float TempDB = -10.0f;
+            switch (AudioName)
+            {
+                //CardSelect
+                case "CardSelect/Punish":
+                case "CardSelect/Necrosis":
+                case "CardSelect/Fester":
+                case "CardSelect/AcidRain":
+                case "CardSelect/Deathless":
+                case "CardSelect/Endure":
+                case "CardSelect/More":
+                case "CardSelect/Sepsis":
+                case "CardSelect/Undying":
+                case "CardSelect/Lash":
+                case "CardSelect/Suffer":
+                    TempDB = -10;
+                    break;
+                //CardPlay
+                case "CardPlay/Punish":
+                case "CardPlay/Fester":
+                case "CardPlay/Deathless":
+                case "CardPlay/Suffer":
+                case "CardPlay/Undying":
+                case "CardPlay/Lash":
+                case "CardPlay/Sepsis":
+                case "CardPlay/Necrosis":
+                    TempDB = -6;
+                    break;
+                case "CardPlay/AcidRain":
+                    TempDB = -10;
+                    break;
+                case "CardPlay/Endure":
+                    TempDB = -8;
+                    break;
+                case "CardPlay/More":
+                    TempDB = -6;
+                    break;
+                //CardPlayRecover
+                case "CardPlay/Punish_Recover":
+                case "CardPlay/Necrosis_Recover":
+                    TempDB = -8;
+                    break;
+                case "CardPlay/Fester_Recover":
+                case "CardPlay/AcidRain_Recover":
+                case "CardPlay/Sepsis_Recover":
+                    TempDB = -10;
+                    break;
+                case "CardPlay/Lash_Recover":
+                case "CardPlay/Suffer_Recover":
+                    TempDB = -8;
+                    break;
+                case "CardPlay/Deathless_Recover":
+                case "CardPlay/Endure_Recover":
+                case "CardPlay/More_Recover":
+                case "CardPlay/Undying_Recover":
+                    TempDB = -6;
+                    break;
+                //Do nothing
+                default:
+                    TempDB = -10;
+                    break;
+            }
+            return TempDB;
+        }
+
         public static String GetDeathPath(String AudioName)
         {
             String FileName = "";

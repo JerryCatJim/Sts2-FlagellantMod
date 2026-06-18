@@ -101,7 +101,11 @@ public static class FlagellantAnimationPatch
                             AR_SM.Travel(cardAnimName);
                             if (!FlagellantConfig.ShouldMuteSeparately)
                             {
-                                AudioManager.PlayCombatSfx("CardSelect/" + cardAnimName);
+                                AudioManager.PlayCombatSfx("CardSelect/" + cardAnimName
+                                    //, false, 
+                                    //false, 
+                                    //AudioCfg.GetFlagellantVolumeDB("CardSelect/" + cardAnimName)
+                                    );
                             }
                         }
                     }
@@ -135,7 +139,7 @@ public static class FlagellantAnimationPatch
     {
         if(!FlagellantConfig.ShouldMuteSeparately)
         {
-            float VolumeDB = state == "Lash" ? -4 : -10;
+            float VolumeDB = AudioCfg.GetFlagellantVolumeDB("CardPlay/" + state);
             //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
             AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"), false, VolumeDB);
         }
