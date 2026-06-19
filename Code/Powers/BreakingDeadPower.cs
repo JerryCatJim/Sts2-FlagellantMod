@@ -23,8 +23,8 @@ public sealed class BreakingDeadPower : FlagellantPowerModel
         if (power != null && power is PoisonPower && amount > 0m && giver == Owner && target != Owner)
         {
             Flash();
-            return amount + Amount;
+            return Amount;
         }
-        return amount;
+        return 0m;
     }
 }

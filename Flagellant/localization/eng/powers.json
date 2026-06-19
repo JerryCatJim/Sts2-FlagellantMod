@@ -76,9 +76,9 @@
   "FLAGELLANT-SPAWN_DEATH_POWER.title": "Death Comes...",
   "FLAGELLANT-SPAWN_DEATH_POWER.description": "Death Comes...",
   "FLAGELLANT-SPAWN_DEATH_POWER.smartDescription": "Death Comes...",
-  "FLAGELLANT-BEING_TOWARDS_DEATH_POWER.title": "Being Towards Death",
-  "FLAGELLANT-BEING_TOWARDS_DEATH_POWER.description": "Whenever you take attack damage, gain [blue]X[/blue] [gold]Regen[/gold].",
-  "FLAGELLANT-BEING_TOWARDS_DEATH_POWER.smartDescription": "Whenever you take attack damage, gain [blue]{Amount}[/blue] [gold]Regen[/gold].",
+  "FLAGELLANT-MORE_MORE_POWER.title": "More! More!",
+  "FLAGELLANT-MORE_MORE_POWER.description": "Whenever you take attack damage, gain [blue]X[/blue] [gold]Regen[/gold].",
+  "FLAGELLANT-MORE_MORE_POWER.smartDescription": "Whenever you take attack damage, gain [blue]{Amount}[/blue] [gold]Regen[/gold].",
   "FLAGELLANT-GOSPEL_POWER.title": "Gospel",
   "FLAGELLANT-GOSPEL_POWER.description": "Whenever you heal HP, apply an equal amount of [gold]Doom[/gold] to all enemies.",
   "FLAGELLANT-GOSPEL_POWER.smartDescription": "Whenever you heal HP, apply an equal amount of [gold]Doom[/gold] to all enemies."

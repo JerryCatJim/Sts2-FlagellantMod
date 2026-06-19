@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Powers;
 
-public sealed class BeingTowardsDeathPower : FlagellantPowerModel
+public sealed class MoreMorePower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 

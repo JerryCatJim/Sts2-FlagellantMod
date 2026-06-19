@@ -18,6 +18,7 @@ public class FatalStrike : FlagellantCardModel
         WithStress(3);
         WithCostUpgradeBy(-1);
         WithCalculatedDamage(0, ((CardModel card, Creature? _) => card.Owner.Creature.MaxHp - card.Owner.Creature.CurrentHp));
+        WithAnimName("Sepsis");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
