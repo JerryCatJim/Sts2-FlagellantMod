@@ -77,9 +77,11 @@
       <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="BaseLib">
+    <!-- <Reference Include="BaseLib">
       <HintPath>$(BaseLibPath)/BaseLib.dll</HintPath>
-    </Reference>
+    </Reference> -->
+    <!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->
+    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="*" />
     <Reference Include="GodotSharp">
       <HintPath>$(Sts2DataDir)/GodotSharp.dll</HintPath>
     </Reference>

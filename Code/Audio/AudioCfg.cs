@@ -133,7 +133,7 @@ namespace Flagellant.Code.Audio
                     TempDB = -8;
                     break;
                 case "CardPlay/More":
-                    TempDB = -6;
+                    TempDB = -7;
                     break;
                 //CardPlayRecover
                 case "CardPlay/Punish_Recover":
