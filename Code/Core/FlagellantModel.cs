@@ -35,7 +35,8 @@ public class FlagellantModel() : CustomSingletonModel(HookType.Combat)
     private static async Task SetResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel newCanonical, CardModel? source)
     {
         var current = ActiveRM[player];
-        if (current?.GetType() == newCanonical.GetType()) return;
+        //可以重复进入美德/折磨
+        //if (current?.GetType() == newCanonical.GetType()) return;
 
         if (current != null)
             await current.OnExitResoluteOrMeltdown(ctx, player, source);

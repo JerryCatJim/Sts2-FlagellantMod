@@ -38,7 +38,8 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
 
     public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (side != Owner.Creature.Side) return;
+        //if (side != base.Owner.Creature.Side) return;
+        if (!participants.Contains(base.Owner.Creature)) return;
 
         await PowerCmd.Remove<ToxicPower>(Owner.Creature);
         await RMCmd.ExitResoluteOrMeltdown(choiceContext, Owner, null);
