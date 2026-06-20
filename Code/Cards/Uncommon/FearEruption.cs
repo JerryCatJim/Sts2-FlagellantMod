@@ -15,7 +15,7 @@ public class FearEruption : FlagellantCardModel
     private decimal _calculatedStress = 0;
     public FearEruption() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithStress(1,1);
+        WithStress(2,1);
         WithCalculatedDamage(0, ((CardModel card, Creature? c) =>
         {
             if (card != null && card is FearEruption myCard)

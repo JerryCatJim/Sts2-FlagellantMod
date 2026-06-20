@@ -14,9 +14,9 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class Coerce : FlagellantCardModel, IAfterStressChanged
 {
-    public Coerce() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public Coerce() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(15, 4);
+        WithDamage(12, 3);
         WithPowerTip<StressPower>();
     }
 

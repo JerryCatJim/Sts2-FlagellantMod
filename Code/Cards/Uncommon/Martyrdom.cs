@@ -20,7 +20,8 @@ public class Martyrdom : FlagellantCardModel
     {
         WithPowerTip<DoomPower>();
         WithPower<ComboPower>(1);
-        WithAnimName("Deathless");
+        WithAnimName("More");
+        WithKeyword(CardKeyword.Exhaust);
         WithCalculatedDamage(0, ((CardModel card, Creature? c) =>
         {
             if (card != null && card is Martyrdom myCard)

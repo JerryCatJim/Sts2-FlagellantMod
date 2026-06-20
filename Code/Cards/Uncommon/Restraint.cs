@@ -18,6 +18,7 @@ public class Restraint : FlagellantCardModel
         WithLossPercent(8);
         WithStress(1, 1);
         WithEnergy(1, 1);
+        WithCards(1);
         WithAnimName("Lash");
     }
 
@@ -27,5 +28,6 @@ public class Restraint : FlagellantCardModel
         await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Cards.BaseValue, base.Owner.Creature, this);
     }
 }

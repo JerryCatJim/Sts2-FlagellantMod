@@ -14,18 +14,17 @@ public class TransferMisfortune : FlagellantCardModel
 
     public TransferMisfortune() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithPowerTip<DoomPower>();
+        WithPower<DoomPower>(9);
         WithCards(1,1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        decimal doomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
-        if(doomNum > 0)
+        if (Owner.Creature.GetPower<DoomPower>() is DoomPower doomP)
         {
-            await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
-            await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, doomNum, base.Owner.Creature, this);
+            await PowerCmd.ModifyAmount(choiceContext, doomP, -base.DynamicVars.Doom.BaseValue, Owner.Creature, this);
         }
+        await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
         await CommonActions.Draw(this, choiceContext);
     }
 }

@@ -13,14 +13,13 @@ public class SelfDestruction : FlagellantCardModel
 {
     public SelfDestruction() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithPower<DoomPower>(9, 4);
-        WithCards(1);
+        WithPower<DoomPower>(13);
+        WithCostUpgradeBy(-1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CommonActions.ApplySelf<DoomPower>(choiceContext, this);
         await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
-        await CommonActions.Draw(this, choiceContext);
     }
 }

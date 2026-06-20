@@ -15,7 +15,7 @@ public class BoneMeltingPalm : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<DoomPower>()) ?? false;
     public BoneMeltingPalm() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(6, 3);
+        WithDamage(8, 2);
         WithPowerTip<DoomPower>();
         WithPowerTip<PoisonPower>();
     }

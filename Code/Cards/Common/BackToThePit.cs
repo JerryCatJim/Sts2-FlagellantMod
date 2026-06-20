@@ -13,9 +13,9 @@ namespace Flagellant.Code.Cards.Common;
 [Pool(typeof(FlagellantCardPool))]
 public class BackToThePit : FlagellantCardModel
 {
-    public BackToThePit() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public BackToThePit() : base(3, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(12,3);
+        WithDamage(15,4);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
