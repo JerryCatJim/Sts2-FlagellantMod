@@ -15,21 +15,22 @@ public class SpreadingPlague : FlagellantCardModel
     public SpreadingPlague() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithDamage(9,4);
-        WithPowerTip<PoisonPower>();
+        WithPower<PoisonPower>(9,4);
         WithAnimName("Punish");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Target == null) return;
-        if(cardPlay.Target.HasPower<PoisonPower>())
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
+        if (cardPlay.Target.HasPower<PoisonPower>())
         {
             await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
         }
         else
         {
             await PlayCardAnim();
-            await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this, base.DynamicVars.Damage.BaseValue);
+            await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this);
         }
     }
 }

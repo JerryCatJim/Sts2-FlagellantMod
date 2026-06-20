@@ -25,6 +25,7 @@ public sealed class RapturousPower : FlagellantPowerModel
     {
         if(canonicalPower != null && canonicalPower is StressPower && amount > 0m && target == Owner)
         {
+            Flash();
             modifiedAmount = amount + Amount;
             return true;
         }

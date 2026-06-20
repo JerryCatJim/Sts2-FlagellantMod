@@ -44,7 +44,7 @@
   "FLAGELLANT-SCOURGE.title": "天灾",
   "FLAGELLANT-SCOURGE.description": "回复等同于[gold]灾厄[/gold]层数的生命，给予所有敌人等量[gold]中毒[/gold]。",
   "FLAGELLANT-SPREADING_PLAGUE.title": "传播瘟疫",
-  "FLAGELLANT-SPREADING_PLAGUE.description": "造成{Damage:diff()}点伤害。\n若目标没有[gold]中毒[/gold]，则改为给予{Damage}层[gold]中毒[/gold]。",
+  "FLAGELLANT-SPREADING_PLAGUE.description": "造成{Damage:diff()}点伤害。\n若目标没有[gold]中毒[/gold]，则改为给予{PoisonPower:diff()}层[gold]中毒[/gold]。",
   "FLAGELLANT-BLOOD_DONATION.title": "献血",
   "FLAGELLANT-BLOOD_DONATION.description": "对所有敌人造成你最大生命值{HealingPercent:diff()}%的伤害{InCombat:({CalculatedDamage:diff()})|({HealingPercent:diff()})}。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。",
   "FLAGELLANT-ANEMIA.title": "贫血",
