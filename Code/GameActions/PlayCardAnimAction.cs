@@ -2,9 +2,10 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.GameActions;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace Flagellant.Code.GameActions;
 
@@ -42,14 +43,19 @@ public sealed class PlayCardAnimAction : GameAction
         AnimWaitTime = waitTime;
     }
 
-    protected override Task ExecuteAction()
+    protected override async Task ExecuteAction()
     {
-        return CreatureCmd.TriggerAnim(PlayerCreature, CardAnimName, AnimWaitTime);
+        await CreatureCmd.TriggerAnim(PlayerCreature, CardAnimName, AnimWaitTime);
     }
 
     protected override void CancelAction()
     {
-        CreatureCmd.TriggerAnim(PlayerCreature, "Idle", 0);
+        //CreatureCmd.TriggerAnim(PlayerCreature, "Idle", 0);
+        NCreature? creatureNode = PlayerCreature.GetCreatureNode();
+        if (creatureNode != null)
+        {
+            creatureNode.SetAnimationTrigger("Idle");
+        }
     }
 
     public override INetAction ToNetAction()

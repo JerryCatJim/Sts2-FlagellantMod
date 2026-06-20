@@ -40,8 +40,27 @@ public partial class MainFile// : Node
         Harmony harmony = new(ModId);
         var assembly = Assembly.GetExecutingAssembly();
         ScriptManagerBridge.LookupScriptsInAssembly(assembly);
-        harmony.PatchAll();
-	}
+       // harmony.PatchAll();
+       //输出所有检测到的Patch类
+        var patchTypes = assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<HarmonyPatch>() != null)
+                .ToList();
+        Log.Info($"Found {patchTypes.Count} types with [HarmonyPatch].");
+        foreach (var t in patchTypes)
+        {
+            Log.Info($"  - {t.FullName}");
+        }
+
+        try
+        {
+            harmony.PatchAll();
+            Log.Info("Harmony PatchAll completed successfully.");
+        }
+        catch (Exception ex)
+        {
+            Log.Info($"Harmony PatchAll FAILED: {ex}");
+        }
+    }
 }
 
 /*[HarmonyPatch(typeof(ModelDb), "InitIds")]

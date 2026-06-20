@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqhrv8rhpxvhn"]
+[gd_scene load_steps=7 format=3 uid="uid://cqhrv8rhpxvhn"]
 
 [ext_resource type="PackedScene" uid="uid://ra7injoopate" path="res://Flagellant/Scenes/flagellant_model.tscn" id="1_hjata"]
+[ext_resource type="Script" uid="uid://cufjo1esuvhug" path="res://Code/Nodes/FlagellantNMerchantCharacter.cs" id="1_pu8in"]
 [ext_resource type="AnimationLibrary" uid="uid://c7seiy3gyxwpb" path="res://flagellant_asset/shop_animlib.tres" id="2_m3ie8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ydqrq"]
@@ -17,6 +18,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="TestFlagellant" type="Node2D"]
+script = ExtResource("1_pu8in")
 
 [node name="Visuals" type="Node2D" parent="."]
 unique_name_in_owner = true
