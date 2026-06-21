@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,11 +12,12 @@ using MegaCrit.Sts2.Core.Models;
 namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
-public class BackToThePit : FlagellantCardModel
+public class Coerce : FlagellantCardModel, IAfterStressChanged
 {
-    public BackToThePit() : base(3, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public Coerce() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(15,4);
+        WithDamage(12, 3);
+        WithPowerTip<StressPower>();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -34,22 +36,19 @@ public class BackToThePit : FlagellantCardModel
             return Task.CompletedTask;
         }
 
-        int amount = CombatManager.Instance.History.Entries.
-            OfType<DamageReceivedEntry>().
-            Count((DamageReceivedEntry e) => e.HappenedThisTurn(Owner.Creature.CombatState)
-                && e.Receiver == Owner.Creature
-                && e.Result.UnblockedDamage > 0);
-        ReduceCostBy(amount);
+        int amount = CombatManager.Instance.History.Entries
+        .OfType<PowerReceivedEntry>()
+        .Count((PowerReceivedEntry e) => e.HappenedThisTurn(Owner.Creature.CombatState)
+            && e.Power is StressPower
+            && e.Applier == Owner.Creature
+            && e.Amount > 0);
+        ReduceCostBy((int)amount);
         return Task.CompletedTask;
     }
 
-    public override Task AfterCurrentHpChanged(Creature creature, decimal delta)
+    public Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        //这个事件会广播给deck内的卡牌，所以记得排除
-        if (!IsInCombat) return Task.CompletedTask;
-
-        if (delta >= 0m || creature != Owner.Creature || base.CombatState == null || CombatManager.Instance.IsOverOrEnding
-            || base.CombatState.CurrentSide != base.Owner.Creature.Side)
+        if (amount <= 0m || power.Owner != base.Owner.Creature)
         {
             return Task.CompletedTask;
         }
