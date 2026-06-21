@@ -46,7 +46,7 @@
   "FLAGELLANT-SPREADING_PLAGUE.title": "Spreading Plague",
   "FLAGELLANT-SPREADING_PLAGUE.description": "Deal {Damage:diff()} damage.\nIf the target doesn't have [gold]Poison[/gold], apply {PoisonPower:diff()} [gold]Poison[/gold] instead.",
   "FLAGELLANT-BLOOD_DONATION.title": "Blood Donation",
-  "FLAGELLANT-BLOOD_DONATION.description": "Deal damage to all enemies equal to {HealingPercent:diff()}% of your max HP{InCombat:({CalculatedDamage:diff()})|({HealingPercent:diff()})}.\nLose {LossPercent:diff()}%({LossCurrentHp:diff()}) HP.",
+  "FLAGELLANT-BLOOD_DONATION.description": "Deal damage to all enemies equal to {HealingPercent:diff()}% of your max HP{InCombat:({CalculatedDamage:diff()})|}.\nLose {LossPercent:diff()}%({LossCurrentHp:diff()}) HP.",
   "FLAGELLANT-ANEMIA.title": "Anemia",
   "FLAGELLANT-ANEMIA.description": "Whenever you lose HP during your turn, gain an equal amount of [gold]Block[/gold].",
   "FLAGELLANT-SACRIFICE.title": "Sacrifice",

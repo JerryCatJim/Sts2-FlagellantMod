@@ -1,6 +1,4 @@
 using Flagellant.Code.Abstract;
-using Flagellant.Code.Powers;
-using Flagellant.Code.Relics;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;

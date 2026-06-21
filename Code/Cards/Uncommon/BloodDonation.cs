@@ -1,6 +1,5 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
-using Flagellant.Code.Cards.Common;
 using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
