@@ -19,7 +19,6 @@ public class Martyrdom : FlagellantCardModel
     public Martyrdom() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithPowerTip<DoomPower>();
-        WithPower<ComboPower>(1);
         WithAnimName("More");
         WithKeyword(CardKeyword.Exhaust);
         WithCalculatedDamage(0, ((CardModel card, Creature? c) =>
@@ -38,6 +37,7 @@ public class Martyrdom : FlagellantCardModel
             return 0;
         }
         ));
+        WithCostUpgradeBy(-1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

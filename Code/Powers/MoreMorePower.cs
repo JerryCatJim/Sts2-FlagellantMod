@@ -20,13 +20,43 @@ public sealed class MoreMorePower : FlagellantPowerModel
     [
         HoverTipFactory.FromPower<RegenPower>(),
     ];
+
+    private int _hitTimesThisTurn;
+    public int HitTimesThisTurn
+    {
+        get
+        {
+            return _hitTimesThisTurn;
+        }
+        private set
+        {
+            if (_hitTimesThisTurn != value)
+            {
+                AssertMutable();
+                _hitTimesThisTurn = value;
+            }
+        }
+    }
+
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
         if (CombatManager.Instance.IsInProgress && target == base.Owner
             && result.UnblockedDamage > 0 && result.Props.IsPoweredAttack())
         {
-            Flash();
-            await PowerCmd.Apply<RegenPower>(choiceContext, Owner, Amount, Owner, null);
+            HitTimesThisTurn++;
+            if(HitTimesThisTurn <= 3)
+            {
+                Flash();
+                await PowerCmd.Apply<RegenPower>(choiceContext, Owner, Amount, Owner, null);
+            }
         }
+    }
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    {
+        if (participants.Contains(base.Owner)) //if (side == base.Owner.Side)
+        {
+            HitTimesThisTurn = 0;
+        }
+        return Task.CompletedTask;
     }
 }

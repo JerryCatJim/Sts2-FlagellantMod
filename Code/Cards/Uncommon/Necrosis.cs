@@ -12,6 +12,7 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class Necrosis : FlagellantCardModel
 {
+    protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
     public Necrosis() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithAnimName("Necrosis");
