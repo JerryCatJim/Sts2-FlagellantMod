@@ -1,15 +1,18 @@
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Audio;
 using Flagellant.Code.Config;
-using Flagellant.Code.GameActions;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game.PeerInput;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 
 namespace Flagellant.Code.Patches;
 
@@ -158,18 +161,56 @@ public class FlagellantOnSelectedPatch
         FlagellantCardModel? MyCard = cardModel as FlagellantCardModel;
         if (MyCard == null || MyCard.CardSelectAnimName == "DoNothing") return;
 
-        if (FlagellantConfig.ShouldPlayCardAnimNetBroadcast)
+        CreatureCmd.TriggerAnim(MyCard.Owner.Creature, "CardSelect/" + MyCard.CardSelectAnimName, 0);
+    }
+}
+
+[HarmonyPatch(typeof(NMultiplayerPlayerIntentHandler), "RefreshHoverTips")]
+public static class FlagellantOnCardSelectedPatch
+{
+    private static CardModel? _lastSelectedCard = null;
+    public static void Postfix(NMultiplayerPlayerIntentHandler __instance)
+    {
+        if (!FlagellantConfig.ShouldPlayCardAnimAndSound) return;
+
+        //bool ShouldShowHoverTip = Traverse.Create(__instance).Field("_shouldShowHoverTip").GetValue<bool>();
+        Player? CurrentPlayer = Traverse.Create(__instance).Field("_player").GetValue<Player>();
+
+        //Log.Info("ShouldShowHoverTip : " + ShouldShowHoverTip);  //不知道为什么ShouldShowHoverTip一直是false，先屏蔽了
+        if (CurrentPlayer == null || LocalContext.IsMe(CurrentPlayer)) return;// || !ShouldShowHoverTip) return;
+
+        NMultiplayerCardIntent CardIntent = Traverse.Create(__instance).Field("_cardIntent").GetValue<NMultiplayerCardIntent>();
+        if(CardIntent != null && CardIntent.Card != null && CardIntent.Visible)
         {
-            //为了网络同步播放动画
-            var action = new PlayCardAnimAction(MyCard, "CardSelect/" + MyCard.CardSelectAnimName, 0);
-            RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(action);
+            CardModel cardModel = CardIntent.Card;
+            if (cardModel is FlagellantCardModel MyCard)
+            {
+                if(FlagellantConfig.ShouldShowCardAnimInMultiplayerMode)
+                {
+                    _lastSelectedCard = MyCard;
+                    if (MyCard.CardSelectAnimName == "DoNothing")
+                    {
+                        CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
+                    }
+                    else
+                    {
+                        CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "CardSelect/" + MyCard.CardSelectAnimName, 0);
+                    }
+                }
+            }
+            else  //选中非苦修卡池的卡
+            {
+                CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
+            }
         }
-        else
+        else if(_lastSelectedCard?.Pile?.Type == PileType.Hand)
         {
-            CreatureCmd.TriggerAnim(cardModel.Owner.Creature, "CardSelect/" + MyCard.CardSelectAnimName, 0);
+            CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
+            _lastSelectedCard = null;
         }
     }
 }
+
 
 [HarmonyPatch(typeof(NPlayerHand), "StartCardPlay")]
 public class TestCardPlayPatch
@@ -222,16 +263,7 @@ public class FlagellantCancelPlayCardPatch
         if (!isManuallyCancel) return;*/
         #endregion FixPowerCardPlayedTravelToIdle
 
-        if(FlagellantConfig.ShouldPlayCardAnimNetBroadcast)
-        {
-            //为了网络同步播放动画
-            var action = new PlayCardAnimAction(Card, "Idle", 0);
-            RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(action);
-        }
-        else
-        {
-            CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
-        }
+        CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
     }
 }
 

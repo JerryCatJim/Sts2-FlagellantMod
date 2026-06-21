@@ -14,7 +14,7 @@ internal class FlagellantConfig : SimpleModConfig
     [ConfigSlider(-40, 20, 1, Format = "{0:0} dB")]
     public static int FlagellantAudioSoundVolume { get; set; } = 0;
 
-    public static bool ShouldPlayCardAnimNetBroadcast { get; set; } = true;
+    public static bool ShouldShowCardAnimInMultiplayerMode { get; set; } = true;
 
     [ConfigSection("DeathEncounter")]
     public static bool ShouldMultiplayerUseDefaultCondition { get; set; } = true;

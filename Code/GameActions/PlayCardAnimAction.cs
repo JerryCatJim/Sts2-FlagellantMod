@@ -43,9 +43,9 @@ public sealed class PlayCardAnimAction : GameAction
         AnimWaitTime = waitTime;
     }
 
-    protected override async Task ExecuteAction()
+    protected override Task ExecuteAction()
     {
-        await CreatureCmd.TriggerAnim(PlayerCreature, CardAnimName, AnimWaitTime);
+        return CreatureCmd.TriggerAnim(PlayerCreature, CardAnimName, AnimWaitTime);
     }
 
     protected override void CancelAction()
