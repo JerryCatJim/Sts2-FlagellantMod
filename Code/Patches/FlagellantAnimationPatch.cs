@@ -171,7 +171,7 @@ public static class FlagellantOnCardSelectedPatch
     private static CardModel? _lastSelectedCard = null;
     public static void Postfix(NMultiplayerPlayerIntentHandler __instance)
     {
-        if (!FlagellantConfig.ShouldPlayCardAnimAndSound) return;
+        if (!FlagellantConfig.ShouldShowCardAnimInMultiplayerMode) return;
 
         //bool ShouldShowHoverTip = Traverse.Create(__instance).Field("_shouldShowHoverTip").GetValue<bool>();
         Player? CurrentPlayer = Traverse.Create(__instance).Field("_player").GetValue<Player>();
@@ -185,17 +185,13 @@ public static class FlagellantOnCardSelectedPatch
             CardModel cardModel = CardIntent.Card;
             if (cardModel is FlagellantCardModel MyCard)
             {
-                if(FlagellantConfig.ShouldShowCardAnimInMultiplayerMode)
+                if (MyCard.CardSelectAnimName == "DoNothing")
                 {
-                    _lastSelectedCard = MyCard;
-                    if (MyCard.CardSelectAnimName == "DoNothing")
-                    {
-                        CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
-                    }
-                    else
-                    {
-                        CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "CardSelect/" + MyCard.CardSelectAnimName, 0);
-                    }
+                    CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
+                }
+                else
+                {
+                    CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "CardSelect/" + MyCard.CardSelectAnimName, 0);
                 }
             }
             else  //选中非苦修卡池的卡
@@ -203,11 +199,15 @@ public static class FlagellantOnCardSelectedPatch
                 CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
             }
         }
-        else if(_lastSelectedCard?.Pile?.Type == PileType.Hand)
+        //取消选择卡牌且没打出
+        else
         {
-            CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
-            _lastSelectedCard = null;
+            if (_lastSelectedCard?.Pile?.Type == PileType.Hand)
+            {
+                CreatureCmd.TriggerAnim(CurrentPlayer.Creature, "Idle", 0);
+            }
         }
+        _lastSelectedCard = CardIntent?.Card;
     }
 }
 
