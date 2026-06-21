@@ -66,7 +66,7 @@
   "FLAGELLANT-LASH.title": "Lash",
   "FLAGELLANT-LASH.description": "Lose {LossPercent:diff()}%({LossCurrentHp:diff()}) HP.\nHeal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nGain {StressPower:diff()} [gold]Stress[/gold].",
   "FLAGELLANT-DEATH_COMES.title": "Death Comes",
-  "FLAGELLANT-DEATH_COMES.description": "Gain [gold]Doom[/gold] equal to your HP.\nGain {StressPower:diff()} [gold]Stress[/gold].",
+  "FLAGELLANT-DEATH_COMES.description": "Gain {StressPower:diff()} [gold]Stress[/gold].\nGain [gold]Doom[/gold] equal to your HP.",
   "FLAGELLANT-FEAR_ERUPTION.title": "Fear Eruption",
   "FLAGELLANT-FEAR_ERUPTION.description": "Gain {StressPower:diff()} [gold]Stress[/gold].\nDeal damage equal to your [gold]Stress[/gold] to all enemies{InCombat:({CalculatedDamage:diff()})|}.",
   "FLAGELLANT-MEDITATION.title": "Meditation",

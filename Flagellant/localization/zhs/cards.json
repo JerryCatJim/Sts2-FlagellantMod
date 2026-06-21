@@ -66,7 +66,7 @@
   "FLAGELLANT-LASH.title": "鞭笞",
   "FLAGELLANT-LASH.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n获得{StressPower:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-DEATH_COMES.title": "死神降临",
-  "FLAGELLANT-DEATH_COMES.description": "获得等同于生命的[gold]灾厄[/gold]。\n获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-DEATH_COMES.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n获得等同于生命的[gold]灾厄[/gold]。",
   "FLAGELLANT-FEAR_ERUPTION.title": "恐惧爆发",
   "FLAGELLANT-FEAR_ERUPTION.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n对所有敌人造成等同于[gold]压力[/gold]的伤害{InCombat:({CalculatedDamage:diff()})|}。",
   "FLAGELLANT-MEDITATION.title": "冥想",
