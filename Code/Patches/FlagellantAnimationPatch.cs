@@ -268,6 +268,20 @@ public class FlagellantCancelPlayCardPatch
     }
 }
 
+[HarmonyPatch(typeof(NCardPlay), "OnCreatureUnhover")]
+public class FlagellantOnCreatureUnhoverPatch
+{
+    public static void Postfix(NCardPlay __instance, NCreature _)
+    {
+        if (__instance is not NControllerCardPlay) return;
+
+        CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
+        if (Card == null || Card is not FlagellantCardModel) return;
+
+        CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
+    }
+}
+
 //可能改为在卡牌OnPlay时调用attackcommand.WithAttackerAnim好一些?
 [HarmonyPatch(typeof(AttackCommand), "FromCard")]
 public class FlagellantAttackCommandPatch
