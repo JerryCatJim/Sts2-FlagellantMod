@@ -58,9 +58,9 @@
   "FLAGELLANT-ABSORB_PAIN.title": "Absorb Pain",
   "FLAGELLANT-ABSORB_PAIN.description": "Gain [gold]Regen[/gold] equal to your [gold]Stress[/gold].",
   "FLAGELLANT-WYRD_RECONSTRUCTION.title": "Wyrd Reconstruction",
-  "FLAGELLANT-WYRD_RECONSTRUCTION.description": "Heal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP. If your HP is 30% or less, heal {HealingPercentLow:diff()}%({HealingMaxHpLow:diff()}) instead.",
+  "FLAGELLANT-WYRD_RECONSTRUCTION.description": "Heal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nIf your HP is 30% or less, heal {HealingPercentLow:diff()}%({HealingMaxHpLow:diff()}) instead.",
   "FLAGELLANT-HARDER.title": "Harder!",
-  "FLAGELLANT-HARDER.description": "Heal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nRemove an equal amount of [gold]Doom[/gold].\nDraw {Cards:diff()} card.",
+  "FLAGELLANT-HARDER.description": "Heal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nDraw {Cards:diff()} card.{IfUpgraded:show:\nRemove an equal amount of [gold]Doom[/gold].}",
   "FLAGELLANT-RAPID_HEALING.title": "Rapid Healing",
   "FLAGELLANT-RAPID_HEALING.description": "Heal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nIf your HP is 30% or less, gain {Block:diff()} [gold]Block[/gold] first.",
   "FLAGELLANT-LASH.title": "Lash",
@@ -104,7 +104,7 @@
   "FLAGELLANT-TRUDGE.title": "Trudge",
   "FLAGELLANT-TRUDGE.description": "Deal {Damage:diff()} damage.\nHeal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nApply {ComboPower:comboIcons()}.",
   "FLAGELLANT-WEIGHT_TRAINING.title": "Weight Training",
-  "FLAGELLANT-WEIGHT_TRAINING.description": "Whenever you gain or lose [gold]Doom[/gold], gain {StressPower:diff()} [gold]Stress[/gold].",
+  "FLAGELLANT-WEIGHT_TRAINING.description": "Whenever you gain [gold]Doom[/gold], gain {StressPower:diff()} [gold]Stress[/gold].",
   "FLAGELLANT-CORPSE_INSTABILITY.title": "Corpse Instability",
   "FLAGELLANT-CORPSE_INSTABILITY.description": "After you play this card, each time your HP changes this turn, apply {CorpseInstabilityPower:diff()} [gold]Poison[/gold] to all enemies.",
   "FLAGELLANT-BREAKING_DEAD.title": "Breaking Dead",
@@ -136,5 +136,9 @@
   "FLAGELLANT-PENANCE.title": "Penance",
   "FLAGELLANT-PENANCE.description": "Gain {StressPower:diff()} [gold]Stress[/gold].\nDraw {Cards:diff()} cards.\nLose {LossPercent:diff()}%({LossCurrentHp:diff()}) HP.",
   "FLAGELLANT-GOSPEL.title": "Gospel",
-  "FLAGELLANT-GOSPEL.description": "Whenever you heal HP, apply an equal amount of [gold]Doom[/gold] to all enemies."
+  "FLAGELLANT-GOSPEL.description": "Whenever you heal HP, apply an equal amount of [gold]Doom[/gold] to all enemies.",
+  "FLAGELLANT-ATONEMENT.title": "Atonement",
+  "FLAGELLANT-ATONEMENT.description": "Transfer all [gold]Vulnerable[/gold], [gold]Weak[/gold], [gold]Frail[/gold], and [gold]Doom[/gold] from another player to you.",
+  "FLAGELLANT-REDEMPTION.title": "Redemption",
+  "FLAGELLANT-REDEMPTION.description": "All players gain {RegenPower:diff()} [gold]Regen[/gold].\nLose {LossPercent:diff()}%({LossCurrentHp:diff()}) HP."
 }

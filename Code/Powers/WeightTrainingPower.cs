@@ -22,7 +22,7 @@ public sealed class WeightTrainingPower : FlagellantPowerModel
 
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (power is not DoomPower || amount == 0m || power.Owner != base.Owner)
+        if (power is not DoomPower || amount <= 0m || power.Owner != base.Owner)
             return;
 
         Flash();

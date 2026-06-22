@@ -93,7 +93,6 @@
       <HintPath>$(Sts2DataDir)/SmartFormat.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.2.0" />
     <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.9" />
     <AdditionalFiles Include="Flagellant/localization/**/*.json" />
   </ItemGroup>

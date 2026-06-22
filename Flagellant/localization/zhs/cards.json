@@ -58,9 +58,9 @@
   "FLAGELLANT-ABSORB_PAIN.title": "吸收痛苦",
   "FLAGELLANT-ABSORB_PAIN.description": "获得等同于[gold]压力[/gold]的[gold]再生[/gold]。",
   "FLAGELLANT-WYRD_RECONSTRUCTION.title": "怪诞重塑",
-  "FLAGELLANT-WYRD_RECONSTRUCTION.description": "回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。若生命小于等于30%，则改为回复{HealingPercentLow:diff()}%({HealingMaxHpLow:diff()})。",
+  "FLAGELLANT-WYRD_RECONSTRUCTION.description": "回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n若生命小于等于30%，则改为回复{HealingPercentLow:diff()}%({HealingMaxHpLow:diff()})。",
   "FLAGELLANT-HARDER.title": "再用力点！",
-  "FLAGELLANT-HARDER.description": "回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n移除等量[gold]灾厄[/gold]。\n抽{Cards:diff()}张牌。",
+  "FLAGELLANT-HARDER.description": "回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n抽{Cards:diff()}张牌。{IfUpgraded:show:\n移除等量[gold]灾厄[/gold]。}",
   "FLAGELLANT-RAPID_HEALING.title": "快速愈合",
   "FLAGELLANT-RAPID_HEALING.description": "回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n若生命小于等于30%，则先获得{Block:diff()}点[gold]格挡[/gold]。",
   "FLAGELLANT-LASH.title": "鞭笞",
@@ -104,7 +104,7 @@
   "FLAGELLANT-TRUDGE.title": "跋涉",
   "FLAGELLANT-TRUDGE.description": "造成{Damage:diff()}点伤害。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n给予{ComboPower:comboIcons()}。",
   "FLAGELLANT-WEIGHT_TRAINING.title": "负重训练",
-  "FLAGELLANT-WEIGHT_TRAINING.description": "每当你获得或失去[gold]灾厄[/gold]时，获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-WEIGHT_TRAINING.description": "每当你获得[gold]灾厄[/gold]时，获得{StressPower:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-SETBACKS_TO_COURAGE.title": "愈挫愈勇",
   "FLAGELLANT-SETBACKS_TO_COURAGE.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n抽{Cards:diff()}张牌。\n这张牌获得的[gold]压力[/gold]加1，耗能加1{energyPrefix:energyIcons(1)}。",
   "FLAGELLANT-CORPSE_INSTABILITY.title": "尸体不稳定",
@@ -136,5 +136,9 @@
   "FLAGELLANT-PENANCE.title": "苦修",
   "FLAGELLANT-PENANCE.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n抽{Cards:diff()}张牌。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。",
   "FLAGELLANT-GOSPEL.title": "福音",
-  "FLAGELLANT-GOSPEL.description": "每当你回复生命时，给予所有敌人等量[gold]灾厄[/gold]。"
+  "FLAGELLANT-GOSPEL.description": "每当你回复生命时，给予所有敌人等量[gold]灾厄[/gold]。",
+  "FLAGELLANT-ATONEMENT.title": "赎罪",
+  "FLAGELLANT-ATONEMENT.description": "将另一名玩家的所有[gold]易伤[/gold]，[gold]虚弱[/gold]，[gold]脆弱[/gold]，[gold]灾厄[/gold]转移给你。",
+  "FLAGELLANT-REDEMPTION.title": "救赎",
+  "FLAGELLANT-REDEMPTION.description": "所有玩家获得{RegenPower:diff()}层再生。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。"
 }

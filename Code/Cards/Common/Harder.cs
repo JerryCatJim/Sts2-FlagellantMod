@@ -11,10 +11,10 @@ namespace Flagellant.Code.Cards.Common;
 [Pool(typeof(FlagellantCardPool))]
 public class Harder : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => base.Owner.Creature.HasPower<DoomPower>();
+    protected override bool ShouldGlowGoldInternal => base.Owner.Creature.HasPower<DoomPower>() && IsUpgraded;
     public Harder() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithHealingPercent(10, 3);
+        WithHealingPercent(12);
         WithPowerTip<DoomPower>();
         WithCards(1);
         WithAnimName("Lash");
@@ -25,10 +25,10 @@ public class Harder : FlagellantCardModel
         await PlayCardAnim();
         decimal healNum = GetHealingPercentHp();
         await CreatureCmd.Heal(base.Owner.Creature, healNum);
-        if(Owner.Creature.GetPower<DoomPower>() is DoomPower doomP)
+        await CommonActions.Draw(this, choiceContext);
+        if (Owner.Creature.GetPower<DoomPower>() is DoomPower doomP && IsUpgraded)
         {
             await PowerCmd.ModifyAmount(choiceContext, doomP, -(healNum + GetExtraHealingHp(base.Owner.Creature)), Owner.Creature, this);
         }
-        await CommonActions.Draw(this, choiceContext);
     }
 }

@@ -31,7 +31,7 @@ public class PurifyMind : FlagellantCardModel
                 source: this)
             )
             .FirstOrDefault();
-        if (cardModel != null)
+        if (cardModel != null && base.CombatState != null)
         {
             CardModel cardModel2 = base.CombatState.CreateCard<Penance>(base.Owner);
             if (base.IsUpgraded)
