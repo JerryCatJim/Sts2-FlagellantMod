@@ -16,7 +16,7 @@ public class Lash : FlagellantCardModel
     {
         WithAnimName("Lash");
         WithLossPercent(8, -2);
-        WithHealingPercent(12, 3);
+        WithHealingPercent(10, 2);
         WithStress(2);
     }
 

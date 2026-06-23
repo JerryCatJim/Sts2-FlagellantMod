@@ -11,7 +11,7 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class Suffer : FlagellantCardModel
 {
-    public Suffer() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public Suffer() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithAnimName("Suffer");
         WithPowerTip<SufferPower>();

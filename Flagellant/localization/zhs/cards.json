@@ -70,7 +70,7 @@
   "FLAGELLANT-FEAR_ERUPTION.title": "恐惧爆发",
   "FLAGELLANT-FEAR_ERUPTION.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n对所有敌人造成等同于[gold]压力[/gold]的伤害{InCombat:({CalculatedDamage:diff()})|}。",
   "FLAGELLANT-MEDITATION.title": "冥想",
-  "FLAGELLANT-MEDITATION.description": "获得{IfUpgraded:show:2(X+1)|2X}层[gold]再生[/gold]。\n获得{IfUpgraded:show:X+1|X}点[gold]压力[/gold]。",
+  "FLAGELLANT-MEDITATION.description": "获得{IfUpgraded:show:2X|X}层[gold]再生[/gold]。\n获得{IfUpgraded:show:X+1|X}点[gold]压力[/gold]。",
   "FLAGELLANT-COERCE.title": "施压",
   "FLAGELLANT-COERCE.description": "造成{Damage:diff()}点伤害。\n你在本回合内每获得过一次[gold]压力[/gold]，其耗能减少1{energyPrefix:energyIcons(1)}。",
   "FLAGELLANT-NERVOUS.title": "紧张",

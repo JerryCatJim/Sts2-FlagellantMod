@@ -25,11 +25,15 @@ public class Meditation : FlagellantCardModel
         await PlayCardAnim();
 
         int num = ResolveEnergyXValue();
-        num += IsUpgraded ? 1 : 0;
-        if(num > 0)
+        int stressNum = IsUpgraded ? num + 1 : num;
+        int regenNum = IsUpgraded ? num * 2 : num;
+        if(regenNum > 0)
         {
-            await PowerCmd.Apply<RegenPower>(choiceContext, base.Owner.Creature, num * 2, base.Owner.Creature, this);
-            await PowerCmd.Apply<StressPower>(choiceContext, base.Owner.Creature, num, base.Owner.Creature, this);
+            await PowerCmd.Apply<RegenPower>(choiceContext, base.Owner.Creature, regenNum, base.Owner.Creature, this);
+        }
+        if(stressNum > 0)
+        {
+            await PowerCmd.Apply<StressPower>(choiceContext, base.Owner.Creature, stressNum, base.Owner.Creature, this);
         }
     }
 }

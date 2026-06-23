@@ -70,7 +70,7 @@
   "FLAGELLANT-FEAR_ERUPTION.title": "Fear Eruption",
   "FLAGELLANT-FEAR_ERUPTION.description": "Gain {StressPower:diff()} [gold]Stress[/gold].\nDeal damage equal to your [gold]Stress[/gold] to all enemies{InCombat:({CalculatedDamage:diff()})|}.",
   "FLAGELLANT-MEDITATION.title": "Meditation",
-  "FLAGELLANT-MEDITATION.description": "Gain {IfUpgraded:show:2(X+1)|2X} [gold]Regen[/gold].\nGain {IfUpgraded:show:X+1|X} [gold]Stress[/gold].",
+  "FLAGELLANT-MEDITATION.description": "Gain {IfUpgraded:show:2X|X} [gold]Regen[/gold].\nGain {IfUpgraded:show:X+1|X} [gold]Stress[/gold].",
   "FLAGELLANT-COERCE.title": "Coerce",
   "FLAGELLANT-COERCE.description": "Deal {Damage:diff()} damage.\nCosts 1 less {energyPrefix:energyIcons(1)} for each time you gain [gold]Stress[/gold] this turn.",
   "FLAGELLANT-NERVOUS.title": "Nervous",

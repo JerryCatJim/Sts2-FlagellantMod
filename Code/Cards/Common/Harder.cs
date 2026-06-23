@@ -14,7 +14,7 @@ public class Harder : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => base.Owner.Creature.HasPower<DoomPower>() && IsUpgraded;
     public Harder() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithHealingPercent(12);
+        WithHealingPercent(10);
         WithPowerTip<DoomPower>();
         WithCards(1);
         WithAnimName("Lash");

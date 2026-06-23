@@ -1,7 +1,6 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -52,11 +51,7 @@ public class Martyrdom : FlagellantCardModel
         {
             await CreatureCmd.Damage(choiceContext, Owner.Creature, _doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
         }
-        await PowerCmd.Apply<ComboPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars["ComboPower"].BaseValue, base.Owner.Creature, this);
-        if (IsUpgraded)
-        {
-            await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
-        }
+        await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
         _doomNum = 0;
     }
 }
