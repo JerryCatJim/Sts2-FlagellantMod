@@ -73,9 +73,9 @@ public sealed class EndurePower : FlagellantPowerModel
             await CommonActions.ApplySelf<StressPower>(choiceContext, cardPlay.Card, value);
         }
     }
- #endregion GainStressWhenHpLoss
+    #endregion GainStressWhenHpLoss
 
-    public override async Task BeforeHandDrawLate(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (player != Owner.Player)
             return;

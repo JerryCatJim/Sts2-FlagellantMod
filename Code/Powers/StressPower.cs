@@ -49,18 +49,17 @@ public sealed class StressPower : FlagellantPowerModel
         await SetAmountBorder();
     }
     
-    private Task BroadcastStressChangedEvent(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    private async Task BroadcastStressChangedEvent(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (amount == 0m || base.Owner.CombatState == null) return Task.CompletedTask;
+        if (amount == 0m || base.Owner.CombatState == null) return;
 
         foreach (AbstractModel item in base.Owner.CombatState.IterateHookListeners())
         {
             if (item is IAfterStressChanged myModel)
             {
-                myModel.AfterStressAmountChanged(choiceContext, power, amount, applier, cardSource);
+                await myModel.AfterStressAmountChanged(choiceContext, power, amount, applier, cardSource);
             }
         }
-        return Task.CompletedTask;
     }
     private async Task SetAmountBorder()
     {

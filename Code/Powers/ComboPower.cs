@@ -38,18 +38,17 @@ public sealed class ComboPower : FlagellantPowerModel
         }
         await SetAmountBorder();
     }
-    private Task BroadcastComboChangedEvent(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource)
+    private async Task BroadcastComboChangedEvent(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource)
     {
-        if (amount == 0m || applier == null || base.Owner.CombatState == null) return Task.CompletedTask;
+        if (amount == 0m || applier == null || base.Owner.CombatState == null) return;
         
         foreach (AbstractModel item in base.Owner.CombatState.IterateHookListeners())
         {
             if (item is IAfterComboChanged myModel)
             {
-                myModel.AfterComboChanged(choiceContext, power, amount, applier, cardSource);
+                await myModel.AfterComboChanged(choiceContext, power, amount, applier, cardSource);
             }
         }
-        return Task.CompletedTask;
     }
 
     private async Task SetAmountBorder()
