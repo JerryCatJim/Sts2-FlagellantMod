@@ -42,7 +42,8 @@ public class SacrificePower : FlagellantPowerModel
             await PlayerCmd.GainEnergy(Amount, base.Owner.Player);
         }
     }
-    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    //public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         //if (side != base.Owner.Side) return Task.CompletedTask;
         if(!participants.Contains(base.Owner)) return Task.CompletedTask;

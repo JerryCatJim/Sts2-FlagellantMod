@@ -80,6 +80,11 @@ public static class FlagellantAnimationPatch
                     //已经在CalmIdle(Idle_A)状态时收到取消打出卡牌信号后不再调为Idle(Idle_B)状态
                     return;
                 }
+                if (animName == "Hit" && state_machine.GetCurrentNode() == "Hit")
+                {
+                    //有人发聩连续挨打容易触发T姿势，我没遇到过，还是限制一下吧
+                    return;
+                }
                 if (playImmediately)
                 {
                     state_machine.Start(animName);

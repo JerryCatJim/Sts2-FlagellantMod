@@ -14,8 +14,9 @@ public class ScourgeForm : FlagellantCardModel
     public ScourgeForm() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithAnimName("More");
-        WithPower<ScourgeFormPower>(1,1);
+        WithPower<ScourgeFormPower>(2);
         WithPowerTip<PoisonPower>();
+        WithCostUpgradeBy(-1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
