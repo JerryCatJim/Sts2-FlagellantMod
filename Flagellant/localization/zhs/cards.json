@@ -28,7 +28,7 @@
   "FLAGELLANT-UNDYING.title": "蔑死",
   "FLAGELLANT-UNDYING.description": "每当你在你的回合第一次失去生命时，抽{UndyingPower:diff()}张牌。",
   "FLAGELLANT-NECROSIS.title": "坏死",
-  "FLAGELLANT-NECROSIS.description": "给予{PoisonPower:diff()}层[gold]中毒[/gold]。\n若目标有{ComboPower:comboIcons()}，则获得{RegenPower:diff()}层[gold]再生[/gold]。",
+  "FLAGELLANT-NECROSIS.description": "对所有敌人造成{Damage:diff()}点伤害。\n每有一个目标有[gold]中毒[/gold]，就获得{RegenPower:diff()}层[gold]再生[/gold]。",
   "FLAGELLANT-PAIN_STRIKE.title": "痛苦打击",
   "FLAGELLANT-PAIN_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害，每有1点[gold]压力[/gold]额外造成{Multiplier:diff()}点伤害。",
   "FLAGELLANT-FATAL_STRIKE.title": "夺命打击",

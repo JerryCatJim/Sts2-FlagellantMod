@@ -5,14 +5,14 @@ using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class HoldTheLine : FlagellantCardModel
 {
-    public HoldTheLine() : base(1, CardType.Power, CardRarity.Common, TargetType.Self)
+    public HoldTheLine() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        WithPower<HoldTheLinePower>(1);
+        WithPower<HoldTheLinePower>(2);
         WithPower<ComboPower>(1);
         WithKeyword(CardKeyword.Innate, UpgradeType.Add);
     }

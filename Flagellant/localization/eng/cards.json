@@ -28,7 +28,7 @@
   "FLAGELLANT-UNDYING.title": "Undying",
   "FLAGELLANT-UNDYING.description": "Whenever you lose HP for the first time during your turn, draw {UndyingPower:diff()} card.",
   "FLAGELLANT-NECROSIS.title": "Necrosis",
-  "FLAGELLANT-NECROSIS.description": "Apply {PoisonPower:diff()} [gold]Poison[/gold].\nIf the target has {ComboPower:comboIcons()}, gain {RegenPower:diff()} [gold]Regen[/gold].",
+  "FLAGELLANT-NECROSIS.description": "Deal {Damage:diff()} damage to all enemies.\nFor each enemy with [gold]Poison[/gold], gain {RegenPower:diff()} [gold]Regen[/gold].",
   "FLAGELLANT-PAIN_STRIKE.title": "Pain Strike",
   "FLAGELLANT-PAIN_STRIKE.description": "Deal {CalculatedDamage:diff()} damage, add {Multiplier:diff()} additional damage for each [gold]Stress[/gold] you have.",
   "FLAGELLANT-FATAL_STRIKE.title": "Fatal Strike",
