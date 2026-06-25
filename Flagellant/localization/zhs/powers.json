@@ -81,5 +81,8 @@
   "FLAGELLANT-MORE_MORE_POWER.smartDescription": "每当你受到攻击伤害时，获得[blue]{Amount}[/blue]层[gold]再生[/gold]。\n(每回合最多3次)",
   "FLAGELLANT-GOSPEL_POWER.title": "福音",
   "FLAGELLANT-GOSPEL_POWER.description": "每当你回复生命时，给予所有敌人等量[gold]灾厄[/gold]。",
-  "FLAGELLANT-GOSPEL_POWER.smartDescription": "每当你回复生命时，给予所有敌人回复量[blue]*{Amount}[/blue]的[gold]灾厄[/gold]。"
+  "FLAGELLANT-GOSPEL_POWER.smartDescription": "每当你回复生命时，给予所有敌人回复量[blue]*{Amount}[/blue]的[gold]灾厄[/gold]。",
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.title": "在沉默中爆发",
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.description": "你每获得[blue]4[/blue]次[gold]压力[/gold]，就获得[blue]1[/blue]点{energyPrefix:energyIcons(1)}。",
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.smartDescription": "你每获得{GainStressTimes}次[gold]压力[/gold]，就获得{Amount:energyIcons()}。"
 }

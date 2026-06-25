@@ -81,5 +81,8 @@
   "FLAGELLANT-MORE_MORE_POWER.smartDescription": "Whenever you take attack damage, gain [blue]{Amount}[/blue] [gold]Regen[/gold].\n(Up to 3 times per round)",
   "FLAGELLANT-GOSPEL_POWER.title": "Gospel",
   "FLAGELLANT-GOSPEL_POWER.description": "Whenever you heal HP, apply an equal amount of [gold]Doom[/gold] to all enemies.",
-  "FLAGELLANT-GOSPEL_POWER.smartDescription": "Whenever you heal HP, apply the healing amount [blue]*{Amount}[/blue] of [gold]Doom[/gold] to all enemies."
+  "FLAGELLANT-GOSPEL_POWER.smartDescription": "Whenever you heal HP, apply the healing amount [blue]*{Amount}[/blue] of [gold]Doom[/gold] to all enemies.",
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.title": "Explode In Silence",
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.description": "Every [blue]4[/blue] times you gain [gold]Stress[/gold], gain [blue]1[/blue]{energyPrefix:energyIcons(1)}.",
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.smartDescription": "Every {GainStressTimes} times you gain [gold]Stress[/gold], gain {Amount:energyIcons()}."
 }

@@ -140,5 +140,21 @@
   "FLAGELLANT-ATONEMENT.title": "赎罪",
   "FLAGELLANT-ATONEMENT.description": "将另一名玩家的所有[gold]易伤[/gold]，[gold]虚弱[/gold]，[gold]脆弱[/gold]，[gold]灾厄[/gold]转移给你。",
   "FLAGELLANT-REDEMPTION.title": "救赎",
-  "FLAGELLANT-REDEMPTION.description": "所有玩家获得{RegenPower:diff()}层再生。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。"
+  "FLAGELLANT-REDEMPTION.description": "所有玩家获得{RegenPower:diff()}层再生。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})生命。",
+  "FLAGELLANT-LUNATIC_STRIKE.title": "失心打击",
+  "FLAGELLANT-LUNATIC_STRIKE.description": "造成{Damage:diff()}点伤害。\n获得{StressPower:diff()}点[gold]压力[/gold]，若生命小于等于30%，则改为获得{StressPowerLow:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-MENTAL_DEVIATION.title": "走火入魔",
+  "FLAGELLANT-MENTAL_DEVIATION.description": "对所有敌人造成{Damage:diff()}点伤害。\n每有一个目标有{ComboPower:comboIcons()}，就获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-RELIEVED_STRIKE.title": "释然打击",
+  "FLAGELLANT-RELIEVED_STRIKE.description": "造成{Damage:diff()}点伤害。\n若你的[gold]压力[/gold]大于等于{StressPower:diff()}，则获得{Energy:energyIcons()}并抽{Cards:diff()}张牌。",
+  "FLAGELLANT-SELF_CULTIVATION.title": "修身养性",
+  "FLAGELLANT-SELF_CULTIVATION.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n触发一次你的[gold]再生[/gold]。",
+  "FLAGELLANT-RESILIENT_STRIKE.title": "坚韧打击",
+  "FLAGELLANT-RESILIENT_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害。\n你在本场战斗中每获得过1点[gold]压力[/gold]，此牌就额外造成1点伤害。",
+  "FLAGELLANT-METAMORPHOSIS.title": "魔化",
+  "FLAGELLANT-METAMORPHOSIS.description": "若你的[gold]压力[/gold]大于等于5，则获得{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-EXPLODE_IN_SILENCE.title": "在沉默中爆发",
+  "FLAGELLANT-EXPLODE_IN_SILENCE.description": "你每获得4次[gold]压力[/gold]，就获得{Energy:energyIcons()}。",
+  "FLAGELLANT-CALM_STRIKE.title": "沉着打击",
+  "FLAGELLANT-CALM_STRIKE.description": "造成{Damage:diff()}点伤害。\n若你的[gold]压力[/gold]小于{StressPower:diff()}，则给予{ComboPower:comboIcons()}。"
 }

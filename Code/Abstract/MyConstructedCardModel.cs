@@ -113,6 +113,21 @@ public abstract class MyConstructedCardModel(
         return (decimal)base.Owner.Creature.CurrentHp / (decimal)base.Owner.Creature.MaxHp * 100m <= Percent;
     }
 
+    protected bool IsStressGreaterEqual(decimal num = 5m)
+    {
+        if (base.Owner.Creature == null) return false;
+
+        return base.Owner.Creature.GetPower<StressPower>() is StressPower stressPower && stressPower.Amount >= num; 
+    }
+
+    protected bool IsStressLessEqual(decimal num = 5m)
+    {
+        if (base.Owner.Creature == null) return false;
+
+        StressPower? stressPower = base.Owner.Creature.GetPower<StressPower>();
+        return  stressPower == null || (stressPower != null && stressPower.Amount <= num);
+    }
+
     protected decimal GetStressBeforeReceived()
     {
         //目前只有RapturousPower会预先修改Stress的获得量(Stress一旦大于等于10点就会立刻归零，没啥好地方去接收归零前的实际值，先这样取巧地修改一下吧)
