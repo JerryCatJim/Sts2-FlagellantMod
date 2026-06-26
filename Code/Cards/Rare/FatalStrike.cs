@@ -15,7 +15,7 @@ public class FatalStrike : FlagellantCardModel
     public FatalStrike() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithTags(CardTag.Strike);
-        WithStress(3);
+        WithStress(5);
         WithCostUpgradeBy(-1);
         WithCalculatedDamage(0, ((CardModel card, Creature? _) => card.Owner.Creature.MaxHp - card.Owner.Creature.CurrentHp));
         WithAnimName("Sepsis");

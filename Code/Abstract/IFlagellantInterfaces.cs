@@ -1,4 +1,6 @@
+using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
@@ -19,4 +21,9 @@ public interface IModifyHpAmountReceived
 public interface IAfterComboChanged
 {
     public Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource);
+}
+
+public interface IOnResoluteOrMeltdownChanged
+{
+    public Task OnResoluteOrMeltdownChanged(PlayerChoiceContext choiceContext, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM);
 }

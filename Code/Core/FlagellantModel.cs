@@ -45,7 +45,7 @@ public class FlagellantModel() : CustomSingletonModel(HookType.Combat)
         ActiveRM[player] = mutable;
         await mutable.OnEnterResoluteOrMeltdown(ctx, player, source);
 
-        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+        //var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
         await FlagellantHook.OnResoluteOrMeltdownChanged(ctx, player, current!, ActiveRM[player]!);
     }
 

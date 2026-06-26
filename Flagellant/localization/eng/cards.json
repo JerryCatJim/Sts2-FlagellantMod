@@ -40,7 +40,7 @@
   "FLAGELLANT-EXANIMATE_FORM.title": "Exanimate Form",
   "FLAGELLANT-EXANIMATE_FORM.description": "Whenever you gain [gold]Stress[/gold], apply {ExanimateFormPower:diff()} [gold]Poison[/gold] to all enemies.",
   "FLAGELLANT-MANIAC_FORM.title": "Maniac Form",
-  "FLAGELLANT-MANIAC_FORM.description": "Whenever you heal HP, heal {ManiacFormPower:diff()} additional HP.",
+  "FLAGELLANT-MANIAC_FORM.description": "Whenever you enter [gold]Toxic[/gold], gain {Energy:energyIcons()} and draw {ManiacFormPower:diff()} {ManiacFormPower:plural:card|cards}.",
   "FLAGELLANT-SCOURGE.title": "Scourge",
   "FLAGELLANT-SCOURGE.description": "Heal HP equal to your [gold]Doom[/gold], and apply that much [gold]Poison[/gold] to all enemies.",
   "FLAGELLANT-SPREADING_PLAGUE.title": "Spreading Plague",

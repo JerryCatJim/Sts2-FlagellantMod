@@ -40,7 +40,7 @@
   "FLAGELLANT-EXANIMATE_FORM.title": "躯壳形态",
   "FLAGELLANT-EXANIMATE_FORM.description": "每当你获得[gold]压力[/gold]时，给予所有敌人{ExanimateFormPower:diff()}层[gold]中毒[/gold]。",
   "FLAGELLANT-MANIAC_FORM.title": "狂人形态",
-  "FLAGELLANT-MANIAC_FORM.description": "每当你回复生命时，多回复{ManiacFormPower:diff()}点。",
+  "FLAGELLANT-MANIAC_FORM.description": "每当你进入[gold]怨毒[/gold]时，获得{Energy:energyIcons()}并抽{ManiacFormPower:diff()}张牌。",
   "FLAGELLANT-SCOURGE.title": "天灾",
   "FLAGELLANT-SCOURGE.description": "回复等同于[gold]灾厄[/gold]层数的生命，给予所有敌人等量[gold]中毒[/gold]。",
   "FLAGELLANT-SPREADING_PLAGUE.title": "传播瘟疫",

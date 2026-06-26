@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using Flagellant.Code.ResoluteOrMeltdown;
+using Flagellant.Code.Abstract;
 
 namespace Flagellant.Code.Events;
 
@@ -28,19 +29,6 @@ public class FlagellantHook
         combatState.IterateHookListeners().OfType<T>()
             .Aggregate(seed, (current, model) => action(model, current));
 
-
-
-    public static Task OnResoluteOrMeltdownChanged(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel oldStance, ResoluteOrMeltdownModel newStance)
-        => Dispatch<IOnResoluteOrMeltdownChanged>(ctx, player, m => m.OnResoluteOrMeltdownChanged(ctx, player, oldStance, newStance));
-
-    /*public static Task OnScryed(PlayerChoiceContext ctx, Player player, int amount, int discardedAmount)
-        => Dispatch<IOnScryed>(ctx, player, m => m.OnScryed(ctx, player, amount, discardedAmount));
-
-    public static decimal ModifyCalmEnergyGain(CombatState cs, Player player, int baseAmount) =>
-        Aggregate<IModifyCalmEnergyGain, int>(cs, baseAmount,
-            (m, current) => m.ModifyCalmEnergyGain(player, current));
-
-    public static decimal ModifyWrathDamage(CombatState cs, Player player, decimal baseMultiplier) =>
-        Aggregate<IModifyWrathDamage, decimal>(cs, baseMultiplier,
-            (m, current) => m.ModifyWrathDamage(player, current));*/
+    public static Task OnResoluteOrMeltdownChanged(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM)
+        => Dispatch<IOnResoluteOrMeltdownChanged>(ctx, player, m => m.OnResoluteOrMeltdownChanged(ctx, player, oldRM, newRM));
 }
