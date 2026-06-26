@@ -24,11 +24,4 @@ public sealed class BlackBloodPower : FlagellantPowerModel
             await CreatureCmd.Damage(choiceContext, base.CombatState.HittableEnemies, result.UnblockedDamage * Amount, ValueProp.Unpowered | ValueProp.SkipHurtAnim, base.Owner, null);
         }
     }
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
-    {
-        if (participants.Contains(base.Owner)) //if (side == base.Owner.Side)
-        {
-            await PowerCmd.Remove(this);
-        }
-    }
 }

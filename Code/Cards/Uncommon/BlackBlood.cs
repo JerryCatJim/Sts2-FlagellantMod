@@ -12,12 +12,11 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class BlackBlood : FlagellantCardModel
 {
-    public BlackBlood() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public BlackBlood() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithPower<BlackBloodPower>(1);
         WithCostUpgradeBy(-1);
         WithTip(new TooltipSource((CardModel _) => HoverTipFactory.Static(StaticHoverTip.Block)));
-        WithKeyword(CardKeyword.Exhaust);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

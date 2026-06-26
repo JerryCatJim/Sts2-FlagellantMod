@@ -34,7 +34,7 @@ public class SacrificePower : FlagellantPowerModel
     public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
     {
         if (CombatManager.Instance.IsInProgress && creature == base.Owner
-            && delta <= 0 && base.CombatState.CurrentSide == base.Owner.Side
+            && delta < 0 && base.CombatState.CurrentSide == base.Owner.Side
             && !UsedThisTurn && base.Owner != null && base.Owner.Player != null)
         {
             Flash();

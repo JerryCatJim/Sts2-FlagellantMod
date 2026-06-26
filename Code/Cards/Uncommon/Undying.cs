@@ -1,25 +1,27 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Undying : FlagellantCardModel
 {
-    public Undying() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public Undying() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithAnimName("Undying");
-        WithPower<UndyingPower>(1,1);
-        //WithCostUpgradeBy(-1);
-        //WithKeyword(CardKeyword.Innate, UpgradeType.Add);
+        WithLossPercent(8, -2);
+        WithHealingPercent(12, 3);
     }
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        await CommonActions.ApplySelf<UndyingPower>(choiceContext, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Heal(base.Owner.Creature, GetHealingPercentHp());
     }
 }
