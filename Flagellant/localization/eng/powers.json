@@ -1,7 +1,7 @@
 {
   "FLAGELLANT-STRESS_POWER.title": "Stress",
-  "FLAGELLANT-STRESS_POWER.description": "When you gain 10 [gold]Stress[/gold], enter a random [blue]Resolute[/blue] or [red]Meltdown[/red] state.",
-  "FLAGELLANT-STRESS_POWER.smartDescription": "Enter a random [blue]Resolute[/blue] or [red]Meltdown[/red] state after gaining 10 [gold]Stress[/gold].",
+  "FLAGELLANT-STRESS_POWER.description": "When you gain 10 [gold]Stress[/gold], enter a random [blue]Resolute[/blue] or [red]Meltdown[/red] state.\nFlagellant will only enter [gold]Toxic[/gold].",
+  "FLAGELLANT-STRESS_POWER.smartDescription": "Enter a random [blue]Resolute[/blue] or [red]Meltdown[/red] state after gaining 10 [gold]Stress[/gold].\nFlagellant will only enter [gold]Toxic[/gold].",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.title": "The base classes of Resolute and Meltdown, which should not be displayed on the game view.",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.description": "The base classes of Resolute and Meltdown, which should not be displayed on the game view.",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.smartDescription": "The base classes of Resolute and Meltdown, which should not be displayed on the game view.",

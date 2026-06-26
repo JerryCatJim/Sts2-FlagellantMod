@@ -1,7 +1,7 @@
 {
   "FLAGELLANT-STRESS_POWER.title": "压力",
-  "FLAGELLANT-STRESS_POWER.description": "当你获得10点压力时，会进入随机[blue]美德[/blue]或[red]折磨[/red]状态。",
-  "FLAGELLANT-STRESS_POWER.smartDescription": "满10点进入随机[blue]美德[/blue]或[red]折磨[/red]状态。",
+  "FLAGELLANT-STRESS_POWER.description": "当你获得10点压力时，会进入随机[blue]美德[/blue]或[red]折磨[/red]状态。\n鞭笞者只会进入[gold]怨毒[gold]。",
+  "FLAGELLANT-STRESS_POWER.smartDescription": "满10点进入随机[blue]美德[/blue]或[red]折磨[/red]状态。\n鞭笞者只会进入[gold]怨毒[gold]。",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.title": "美德和折磨的基类，不应该被展示到游戏界面。",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.description": "美德和折磨的基类，不应该被展示到游戏界面。",
   "FLAGELLANT-RESOLUTE_OR_MELTDOWN_POWER_MODEL.smartDescription": "美德和折磨的基类，不应该被展示到游戏界面。",
