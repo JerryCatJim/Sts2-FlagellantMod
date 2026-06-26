@@ -12,8 +12,7 @@ public class Anemia : FlagellantCardModel
 {
     public Anemia() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        WithPower<AnemiaPower>(2);
-        WithKeyword(CardKeyword.Innate, UpgradeType.Add);
+        WithPower<AnemiaPower>(1,1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

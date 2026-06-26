@@ -2,29 +2,39 @@ using Flagellant.Code.Abstract;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Powers;
 
 public sealed class UnyieldingPower : FlagellantPowerModel
 {
+    private bool _shouldDecrease = false;
     public override PowerType Type => PowerType.Buff;
-
     public override PowerStackType StackType => PowerStackType.Counter;
-
-    public override decimal ModifyHpLostAfterOsty(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<DoomPower>()
+    ];
+    public override bool TryModifyPowerAmountReceived(PowerModel canonicalPower, Creature target, decimal amount, Creature? applier, out decimal modifiedAmount)
     {
-        if (target != Owner || amount <= 0m)
+        if (canonicalPower != null && canonicalPower is DoomPower && amount > 0m && target == Owner)
         {
-            return amount;
+            Flash();
+            _shouldDecrease = true;
+            modifiedAmount = 0;
+            return true;
         }
-
-        Flash();
-        PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner, amount, Owner, null);
-        PowerCmd.Decrement(this);
-        return 0m;
+        modifiedAmount = amount;
+        return false;
+    }
+    public override async Task AfterModifyingPowerAmountReceived(PowerModel power)
+    {
+        if (_shouldDecrease)
+        {
+            await PowerCmd.Decrement(this);
+            _shouldDecrease = false;
+        }
     }
 }

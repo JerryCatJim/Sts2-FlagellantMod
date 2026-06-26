@@ -8,13 +8,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Flagellant.Code.Cards.Uncommon;
+namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
 public class BloodDonation : FlagellantCardModel
 {
     private decimal _maxHpDamage = 0;
-    public BloodDonation() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
+    public BloodDonation() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
         WithHealingPercent(12,4); //并不是真的回血，是获取最大生命值百分比的数值
         WithLossPercent(12,-4);

@@ -15,6 +15,7 @@ namespace Flagellant.Code.Relics;
 [Pool(typeof(FlagellantRelicPool))]
 public class PainBox : FlagellantRelicModel
 {
+    private decimal _amount = 0;
     public override RelicRarity Rarity => RelicRarity.Starter;
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -30,11 +31,17 @@ public class PainBox : FlagellantRelicModel
         if (Owner.Creature.CurrentHp <= amount && Owner.Creature.CombatState != null) //已经是除去格挡值后的伤害了
         {
             Flash();
-            PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, amount, Owner.Creature, null);
+            _amount = amount;
             return 0m;
         }
         return amount;
     }
+    public override async Task AfterModifyingHpLostAfterOsty()
+    {
+        await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, _amount, Owner.Creature, null);
+        _amount = 0;
+    }
+
     public override RelicModel? GetUpgradeReplacement()
     {
         return ModelDb.Relic<DarkImpulse>();

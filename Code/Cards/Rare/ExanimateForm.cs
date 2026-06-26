@@ -11,7 +11,7 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class ExanimateForm : FlagellantCardModel
 {
-    public ExanimateForm() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public ExanimateForm() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithAnimName("Lash");
         WithPower<ExanimateFormPower>(1);

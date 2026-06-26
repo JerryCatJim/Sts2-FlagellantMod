@@ -5,13 +5,13 @@ using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class LunaticStrike : FlagellantCardModel
 {
     protected override bool ShouldGlowGoldInternal => IsLowHealth();
-    public LunaticStrike() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public LunaticStrike() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithTags(CardTag.Strike);
         WithDamage(8,2);
