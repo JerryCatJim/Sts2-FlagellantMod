@@ -11,7 +11,7 @@ namespace Flagellant.Code.Cards.Common;
 [Pool(typeof(FlagellantCardPool))]
 public class TransferMisfortune : FlagellantCardModel
 {
-
+    protected override bool ShouldGlowGoldInternal => base.Owner.Creature.HasPower<DoomPower>();
     public TransferMisfortune() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithPower<DoomPower>(9);

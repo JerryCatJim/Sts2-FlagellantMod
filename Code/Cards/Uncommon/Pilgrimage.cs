@@ -19,35 +19,17 @@ public class Pilgrimage : FlagellantCardModel
     {
         WithAnimName("Lash");
         WithCards(2);
-        WithVar("ExtraDraw", 1);
+        WithVar("ExtraDraw", 1, 1);
         WithLostHpThisTurnDisplay();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-        if(LostHpThisTurn(base.Owner.Creature))
-        {
-            await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue + base.DynamicVars["ExtraDraw"].BaseValue, base.Owner);
-        }
-        else
-        {
-            await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-        }
-        if(IsUpgraded && LostHpThisTurn(base.Owner.Creature))
-        {
-            await CreatureCmd.Heal(base.Owner.Creature, LostHpThisTurnNum(base.Owner.Creature));
-        }
-    }
-
-    private static decimal LostHpThisTurnNum(Creature creature)
-    {
-        var entry = CombatManager.Instance.History.Entries
-        .OfType<DamageReceivedEntry>()
-        .Where(e => e.HappenedThisTurn(creature.CombatState)
-            && e.Receiver == creature
-            && e.Result.UnblockedDamage > 0);
-        return entry?.Sum(e => e.Result.UnblockedDamage) ?? 0m;
+        decimal drawNum = LostHpThisTurn(base.Owner.Creature) ? 
+            base.DynamicVars.Cards.BaseValue + base.DynamicVars["ExtraDraw"].BaseValue : 
+            base.DynamicVars.Cards.BaseValue;
+        await CardPileCmd.Draw(choiceContext, drawNum, base.Owner);
     }
     private static bool LostHpThisTurn(Creature creature)
     {

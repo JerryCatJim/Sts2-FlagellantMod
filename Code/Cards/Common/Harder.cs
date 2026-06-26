@@ -25,10 +25,10 @@ public class Harder : FlagellantCardModel
         await PlayCardAnim();
         decimal healNum = GetHealingPercentHp();
         await CreatureCmd.Heal(base.Owner.Creature, healNum);
-        await CommonActions.Draw(this, choiceContext);
         if (Owner.Creature.GetPower<DoomPower>() is DoomPower doomP && IsUpgraded)
         {
             await PowerCmd.ModifyAmount(choiceContext, doomP, -(healNum + GetExtraHealingHp(base.Owner.Creature)), Owner.Creature, this);
         }
+        await CommonActions.Draw(this, choiceContext);
     }
 }
