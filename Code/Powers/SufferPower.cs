@@ -25,8 +25,8 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
     public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
     {
         if (base.CombatState.CurrentSide != base.Owner.Side || delta <= 0m || creature == null || creature != Owner) return;
-        DoomPower? DPwr = creature.GetPower<DoomPower>();
-        if (DPwr != null)
+
+        if (creature.GetPower<DoomPower>() is DoomPower DPwr)
         {
             Flash();
             await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), DPwr, -Math.Round(delta) * Amount, creature, ModelDb.Card<Suffer>());
