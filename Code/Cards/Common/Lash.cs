@@ -9,15 +9,15 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Flagellant.Code.Cards.Uncommon;
+namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Lash : FlagellantCardModel
 {
-    public Lash() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public Lash() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithAnimName("Lash");
-        WithLossPercent(5);
+        WithLossPercent(8);
         WithPower<RegenPower>(1);
         WithVars(new RepeatVar(2).WithUpgrade(1));
     }

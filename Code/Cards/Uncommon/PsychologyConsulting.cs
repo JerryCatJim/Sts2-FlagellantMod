@@ -32,6 +32,7 @@ public class PsychologyConsulting : FlagellantCardModel
             }
             ));
         WithKeyword(CardKeyword.Ethereal);
+        WithCards(2);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -51,5 +52,6 @@ public class PsychologyConsulting : FlagellantCardModel
         {
             await CreatureCmd.Heal(Owner.Creature, healingAmount);
         }
+        await CommonActions.Draw(this, choiceContext);
     }
 }

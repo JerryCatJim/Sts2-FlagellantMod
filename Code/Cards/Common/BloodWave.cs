@@ -11,6 +11,7 @@ namespace Flagellant.Code.Cards.Common;
 [Pool(typeof(FlagellantCardPool))]
 public class BloodWave : FlagellantCardModel
 {
+    protected override bool ShouldGlowGoldInternal => !base.Owner.Creature.HasPower<RegenPower>();
     public BloodWave() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithHealingPercent(5, 2);

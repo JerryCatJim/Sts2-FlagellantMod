@@ -8,9 +8,9 @@
   "FLAGELLANT-FLAGELLANT.pronounSubject": "He",
   "FLAGELLANT-FLAGELLANT.cardsModifierTitle": "Flagellant's Card",
   "FLAGELLANT-FLAGELLANT.cardsModifierDescription": "The card of the Flagellant will appear in the store and rewards.",
-  "FLAGELLANT-FLAGELLANT.aromaPrinciple": "[sine][gray]Heh, the feeling of flesh being torn apart...[/gray][/sine]",
+  "FLAGELLANT-FLAGELLANT.aromaPrinciple": "[sine][red]Heh, the feeling of flesh being torn apart...[/red][/sine]",
   "FLAGELLANT-FLAGELLANT.eventDeathPrevention": "Even the Death can't take me away!",
   "FLAGELLANT-FLAGELLANT.banter.alive.endTurnPing": "Time for pain!",
   "FLAGELLANT-FLAGELLANT.banter.dead.endTurnPing": "More...",
-  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]I no longer need these worldly possessions...[/sine]"
+  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]But I no longer need these worldly possessions...[/sine]"
 }
