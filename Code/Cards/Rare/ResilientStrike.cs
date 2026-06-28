@@ -18,7 +18,14 @@ public class ResilientStrike : FlagellantCardModel
         WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
         WithCalculatedDamage(8, (CardModel card, Creature? c) =>
         {
-            return FlagellantCombatSingleton.GainedStress;
+            if (FlagellantCombatSingleton.GainedStressDictionary.ContainsKey(card.Owner.NetId))
+            {
+                return FlagellantCombatSingleton.GainedStressDictionary[card.Owner.NetId];
+            }
+            else
+            {
+                return 0;
+            }
         }
         );
     }
