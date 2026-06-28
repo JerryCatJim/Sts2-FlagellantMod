@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yyhd5pvfilx"
-path="res://.godot/imported/deathless.png-4d2c284ebc4be9e3fde3399077a81804.ctex"
+uid="uid://c2wg38lffk756"
+path="res://.godot/imported/nervous.png-abad13265b1ac34d204d2a7d96e4ef7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/deathless.png"
-dest_files=["res://.godot/imported/deathless.png-4d2c284ebc4be9e3fde3399077a81804.ctex"]
+source_file="res://Flagellant/Images/Cards/nervous.png"
+dest_files=["res://.godot/imported/nervous.png-abad13265b1ac34d204d2a7d96e4ef7f.ctex"]
 
 [params]
 

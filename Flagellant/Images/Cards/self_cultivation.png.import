@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yyhd5pvfilx"
-path="res://.godot/imported/deathless.png-4d2c284ebc4be9e3fde3399077a81804.ctex"
+uid="uid://bjisy00i6h3wc"
+path="res://.godot/imported/self_cultivation.png-142986070967f34a3c77e6d6947c01da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/deathless.png"
-dest_files=["res://.godot/imported/deathless.png-4d2c284ebc4be9e3fde3399077a81804.ctex"]
+source_file="res://Flagellant/Images/Cards/self_cultivation.png"
+dest_files=["res://.godot/imported/self_cultivation.png-142986070967f34a3c77e6d6947c01da.ctex"]
 
 [params]
 

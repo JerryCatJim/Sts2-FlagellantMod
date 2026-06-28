@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yyhd5pvfilx"
-path="res://.godot/imported/deathless.png-4d2c284ebc4be9e3fde3399077a81804.ctex"
+uid="uid://hofhjqnjaur8"
+path="res://.godot/imported/blood_donation.png-b7134d91d6dd78deb80ac70280b218b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Cards/deathless.png"
-dest_files=["res://.godot/imported/deathless.png-4d2c284ebc4be9e3fde3399077a81804.ctex"]
+source_file="res://Flagellant/Images/Cards/blood_donation.png"
+dest_files=["res://.godot/imported/blood_donation.png-b7134d91d6dd78deb80ac70280b218b2.ctex"]
 
 [params]
 
