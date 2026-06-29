@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Powers;
 using Flagellant.Code.Singleton;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -16,6 +17,7 @@ public class ResilientStrike : FlagellantCardModel
     {
         WithTags(CardTag.Strike);
         WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
+        WithPowerTip<StressPower>();
         WithCalculatedDamage(8, (CardModel card, Creature? c) =>
         {
             if (FlagellantCombatSingleton.GainedStressDictionary.ContainsKey(card.Owner.NetId))

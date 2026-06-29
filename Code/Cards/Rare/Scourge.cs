@@ -15,6 +15,7 @@ public class Scourge : FlagellantCardModel
     {
         WithAnimName("Suffer");
         WithPowerTip<DoomPower>();
+        WithPowerTip<PoisonPower>();
         WithKeyword(CardKeyword.Exhaust, UpgradeType.None);
         WithCostUpgradeBy(-1);
     }

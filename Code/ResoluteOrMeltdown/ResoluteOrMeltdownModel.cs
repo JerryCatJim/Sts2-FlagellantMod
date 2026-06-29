@@ -102,8 +102,10 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
                 Path = "res://Flagellant/Sounds/Resolute/sfx_battle_status_resolute.wav";
                 break;
             case ResoluteOrMeltdownType.Meltdown:
-            case ResoluteOrMeltdownType.Toxic:
                 Path = "res://Flagellant/Sounds/Meltdown/sfx_battle_status_meltdown.wav";
+                break;
+            case ResoluteOrMeltdownType.Toxic:
+                Path = "res://Flagellant/Sounds/Toxic/sfx_battle_status_toxic.wav";
                 break;
             default:
                 break;

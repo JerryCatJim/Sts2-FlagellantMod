@@ -4,6 +4,7 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Cards.Rare;
 
@@ -14,6 +15,7 @@ public class MoreMore : FlagellantCardModel
     {
         WithAnimName("More");
         WithPower<MoreMorePower>(2);
+        WithPowerTip<RegenPower>();
         WithKeyword(CardKeyword.Innate, UpgradeType.Add);
     }
 

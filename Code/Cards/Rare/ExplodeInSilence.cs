@@ -14,6 +14,7 @@ public class ExplodeInSilence : FlagellantCardModel
     {
         WithAnimName("More");
         WithEnergy(1);
+        WithPowerTip<StressPower>();
         WithPowerTip<ExplodeInSilencePower>();
         WithCostUpgradeBy(-1);
     }

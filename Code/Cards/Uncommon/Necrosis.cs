@@ -17,6 +17,7 @@ public class Necrosis : FlagellantCardModel
         WithAnimName("Necrosis");
         WithDamage(6);
         WithPower<RegenPower>(2);
+        WithPowerTip<PoisonPower>();
         WithCostUpgradeBy(-1);
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
