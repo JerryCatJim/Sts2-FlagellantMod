@@ -156,5 +156,7 @@
   "FLAGELLANT-EXPLODE_IN_SILENCE.title": "Explode In Silence",
   "FLAGELLANT-EXPLODE_IN_SILENCE.description": "Every 4 times you gain [gold]Stress[/gold], gain {Energy:energyIcons()}.",
   "FLAGELLANT-CALM_STRIKE.title": "Calm Strike",
-  "FLAGELLANT-CALM_STRIKE.description": "Deal {Damage:diff()} damage.\nIf your [gold]Stress[/gold] is less than {StressPower:diff()}, apply {ComboPower:comboIcons()}."
+  "FLAGELLANT-CALM_STRIKE.description": "Deal {Damage:diff()} damage.\nIf your [gold]Stress[/gold] is less than {StressPower:diff()}, apply {ComboPower:comboIcons()}.",
+  "FLAGELLANT-GET_ON_YOU.title": "Get On You",
+  "FLAGELLANT-GET_ON_YOU.description": "All players gain {StrengthPower:diff()} [gold]Strength[/gold] this turn.\nIf you are in [gold]Toxic[/gold], apply {PoisonPower:diff()} [gold]Poison[/gold] to all players.\nGain {StressPower:diff()} [gold]Stress[/gold]."
 }
