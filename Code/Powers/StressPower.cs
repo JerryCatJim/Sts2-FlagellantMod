@@ -41,6 +41,8 @@ public sealed class StressPower : FlagellantPowerModel
         if (Amount >= 10)
         {
             await BroadcastStressChangedEvent(choiceContext, power, -Amount, applier, cardSource);
+            //若不立刻移除则会导致苦楚+极乐时进入怨毒时无限循环
+            await SetAmountBorder();
             if (Owner.Player is Player player)
             {
                 await RMCmd.TryEnterResoluteOrMeltdown(choiceContext, player, cardSource);
