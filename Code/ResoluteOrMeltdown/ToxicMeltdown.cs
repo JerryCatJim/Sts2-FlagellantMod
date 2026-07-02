@@ -17,14 +17,14 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
 
     public override ResoluteOrMeltdownType RMType => ResoluteOrMeltdownType.Toxic;
 
-    public override Task OnEnterResoluteOrMeltdown(PlayerChoiceContext choiceContext, Player player, CardModel? source)
+    public override async Task OnEnterResoluteOrMeltdown(PlayerChoiceContext choiceContext, Player player, CardModel? source)
     {
         decimal num = Math.Round(player.Creature.MaxHp * 45 / 100m);
-        CreatureCmd.SetCurrentHp(player.Creature, num < 1m ? 1m : num);
+        await CreatureCmd.SetCurrentHp(player.Creature, num < 1m ? 1m : num);
 
-        PowerCmd.Apply<ScourgeFormPower>(choiceContext, Owner.Creature, 2, Owner.Creature, source);
-        PowerCmd.Apply<ToxicPower>(choiceContext, Owner.Creature, 1, Owner.Creature, source);
-        return base.OnEnterResoluteOrMeltdown(choiceContext, player, source);
+        await PowerCmd.Apply<ScourgeFormPower>(choiceContext, Owner.Creature, 2, Owner.Creature, source);
+        await PowerCmd.Apply<ToxicPower>(choiceContext, Owner.Creature, 1, Owner.Creature, source);
+        await base.OnEnterResoluteOrMeltdown(choiceContext, player, source);
     }
 
     public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)

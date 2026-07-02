@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Entities.Multiplayer;
+/*using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Multiplayer.Serialization;
@@ -36,3 +36,4 @@ public struct NetPlayCardAnimAction : INetAction, IPacketSerializable
         return $"NetPlayAnimAction ({card}) animName: {animName}";
     }
 }
+*/

@@ -78,6 +78,12 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
             }
         }
     }
+    private async Task DeleteNCreature(NCreature nCreature)
+    {
+        await Cmd.Wait(0.25f, ignoreCombatEnd: true);
+        nCreature.QueueFreeSafely();
+    }
+
     public override bool ShouldStopCombatFromEnding()
     {
         return true;
@@ -85,11 +91,5 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
     public override bool ShouldPowerBeRemovedAfterOwnerDeath()
     {
         return false;
-    }
-
-    private Task DeleteNCreature(NCreature nCreature)
-    {
-        nCreature.QueueFreeSafely();
-        return Task.CompletedTask;
     }
 }

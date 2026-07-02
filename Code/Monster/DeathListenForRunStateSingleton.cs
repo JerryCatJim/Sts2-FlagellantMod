@@ -75,15 +75,20 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
         return Task.CompletedTask;
     }
 
-    public override Task BeforeCombatStart()
+    public override async Task BeforeCombatStart()
     {
         if (ShouldSpawnDeathThisRoom && CombatState != null)
         {
             //一定要在怪物初始化之后再应用，以便最后结算生成死神。
             //若最先结算，例如千足虫等拥有ShouldCreatureBeRemovedFromCombatAfterDeath()且死后特殊处理的怪会出很多问题
-            PowerCmd.Apply<SpawnDeathPower>(new ThrowingPlayerChoiceContext(), CombatState.HittableEnemies, 1, null, null, true);
+            foreach(Creature creature in CombatState.HittableEnemies)
+            {
+                if(creature != null && !creature.HasPower<SpawnDeathPower>())
+                {
+                    await PowerCmd.Apply<SpawnDeathPower>(new ThrowingPlayerChoiceContext(), creature, 1, null, null, true);
+                }
+            }
         }
-        return Task.CompletedTask;
     }
 
     private static int GetRandomIndex(IRunState runState, int a, int b, int c, int N)
