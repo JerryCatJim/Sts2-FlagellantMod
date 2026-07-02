@@ -39,12 +39,12 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
         }
     }
 
-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        //if (side != base.Owner.Creature.Side) return;
-        if (!participants.Contains(base.Owner.Creature)) return;
-
-        await PowerCmd.Remove<ToxicPower>(Owner.Creature);
-        await RMCmd.ExitResoluteOrMeltdown(choiceContext, Owner, null);
+        if (participants.Contains(base.Owner.Creature))  //if (side == base.Owner.Side)
+        {
+            await PowerCmd.Remove<ToxicPower>(Owner.Creature);
+            await RMCmd.ExitResoluteOrMeltdown(choiceContext, Owner, null);
+        }
     }
 }

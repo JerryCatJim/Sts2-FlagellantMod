@@ -15,7 +15,7 @@ namespace Flagellant.Code.Relics;
 [Pool(typeof(FlagellantRelicPool))]
 public class DismassHead : FlagellantRelicModel, IAfterComboChanged
 {
-    public override RelicRarity Rarity => RelicRarity.Rare;
+    public override RelicRarity Rarity => RelicRarity.Common;
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<ComboPower>(),

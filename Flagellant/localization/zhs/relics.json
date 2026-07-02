@@ -4,7 +4,7 @@
   "FLAGELLANT-PAIN_BOX.description": "在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。",
   "FLAGELLANT-DARK_IMPULSE.title": "黑暗冲动",
   "FLAGELLANT-DARK_IMPULSE.flavor": "[red]拥抱黑暗，侍奉光明。[/red]",
-  "FLAGELLANT-DARK_IMPULSE.description": "在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。\n在战斗结束时，回复等同于[gold]灾厄[/gold]层数的生命。",
+  "FLAGELLANT-DARK_IMPULSE.description": "在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。\n在每场战斗开始时，获得5点[gold]压力[/gold]。",
   "FLAGELLANT-DEATHS_HEAD.title": "死神之颅",
   "FLAGELLANT-DEATHS_HEAD.flavor": "[red]你可以逃跑，但你无法躲藏！[/red]",
   "FLAGELLANT-DEATHS_HEAD.description": "当你要被杀死时，免死并回复到最大生命值的[green]{Heal}%[/green]（仅能起效一次）。",
@@ -13,7 +13,7 @@
   "FLAGELLANT-BARRISTANS_HEAD.description": "在你的回合结束时，获得等同于[gold]压力[/gold]的[gold]格挡[/gold]。",
   "FLAGELLANT-DISMASS_HEAD.title": "强盗之颅",
   "FLAGELLANT-DISMASS_HEAD.flavor": "[red]可惜，他再也等不来第二次机会了。[/red]",
-  "FLAGELLANT-DISMASS_HEAD.description": "每当你给予敌人[gold]破绽[/gold]时，同时给予[blue]1[/blue]层[gold]易伤[/gold]。",
+  "FLAGELLANT-DISMASS_HEAD.description": "每当你给予敌人[gold]破绽[/gold]时，给予[blue]1[/blue]层[gold]易伤[/gold]。",
   "FLAGELLANT-JUNIAS_HEAD.title": "修女之颅",
   "FLAGELLANT-JUNIAS_HEAD.flavor": "[red]她做错了什么？[/red]",
   "FLAGELLANT-JUNIAS_HEAD.description": "每当你在战斗中回复生命时，多回复[blue]1[/blue]点。",
@@ -22,11 +22,11 @@
   "FLAGELLANT-THRILLING_TABLET.description": "拾起时，将你的最大生命值翻倍，并回复所有生命。",
   "FLAGELLANT-EMANCIPATION.title": "彻底解放",
   "FLAGELLANT-EMANCIPATION.flavor": "[red]追求痛苦，但拒绝死亡。[/red]",
-  "FLAGELLANT-EMANCIPATION.description": "每当你获得[gold]灾厄[/gold]时，获得[blue]1[/blue]点[gold]压力[/gold]。",
+  "FLAGELLANT-EMANCIPATION.description": "在战斗结束时，保留你的[gold]压力[/gold]。",
   "FLAGELLANT-SEARING_SCRIPTURE.title": "炽热圣符",
   "FLAGELLANT-SEARING_SCRIPTURE.flavor": "[red]让火焰净化一切！[/red]",
   "FLAGELLANT-SEARING_SCRIPTURE.description": "每场战斗中，你打出的第一张攻击牌会给予[gold]破绽[/gold]。",
   "FLAGELLANT-HIS_PRISON.title": "本我囚笼",
   "FLAGELLANT-HIS_PRISON.flavor": "[red]追求痛苦的灵魂被困在了不死的躯壳中。[/red]",
-  "FLAGELLANT-HIS_PRISON.description": "当被攻击命中时，给予攻击者[blue]1[/blue]层[gold]中毒[/gold]。"
+  "FLAGELLANT-HIS_PRISON.description": "当被攻击命中时，给予攻击者[blue]2[/blue]层[gold]中毒[/gold]。"
 }

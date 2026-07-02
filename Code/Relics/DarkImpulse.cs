@@ -1,6 +1,8 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Powers;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
@@ -20,10 +22,9 @@ public class DarkImpulse : FlagellantRelicModel
     public override RelicRarity Rarity => RelicRarity.Ancient;
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<DoomPower>()
+        HoverTipFactory.FromPower<DoomPower>(),
+        HoverTipFactory.FromPower<StressPower>()
     ];
-
-    public int DoomPowerAmount = 0;
 
     public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
@@ -44,26 +45,20 @@ public class DarkImpulse : FlagellantRelicModel
         await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, _amount, Owner.Creature, null);
         _amount = 0;
     }
-
-    public override Task AfterCombatEnd(CombatRoom room)
+    /*public override async Task AfterRoomEntered(AbstractRoom room)
     {
-        if (base.Owner.Creature.GetPower<DoomPower>() is DoomPower doomPower)
+        if (room is CombatRoom)
         {
-            DoomPowerAmount = doomPower.Amount;
+            Flash();
+            await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 5, Owner.Creature, null, true);
         }
-        return base.AfterCombatEnd(room);
-    }
-    public override async Task AfterCombatVictory(CombatRoom room)
+    }*/
+    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        //CombatManager.cs的EndCombatInternal里会调用player2.AfterCombatEnd(),其中会清空所有Power,所以要在此之前记录DoomPower层数
-        if (!base.Owner.Creature.IsDead)
+        if (participants.Contains(base.Owner.Creature) && base.Owner.PlayerCombatState != null && base.Owner.PlayerCombatState.TurnNumber <= 1)
         {
-            if (DoomPowerAmount > 0)
-            {
-                Flash();
-                await CreatureCmd.Heal(base.Owner.Creature, DoomPowerAmount);
-            }
+            Flash();
+            await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 5, Owner.Creature, null);
         }
-        DoomPowerAmount = 0;
     }
 }

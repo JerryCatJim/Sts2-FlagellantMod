@@ -13,9 +13,9 @@ namespace Flagellant.Code.Patches;
 public static class StressIncreaseAnimPatch
 {
     //需要把继承自PowerModel的Power里的AllowNegative改为true才能接收到amount小于0的情况，详见Creature.cs里的InvokePowerModified()
-    public static bool Prefix(NCreature __instance, PowerModel power, int amount)
+    public static bool Prefix(NCreature __instance, PowerModel power, int amount, bool silent)
     {
-        if (!CombatManager.Instance.IsInProgress) return false;
+        if (silent || !CombatManager.Instance.IsInProgress) return true;
 
         if (__instance.Entity.Player?.Character is not Character.Flagellant) return true;
         if (amount == 0) return true;

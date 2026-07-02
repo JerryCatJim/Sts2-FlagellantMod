@@ -19,7 +19,8 @@ public class BarristansHead : FlagellantRelicModel
     public override RelicRarity Rarity => RelicRarity.Uncommon;
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<StressPower>()
+        HoverTipFactory.FromPower<StressPower>(),
+        HoverTipFactory.Static(StaticHoverTip.Block)
     ];
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

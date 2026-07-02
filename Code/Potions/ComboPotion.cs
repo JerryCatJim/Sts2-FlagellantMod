@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Potions;
 
@@ -22,7 +23,8 @@ public class ComboPotion : FlagellantPotionModel
 
     public override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<ComboPower>()
+        HoverTipFactory.FromPower<ComboPower>(),
+        HoverTipFactory.FromPower<VulnerablePower>()
     ];
 
     protected override async Task OnUse(PlayerChoiceContext ctx, Creature? target)
@@ -30,6 +32,7 @@ public class ComboPotion : FlagellantPotionModel
         if (target != null)
         {
             await PowerCmd.Apply<ComboPower>(ctx, target, 1, Owner.Creature, null);
+            await PowerCmd.Apply<VulnerablePower>(ctx, target, 1, Owner.Creature, null);
         }
     }
 }

@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Potions;
 
@@ -18,25 +17,18 @@ public class HopeCandle : FlagellantPotionModel
     // The base amount of Miracles to add
     public override PotionRarity Rarity => PotionRarity.Uncommon;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
-    public override TargetType TargetType => TargetType.AnyPlayer;
+    public override TargetType TargetType => TargetType.Self;
 
 
     public override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<StressPower>(),
-        HoverTipFactory.FromPower<StrengthPower>()
+        HoverTipFactory.FromPower<StressPower>()
     ];
 
     protected override async Task OnUse(PlayerChoiceContext ctx, Creature? target)
     {
         if (target?.Player == null) return;
-        if(target != null &&  target.HasPower<StressPower>())
-        {
-            StressPower? SP = target.GetPower<StressPower>();
-            if (SP != null && SP.Amount > 0)
-            {
-                await PowerCmd.Apply<StrengthPower>(ctx, target, SP.Amount, Owner.Creature, null);
-            }
-        }
+
+        await PowerCmd.Apply<StressPower>(ctx, target, 5, Owner.Creature, null);
     }
 }
