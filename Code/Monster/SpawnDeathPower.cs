@@ -38,22 +38,21 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
                 if (ShouldSpawnDeath)
                 {
                     //如果爪牙存活时击杀了主人，发现爪牙不会自动死亡，所以清理一下
-                    await CreatureCmd.Kill(target.CombatState.HittableEnemies); //Kill(CombatState.Enemies)会直接闪退?
+                    await CreatureCmd.Kill(target.CombatState.HittableEnemies.Where((Creature c) => c.IsSecondaryEnemy).ToList());//Kill(CombatState.Enemies)会直接闪退?
 
                     //拥有ShouldCreatureBeRemovedFromCombatAfterDeath的power的怪，彻底死后需要在CombatState将其移除才能让与死神的战斗在结束后正常结算
-                    IEnumerable<Creature> UnremovedCreatures = target.CombatState.Enemies.ToList();
+                    IEnumerable<Creature> UnremovedCreatures = target.CombatState.Enemies.
+                        Where((Creature creature) => creature.IsDead && creature.Powers.Any((PowerModel p) => !p.ShouldCreatureBeRemovedFromCombatAfterDeath(creature))).
+                        ToList();
                     foreach (Creature creature in UnremovedCreatures)
                     {
-                        if (creature.Powers.Any((PowerModel p) => !p.ShouldCreatureBeRemovedFromCombatAfterDeath(creature)))
+                        NCreature? nCreature = NCombatRoom.Instance?.GetCreatureNode(creature);
+                        if (nCreature != null)
                         {
-                            NCreature? nCreature = NCombatRoom.Instance?.GetCreatureNode(creature);
-                            if (nCreature != null)
-                            {
-                                nCreature.AnimHideIntent();
-                                nCreature.DeathAnimationTask = TaskHelper.RunSafely(DeleteNCreature(nCreature));
-                                nCreature.StartDeathAnim(true);
-                                NCombatRoom.Instance?.RemoveCreatureNode(nCreature);
-                            }
+                            nCreature.AnimHideIntent();
+                            nCreature.DeathAnimationTask = TaskHelper.RunSafely(DeleteNCreature(nCreature));
+                            nCreature.StartDeathAnim(true);
+                            NCombatRoom.Instance?.RemoveCreatureNode(nCreature);
                         }
                     }
 
@@ -80,6 +79,8 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
     }
     private async Task DeleteNCreature(NCreature nCreature)
     {
+        if (nCreature == null) return;
+
         await Cmd.Wait(0.25f, ignoreCombatEnd: true);
         nCreature.QueueFreeSafely();
     }
