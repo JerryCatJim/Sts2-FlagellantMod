@@ -2,7 +2,7 @@
   "id": "Flagellant",
   "name": "Flagellant",
   "author": "Jerry",
-  "description": "A character mod for Slay the Spire 2, Just for practicing.",
+  "description": "A character mod for Slay the Spire 2, just for practice.",
   "version": "$VERSION$",
   "has_pck": true,
   "has_dll": true,
