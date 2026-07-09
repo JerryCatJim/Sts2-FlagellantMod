@@ -13,10 +13,9 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class ResilientStrike : FlagellantCardModel
 {
-    public ResilientStrike() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public ResilientStrike() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithTags(CardTag.Strike);
-        WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
         WithPowerTip<StressPower>();
         WithCalculatedDamage(8, (CardModel card, Creature? c) =>
         {
@@ -28,7 +27,7 @@ public class ResilientStrike : FlagellantCardModel
             {
                 return 0;
             }
-        }
+        }, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move, 4
         );
     }
 

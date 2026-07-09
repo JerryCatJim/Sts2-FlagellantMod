@@ -128,7 +128,7 @@
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.title": "Psychology Consulting",
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.description": "Remove all your [gold]Stress[/gold], heal HP equal to {Multiplier:diff()} times your [gold]Stress[/gold]{InCombat:({CalculatedHealing:diff()})|}.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
   "FLAGELLANT-DESPERATE_FIGHT.title": "Desperate Fight",
-  "FLAGELLANT-DESPERATE_FIGHT.description": "Deal {Damage:diff()} damage.\nHeal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nIf your HP is 30% or less, gain {RegenPower:diff()} [gold]Regen[/gold] first.",
+  "FLAGELLANT-DESPERATE_FIGHT.description": "Deal {Damage:diff()} damage.\nHeal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.\nIf your HP is 30% or less, gain {StressPower:diff()} [gold]Stress[/gold] first.",
   "FLAGELLANT-BEING_TOWARDS_DEATH.title": "Being Towards Death",
   "FLAGELLANT-BEING_TOWARDS_DEATH.description": "Deal damage equal to the total damage you have dealt to yourself.{InCombat:({CalculatedDamage:diff()})|}",
   "FLAGELLANT-PURIFY_MIND.title": "Purify Mind",

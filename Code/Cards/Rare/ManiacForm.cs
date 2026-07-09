@@ -19,7 +19,7 @@ public class ManiacForm : FlagellantCardModel
         WithPower<ManiacFormPower>(1);
         WithTip(new TooltipSource((CardModel _) => FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
         WithEnergy(1);
-        WithKeyword(CardKeyword.Innate, UpgradeType.Add);
+        WithKeyword(CardKeyword.Retain, UpgradeType.Add);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

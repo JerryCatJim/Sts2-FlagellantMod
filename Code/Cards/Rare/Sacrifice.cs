@@ -13,8 +13,7 @@ public class Sacrifice : FlagellantCardModel
     public Sacrifice() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithPowerTip<SacrificePower>();
-        WithEnergy(1);
-        WithCostUpgradeBy(-1);
+        WithEnergy(1,1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

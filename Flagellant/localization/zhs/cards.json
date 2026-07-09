@@ -128,7 +128,7 @@
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.title": "心理咨询",
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.description": "移除你的所有[gold]压力[/gold]，回复{Multiplier:diff()}倍于[gold]压力[/gold]的生命{InCombat:({CalculatedHealing:diff()})|}。\n抽{Cards:diff()}张牌。",
   "FLAGELLANT-DESPERATE_FIGHT.title": "背水一战",
-  "FLAGELLANT-DESPERATE_FIGHT.description": "造成{Damage:diff()}点伤害。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n若生命小于等于30%，则先获得{RegenPower:diff()}层[gold]再生[/gold]。",
+  "FLAGELLANT-DESPERATE_FIGHT.description": "造成{Damage:diff()}点伤害。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。\n若生命小于等于30%，则先获得{StressPower:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-BEING_TOWARDS_DEATH.title": "向死而生",
   "FLAGELLANT-BEING_TOWARDS_DEATH.description": "造成你对自己造成过的伤害之和的伤害。{InCombat:({CalculatedDamage:diff()})|}",
   "FLAGELLANT-PURIFY_MIND.title": "清心",

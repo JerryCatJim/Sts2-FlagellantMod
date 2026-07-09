@@ -12,8 +12,7 @@ public class WeightTraining : FlagellantCardModel
 {
     public WeightTraining() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        WithPower<WeightTrainingPower>(1);
-        WithCostUpgradeBy(-1);
+        WithPower<WeightTrainingPower>(1,1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

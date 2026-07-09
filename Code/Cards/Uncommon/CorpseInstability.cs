@@ -14,9 +14,8 @@ public class CorpseInstability : FlagellantCardModel
     public CorpseInstability() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithPower<CorpseInstabilityPower>(2);
-        WithCostUpgradeBy(-1);
         WithPowerTip<PoisonPower>();
-        WithKeyword(CardKeyword.Exhaust);
+        WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

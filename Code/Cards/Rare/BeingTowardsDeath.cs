@@ -13,7 +13,7 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class BeingTowardsDeath : FlagellantCardModel
 {
-    public BeingTowardsDeath() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public BeingTowardsDeath() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithAnimName("Punish");
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);

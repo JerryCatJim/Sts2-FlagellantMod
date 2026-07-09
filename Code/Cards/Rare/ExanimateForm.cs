@@ -14,10 +14,9 @@ public class ExanimateForm : FlagellantCardModel
     public ExanimateForm() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithAnimName("Lash");
-        WithPower<ExanimateFormPower>(1);
+        WithPower<ExanimateFormPower>(1,1);
         WithPowerTip<PoisonPower>();
         WithPowerTip<StressPower>();
-        WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

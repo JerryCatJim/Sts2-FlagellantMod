@@ -12,12 +12,12 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class DeathComes : FlagellantCardModel
 {
-    public DeathComes() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public DeathComes() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithPowerTip<DoomPower>();
         WithStress(10);
         WithKeyword(CardKeyword.Exhaust);
-        WithCostUpgradeBy(-1);
+        WithKeyword(CardKeyword.Retain, UpgradeType.Add);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

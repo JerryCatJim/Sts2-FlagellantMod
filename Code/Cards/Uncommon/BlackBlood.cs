@@ -15,7 +15,7 @@ public class BlackBlood : FlagellantCardModel
     public BlackBlood() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithPower<BlackBloodPower>(1);
-        WithCostUpgradeBy(-1);
+        WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
         WithTip(new TooltipSource((CardModel _) => HoverTipFactory.Static(StaticHoverTip.Block)));
     }
 
