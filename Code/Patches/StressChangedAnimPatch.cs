@@ -32,7 +32,7 @@ public static class StressIncreaseAnimPatch
                     if (StressNode == null)
                     {
                         Log.Info("[StressIncreasePatch] " + NodeName +" In flagellant.tscn is not found.");
-                        return false;
+                        return true;
                     }
 
                     var AnimPlayer = StressNode.GetNodeOrNull<AnimationPlayer>(NodeName + "AnimPlayer");
