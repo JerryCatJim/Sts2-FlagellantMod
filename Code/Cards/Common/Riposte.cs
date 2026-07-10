@@ -41,8 +41,8 @@ public class Riposte : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _lastLostHp = GetLossPercentHp();
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, _lastLostHp, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
-        await CommonActions.CardAttack(this, cardPlay.Target, base.DynamicVars.Repeat.IntValue).Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, _lastLostHp, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
+        await CommonActions.CardAttack(this, cardPlay, base.DynamicVars.Repeat.IntValue).Execute(choiceContext);
         _lastLostHp = 0;
     }
 }

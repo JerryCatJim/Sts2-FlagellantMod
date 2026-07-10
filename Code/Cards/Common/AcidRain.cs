@@ -39,12 +39,12 @@ public class AcidRain : FlagellantCardModel
                 poison += base.DynamicVars["ComboUpgraded"].BaseValue;
                 await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             }
-            await DamageCmd.Attack(damage).FromCard(this).Targeting(hittableEnemy).Execute(choiceContext);
+            await DamageCmd.Attack(damage).FromCard(this, cardPlay).Targeting(hittableEnemy).Execute(choiceContext);
             if (hittableEnemy != null && hittableEnemy.IsAlive)
             {
                 await CommonActions.Apply<PoisonPower>(choiceContext, hittableEnemy, this, poison);
             }
         }
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
     }
 }

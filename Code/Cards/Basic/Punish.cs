@@ -29,9 +29,9 @@ public class Punish : FlagellantCardModel, ITranscendenceCard
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this);
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
         if(IsUpgraded)
         {
             await CommonActions.Apply<ComboPower>(choiceContext, cardPlay.Target, this);

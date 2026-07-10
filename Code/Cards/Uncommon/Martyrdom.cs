@@ -45,11 +45,11 @@ public class Martyrdom : FlagellantCardModel
         _doomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
         if(_doomNum > 0 || base.DynamicVars.CalculatedDamage.EnchantedValue > 0)
         {
-            await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+            await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         }
         if(_doomNum > 0m)
         {
-            await CreatureCmd.Damage(choiceContext, Owner.Creature, _doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+            await CreatureCmd.Damage(choiceContext, Owner.Creature, _doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
         }
         await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
         _doomNum = 0;

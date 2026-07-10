@@ -26,6 +26,6 @@ public class Penance : FlagellantCardModel
         await PlayCardAnim();
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CommonActions.Draw(this, choiceContext);
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
     }
 }

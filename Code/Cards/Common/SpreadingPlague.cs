@@ -25,7 +25,7 @@ public class SpreadingPlague : FlagellantCardModel
 
         if (cardPlay.Target.HasPower<PoisonPower>())
         {
-            await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+            await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         }
         else
         {

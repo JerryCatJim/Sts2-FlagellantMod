@@ -20,6 +20,8 @@ public class TransferMisfortune : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (base.CombatState == null) return;
+
         if (Owner.Creature.GetPower<DoomPower>() is DoomPower doomP)
         {
             await PowerCmd.ModifyAmount(choiceContext, doomP, -base.DynamicVars.Doom.BaseValue, Owner.Creature, this);

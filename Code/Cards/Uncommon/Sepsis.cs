@@ -55,7 +55,7 @@ public class Sepsis : FlagellantCardModel
                 {
                     await CreatureCmd.Damage(choiceContext,
                         cardPlay.Target, PP.Amount, ValueProp.Unblockable | ValueProp.Unpowered, 
-                        null, this);
+                        null, this, cardPlay);
                     await PowerCmd.Decrement(PP);
                 }
             }

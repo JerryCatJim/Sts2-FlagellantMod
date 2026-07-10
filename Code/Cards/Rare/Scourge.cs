@@ -22,6 +22,8 @@ public class Scourge : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (base.CombatState == null) return;
+
         await PlayCardAnim();
         decimal doomNum = Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
         if (doomNum > 0)

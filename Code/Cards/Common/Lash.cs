@@ -27,7 +27,7 @@ public class Lash : FlagellantCardModel
         await PlayCardAnim();
         for(int i = 0; i < base.DynamicVars.Repeat.IntValue; i++)
         {
-            await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+            await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
             await CommonActions.ApplySelf<RegenPower>(choiceContext, this);
         }
     }
