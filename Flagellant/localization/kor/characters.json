@@ -1,0 +1,16 @@
+{
+  "FLAGELLANT-FLAGELLANT.aromaPrinciple": "[sine][red]헤헤, 살점이 찢어지는 이 감각...[/red][/sine]",
+  "FLAGELLANT-FLAGELLANT.banter.alive.endTurnPing": "고통의 시간이다!",
+  "FLAGELLANT-FLAGELLANT.banter.dead.endTurnPing": "더...",
+  "FLAGELLANT-FLAGELLANT.cardsModifierDescription": "상점과 보상에 고행자의 카드가 등장합니다.",
+  "FLAGELLANT-FLAGELLANT.cardsModifierTitle": "고행자의 카드",
+  "FLAGELLANT-FLAGELLANT.description": "오랜 채찍질로 인해 살이 곪아버린 살아있는 시체입니다.\n과거의 위기가 해결된 후, 고통을 갈망하는 그의 마음이 첨탑으로 이끌어 순례를 이어나가게 했습니다.",
+  "FLAGELLANT-FLAGELLANT.eventDeathPrevention": "죽음조차 나를 앗아갈 수 없다!",
+  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]세속적인 재물은 더 이상 필요 없건만...[/sine]",
+  "FLAGELLANT-FLAGELLANT.possessiveAdjective": "그의",
+  "FLAGELLANT-FLAGELLANT.pronounObject": "그를",
+  "FLAGELLANT-FLAGELLANT.pronounPossessive": "그의",
+  "FLAGELLANT-FLAGELLANT.pronounSubject": "그는",
+  "FLAGELLANT-FLAGELLANT.title": "고행자",
+  "FLAGELLANT-FLAGELLANT.titleObject": "고행자"
+}
