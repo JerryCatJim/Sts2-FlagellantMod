@@ -20,7 +20,6 @@ public sealed class BlackBloodPower : FlagellantPowerModel
         if (CombatManager.Instance.IsInProgress && target == base.Owner
             && result.UnblockedDamage > 0 && base.CombatState.CurrentSide == base.Owner.Side)
         {
-            await CreatureCmd.GainBlock(base.Owner, result.UnblockedDamage * Amount, ValueProp.Move, null);
             await CreatureCmd.Damage(choiceContext, base.CombatState.HittableEnemies, result.UnblockedDamage * Amount, ValueProp.Unpowered | ValueProp.SkipHurtAnim, base.Owner, null, null);
         }
     }

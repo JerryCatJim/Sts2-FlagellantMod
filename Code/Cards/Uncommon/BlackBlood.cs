@@ -16,7 +16,7 @@ public class BlackBlood : FlagellantCardModel
     {
         WithPower<BlackBloodPower>(1);
         WithKeyword(CardKeyword.Ethereal, UpgradeType.Remove);
-        WithTip(new TooltipSource((CardModel _) => HoverTipFactory.Static(StaticHoverTip.Block)));
+        //WithTip(new TooltipSource((CardModel _) => HoverTipFactory.Static(StaticHoverTip.Block)));
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
