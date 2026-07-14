@@ -17,7 +17,7 @@ public class WyrdReconstruction : FlagellantCardModel
 
     public WyrdReconstruction() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithHealingPercent(15, 3);
+        WithHealingPercent(12, 3);
         WithVar("HealingPercentLow", 20, 5);
         WithVars(new HealingMaxHpVar("HealingMaxHpLow", 0));
         WithPowerTip<StableReconstructionPower>();

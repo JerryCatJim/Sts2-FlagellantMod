@@ -36,8 +36,8 @@ public class Flagellant : PlaceholderCharacterModel
     public override string CustomVisualPath => "res://Flagellant/Scenes/combat_flagellant.tscn";
     // 卡牌拖尾场景。
     // public override string CustomTrailPath => "res://scenes/vfx/card_trail_ironclad.tscn";
-    // 悬浮于继续游戏时的预览的人物头像路径。
-    public override string CustomIconTexturePath => "flagellant_select.png".CharacterUiPath();
+    // 悬浮于继续游戏时的预览的人物头像，历史记录左上角，图鉴头像等图的路径。
+    public override string CustomIconTexturePath => "flagellant_icon_small.png".CharacterUiPath();
     // 左上角人物头像,注意要是tscn。
     public override string CustomIconPath => "res://Flagellant/Scenes/flagellant_icon.tscn";
     // 能量表盘tscn路径。要自定义见下。

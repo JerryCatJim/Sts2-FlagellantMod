@@ -16,7 +16,7 @@ public class BloodWave : FlagellantCardModel
     {
         WithHealingPercent(5, 2);
         WithDamage(5, 2);
-        WithPowerTip<RegenPower>();
+        WithPower<RegenPower>(4,1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -29,7 +29,7 @@ public class BloodWave : FlagellantCardModel
         }
         else
         {
-            await CommonActions.ApplySelf<RegenPower>(choiceContext, this, healNum + GetExtraHealingHp(base.Owner.Creature));
+            await CommonActions.ApplySelf<RegenPower>(choiceContext, this);
         }
     }
 }
