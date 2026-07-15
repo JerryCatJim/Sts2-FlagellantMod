@@ -1,0 +1,16 @@
+{
+  "FLAGELLANT-FLAGELLANT.title": "Бич",
+  "FLAGELLANT-FLAGELLANT.titleObject": "Бич",
+  "FLAGELLANT-FLAGELLANT.description": "Живой труп, чья плоть сгнила от долгих истязаний.\nКогда старый кризис был разрешён, тоска по боли в его разуме привела его к Шпилю, чтобы продолжить своё паломничество.",
+  "FLAGELLANT-FLAGELLANT.pronounObject": "Его",
+  "FLAGELLANT-FLAGELLANT.possessiveAdjective": "Его",
+  "FLAGELLANT-FLAGELLANT.pronounPossessive": "Его",
+  "FLAGELLANT-FLAGELLANT.pronounSubject": "Он",
+  "FLAGELLANT-FLAGELLANT.cardsModifierTitle": "Карта Бича",
+  "FLAGELLANT-FLAGELLANT.cardsModifierDescription": "Карта Бича будет появляться в магазине и в наградах.",
+  "FLAGELLANT-FLAGELLANT.aromaPrinciple": "[sine][red]Хех, ощущение разрываемой плоти...[/red][/sine]",
+  "FLAGELLANT-FLAGELLANT.eventDeathPrevention": "Даже Смерть не сможет забрать меня!",
+  "FLAGELLANT-FLAGELLANT.banter.alive.endTurnPing": "Время боли!",
+  "FLAGELLANT-FLAGELLANT.banter.dead.endTurnPing": "Ещё...",
+  "FLAGELLANT-FLAGELLANT.goldMonologue": "[sine]Но мне больше не нужны эти мирские блага...[/sine]"
+}
