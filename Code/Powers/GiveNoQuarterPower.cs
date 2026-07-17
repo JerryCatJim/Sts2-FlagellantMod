@@ -27,7 +27,7 @@ public class GiveNoQuarterPower : FlagellantPowerModel
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        //刚获得能力之后会收到附加该能力卡牌的打出完成事件，需要排除
+        //判断条件抄的储君的虚空形态
         if(!ShouldSkip(cardPlay.Card)
             && cardPlay != null && !cardPlay.IsAutoPlay && cardPlay.IsLastInSeries)
         {
