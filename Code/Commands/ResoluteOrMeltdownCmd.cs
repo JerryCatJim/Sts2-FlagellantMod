@@ -71,11 +71,11 @@ public static class RMCmd
             throw new ArgumentOutOfRangeException(nameof(N), "N must be greater than 0.");
         }
 
-        uint seed = player.PlayerRng.Seed;     //盐值，增加分散度
+        ulong seed = player.PlayerRng.Seed;     //盐值，增加分散度
 
-        seed = (seed ^ (uint)a) * 0x9E3779B9u; // 混入 a
-        seed = (seed ^ (uint)b) * 0x85EBCA6Bu; // 混入 b
-        seed = (seed ^ (uint)c) * 0x7A3CFD3Bu; // 混入 c
+        seed = (seed ^ (ulong)a) * 0x9E3779B9u; // 混入 a
+        seed = (seed ^ (ulong)b) * 0x85EBCA6Bu; // 混入 b
+        seed = (seed ^ (ulong)c) * 0x7A3CFD3Bu; // 混入 c
 
         // 额外扩散：让高位和低位互相影响
         seed ^= (seed >> 16);
@@ -84,6 +84,6 @@ public static class RMCmd
         seed *= 0x7A3CFD3Bu;
         seed ^= (seed >> 16);
 
-        return (int)(seed % (uint)N);
+        return (int)(seed % (ulong)N);
     }
 }

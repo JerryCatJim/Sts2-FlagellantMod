@@ -28,11 +28,11 @@ public class DarkImpulse : FlagellantRelicModel
 
     public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != Owner.Creature || amount <= 0m)
+        if (!CombatManager.Instance.IsInProgress || target != Owner.Creature || amount <= 0m)
         {
             return amount;
         }
-        if (Owner.Creature.CurrentHp <= amount && Owner.Creature.CombatState != null) //已经是除去格挡值后的伤害了
+        if (Owner.Creature.CurrentHp <= amount) //已经是除去格挡值后的伤害了
         {
             Flash();
             _amount = amount;
@@ -42,8 +42,11 @@ public class DarkImpulse : FlagellantRelicModel
     }
     public override async Task AfterModifyingHpLostAfterOsty()
     {
-        await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, _amount, Owner.Creature, null);
-        _amount = 0;
+        if (_amount > 0)
+        {
+            await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, _amount, Owner.Creature, null);
+            _amount = 0;
+        }
     }
     /*public override async Task AfterRoomEntered(AbstractRoom room)
     {

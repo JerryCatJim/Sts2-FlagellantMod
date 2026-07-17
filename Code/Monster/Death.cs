@@ -260,14 +260,14 @@ public class Death : CustomMonsterModel
             .Execute(null);
         foreach (Creature creature in targets)
         {
+            if (creature.GetPower<ComboPower>() is ComboPower comboP)
+            {
+                NGame.Instance?.ScreenShake(ShakeStrength.Strong, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
+                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), comboP, -1, creature, null);
+                await PowerCmd.Apply<RingingPower>(new ThrowingPlayerChoiceContext(), creature, 1m, Creature, null);
+            }
             if (IsFlagellant(creature))
             {
-                if(creature.GetPower<ComboPower>() is ComboPower comboP)
-                {
-                    NGame.Instance?.ScreenShake(ShakeStrength.Strong, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
-                    await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), comboP, -1, creature, null);
-                    await PowerCmd.Apply<RingingPower>(new ThrowingPlayerChoiceContext(), creature, 1m, Creature, null);
-                }
                 await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
             }
             if (ShouldApplyWeak || IsFlagellant(creature))
