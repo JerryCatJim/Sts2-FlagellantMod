@@ -40,7 +40,8 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
 
                 //拥有ShouldCreatureBeRemovedFromCombatAfterDeath的power的怪，彻底死后需要在CombatState将其移除才能让与死神的战斗在结束后正常结算
                 UnremovedCreatures = target.CombatState.Enemies.
-                    Where((Creature creature) => creature.IsDead && creature.Powers.Any((PowerModel p) => !p.ShouldCreatureBeRemovedFromCombatAfterDeath(creature))).
+                    Where((Creature creature) => creature != null && creature.IsDead 
+                        && creature.Powers.Any((PowerModel p) => !p.ShouldCreatureBeRemovedFromCombatAfterDeath(creature))).
                     ToList();
                 foreach (Creature creature in UnremovedCreatures)
                 {
@@ -87,6 +88,7 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
             //所以为了兼容起见，把清除代码挪到AfterRemoved里了
             foreach (Creature creature in UnremovedCreatures)
             {
+                if (creature == null) continue;
                 if (creature.Side == CombatSide.Enemy && (creature.CombatState?.Enemies.Contains(creature) ?? false))
                 {
                     CombatManager.Instance.RemoveCreature(creature);
@@ -97,6 +99,7 @@ public sealed class SpawnDeathPower : FlagellantPowerModel
                     }
                 }
             }
+            UnremovedCreatures = null;
         }
         return Task.CompletedTask;
     }
