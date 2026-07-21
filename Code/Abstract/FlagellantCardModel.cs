@@ -46,7 +46,7 @@ public abstract class FlagellantCardModel(
 		{
 			return;
         }
-        await CreatureCmd.TriggerAnim(Owner.Creature, CardPlayAnimName, waitTime);
+        await CreatureCmd.TriggerAnim(Owner.Creature, "CardPlay/" + CardPlayAnimName, waitTime);
     }
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
