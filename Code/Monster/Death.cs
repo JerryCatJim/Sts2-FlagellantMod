@@ -190,7 +190,9 @@ public class Death : CustomMonsterModel
             if (MementoMoriUsedTimes == 1)
             {
                 foreach (PowerModel p in creature.Powers.Where(
-                       p => p.Type == MegaCrit.Sts2.Core.Entities.Powers.PowerType.Debuff).ToList())
+                       p => p.Type == MegaCrit.Sts2.Core.Entities.Powers.PowerType.Debuff
+                       && p.GetType().Namespace == "MegaCrit.Sts2.Core.Models.Powers"
+                       ).ToList())
                 {
                     await PowerCmd.Remove(p);
                 }
