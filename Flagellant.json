@@ -3,7 +3,7 @@
 "name": "Flagellant",
 "author": "Jerry",
 "description": "A character mod for Slay the Spire 2, just for practice.",
-"version": "0.3.34",
+"version": "0.3.35",
 "has_pck": true,
 "has_dll": true,
 "min_game_version": "0.107.1",
