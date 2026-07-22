@@ -5,8 +5,11 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Uncommon;
@@ -43,15 +46,27 @@ public class Martyrdom : FlagellantCardModel
     {
         await PlayCardAnim();
         _doomNum = base.Owner.Creature.GetPower<DoomPower>()?.Amount ?? 0m;
-        if(_doomNum > 0 || base.DynamicVars.CalculatedDamage.EnchantedValue > 0)
+        if (_doomNum > 0 || base.DynamicVars.CalculatedDamage.EnchantedValue > 0)
         {
+            if (base.CombatState != null)
+            {
+                NFireBurstVfx? child1 = NFireBurstVfx.Create(base.Owner.Creature, 0.75f);
+                NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(child1);
+                foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
+                {
+                    NFireBurstVfx? child2 = NFireBurstVfx.Create(hittableEnemy, 0.75f);
+                    NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(child2);
+                }
+            }
             await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+
+            if (_doomNum > 0m)
+            {
+                await CreatureCmd.Damage(choiceContext, Owner.Creature, _doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
+                _doomNum = 0;
+            }
         }
-        if(_doomNum > 0m)
-        {
-            await CreatureCmd.Damage(choiceContext, Owner.Creature, _doomNum, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
-        }
+        //无条件移除，别挪到if (_doomNum > 0m)里，以免打出此牌造成伤害后又因为各种原因获得了灾厄
         await PowerCmd.Remove<DoomPower>(base.Owner.Creature);
-        _doomNum = 0;
     }
 }
