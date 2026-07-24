@@ -1,12 +1,17 @@
 using Flagellant.Code.Commands;
 using Flagellant.Code.Powers;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.ResoluteOrMeltdown;
@@ -19,6 +24,10 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
 
     public override async Task OnEnterResoluteOrMeltdown(PlayerChoiceContext choiceContext, Player player, CardModel? source)
     {
+        if(LocalContext.IsMe(player))
+        {
+            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokyVignetteVfx.Create(new Color(0.8f, 0.8f, 0.3f, 0.66f), new Color(0f, 4f, 0f, 0.33f)));
+        }
         decimal num = Math.Round(player.Creature.MaxHp * 45 / 100m);
         await CreatureCmd.SetCurrentHp(player.Creature, num < 1m ? 1m : num);
 
@@ -35,6 +44,7 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
             {
                 toxicPower.ToxicPowerFlash();
             }
+            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGaseousImpactVfx.Create(target, new Color("008000"))); //83eb85
             await PowerCmd.Apply<PoisonPower>(choiceContext, target, result.TotalDamage, Owner.Creature, null);
         }
     }

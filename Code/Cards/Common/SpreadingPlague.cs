@@ -4,7 +4,10 @@ using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 
 namespace Flagellant.Code.Cards.Common;
 
@@ -30,6 +33,7 @@ public class SpreadingPlague : FlagellantCardModel
         else
         {
             await PlayCardAnim();
+            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NPoisonImpactVfx.Create(cardPlay.Target));
             await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this);
         }
     }

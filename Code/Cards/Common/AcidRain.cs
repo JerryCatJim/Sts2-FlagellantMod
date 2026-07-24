@@ -6,8 +6,11 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Common;
@@ -20,8 +23,8 @@ public class AcidRain : FlagellantCardModel
     private readonly Dictionary<Creature, bool> MarkedEnemies = new Dictionary<Creature, bool>();
     public AcidRain() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        WithDamage(4,1);
-        WithPoison(4,1);
+        WithDamage(4, 1);
+        WithPoison(4, 1);
         WithLossPercent(8);
         WithAnimName("AcidRain");
         WithVar("ComboUpgraded", 2, 1);
@@ -40,11 +43,12 @@ public class AcidRain : FlagellantCardModel
             {
                 await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             }
+            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokePuffVfx.Create(hittableEnemy, NSmokePuffVfx.SmokePuffColor.Green));
         }
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
-        foreach(KeyValuePair<Creature, bool> pairs in MarkedEnemies)
+        foreach (KeyValuePair<Creature, bool> pairs in MarkedEnemies)
         {
-            if(pairs.Key != null && pairs.Key.IsAlive)
+            if (pairs.Key != null && pairs.Key.IsAlive)
             {
                 decimal poison = base.DynamicVars["PoisonPower"].BaseValue;
                 poison += pairs.Value ? base.DynamicVars["ComboUpgraded"].BaseValue : 0;
@@ -58,7 +62,7 @@ public class AcidRain : FlagellantCardModel
     {
         if (cardSource != this) return 0m;
 
-        if(target != null && MarkedEnemies.ContainsKey(target))
+        if (target != null && MarkedEnemies.ContainsKey(target))
         {
             if (MarkedEnemies[target] == true)
             {

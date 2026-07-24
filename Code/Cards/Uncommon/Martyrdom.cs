@@ -17,6 +17,8 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class Martyrdom : FlagellantCardModel
 {
+    protected override bool ShouldGlowGoldInternal => base.Owner.Creature.HasPower<DoomPower>();
+
     private decimal _doomNum = 0;
     public Martyrdom() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
@@ -50,12 +52,10 @@ public class Martyrdom : FlagellantCardModel
         {
             if (base.CombatState != null)
             {
-                NFireBurstVfx? child1 = NFireBurstVfx.Create(base.Owner.Creature, 0.75f);
-                NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(child1);
+                NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGroundFireVfx.Create(base.Owner.Creature));
                 foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
                 {
-                    NFireBurstVfx? child2 = NFireBurstVfx.Create(hittableEnemy, 0.75f);
-                    NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(child2);
+                    NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGroundFireVfx.Create(hittableEnemy));
                 }
             }
             await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
