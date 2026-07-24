@@ -6,8 +6,11 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Common;
@@ -40,8 +43,9 @@ public class AcidRain : FlagellantCardModel
             {
                 await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             }
+            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokePuffVfx.Create(hittableEnemy, NSmokePuffVfx.SmokePuffColor.Green));
         }
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         foreach (KeyValuePair<Creature, bool> pairs in MarkedEnemies)
         {
             if (pairs.Key != null && pairs.Key.IsAlive)
