@@ -29,7 +29,7 @@ public abstract class FlagellantPowerModel : CustomPowerModel
     protected decimal GetHealingPercentHp(decimal overridePercent)
     {
         decimal Percent = Math.Clamp(overridePercent, 0, 100);
-        decimal Healing = Math.Round(base.Owner.MaxHp * Percent / 100m);
+        decimal Healing = Math.Round(base.Owner.MaxHp * Percent / 100m, MidpointRounding.AwayFromZero);
         if (Percent > 0 && Healing < 1m)
         {
             return 1m;

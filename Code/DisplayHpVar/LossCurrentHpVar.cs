@@ -32,7 +32,7 @@ public sealed class LossCurrentHpVar : DynamicVar
 
         decimal Percent = 0m;
         Percent = Math.Clamp(card.DynamicVars["LossPercent" + postFix]?.BaseValue ?? Percent, 0, 100);
-        decimal Damage = Math.Round(card.Owner.Creature.CurrentHp * Percent / 100m);
+        decimal Damage = Math.Round(card.Owner.Creature.CurrentHp * Percent / 100m, MidpointRounding.AwayFromZero);
         if (Percent > 0 && Damage < 1m)
         {
             return 1m;

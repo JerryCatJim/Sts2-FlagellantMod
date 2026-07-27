@@ -80,7 +80,7 @@ public abstract class MyConstructedCardModel(
         {
             Percent = Math.Clamp(overridePercent, 0, 100);
         }
-        decimal Damage = Math.Round(base.Owner.Creature.CurrentHp * Percent / 100m);
+        decimal Damage = Math.Round(base.Owner.Creature.CurrentHp * Percent / 100m, MidpointRounding.AwayFromZero);
         if(Percent > 0 && Damage < 1m)
         {
             return 1m;
@@ -98,7 +98,7 @@ public abstract class MyConstructedCardModel(
         {
             Percent = Math.Clamp(overridePercent, 0, 100);
         }
-        decimal Healing =  Math.Round(base.Owner.Creature.MaxHp * Percent / 100m);
+        decimal Healing =  Math.Round(base.Owner.Creature.MaxHp * Percent / 100m, MidpointRounding.AwayFromZero);
         if (Percent > 0 && Healing < 1m)
         {
             return 1m;
