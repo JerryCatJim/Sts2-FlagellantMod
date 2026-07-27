@@ -22,7 +22,7 @@
   "FLAGELLANT-MORE_MORE.title": "Ещё! Ещё!",
   "FLAGELLANT-MORE_MORE.description": "Когда вы получаете урон от атак, получите {MoreMorePower:diff()} [gold]регенерации[/gold].\n(До 3 раз за раунд)",
   "FLAGELLANT-SUFFER.title": "Страдание",
-  "FLAGELLANT-SUFFER.description": "Когда во время вашего хода:\nкогда вы исцеляете ОЗ, удалите равное количество [gold]Злой рок[/gold];\nкогда вы получаете [gold]Стресс[/gold], исцелите {HealingPercent:diff()}%({HealingMaxHp:diff()}) ОЗ.",
+  "FLAGELLANT-SUFFER.description": "Когда вы получаете [gold]Стресс[/gold], исцелите {HealingPercent:diff()}% ({HealingMaxHp:diff()}) ОЗ и удалите равное количество [gold]Злой рок[/gold].",
   "FLAGELLANT-SEPSIS.title": "Сепсис",
   "FLAGELLANT-SEPSIS.description": "Запустить [gold]Яд[/gold] цели {TriggerPoison:diff()} раз{InCombat:({CalculatedPoisonDamage:diff()})|}.\nЕсли цель имеет {ComboPower:comboIcons()}, запустить ещё один раз.",
   "FLAGELLANT-UNDYING.title": "Неумирающий",

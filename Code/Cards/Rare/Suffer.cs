@@ -11,14 +11,13 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class Suffer : FlagellantCardModel
 {
-    public Suffer() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public Suffer() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithAnimName("Suffer");
         WithPowerTip<SufferPower>();
         WithPowerTip<DoomPower>();
         WithPowerTip<StressPower>();
-        WithHealingPercent(1);
-        WithCostUpgradeBy(-1);
+        WithHealingPercent(1, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

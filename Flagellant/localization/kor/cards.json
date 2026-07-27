@@ -143,7 +143,7 @@
   "FLAGELLANT-SPREADING_ANXIETY.title": "퍼지는 불안",
   "FLAGELLANT-SPREADING_PLAGUE.description": "{Damage:diff()}의 피해를 줍니다.\n대상에게 [gold]중독[/gold]이 없다면 대신 [gold]중독[/gold]을 {PoisonPower:diff()}만큼 부여합니다.",
   "FLAGELLANT-SPREADING_PLAGUE.title": "퍼지는 역병",
-  "FLAGELLANT-SUFFER.description": "자신의 턴 동안:\n체력을 회복할 때 회복한 수치만큼 [gold]종말[/gold]을 제거합니다.\n[gold]스트레스[/gold]를 얻을 때 체력을 {HealingPercent:diff()}%({HealingMaxHp:diff()}) 회복합니다.",
+  "FLAGELLANT-SUFFER.description": "[gold]스트레스[/gold]를 얻을 때마다, 체력을 {HealingPercent:diff()}% ({HealingMaxHp:diff()}) 회복하고 그 수치만큼 [gold]종말[/gold]을 제거합니다.",
   "FLAGELLANT-SUFFER.title": "고난",
   "FLAGELLANT-SUFFER_ALONE.description": "{Damage:diff()}의 피해를 줍니다.\n현재 체력을 {LossPercent:diff()}%({LossCurrentHp:diff()}) 잃습니다.",
   "FLAGELLANT-SUFFER_ALONE.title": "홀로 겪는 고통",

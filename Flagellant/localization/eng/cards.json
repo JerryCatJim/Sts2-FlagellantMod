@@ -22,7 +22,7 @@
   "FLAGELLANT-MORE_MORE.title": "More! More!",
   "FLAGELLANT-MORE_MORE.description": "Whenever you take attack damage, gain {MoreMorePower:diff()} [gold]Regen[/gold].\n(Up to 3 times per round)",
   "FLAGELLANT-SUFFER.title": "Suffer",
-  "FLAGELLANT-SUFFER.description": "Whenever during your turn:\nwhen you heal HP, remove an equal amount of [gold]Doom[/gold];\nwhen you gain [gold]Stress[/gold], heal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP.",
+  "FLAGELLANT-SUFFER.description": "Whenever you gain [gold]Stress[/gold], heal {HealingPercent:diff()}%({HealingMaxHp:diff()}) HP and remove that much [gold]Doom[/gold].",
   "FLAGELLANT-SEPSIS.title": "Sepsis",
   "FLAGELLANT-SEPSIS.description": "Trigger the target's [gold]Poison[/gold] {TriggerPoison:diff()} times{InCombat:({CalculatedPoisonDamage:diff()})|}.  \nIf the target has {ComboPower:comboIcons()}, trigger it one additional time.",
   "FLAGELLANT-UNDYING.title": "Undying",

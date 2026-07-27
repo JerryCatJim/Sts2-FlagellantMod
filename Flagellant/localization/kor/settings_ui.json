@@ -27,5 +27,8 @@
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.hover.desc": "이 옵션을 체크하면 멀티플레이어 모드에서 팀원 고행자의 카드 선택 애니메이션을 볼 수 있습니다.",
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.hover.title": "팀원 고행자의 카드 선택 애니메이션 표시 여부",
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.title": "멀티플레이어 모드에서 카드 애니메이션 표시 여부",
-  "FLAGELLANT.mod_title": "고행자 (Flagellant)"
+  "FLAGELLANT.mod_title": "고행자 (Flagellant)",
+  "FLAGELLANT-DEATH_VFX_AND_BGM.title": "사신 시각 효과 및 BGM",
+  "FLAGELLANT-SHOULD_PLAY_DEATH_ENCOUNTER_BGM.title": "사신 조우 BGM 재생 여부",
+  "FLAGELLANT-SHOULD_SHOW_DEATH_ENCOUNTER_VFX.title": "사신 조우 시각 효과 표시 여부"
 }

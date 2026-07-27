@@ -27,5 +27,8 @@
   "FLAGELLANT-PREDICT_WHETHER_DEATH_WILL_APPEAR.title": "Предсказывать, появится ли Смерть в бою",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "Смерть может появиться в комнате с монстрами",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "Смерть может появиться в комнате с элитами",
-  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "Смерть может появиться в комнате с боссом"
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "Смерть может появиться в комнате с боссом",
+  "FLAGELLANT-DEATH_VFX_AND_BGM.title": "Визуальные эффекты и фоновая музыка Смерти",
+  "FLAGELLANT-SHOULD_PLAY_DEATH_ENCOUNTER_BGM.title": "Воспроизводить фоновую музыку при встрече со Смертью",
+  "FLAGELLANT-SHOULD_SHOW_DEATH_ENCOUNTER_VFX.title": "Показывать визуальные эффекты при встрече со Смертью"
 }

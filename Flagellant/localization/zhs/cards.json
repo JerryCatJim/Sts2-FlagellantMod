@@ -22,7 +22,7 @@
   "FLAGELLANT-MORE_MORE.title": "再来，再来！",
   "FLAGELLANT-MORE_MORE.description": "每当你受到攻击伤害时，获得{MoreMorePower:diff()}层[gold]再生[/gold]。\n(每回合最多3次)",
   "FLAGELLANT-SUFFER.title": "苦楚",
-  "FLAGELLANT-SUFFER.description": "每当你在你的回合：\n回复生命时，移除等量[gold]灾厄[/gold]；\n获得[gold]压力[/gold]时，回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。",
+  "FLAGELLANT-SUFFER.description": "每当你获得[gold]压力[/gold]时，回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命并移除等量[gold]灾厄[/gold]。",
   "FLAGELLANT-SEPSIS.title": "败血",
   "FLAGELLANT-SEPSIS.description": "触发{TriggerPoison:diff()}次目标的[gold]中毒[/gold]{InCombat:({CalculatedPoisonDamage:diff()})|}。\n若目标有{ComboPower:comboIcons()}，则多触发一次。",
   "FLAGELLANT-UNDYING.title": "蔑死",

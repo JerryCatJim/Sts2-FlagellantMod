@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
 using Flagellant.Code.Audio;
+using Flagellant.Code.Config;
 using Flagellant.Code.Potions;
 using Flagellant.Code.Powers;
 using Flagellant.Code.Relics;
@@ -78,21 +79,27 @@ public class Death : CustomMonsterModel
         //若多个死神同时出现只加载一次滤镜和BGM
         if (DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
         {
-            _vfxInstance = PreloadManager.Cache.GetScene("res://Flagellant/Monster_Death/EnterEffect/EnterEffect.tscn").Instantiate<Node2D>();
-            if (_vfxInstance == null) return;
-
-            _vfxInstance.Position = Vector2.Zero;
-            _vfxInstance.Scale = Vector2.One;
-
-            var combatRoom = NCombatRoom.Instance;
-            if (combatRoom != null)
+            if (FlagellantConfig.ShouldShowDeathEncounterVfx)
             {
-                if (_vfxInstance.GetParent() == null)
+                _vfxInstance = PreloadManager.Cache.GetScene("res://Flagellant/Monster_Death/EnterEffect/EnterEffect.tscn").Instantiate<Node2D>();
+                if (_vfxInstance == null) return;
+
+                _vfxInstance.Position = Vector2.Zero;
+                _vfxInstance.Scale = Vector2.One;
+
+                var combatRoom = NCombatRoom.Instance;
+                if (combatRoom != null)
                 {
-                    combatRoom.AddChild(_vfxInstance);
+                    if (_vfxInstance.GetParent() == null)
+                    {
+                        combatRoom.AddChild(_vfxInstance);
+                    }
                 }
             }
-            AudioManager.PlayMonsterBgm();
+            if (FlagellantConfig.ShouldPlayDeathEncounterBgm)
+            {
+                AudioManager.PlayMonsterBgm();
+            }
         }
 
         AudioManager.PlayMonsterSfx("Spawn", true);
