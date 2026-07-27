@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Powers;
 
@@ -22,21 +23,35 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
         HoverTipFactory.FromPower<StressPower>()
     ];
 
-    public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
-    {
-        if (base.CombatState.CurrentSide != base.Owner.Side || delta <= 0m || creature == null || creature != Owner) return;
-
-        if (creature.GetPower<DoomPower>() is DoomPower DPwr)
-        {
-            Flash();
-            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), DPwr, -Math.Round(delta) * Amount, creature, ModelDb.Card<Suffer>());
-        }
-    }
     public async Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (base.CombatState.CurrentSide != base.Owner.Side || amount <= 0m || power.Owner != base.Owner) return;
+        if (amount <= 0m || power.Owner != base.Owner) return;
 
         Flash();
-        await CreatureCmd.Heal(base.Owner, GetHealingPercentHp(Amount));
+        decimal healAmount = GetHealingPercentHp(Amount);
+        await CreatureCmd.Heal(base.Owner, healAmount);
+        if (base.Owner.GetPower<DoomPower>() is DoomPower DPwr)
+        {
+            Flash();
+            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), DPwr, -(healAmount + GetExtraHealingHp(base.Owner)), base.Owner, ModelDb.Card<Suffer>());
+        }
+    }
+
+    private decimal GetExtraHealingHp(Creature creature)
+    {
+        decimal num = 999;
+        IRunState? runState = creature.Player?.RunState;
+        if (runState != null)
+        {
+            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+            {
+                if (item is IModifyHpAmountReceived myModel)
+                {
+                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
+                    num = myModifiedAmount;
+                }
+            }
+        }
+        return num - 999;
     }
 }

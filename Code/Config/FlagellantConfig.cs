@@ -16,6 +16,9 @@ internal class FlagellantConfig : SimpleModConfig
 
     public static bool ShouldShowCardAnimInMultiplayerMode { get; set; } = true;
 
+    [ConfigSection("DeathVfxAndBgm")]
+    public static bool ShouldShowDeathEncounterVfx { get; set; } = true;
+    public static bool ShouldPlayDeathEncounterBgm { get; set; } = true;
     [ConfigSection("DeathEncounter")]
     public static bool ShouldMultiplayerUseDefaultCondition { get; set; } = true;
     public static bool ShouldDeathOnlyHuntFlagellant { get; set; } = true;

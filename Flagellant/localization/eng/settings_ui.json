@@ -27,5 +27,8 @@
   "FLAGELLANT-PREDICT_WHETHER_DEATH_WILL_APPEAR.title": "Predict whether Death will appear in Combat",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "Should Death Appear in Monster Room",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "Should Death Appear in Elite Room",
-  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "Should Death Appear in Boss Room"
+  "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "Should Death Appear in Boss Room",
+  "FLAGELLANT-DEATH_VFX_AND_BGM.title": "Death's Vfx and BGM",
+  "FLAGELLANT-SHOULD_PLAY_DEATH_ENCOUNTER_BGM.title": "Should Play Death Encounter BGM",
+  "FLAGELLANT-SHOULD_SHOW_DEATH_ENCOUNTER_VFX.title": "Should Show Death Encounter Vfx"
 }
