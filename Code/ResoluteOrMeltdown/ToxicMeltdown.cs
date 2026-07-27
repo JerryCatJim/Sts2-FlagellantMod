@@ -29,7 +29,7 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
         {
             NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokyVignetteVfx.Create(new Color(0.8f, 0.8f, 0.3f, 0.66f), new Color(0f, 4f, 0f, 0.33f)));
         }
-        decimal num = Math.Round(player.Creature.MaxHp * 45 / 100m);
+        decimal num = Math.Round(player.Creature.MaxHp * 45 / 100m, MidpointRounding.AwayFromZero);
         await CreatureCmd.SetCurrentHp(player.Creature, num < 1m ? 1m : num);
 
         await PowerCmd.Apply<ScourgeFormPower>(choiceContext, Owner.Creature, 2, Owner.Creature, source);
