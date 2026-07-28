@@ -81,5 +81,14 @@
   "FLAGELLANT-GOSPEL_POWER.smartDescription": "Whenever you heal HP, apply the healing amount [blue]*{Amount}[/blue] of [gold]Doom[/gold] to all enemies.",
   "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.title": "Explode In Silence",
   "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.description": "Every [blue]4[/blue] times you gain [gold]Stress[/gold], gain [blue]1[/blue]{energyPrefix:energyIcons(1)}.",
-  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.smartDescription": "Every {GainStressTimes} times you gain [gold]Stress[/gold], gain {Amount:energyIcons()}."
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.smartDescription": "Every [blue]{GainStressTimes}[/blue] times you gain [gold]Stress[/gold], gain {Amount:energyIcons()}.",
+  "FLAGELLANT-UNTIL_DEATH_POWER.title": "Until Death",
+  "FLAGELLANT-UNTIL_DEATH_POWER.description": "Deal [blue]X[/blue]% additional attack Damage.\nReceive [blue]X[/blue]% additional attack damage.",
+  "FLAGELLANT-UNTIL_DEATH_POWER.smartDescription": "Deal [blue]{Amount}[/blue]% additional attack Damage.\nReceive [blue]{Amount}[/blue]% additional attack damage.",
+  "FLAGELLANT-WAR_FEEDS_WAR_POWER.title": "War Feeds War",
+  "FLAGELLANT-WAR_FEEDS_WAR_POWER.description": "Whenever you gain [blue]5[/blue] [gold]Stress[/gold], the next Attack card you play applies [gold]Combo[/gold].",
+  "FLAGELLANT-WAR_FEEDS_WAR_POWER.smartDescription": "Whenever you gain [blue]{GainStressAmount:diff()}[/blue] [gold]Stress[/gold], the next Attack card you play applies [gold]Combo[/gold].",
+  "FLAGELLANT-SAMSARA_POWER.title": "Samsara",
+  "FLAGELLANT-SAMSARA_POWER.description": "At the start of your next turn, gain [blue]X[/blue] HP.",
+  "FLAGELLANT-SAMSARA_POWER.smartDescription": "At the start of your next turn, gain [blue]{Amount}[/blue] HP."
 }

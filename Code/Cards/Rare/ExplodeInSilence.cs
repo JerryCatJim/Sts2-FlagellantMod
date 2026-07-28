@@ -17,6 +17,7 @@ public class ExplodeInSilence : FlagellantCardModel
         WithPowerTip<StressPower>();
         WithPowerTip<ExplodeInSilencePower>();
         WithCostUpgradeBy(-1);
+        WithVar("GainStressTimes", 4);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

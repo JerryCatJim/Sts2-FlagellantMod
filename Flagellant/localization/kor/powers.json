@@ -30,7 +30,7 @@
   "FLAGELLANT-EXANIMATE_FORM_POWER.smartDescription": "[gold]스트레스[/gold]를 얻을 때마다, 모든 적에게 [gold]중독[/gold] [blue]{Amount}[/blue]를 부여합니다.",
   "FLAGELLANT-EXANIMATE_FORM_POWER.title": "반시체 형상",
   "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.description": "[gold]스트레스[/gold]를 [blue]4[/blue]번 얻을 때마다 [blue]1[/blue]{energyPrefix:energyIcons(1)}를 얻습니다.",
-  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.smartDescription": "[gold]스트레스[/gold]를 {GainStressTimes}번 얻을 때마다 {Amount:energyIcons()}를 얻습니다.",
+  "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.smartDescription": "[gold]스트레스[/gold]를 [blue]{GainStressTimes}[/blue]번 얻을 때마다 {Amount:energyIcons()}를 얻습니다.",
   "FLAGELLANT-EXPLODE_IN_SILENCE_POWER.title": "침묵 속 폭발",
   "FLAGELLANT-GIVE_NO_QUARTER_POWER.description": "다음에 내는 카드 [blue]X[/blue]장의 비용이 0{energyPrefix:energyIcons(1)}이 됩니다.",
   "FLAGELLANT-GIVE_NO_QUARTER_POWER.smartDescription": "다음에 내는 카드 [blue]{Amount}[/blue]장의 비용이 0{energyPrefix:energyIcons(1)}이 됩니다.",
@@ -81,5 +81,14 @@
   "FLAGELLANT-UNYIELDING_POWER.title": "굴하지 않는 의지",
   "FLAGELLANT-WEIGHT_TRAINING_POWER.description": "체력을 회복할 때마다, 추가로 [blue]X[/blue] 회복합니다.",
   "FLAGELLANT-WEIGHT_TRAINING_POWER.smartDescription": "체력을 회복할 때마다, 추가로 [blue]{Amount}[/blue] 회복합니다.",
-  "FLAGELLANT-WEIGHT_TRAINING_POWER.title": "중량 훈련"
+  "FLAGELLANT-WEIGHT_TRAINING_POWER.title": "중량 훈련",
+  "FLAGELLANT-UNTIL_DEATH_POWER.title": "죽음까지",
+  "FLAGELLANT-UNTIL_DEATH_POWER.description": "공격 피해를 [blue]X[/blue]% 추가로 줍니다.\n[blue]X[/blue]%의 추가 공격 피해를 받습니다.",
+  "FLAGELLANT-UNTIL_DEATH_POWER.smartDescription": "공격 피해를 [blue]{Amount}[/blue]% 추가로 줍니다.\n[blue]{Amount}[/blue]%의 추가 공격 피해를 받습니다.",
+  "FLAGELLANT-WAR_FEEDS_WAR_POWER.title": "전쟁은 전쟁을 낳는다",
+  "FLAGELLANT-WAR_FEEDS_WAR_POWER.description": "[gold]스트레스[/gold]를 [blue]5[/blue] 얻을 때마다, 다음에 내는 공격 카드가 [gold]연계[/gold]를 부여합니다.",
+  "FLAGELLANT-WAR_FEEDS_WAR_POWER.smartDescription": "[gold]스트레스[/gold]를 [blue]{GainStressAmount:diff()}[/blue] 얻을 때마다, 다음에 내는 공격 카드가 [gold]연계[/gold]를 부여합니다.",
+  "FLAGELLANT-SAMSARA_POWER.title": "윤회",
+  "FLAGELLANT-SAMSARA_POWER.description": "다음 턴 시작 시, 체력을 [blue]X[/blue] 회복합니다.",
+  "FLAGELLANT-SAMSARA_POWER.smartDescription": "다음 턴 시작 시, 체력을 [blue]{Amount}[/blue] 회복합니다."
 }
