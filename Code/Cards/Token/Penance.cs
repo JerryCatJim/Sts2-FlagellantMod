@@ -1,8 +1,10 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Powers;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -27,5 +29,22 @@ public class Penance : FlagellantCardModel
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CommonActions.Draw(this, choiceContext);
         await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
+    }
+
+    public static async Task<IEnumerable<Penance>> CreateInHand(Player owner, int amount, ICombatState combatState, Player? creator = null)
+    {
+        IEnumerable<Penance> cards = Create(owner, amount, combatState);
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, creator ?? owner);
+        return cards;
+    }
+
+    public static IEnumerable<Penance> Create(Player owner, int amount, ICombatState combatState)
+    {
+        List<Penance> list = new List<Penance>();
+        for (int i = 0; i < amount; i++)
+        {
+            list.Add(combatState.CreateCard<Penance>(owner));
+        }
+        return list;
     }
 }

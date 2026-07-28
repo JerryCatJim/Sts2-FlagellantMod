@@ -16,7 +16,7 @@ public class Metamorphosis : FlagellantCardModel
         WithStress(5);
         WithKeyword(CardKeyword.Exhaust);
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);
-        WithAnimName("Lash");
+        WithAnimName("More");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

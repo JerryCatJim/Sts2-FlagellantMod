@@ -8,27 +8,24 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Flagellant.Code.Cards.Uncommon;
+namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
-public class Restraint : FlagellantCardModel
+public class BloodyFlail : FlagellantCardModel
 {
-    public Restraint() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public BloodyFlail() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithLossPercent(8);
-        WithStress(1, 1);
-        WithEnergy(1, 1);
-        WithCards(1);
         WithAnimName("Lash");
+        WithLossPercent(8);
+        WithPower<VigorPower>(6, 2);
+        WithStress(1, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-
+        await CommonActions.ApplySelf<VigorPower>(choiceContext, this);
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
-        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Cards.BaseValue, base.Owner.Creature, this);
     }
 }

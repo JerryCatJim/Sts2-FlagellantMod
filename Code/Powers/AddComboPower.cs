@@ -33,7 +33,7 @@ public sealed class AddComboPower : FlagellantPowerModel
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner.Creature != base.Owner)
+        if (cardPlay.Card.Owner.Creature != base.Owner || cardPlay.Card.Type != CardType.Attack)
         {
             return Task.CompletedTask;
         }

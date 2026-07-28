@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Audio;
 using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -22,6 +23,8 @@ public class CalmStrike : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
+        AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Watcher/calm_enter.ogg", true, true, 0);
 
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         if(IsStressLessEqual(4))
