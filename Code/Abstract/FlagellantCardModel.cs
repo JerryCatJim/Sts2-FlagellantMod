@@ -1,6 +1,7 @@
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.Character;
+using Flagellant.Code.Config;
 using Flagellant.Code.Core;
 using Flagellant.Code.Extensions;
 using Flagellant.Code.Powers;
@@ -27,7 +28,7 @@ public abstract class FlagellantCardModel(
     public String CardSelectAnimName => _cardSelectAnimName;
     public String CardPlayAnimName => _cardPlayAnimName;
 
-	protected bool HasAnyComboMarkedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
+    protected bool HasAnyComboMarkedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
     protected bool HasAnyPoisonedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>()) ?? false;
     protected FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
     {
@@ -37,14 +38,14 @@ public abstract class FlagellantCardModel(
     protected FlagellantCardModel WithAnimName(String AnimName)
     {
         _cardSelectAnimName = AnimName;
-		_cardPlayAnimName = AnimName;
+        _cardPlayAnimName = AnimName;
         return this;
     }
     protected async Task PlayCardAnim(float waitTime = 0.0f)
     {
-        if(CardPlayAnimName == null || CardPlayAnimName == "" || CardPlayAnimName == "DoNothing")
-		{
-			return;
+        if (CardPlayAnimName == null || CardPlayAnimName == "" || CardPlayAnimName == "DoNothing")
+        {
+            return;
         }
         await CreatureCmd.TriggerAnim(Owner.Creature, "CardPlay/" + CardPlayAnimName, waitTime);
     }
@@ -52,35 +53,42 @@ public abstract class FlagellantCardModel(
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
     //Full art: 606x852
     public override string CustomPortraitPath
-	{
-		get
-		{
-			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
-		}
-	}
+    {
+        get
+        {
+            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
+            if (FlagellantConfig.ShouldUseRemadeCardImage
+                && ResourceLoader.Exists($"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".RemadeCardImagePath()))
+            {
+                path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".RemadeCardImagePath();
+            }
+            return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
+        }
+    }
 
-	//Smaller variants of card images for efficiency:
-	//Smaller variant of fullart: 250x350
-	//Smaller variant of normalart: 250x190
+    //Smaller variants of card images for efficiency:
+    //Smaller variant of fullart: 250x350
+    //Smaller variant of normalart: 250x190
 
-	//Uses card_portraits/card_name.png as image path. These should be smaller images.
-	public override string PortraitPath
-	{
-		get
-		{
-			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
-		}
-	}
+    //Uses card_portraits/card_name.png as image path. These should be smaller images.
+    public override string PortraitPath
+    {
+        get
+        {
+            /*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
+			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();*/
+            return CustomPortraitPath;
+        }
+    }
 
-	//Optional and I'm not sure it's functional yet.
-	public override string BetaPortraitPath
-	{
-		get
-		{
-			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
-		}
-	}
+    //Optional and I'm not sure it's functional yet.
+    public override string BetaPortraitPath
+    {
+        get
+        {
+            /*var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
+			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();*/
+            return CustomPortraitPath;
+        }
+    }
 }

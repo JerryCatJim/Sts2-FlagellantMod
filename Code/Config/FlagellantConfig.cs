@@ -6,6 +6,7 @@ namespace Flagellant.Code.Config;
 internal class FlagellantConfig : SimpleModConfig
 {
     // Should likely be at the top, as an easy and obvious opt-out
+    public static bool ShouldUseRemadeCardImage { get; set; } = true;
 
     [ConfigSection("AnimSection")]
     public static bool ShouldPlayCardAnimAndSound { get; set; } = true;

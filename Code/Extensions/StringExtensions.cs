@@ -15,13 +15,22 @@ public static class StringExtensions
 	{
 		return Path.Join(MyMainFile.ModId, "Images", "Cards", path);
 	}
-	
-	public static string PowerImagePath(this string path)
+    public static string RemadeCardImagePath(this string path)
+    {
+        return Path.Join(MyMainFile.ModId, "Images", "Cards_Remake", path);
+    }
+
+    public static string PowerImagePath(this string path)
 	{
 		return Path.Join(MyMainFile.ModId, "Images", "Powers", path);
 	}
 
-	public static string RelicImagePath(this string path)
+    public static string RemadePowerImagePath(this string path)
+    {
+        return Path.Join(MyMainFile.ModId, "Images", "Powers_Remake", path);
+    }
+
+    public static string RelicImagePath(this string path)
 	{
 		return Path.Join(MyMainFile.ModId, "Images", "Relics", path);
 	}
