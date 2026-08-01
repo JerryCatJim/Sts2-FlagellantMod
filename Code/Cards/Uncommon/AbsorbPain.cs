@@ -6,12 +6,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class AbsorbPain : FlagellantCardModel
 {
-    public AbsorbPain() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public AbsorbPain() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithPowerTip<StressPower>();
         WithPowerTip<RegenPower>();
