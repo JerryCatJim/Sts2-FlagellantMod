@@ -99,7 +99,7 @@
   "FLAGELLANT-NERVOUS.title": "불안",
   "FLAGELLANT-OVERDRAW_LIFE.description": "[gold]방어도[/gold]를 {Block:diff()}만큼 얻습니다.\n[gold]종말[/gold]을 {DoomPower:diff()}만큼 얻습니다.\n다음 턴에 {Energy:energyIcons()}를 얻습니다.",
   "FLAGELLANT-OVERDRAW_LIFE.title": "생명 초과 인출",
-  "FLAGELLANT-PAIN_STRIKE.description": "{CalculatedDamage:diff()}의 피해를 줍니다. 보유한 [gold]스트레스[/gold] 1당 {Multiplier:diff()}의 추가 피해를 더합니다.",
+  "FLAGELLANT-PAIN_STRIKE.description": "{CalculatedDamage:diff()}의 피해를 줍니다.\n보유한 [gold]스트레스[/gold] 1당 {Multiplier:diff()}의 추가 피해를 더합니다.",
   "FLAGELLANT-PAIN_STRIKE.title": "고통 일격",
   "FLAGELLANT-PENANCE.description": "[gold]스트레스[/gold]를 {StressPower:diff()}만큼 얻습니다.\n카드를 {Cards:diff()}장 뽑습니다.\n현재 체력을 {LossPercent:diff()}%({LossCurrentHp:diff()}) 잃습니다.",
   "FLAGELLANT-PENANCE.title": "고행",

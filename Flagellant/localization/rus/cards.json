@@ -30,7 +30,7 @@
   "FLAGELLANT-NECROSIS.title": "Некроз",
   "FLAGELLANT-NECROSIS.description": "Нанести {Damage:diff()} урона всем врагам.\nЗа каждого врага с [gold]Яд[/gold], получите {RegenPower:diff()} [gold]регенерации[/gold].",
   "FLAGELLANT-PAIN_STRIKE.title": "Удар боли",
-  "FLAGELLANT-PAIN_STRIKE.description": "Нанести {CalculatedDamage:diff()} урона, добавить {Multiplier:diff()} дополнительного урона за каждый [gold]Стресс[/gold] у вас.",
+  "FLAGELLANT-PAIN_STRIKE.description": "Нанести {CalculatedDamage:diff()} урона.\nдобавить {Multiplier:diff()} дополнительного урона за каждый [gold]Стресс[/gold] у вас.",
   "FLAGELLANT-FATAL_STRIKE.title": "Смертельный удар",
   "FLAGELLANT-FATAL_STRIKE.description": "Нанести урон, равный потерянным вами ОЗ{InCombat:({CalculatedDamage:diff()})|}.\nПотерять {StressPower:diff()} [gold]Стресс[/gold].",
   "FLAGELLANT-CRIPPLING_STRIKE.title": "Искалечивающий удар",
