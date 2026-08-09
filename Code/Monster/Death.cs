@@ -37,9 +37,9 @@ public class Death : CustomMonsterModel
     {
         get
         {
-            if (CurrentActIndex < 0) { return 0; }
+            if (CurrentActIndex <= 0) { return 0; }
             //第二层多40血，第三层多40+50血，第四层多40+50+60血，以此类推
-            return CurrentActIndex / 2 * (2 * 40 + (CurrentActIndex - 1) * 10);
+            return CurrentActIndex * 5 * (CurrentActIndex + 7);
         }
     }
 
