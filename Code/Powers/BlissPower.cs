@@ -5,7 +5,9 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Powers;
 
@@ -19,10 +21,10 @@ public sealed class BlissPower : FlagellantPowerModel
         HoverTipFactory.FromPower<StressPower>(),
         HoverTipFactory.FromPower<RegenPower>(),
     ];
-    public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
+    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (CombatManager.Instance.IsInProgress && creature == base.Owner
-            && delta < 0 && base.CombatState.CurrentSide == base.Owner.Side)
+        if (CombatManager.Instance.IsInProgress && target == base.Owner
+            && result.UnblockedDamage > 0 && base.CombatState.CurrentSide == base.Owner.Side)
         {
             Flash();
             await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), base.Owner, Amount, base.Owner, null);

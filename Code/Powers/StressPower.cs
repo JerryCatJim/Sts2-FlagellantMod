@@ -2,6 +2,7 @@ using Flagellant.Code.Abstract;
 using Flagellant.Code.Commands;
 using Flagellant.Code.Core;
 using Flagellant.Code.ResoluteOrMeltdown;
+using Flagellant.Code.Singleton;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -45,7 +46,23 @@ public sealed class StressPower : FlagellantPowerModel
             await SetAmountBorder();
             if (Owner.Player is Player player)
             {
-                await RMCmd.TryEnterResoluteOrMeltdown(choiceContext, player, cardSource);
+                //预防 获得压力回血+每次失去生命(监听生命变化，不是受到伤害)时获得10点压力 导致的无限循环
+                if (!FlagellantCombatSingleton.EnterRMtimesDictionary.TryGetValue(Owner.Player.NetId, out var value) || value < 1)
+                {
+                    if (!FlagellantCombatSingleton.EnterRMtimesDictionary.TryAdd(Owner.Player.NetId, 1))
+                    {
+                        // 添加失败，说明键已存在，手动更新
+                        FlagellantCombatSingleton.EnterRMtimesDictionary[Owner.Player.NetId]++;
+                    }
+
+                    await RMCmd.TryEnterResoluteOrMeltdown(choiceContext, player, cardSource);
+
+                    if (!FlagellantCombatSingleton.EnterRMtimesDictionary.TryAdd(Owner.Player.NetId, 0))
+                    {
+                        // 添加失败，说明键已存在，手动更新
+                        FlagellantCombatSingleton.EnterRMtimesDictionary[Owner.Player.NetId] = 0;
+                    }
+                }
             }
         }
         await SetAmountBorder();

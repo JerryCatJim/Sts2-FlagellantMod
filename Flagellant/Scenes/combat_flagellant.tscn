@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://imne6kge8rmg"]
+[gd_scene load_steps=7 format=3 uid="uid://imne6kge8rmg"]
 
 [ext_resource type="PackedScene" uid="uid://ra7injoopate" path="res://Flagellant/Scenes/flagellant_model.tscn" id="2_mretl"]
-[ext_resource type="PackedScene" uid="uid://clir4kmgk1dvu" path="res://Flagellant/Scenes/StressUp.tscn" id="3_8lvay"]
 [ext_resource type="AnimationLibrary" uid="uid://dptdm08jt2wl5" path="res://flagellant_asset/combat_animlib.tres" id="3_mretl"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://mylb2dc3cdc6" path="res://Flagellant/Scenes/StateMachines/flagellant_state_machine.tres" id="3_raps6"]
-[ext_resource type="PackedScene" uid="uid://dsjb0pxmkqrgg" path="res://Flagellant/Scenes/StressDown.tscn" id="4_0f1q7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ydqrq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -77,6 +75,10 @@ position = Vector2(0, -500)
 unique_name_in_owner = true
 position = Vector2(0, -210)
 
+[node name="StressPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -380)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/flagellant_model")
@@ -104,11 +106,3 @@ parameters/CardPlay/Sepsis/TimeScale/scale = 3.0
 parameters/CardPlay/Suffer/TimeScale/scale = 3.0
 parameters/CardPlay/Undying/TimeScale/scale = 5.0
 metadata/Skill = ""
-
-[node name="StressUpNode" parent="." instance=ExtResource("3_8lvay")]
-unique_name_in_owner = true
-position = Vector2(0, -380)
-
-[node name="StressDownNode" parent="." instance=ExtResource("4_0f1q7")]
-unique_name_in_owner = true
-position = Vector2(0, -380)

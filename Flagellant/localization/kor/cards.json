@@ -19,7 +19,7 @@
   "FLAGELLANT-BEYOND_CURE.title": "불치",
   "FLAGELLANT-BLACK_BLOOD.description": "자신의 턴에 방어도 없는 피해를 받을 때마다, 모든 적에게 그 수치만큼 피해를 줍니다.",
   "FLAGELLANT-BLACK_BLOOD.title": "검은 피",
-  "FLAGELLANT-BLISS.description": "{Damage:diff()}의 피해를 줍니다.\n이 카드를 사용한 후, 이번 턴에 체력을 잃을 때마다 [gold]스트레스[/gold]를 {BlissPower:diff()}만큼, [gold]재생[/gold]을 {BlissPower:diff()}만큼 얻습니다.",
+  "FLAGELLANT-BLISS.description": "{Damage:diff()}의 피해를 줍니다.\n이 카드를 사용한 후, 이번 턴에 방어도 없는 피해를 받을 때마다 [gold]스트레스[/gold]를 {BlissPower:diff()}만큼, [gold]재생[/gold]을 {BlissPower:diff()}만큼 얻습니다.",
   "FLAGELLANT-BLISS.title": "지복",
   "FLAGELLANT-BLOOD_DONATION.description": "모든 적에게 최대 체력의 {HealingPercent:diff()}%{InCombat:({CalculatedDamage:diff()})|({HealingMaxHp:diff()})}만큼 피해를 줍니다.\n현재 체력을 {LossPercent:diff()}%({LossCurrentHp:diff()}) 잃습니다.",
   "FLAGELLANT-BLOOD_DONATION.title": "헌혈",

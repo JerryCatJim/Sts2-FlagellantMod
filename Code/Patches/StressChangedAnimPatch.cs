@@ -2,6 +2,7 @@ using Flagellant.Code.Audio;
 using Flagellant.Code.Powers;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
@@ -17,43 +18,52 @@ public static class StressIncreaseAnimPatch
     {
         if (silent || !CombatManager.Instance.IsInProgress) return true;
 
-        if (__instance.Entity.Player?.Character is not Character.Flagellant) return true;
+        //if (__instance.Entity.IsPlayer == false) return true;
         if (amount == 0) return true;
 
         if (power is StressPower)// || power is ResoluteOrMeltdownPowerModel)
         {
             if (power is StressPower)
             {
-                var visual = __instance.GetNodeOrNull<Node2D>("TestFlagellant");
-                if (visual != null)
+                String NodeName = amount > 0 ? "StressUp" : "StressDown";
+                Node2D StressNode = __instance.Visuals.GetNodeOrNull<Node2D>(NodeName+"Node");
+                if (StressNode == null)
                 {
-                    String NodeName = amount > 0 ? "StressUp" : "StressDown";
-                    Node2D StressNode = visual.GetNodeOrNull<Node2D>(NodeName+"Node");
-                    if (StressNode == null)
+                    StressNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/"+NodeName+".tscn").Instantiate<Node2D>();
+                }
+                if (StressNode == null)
+                {
+                    Log.Info("[StressIncreaseAnimPatch]: " + NodeName +".tscn load failed.");
+                    return true;
+                }
+                else
+                {
+                    if (__instance != null && StressNode.GetParent() == null)
                     {
-                        Log.Info("[StressIncreasePatch] " + NodeName +" In flagellant.tscn is not found.");
-                        return true;
+                        __instance.AddChild(StressNode);
+                        StressNode.Position = __instance.Visuals.GetNodeOrNull<Marker2D>("%StressPos")?.Position ??
+                            (new Godot.Vector2(0, __instance.Visuals.GetNodeOrNull<Control>("%Bounds")?.Position.Y ?? 0));
                     }
+                }
 
-                    var AnimPlayer = StressNode.GetNodeOrNull<AnimationPlayer>(NodeName + "AnimPlayer");
-                    if (AnimPlayer != null)
-                    {
-                        AnimPlayer.Stop();
-                        AnimPlayer.Play("Show");
-                    }
-                    var StressValueText = StressNode.GetNodeOrNull<Label>(NodeName + "Text");
-                    if (StressValueText != null)
-                    {
-                        StressValueText.SetText(Math.Abs(amount).ToString());
-                    }
-                    if (amount > 0)
-                    {
-                        AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Stress/sfx_battle_status_stressup.wav", true, true, -4);
-                    }
-                    else
-                    {
-                        AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Stress/sfx_battle_status_stressdown.wav", true, true, -6);
-                    }
+                var AnimPlayer = StressNode.GetNodeOrNull<AnimationPlayer>(NodeName + "AnimPlayer");
+                if (AnimPlayer != null)
+                {
+                    AnimPlayer.Stop();
+                    AnimPlayer.Play("Show");
+                }
+                var StressValueText = StressNode.GetNodeOrNull<Label>(NodeName + "Text");
+                if (StressValueText != null)
+                {
+                    StressValueText.SetText(Math.Abs(amount).ToString());
+                }
+                if (amount > 0)
+                {
+                    AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Stress/sfx_battle_status_stressup.wav", true, true, -4);
+                }
+                else
+                {
+                    AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Stress/sfx_battle_status_stressdown.wav", true, true, -6);
                 }
             }
             else if (power is ResoluteOrMeltdownPowerModel)
