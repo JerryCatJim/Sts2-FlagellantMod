@@ -16,7 +16,7 @@ namespace Flagellant.Code.Powers;
 public sealed class StressPower : FlagellantPowerModel
 {
     public override bool AllowNegative => true; //Creature.cs里的InvokePowerModified()要求 AllowNegative==true才能把层数减少的事件传过来
-    public override PowerType Type => PowerType.Buff;
+    public override PowerType Type => PowerType.None;
 
     public override PowerStackType StackType => PowerStackType.Counter;
 

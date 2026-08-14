@@ -11,7 +11,6 @@ public interface IAfterStressChanged
 }
 public interface IModifyHpAmountReceived
 {
-    //New version source code changes the CombatState Class into Interface ICombatState.
     public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
     {
         modifiedAmount = amount;
@@ -26,4 +25,13 @@ public interface IAfterComboChanged
 public interface IOnResoluteOrMeltdownChanged
 {
     public Task OnResoluteOrMeltdownChanged(PlayerChoiceContext choiceContext, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM);
+}
+
+public interface IModifyHpPercentEnterToxicAdditional
+{
+    public bool TryModifyHpPercentEnterToxicAdditional(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
+    {
+        modifiedAmount = amount;
+        return false;  //是否打断后续其他相同接口的修改
+    }
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gv76ltsprk80"
-path="res://.godot/imported/toxic_meltdown.png-8da4839df98574d750e7d2827ceec7bd.ctex"
+uid="uid://ckxrhuxjphtnx"
+path="res://.godot/imported/toxic_form_power.png-06c5b29f2ff0de5304f79e20fd42e562.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Powers/toxic_meltdown.png"
-dest_files=["res://.godot/imported/toxic_meltdown.png-8da4839df98574d750e7d2827ceec7bd.ctex"]
+source_file="res://Flagellant/Images/Powers/toxic_form_power.png"
+dest_files=["res://.godot/imported/toxic_form_power.png-06c5b29f2ff0de5304f79e20fd42e562.ctex"]
 
 [params]
 
