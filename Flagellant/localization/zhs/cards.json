@@ -114,7 +114,7 @@
   "FLAGELLANT-BONE_MELTING_PALM.title": "化骨绵掌",
   "FLAGELLANT-BONE_MELTING_PALM.description": "造成{Damage:diff()}点伤害。\n移除目标所有[gold]灾厄[/gold]，给予等量[gold]中毒[/gold]。",
   "FLAGELLANT-BLISS.title": "极乐",
-  "FLAGELLANT-BLISS.description": "造成{Damage:diff()}点伤害。\n打出此牌后，你每在本回合失去一次生命，就获得{BlissPower:diff()}点[gold]压力[/gold]和{BlissPower:diff()}层[gold]再生[/gold]。",
+  "FLAGELLANT-BLISS.description": "造成{Damage:diff()}点伤害。\n打出此牌后，你每在本回合受到一次未格挡伤害，就获得{BlissPower:diff()}点[gold]压力[/gold]和{BlissPower:diff()}层[gold]再生[/gold]。",
   "FLAGELLANT-RIPOSTE.title": "反击",
   "FLAGELLANT-RIPOSTE.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})当前生命。\n随机对敌人造成等量伤害{InCombat:({CalculatedDamage:diff()})|}{Repeat:diff()}次。",
   "FLAGELLANT-CHEAT_DEATH.title": "欺骗死神",

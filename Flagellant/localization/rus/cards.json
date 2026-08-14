@@ -112,7 +112,7 @@
   "FLAGELLANT-BONE_MELTING_PALM.title": "Ладонь, плавящая кости",
   "FLAGELLANT-BONE_MELTING_PALM.description": "Нанести {Damage:diff()} урона.\nУдалить весь [gold]Злой рок[/gold] с цели и применить равное количество [gold]Яд[/gold].",
   "FLAGELLANT-BLISS.title": "Блаженство",
-  "FLAGELLANT-BLISS.description": "Нанести {Damage:diff()} урона.\nПосле того как вы разыграете эту карту, за каждый раз, когда вы теряли ОЗ в этом ходу, получите {BlissPower:diff()} [gold]Стресс[/gold] и {BlissPower:diff()} [gold]регенерации[/gold].",
+  "FLAGELLANT-BLISS.description": "Нанести {Damage:diff()} урона.\nПосле того как вы разыграете эту карту, за каждый раз, когда вы получаете неблокированный урон в этом ходу, получите {BlissPower:diff()} [gold]Стресс[/gold] и {BlissPower:diff()} [gold]регенерации[/gold].",
   "FLAGELLANT-RIPOSTE.title": "Рипоста",
   "FLAGELLANT-RIPOSTE.description": "Потерять {LossPercent:diff()}%({LossCurrentHp:diff()}) текущих ОЗ.\nНанести случайному врагу урон, равный потерянным ОЗ{InCombat:({CalculatedDamage:diff()})|}, {Repeat:diff()} раз.",
   "FLAGELLANT-CHEAT_DEATH.title": "Обмануть смерть",

@@ -112,7 +112,7 @@
   "FLAGELLANT-BONE_MELTING_PALM.title": "Bone Melting Palm",
   "FLAGELLANT-BONE_MELTING_PALM.description": "Deal {Damage:diff()} damage.\nRemove all [gold]Doom[/gold] from the target and apply an equal amount of [gold]Poison[/gold].",
   "FLAGELLANT-BLISS.title": "Bliss",
-  "FLAGELLANT-BLISS.description": "Deal {Damage:diff()} damage.\nAfter you play this card, for each time you lose HP this turn, gain {BlissPower:diff()} [gold]Stress[/gold] and {BlissPower:diff()} [gold]Regen[/gold].",
+  "FLAGELLANT-BLISS.description": "Deal {Damage:diff()} damage.\nAfter you play this card, for each time you receive unblocked damage this turn, gain {BlissPower:diff()} [gold]Stress[/gold] and {BlissPower:diff()} [gold]Regen[/gold].",
   "FLAGELLANT-RIPOSTE.title": "Riposte",
   "FLAGELLANT-RIPOSTE.description": "Lose {LossPercent:diff()}%({LossCurrentHp:diff()}) current HP.\nDeal damage equal to the HP lost{InCombat:({CalculatedDamage:diff()})|} to a random enemy {Repeat:diff()} times.",
   "FLAGELLANT-CHEAT_DEATH.title": "Cheat Death",
