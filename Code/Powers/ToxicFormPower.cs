@@ -1,5 +1,4 @@
 using Flagellant.Code.Abstract;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -9,21 +8,21 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Powers;
 
-public sealed class MoreMorePower : FlagellantPowerModel
+public sealed class ToxicFormPower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<RegenPower>(),
+        HoverTipFactory.FromPower<PoisonPower>(),
     ];
-
-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
     {
-        if (!participants.Contains(base.Owner)) return;
+        if (delta >= 0m || creature == null || creature != Owner) return;
 
         Flash();
-        await PowerCmd.Apply<RegenPower>(choiceContext, Owner, Amount, Owner, null);
+        await PowerCmd.Apply<PoisonPower>(new ThrowingPlayerChoiceContext(), base.CombatState.HittableEnemies, base.Amount, base.Owner, null);
     }
 }

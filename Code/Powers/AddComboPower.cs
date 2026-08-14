@@ -64,11 +64,21 @@ public sealed class AddComboPower : FlagellantPowerModel
         if (GetInternalData<Data>().playedCards.Remove(cardPlay.Card, out List<Creature>? CreatureList) && CreatureList != null)
         {
             Flash();
-            foreach (Creature? enemy in CreatureList)
+            if (CreatureList.Count <= 0)
             {
-                if (enemy != null && enemy.IsAlive)
+                if (cardPlay.Card.Type == CardType.Attack && cardPlay.Target != null && cardPlay.Target.IsAlive)
                 {
-                    await PowerCmd.Apply<ComboPower>(context, enemy, 1, Owner, cardPlay.Card);
+                    await PowerCmd.Apply<ComboPower>(context, cardPlay.Target, 1, Owner, cardPlay.Card);
+                }
+            }
+            else
+            {
+                foreach (Creature? enemy in CreatureList)
+                {
+                    if (enemy != null && enemy.IsAlive)
+                    {
+                        await PowerCmd.Apply<ComboPower>(context, enemy, 1, Owner, cardPlay.Card);
+                    }
                 }
             }
             await PowerCmd.Decrement(this);

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drrqnstmoawl"
-path="res://.godot/imported/toxic_power.png-33564953f59c21b3f07e701fc61cbf74.ctex"
+uid="uid://gv76ltsprk80"
+path="res://.godot/imported/toxic_form_power.png-06c5b29f2ff0de5304f79e20fd42e562.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Powers/toxic_power.png"
-dest_files=["res://.godot/imported/toxic_power.png-33564953f59c21b3f07e701fc61cbf74.ctex"]
+source_file="res://Flagellant/Images/Powers/toxic_form_power.png"
+dest_files=["res://.godot/imported/toxic_form_power.png-06c5b29f2ff0de5304f79e20fd42e562.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

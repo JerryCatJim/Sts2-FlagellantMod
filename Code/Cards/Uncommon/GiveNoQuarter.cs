@@ -5,7 +5,6 @@ using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Nodes.Cards;
 
 namespace Flagellant.Code.Cards.Uncommon;
 
@@ -16,7 +15,7 @@ public class GiveNoQuarter : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
     public GiveNoQuarter() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithPower<GiveNoQuarterPower>(1);
+        WithPower<GiveNoQuarterPower>(1, 1);
         WithPower<ComboPower>(1);
         WithDamage(8,2);
     }

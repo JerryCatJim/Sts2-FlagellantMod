@@ -1,29 +1,37 @@
 using Flagellant.Code.Abstract;
-using MegaCrit.Sts2.Core.Commands;
+using Flagellant.Code.Core;
+using Flagellant.Code.ResoluteOrMeltdown;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Flagellant.Code.Powers;
 
-public sealed class ScourgeFormPower : FlagellantPowerModel
+public sealed class ScourgeFormPower : FlagellantPowerModel, IModifyHpPercentEnterToxicAdditional
 {
     public override PowerType Type => PowerType.Buff;
 
-    public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerStackType StackType => PowerStackType.Single;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<PoisonPower>(),
+        FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()
+    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("AdditionalHpPercent", 15)
     ];
 
-    public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
+    public bool TryModifyHpPercentEnterToxicAdditional(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
     {
-        if (delta >= 0m || creature == null || creature != Owner) return;
-
-        Flash();
-        await PowerCmd.Apply<PoisonPower>(new ThrowingPlayerChoiceContext(), base.CombatState.HittableEnemies, base.Amount, base.Owner, null);
+        if (amount <= 0m || Owner.CombatState == null || CombatManager.Instance.IsOverOrEnding || creature == null || creature != Owner)
+        {
+            modifiedAmount = amount;
+            return false;
+        }
+        modifiedAmount = amount + DynamicVars["AdditionalHpPercent"].BaseValue;
+        return false;
     }
 }

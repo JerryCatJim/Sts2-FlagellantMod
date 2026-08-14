@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4jutj3i12qeb"
-path="res://.godot/imported/toxic_meltdown.png-8da4839df98574d750e7d2827ceec7bd.ctex"
+uid="uid://drrqnstmoawl"
+path="res://.godot/imported/virulent_power.png-21defdd1a457de929bbf4efcd07f775c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagellant/Images/Powers/toxic_meltdown.png"
-dest_files=["res://.godot/imported/toxic_meltdown.png-8da4839df98574d750e7d2827ceec7bd.ctex"]
+source_file="res://Flagellant/Images/Powers/virulent_power.png"
+dest_files=["res://.godot/imported/virulent_power.png-21defdd1a457de929bbf4efcd07f775c.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
