@@ -14,7 +14,7 @@ public class JuniasHead : FlagellantRelicModel, IModifyHpAmountReceived
 
     public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
     {
-        if (amount <= 0m || Owner.Creature.CombatState == null || CombatManager.Instance.IsOverOrEnding || creature == null || creature != Owner.Creature)
+        if (amount <= 0m || !CombatManager.Instance.IsInProgress || CombatManager.Instance.IsOverOrEnding || creature == null || creature != Owner.Creature)
         {
             modifiedAmount = amount;
             return false;

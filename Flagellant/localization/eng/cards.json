@@ -160,7 +160,7 @@
   "FLAGELLANT-GET_ON_YOU.title": "Get On You",
   "FLAGELLANT-GET_ON_YOU.description": "All players gain {StrengthPower:diff()} [gold]Strength[/gold] this turn.\nIf you are in [gold]Toxic[/gold], apply {PoisonPower:diff()} [gold]Poison[/gold] to all players.\nGain {StressPower:diff()} [gold]Stress[/gold].",
   "FLAGELLANT-UNTIL_DEATH.title": "Until Death",
-  "FLAGELLANT-UNTIL_DEATH.description": "Deal {UntilDeathPower:diff()}% additional attack Damage.\nReceive {UntilDeathPower:diff()}% additional attack damage.{IfUpgraded:show:\nAdd an [gold]Until Death[/gold] to your [gold]Hand[/gold].}",
+  "FLAGELLANT-UNTIL_DEATH.description": "Deal {UntilDeathPower:diff()}% additional attack damage.\nReceive {UntilDeathPower:diff()}% additional attack damage.{IfUpgraded:show:\nAdd an [gold]Until Death[/gold] to your [gold]Hand[/gold].}",
   "FLAGELLANT-WAR_FEEDS_WAR.title": "War Feeds War",
   "FLAGELLANT-WAR_FEEDS_WAR.description": "Whenever you gain {GainStressAmount:diff()} [gold]Stress[/gold], the next Attack card you play applies {ComboPower:comboIcons()}.",
   "FLAGELLANT-SAMSARA.title": "Samsara",

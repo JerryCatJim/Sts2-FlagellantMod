@@ -23,8 +23,7 @@ public class HisPrison : FlagellantRelicModel
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        //ThornsPower is ValueProp.SkipHurtAnim, don't trigger relic when received damage from it.
-        if (target == base.Owner.Creature && dealer != null && dealer.IsMonster && props != ValueProp.SkipHurtAnim)
+        if (target == base.Owner.Creature && dealer != null && dealer != base.Owner.Creature && props.IsPoweredAttack())
         {
             Flash();
             await PowerCmd.Apply<PoisonPower>(choiceContext, dealer, 2, Owner.Creature, null);
