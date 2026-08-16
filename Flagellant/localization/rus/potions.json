@@ -1,8 +1,8 @@
 {
   "FLAGELLANT-HOPE_CANDLE.title": "Свеча надежды",
-  "FLAGELLANT-HOPE_CANDLE.description": "Получить [blue]5[/blue] [gold]Стресс[/gold].",
+  "FLAGELLANT-HOPE_CANDLE.description": "Получить [gold]Сила[/gold], равную вашему [gold]Стресс[/gold], и удалить весь ваш [gold]Стресс[/gold].",
   "FLAGELLANT-COMBO_POTION.title": "Зелье Комбо",
-  "FLAGELLANT-COMBO_POTION.description": "Применить [gold]Комбо[/gold] и [blue]1[/blue] [gold]Уязвимость[/gold] к врагу.",
+  "FLAGELLANT-COMBO_POTION.description": "Применить [gold]Комбо[/gold] и [blue]1[/blue] [gold]Уязвимость[/gold].",
   "FLAGELLANT-SCOURGE_POTION.title": "Зелье Бича",
-  "FLAGELLANT-SCOURGE_POTION.description": "Установить ОЗ игрока на [blue]45%[/blue] от его максимальных ОЗ, и применить [blue]10[/blue] [gold]Стресс[/gold] к нему."
+  "FLAGELLANT-SCOURGE_POTION.description": "Получить [blue]10[/blue] [gold]Стресс[/gold] и установить ваши текущие ОЗ на [green]45%[/green] от ваших максимальных ОЗ."
 }

@@ -55,7 +55,7 @@ public class DeathsHead : FlagellantRelicModel
     {
         Flash();
         WasUsed = true;
-        decimal amount = Math.Max(1m, (decimal)creature.MaxHp * (base.DynamicVars.Heal.BaseValue / 100m));
+        decimal amount = Math.Max(1m, Math.Round(creature.MaxHp * (base.DynamicVars.Heal.BaseValue / 100m), MidpointRounding.AwayFromZero));
         await CreatureCmd.Heal(creature, amount);
     }
 }

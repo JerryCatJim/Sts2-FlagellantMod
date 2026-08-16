@@ -150,7 +150,7 @@
   "FLAGELLANT-SELF_CULTIVATION.title": "修身养性",
   "FLAGELLANT-SELF_CULTIVATION.description": "获得{StressPower:diff()}点[gold]压力[/gold]。\n触发一次你的[gold]再生[/gold]。",
   "FLAGELLANT-RESILIENT_STRIKE.title": "坚韧打击",
-  "FLAGELLANT-RESILIENT_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害。\n你在本场战斗中每获得过1点[gold]压力[/gold]，伤害增加1。",
+  "FLAGELLANT-RESILIENT_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害。\n你在本场战斗中每获得过一点[gold]压力[/gold]，伤害增加1。",
   "FLAGELLANT-METAMORPHOSIS.title": "魔化",
   "FLAGELLANT-METAMORPHOSIS.description": "若你的[gold]压力[/gold]大于等于{StressPower:diff()}，则获得{StressPower:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-EXPLODE_IN_SILENCE.title": "在沉默中爆发",
