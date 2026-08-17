@@ -10,7 +10,7 @@
   "FLAGELLANT-DEATHS_HEAD.description": "当你的生命值将要降低至[blue]0[/blue]或以下时，回复到最大生命值的[green]{Heal}%[/green]（仅能起效一次）。",
   "FLAGELLANT-BARRISTANS_HEAD.title": "老兵之颅",
   "FLAGELLANT-BARRISTANS_HEAD.flavor": "[red]傲慢的代价。[/red]",
-  "FLAGELLANT-BARRISTANS_HEAD.description": "在你的回合结束时，获得等同于[gold]压力[/gold]的[gold]格挡[/gold]。",
+  "FLAGELLANT-BARRISTANS_HEAD.description": "在你的回合结束时，获得你[gold]压力[/gold]值的[gold]格挡[/gold]。",
   "FLAGELLANT-DISMASS_HEAD.title": "强盗之颅",
   "FLAGELLANT-DISMASS_HEAD.flavor": "[red]可惜，他再也等不来第二次机会了。[/red]",
   "FLAGELLANT-DISMASS_HEAD.description": "每当你给予[gold]破绽[/gold]时，给予[blue]1[/blue]层[gold]易伤[/gold]。",
