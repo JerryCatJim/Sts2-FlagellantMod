@@ -1,10 +1,10 @@
 {
   "FLAGELLANT-PAIN_BOX.title": "Pain Box",
   "FLAGELLANT-PAIN_BOX.flavor": "[red]Fear is the mind-killer...[/red]",
-  "FLAGELLANT-PAIN_BOX.description": "Whenever you take [red]Fatal Damage[/red] in combat, instead gain an equal amount of [gold]Doom[/gold].",
+  "FLAGELLANT-PAIN_BOX.description": "Whenever you take [red]Fatal Damage[/red] in combat, gain an equal amount of [gold]Doom[/gold] instead.",
   "FLAGELLANT-DARK_IMPULSE.title": "Dark Impulse",
   "FLAGELLANT-DARK_IMPULSE.flavor": "[red]Embracing the dark to serve the light.[/red]",
-  "FLAGELLANT-DARK_IMPULSE.description": "Whenever you take [red]Fatal Damage[/red] in combat, instead gain an equal amount of [gold]Doom[/gold].At the start of each combat, gain [blue]5[/blue] [gold]Stress[/gold].",
+  "FLAGELLANT-DARK_IMPULSE.description": "Whenever you take [red]Fatal Damage[/red] in combat, gain an equal amount of [gold]Doom[/gold] instead. At the start of each combat, gain [blue]5[/blue] [gold]Stress[/gold].",
   "FLAGELLANT-DEATHS_HEAD.title": "Death's Head",
   "FLAGELLANT-DEATHS_HEAD.flavor": "[red]You can run...But no can hide![/red]",
   "FLAGELLANT-DEATHS_HEAD.description": "When your HP would be reduced to [blue]0[/blue], heal to [green]{Heal}%[/green] of your Max HP instead (works once).",

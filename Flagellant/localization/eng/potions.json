@@ -1,8 +1,8 @@
 {
   "FLAGELLANT-HOPE_CANDLE.title": "Hope Candle",
-  "FLAGELLANT-HOPE_CANDLE.description": "Gain [gold]Strength[/gold] equal to your [gold]Stress[/gold], remove all your [gold]Stress[/gold].",
+  "FLAGELLANT-HOPE_CANDLE.description": "Gain [gold]Strength[/gold] equal to your [gold]Stress[/gold]. Remove all your [gold]Stress[/gold].",
   "FLAGELLANT-COMBO_POTION.title": "Combo Potion",
   "FLAGELLANT-COMBO_POTION.description": "Apply [gold]Combo[/gold] and [blue]1[/blue] [gold]Vulnerable[/gold].",
   "FLAGELLANT-SCOURGE_POTION.title": "Scourge Potion",
-  "FLAGELLANT-SCOURGE_POTION.description": "Gain [blue]10[/blue] [gold]Stress[/gold], set your current HP to [green]45%[/green] of your max HP."
+  "FLAGELLANT-SCOURGE_POTION.description": "Gain [blue]10[/blue] [gold]Stress[/gold]. Set your current HP to [green]45%[/green] of your max HP."
 }
