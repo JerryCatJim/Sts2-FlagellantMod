@@ -153,6 +153,11 @@ public static class FlagellantAnimationPatch
             float VolumeDB = AudioCfg.GetFlagellantVolumeDB("CardPlay/" + state);
             //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
             AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"), false, VolumeDB);
+            if (state == "Lash")
+            {
+                //Lash类技能有锤肉的音效，忘了加了在这补上
+                AudioManager.PlayCombatSfx("CardPlay/Suffer", false, false, -10, 1);
+            }
         }
     });
 }

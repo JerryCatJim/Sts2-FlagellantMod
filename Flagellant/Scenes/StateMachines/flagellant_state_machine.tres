@@ -52,12 +52,12 @@ node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 animation = &"flagellant_attackE_armsraised_recover"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h84tg"]
-animation = &"flagellant_attack_C_spell_action"
+animation = &"flagellant_attackC_armsraised_action"
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_2oghv"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_j6ta8"]
-graph_offset = Vector2(-271, 16)
+graph_offset = Vector2(-376, 50)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_2oghv")
 nodes/TimeScale/position = Vector2(120, 140)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_h84tg")
@@ -65,7 +65,7 @@ nodes/Animation/position = Vector2(-180, 140)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pqny0"]
-animation = &"flagellant_attack_C_spell_recover"
+animation = &"flagellant_attackC_spell_recover"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y7gnr"]
 animation = &"flagellant_attack_B_flayed_action"
@@ -362,7 +362,7 @@ states/Undying/position = Vector2(332, 488)
 states/Undying_Recover/node = SubResource("AnimationNodeAnimation_85eep")
 states/Undying_Recover/position = Vector2(527, 488)
 transitions = ["Sepsis", "Sepsis_Recover", SubResource("AnimationNodeStateMachineTransition_7r7ou"), "Start", "Sepsis", SubResource("AnimationNodeStateMachineTransition_1l470"), "Sepsis_Recover", "End", SubResource("AnimationNodeStateMachineTransition_c8t88"), "Start", "Punish", SubResource("AnimationNodeStateMachineTransition_wmda4"), "Punish", "Punish_Recover", SubResource("AnimationNodeStateMachineTransition_mgp1d"), "Punish_Recover", "End", SubResource("AnimationNodeStateMachineTransition_f7ubb"), "Fester", "Fester_Recover", SubResource("AnimationNodeStateMachineTransition_qcw0l"), "Fester_Recover", "End", SubResource("AnimationNodeStateMachineTransition_iy1v2"), "Deathless", "Deathless_Recover", SubResource("AnimationNodeStateMachineTransition_ogqlk"), "Deathless_Recover", "End", SubResource("AnimationNodeStateMachineTransition_as4i2"), "Lash", "Lash_Recover", SubResource("AnimationNodeStateMachineTransition_n3qt5"), "Lash_Recover", "End", SubResource("AnimationNodeStateMachineTransition_75l73"), "AcidRain", "AcidRain_Recover", SubResource("AnimationNodeStateMachineTransition_m62v2"), "AcidRain_Recover", "End", SubResource("AnimationNodeStateMachineTransition_noxl2"), "Start", "Fester", SubResource("AnimationNodeStateMachineTransition_g8hwi"), "Start", "Deathless", SubResource("AnimationNodeStateMachineTransition_yvjyo"), "Start", "Lash", SubResource("AnimationNodeStateMachineTransition_rp8c6"), "Start", "AcidRain", SubResource("AnimationNodeStateMachineTransition_8h4kf"), "Start", "Endure", SubResource("AnimationNodeStateMachineTransition_m8y0h"), "Endure", "Endure_Recover", SubResource("AnimationNodeStateMachineTransition_1wv3g"), "Endure_Recover", "End", SubResource("AnimationNodeStateMachineTransition_5wgcr"), "More", "More_Recover", SubResource("AnimationNodeStateMachineTransition_573kf"), "More_Recover", "End", SubResource("AnimationNodeStateMachineTransition_70l2i"), "Suffer", "Suffer_Recover", SubResource("AnimationNodeStateMachineTransition_ki43g"), "Suffer_Recover", "End", SubResource("AnimationNodeStateMachineTransition_gpbsi"), "Undying_Recover", "End", SubResource("AnimationNodeStateMachineTransition_b7ak8"), "Undying", "Undying_Recover", SubResource("AnimationNodeStateMachineTransition_b4t1e"), "Start", "More", SubResource("AnimationNodeStateMachineTransition_p2upf"), "Start", "Suffer", SubResource("AnimationNodeStateMachineTransition_8jsqe"), "Start", "Undying", SubResource("AnimationNodeStateMachineTransition_tm4pf"), "Start", "Necrosis", SubResource("AnimationNodeStateMachineTransition_4gkie"), "Necrosis", "Necrosis_Recover", SubResource("AnimationNodeStateMachineTransition_73pvk"), "Necrosis_Recover", "End", SubResource("AnimationNodeStateMachineTransition_qyb28")]
-graph_offset = Vector2(-23, 101.76543)
+graph_offset = Vector2(-10, -67.23457)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f7ubb"]
 animation = &"flagellant_attackC_rainsubtle_antic"
@@ -374,7 +374,7 @@ animation = &"flagellant_attackE_armsraised_antic"
 animation = &"flagellant_attackE_armsraised_antic"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wmda4"]
-animation = &"flagellant_attack_C_spell_antic"
+animation = &"flagellant_attackC_rainsubtle_antic"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2mqne"]
 animation = &"flagellant_attack_B_flayedopen_antic"
@@ -468,7 +468,7 @@ states/Suffer/position = Vector2(469, 289)
 states/Undying/node = SubResource("AnimationNodeAnimation_as4i2")
 states/Undying/position = Vector2(469, 411)
 transitions = ["Start", "Punish", SubResource("AnimationNodeStateMachineTransition_k741q"), "Start", "Fester", SubResource("AnimationNodeStateMachineTransition_h84tg"), "Start", "Deathless", SubResource("AnimationNodeStateMachineTransition_2oghv"), "Start", "Lash", SubResource("AnimationNodeStateMachineTransition_j6ta8"), "Start", "AcidRain", SubResource("AnimationNodeStateMachineTransition_qs8hf"), "Start", "Sepsis", SubResource("AnimationNodeStateMachineTransition_5i2yv"), "Punish", "End", SubResource("AnimationNodeStateMachineTransition_qgb44"), "Fester", "End", SubResource("AnimationNodeStateMachineTransition_pqny0"), "Deathless", "End", SubResource("AnimationNodeStateMachineTransition_y7gnr"), "Lash", "End", SubResource("AnimationNodeStateMachineTransition_jxd84"), "AcidRain", "End", SubResource("AnimationNodeStateMachineTransition_m8nte"), "Sepsis", "End", SubResource("AnimationNodeStateMachineTransition_i01gg"), "Start", "Endure", SubResource("AnimationNodeStateMachineTransition_er4gp"), "Endure", "End", SubResource("AnimationNodeStateMachineTransition_yncqm"), "Start", "More", SubResource("AnimationNodeStateMachineTransition_hkhtv"), "More", "End", SubResource("AnimationNodeStateMachineTransition_gh628"), "Start", "Suffer", SubResource("AnimationNodeStateMachineTransition_j5eia"), "Suffer", "End", SubResource("AnimationNodeStateMachineTransition_k8ktl"), "Start", "Undying", SubResource("AnimationNodeStateMachineTransition_7gdim"), "Undying", "End", SubResource("AnimationNodeStateMachineTransition_jsjbd"), "Start", "Necrosis", SubResource("AnimationNodeStateMachineTransition_p68k2"), "Necrosis", "End", SubResource("AnimationNodeStateMachineTransition_fvgip")]
-graph_offset = Vector2(73, 269.3642)
+graph_offset = Vector2(42, -138.6358)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jxd84"]
 animation = &"flagellant_idle_A"
@@ -508,24 +508,19 @@ animation = &"flagellant_impact_recover"
 animation = &"flagellant_idle_B"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_er7cl"]
-xfade_time = 0.1
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2mqne"]
-xfade_time = 0.1
+xfade_time = 0.5
 switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fuh4o"]
-xfade_time = 0.1
+xfade_time = 0.3
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8lvay"]
 xfade_time = 0.3
 break_loop_at_end = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pxdve"]
-xfade_time = 0.1
+xfade_time = 0.3
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0f1q7"]
 advance_mode = 2
@@ -536,6 +531,11 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_visqm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ey6cu"]
+xfade_time = 1.0
+switch_mode = 2
+advance_mode = 2
 
 [resource]
 states/CalmIdle/node = SubResource("AnimationNodeAnimation_er7cl")
@@ -552,5 +552,5 @@ states/Hit/position = Vector2(558, 210)
 states/Idle/node = SubResource("AnimationNodeAnimation_fuh4o")
 states/Idle/position = Vector2(456, 131)
 states/Start/position = Vector2(197, 131)
-transitions = ["CardPlay", "Idle", SubResource("AnimationNodeStateMachineTransition_er7cl"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_2mqne"), "Idle", "CardSelect", SubResource("AnimationNodeStateMachineTransition_fuh4o"), "CardSelect", "CardPlay", SubResource("AnimationNodeStateMachineTransition_8lvay"), "CardSelect", "Idle", SubResource("AnimationNodeStateMachineTransition_pxdve"), "Start", "CalmIdle", SubResource("AnimationNodeStateMachineTransition_0f1q7"), "Idle", "CalmIdle", SubResource("AnimationNodeStateMachineTransition_1o7x7"), "CalmIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_visqm")]
+transitions = ["CardPlay", "Idle", SubResource("AnimationNodeStateMachineTransition_er7cl"), "Idle", "CardSelect", SubResource("AnimationNodeStateMachineTransition_fuh4o"), "CardSelect", "CardPlay", SubResource("AnimationNodeStateMachineTransition_8lvay"), "CardSelect", "Idle", SubResource("AnimationNodeStateMachineTransition_pxdve"), "Start", "CalmIdle", SubResource("AnimationNodeStateMachineTransition_0f1q7"), "Idle", "CalmIdle", SubResource("AnimationNodeStateMachineTransition_1o7x7"), "CalmIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_visqm"), "Hit", "CalmIdle", SubResource("AnimationNodeStateMachineTransition_ey6cu")]
 graph_offset = Vector2(72, -12)

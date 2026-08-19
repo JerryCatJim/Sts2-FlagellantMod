@@ -1,9 +1,4 @@
 using Flagellant.Code.Monster;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Flagellant.Code.Audio
 {
@@ -27,10 +22,12 @@ namespace Flagellant.Code.Audio
                     FileName = "sfx_hero_flg_acid_antic";
                     break;
                 case "CardSelect/Deathless":
+                case "CardSelect/Undying":
+                    FileName = "sfx_hero_flg_redeem_antic";
+                    break;
                 case "CardSelect/Endure":
                 case "CardSelect/More":
                 case "CardSelect/Sepsis":
-                case "CardSelect/Undying":
                     FileName = "sfx_hero_flg_sepsis_antic";
                     break;
                 case "CardSelect/Lash":
@@ -45,8 +42,12 @@ namespace Flagellant.Code.Audio
                     FileName = "sfx_hero_flg_fester_use";
                     break;
                 case "CardPlay/Deathless":
-                case "CardPlay/Suffer":
+                    FileName = "sfx_hero_flg_redeem_use";
+                    break;
                 case "CardPlay/Undying":
+                    FileName = "sfx_hero_flg_reclaim_use";
+                    break;
+                case "CardPlay/Suffer":
                     FileName = "sfx_hero_flg_suffer_use";
                     break;
                 case "CardPlay/Endure":
@@ -77,9 +78,11 @@ namespace Flagellant.Code.Audio
                     FileName = "sfx_hero_flg_acid_return";
                     break;
                 case "CardPlay/Deathless_Recover":
+                case "CardPlay/Undying_Recover":
+                    FileName = "sfx_hero_flg_redeem_return";
+                    break;
                 case "CardPlay/Endure_Recover":
                 case "CardPlay/More_Recover":
-                case "CardPlay/Undying_Recover":
                     FileName = "sfx_hero_flg_more_return";
                     break;
                 case "CardPlay/Sepsis_Recover":
@@ -93,7 +96,7 @@ namespace Flagellant.Code.Audio
                 default:
                     break;
             }
-            return FileName == "" ? FileName : PathHead+FileName+FileEnd;
+            return FileName == "" ? FileName : PathHead + FileName + FileEnd;
         }
 
         public static float GetFlagellantVolumeDB(String AudioName)
@@ -117,11 +120,7 @@ namespace Flagellant.Code.Audio
                     break;
                 //CardPlay
                 case "CardPlay/Punish":
-                case "CardPlay/Fester":
-                case "CardPlay/Deathless":
                 case "CardPlay/Suffer":
-                case "CardPlay/Undying":
-                case "CardPlay/Lash":
                 case "CardPlay/Sepsis":
                 case "CardPlay/Necrosis":
                     TempDB = -6;
@@ -129,9 +128,13 @@ namespace Flagellant.Code.Audio
                 case "CardPlay/AcidRain":
                     TempDB = -10;
                     break;
+                case "CardPlay/Lash":
                 case "CardPlay/Endure":
                     TempDB = -8;
                     break;
+                case "CardPlay/Fester":
+                case "CardPlay/Deathless":
+                case "CardPlay/Undying":
                 case "CardPlay/More":
                     TempDB = -7;
                     break;

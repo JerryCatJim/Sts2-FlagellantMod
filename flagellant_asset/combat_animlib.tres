@@ -71384,7 +71384,7 @@ tracks/274/keys = PackedFloat32Array(0, 1, -0.1635026, 0.17461562, -0.29767475, 
 
 [sub_resource type="Animation" id="Animation_qvpsg"]
 resource_name = "flagellant_impact_recover"
-length = 2.6333334
+length = 3.0
 tracks/0/type = "rotation_3d"
 tracks/0/imported = true
 tracks/0/enabled = true

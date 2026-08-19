@@ -10,7 +10,7 @@ namespace Flagellant.Code.Audio;
 
 internal static class AudioManager
 {
-    public static void PlayCombatSfx(string AudioName, bool bIsTemp = false, bool bIsFullPathName = false, float VolumeDb = -10.0f) //声音素材音量太大了，减小一点
+    public static void PlayCombatSfx(string AudioName, bool bIsTemp = false, bool bIsFullPathName = false, float VolumeDb = -10.0f, int audioPlayerIndex = 0) //声音素材音量太大了，减小一点
     {
         if (NonInteractiveMode.IsActive) return;
 
@@ -29,13 +29,13 @@ internal static class AudioManager
         }
 
         //单例模式的audioPlayer，不要手动释放
-        var audioPlayer = bIsTemp ? new AudioStreamPlayer() : CombatAudioPlayer.PlayerAudioPlayer;
+        var audioPlayer = bIsTemp ? new AudioStreamPlayer() : GetPlayerAudioPlayer(audioPlayerIndex);
 
         audioPlayer.VolumeDb = 0.0f;
         audioPlayer.VolumeDb += VolumeDb + FlagellantConfig.FlagellantAudioSoundVolume;
         audioPlayer.Stream = stream;
         audioPlayer.Bus = "SFX";
-        if(bIsTemp)
+        if (bIsTemp)
         {
             audioPlayer.Finished += () => audioPlayer.QueueFreeSafely();
         }
@@ -43,15 +43,27 @@ internal static class AudioManager
         var combatRoom = NCombatRoom.Instance;
         if (combatRoom != null)
         {
-            if(audioPlayer.GetParent() == null)
+            if (audioPlayer.GetParent() == null)
             {
                 combatRoom.AddChild(audioPlayer);
             }
             audioPlayer.Play();
         }
-        else if(bIsTemp)
+        else if (bIsTemp)
         {
             audioPlayer.QueueFreeSafely();
+        }
+    }
+
+    private static AudioStreamPlayer GetPlayerAudioPlayer(int index = 0)
+    {
+        switch (index)
+        {
+            case 0:
+            default:
+                return CombatAudioPlayer.PlayerAudioPlayer;
+            case 1:
+                return CombatAudioPlayer.SecondPlayerAudioPlayer;
         }
     }
 
