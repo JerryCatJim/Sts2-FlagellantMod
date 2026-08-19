@@ -19,6 +19,20 @@ internal class CombatAudioPlayer() : CustomSingletonModel(HookType.Run)
         }
     }
 
+    private static AudioStreamPlayer? _secondPlayerAudioPlayer;
+    public static AudioStreamPlayer SecondPlayerAudioPlayer
+    {
+        get
+        {
+            // IsInstanceValid 能同时检测 null 和已被 QueueFree 的对象
+            if (!GodotObject.IsInstanceValid(_secondPlayerAudioPlayer))
+            {
+                _secondPlayerAudioPlayer = new AudioStreamPlayer();
+            }
+            return _secondPlayerAudioPlayer;
+        }
+    }
+
     private static AudioStreamPlayer? _monsterAudioPlayer;
     public static AudioStreamPlayer MonsterAudioPlayer
     {
