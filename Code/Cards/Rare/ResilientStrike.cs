@@ -29,6 +29,7 @@ public class ResilientStrike : FlagellantCardModel
             }
         }, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move, 4
         );
+        WithAnimName("Punish");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

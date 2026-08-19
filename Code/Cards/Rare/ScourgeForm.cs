@@ -16,7 +16,7 @@ public class ScourgeForm : FlagellantCardModel
 {
     public ScourgeForm() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        WithAnimName("More");
+        WithAnimName("Deathless");
         WithPower<ScourgeFormPower>(1);
         WithPower<ToxicFormPower>(2);
         WithPowerTip<PoisonPower>();

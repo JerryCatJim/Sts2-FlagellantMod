@@ -17,7 +17,7 @@ public class Meditation : FlagellantCardModel
     {
         WithPowerTip<RegenPower>();
         WithPowerTip<StressPower>();
-        WithAnimName("More");
+        WithAnimName("Deathless");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

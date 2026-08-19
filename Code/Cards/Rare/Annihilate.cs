@@ -20,6 +20,7 @@ public class Annihilate : FlagellantCardModel
         WithDamage(13,4);
         WithVars(new DamageVar("ComboDamage",26,ValueProp.Move).WithUpgrade(8));
         WithPower<ComboPower>(1);
+        WithAnimName("Punish");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

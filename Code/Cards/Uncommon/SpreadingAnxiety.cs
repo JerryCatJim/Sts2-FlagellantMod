@@ -15,7 +15,7 @@ public class SpreadingAnxiety : FlagellantCardModel
 {
     public SpreadingAnxiety() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithAnimName("More");
+        WithAnimName("Endure");
         WithStress(2);
         WithCostUpgradeBy(-1);
         WithKeyword(CardKeyword.Exhaust);

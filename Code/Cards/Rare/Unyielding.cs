@@ -15,10 +15,12 @@ public class Unyielding : FlagellantCardModel
     {
         WithPower<UnyieldingPower>(1,1);
         WithPowerTip<DoomPower>();
+        WithAnimName("Suffer");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await PlayCardAnim();
         await CommonActions.ApplySelf<UnyieldingPower>(choiceContext, this);
     }
 }

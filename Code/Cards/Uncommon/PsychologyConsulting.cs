@@ -33,10 +33,13 @@ public class PsychologyConsulting : FlagellantCardModel
             ));
         WithKeyword(CardKeyword.Ethereal);
         WithCards(2);
+        WithAnimName("Deathless");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await PlayCardAnim();
+
         decimal healingAmount = 0;
         CustomCalculatedVar? MyVar = base.DynamicVars["CalculatedHealing"] as CustomCalculatedVar;
         if(MyVar != null)

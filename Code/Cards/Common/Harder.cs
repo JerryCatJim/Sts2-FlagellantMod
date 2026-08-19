@@ -17,7 +17,7 @@ public class Harder : FlagellantCardModel
         WithHealingPercent(10);
         WithPowerTip<DoomPower>();
         WithCards(1);
-        WithAnimName("Lash");
+        WithAnimName("Suffer");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

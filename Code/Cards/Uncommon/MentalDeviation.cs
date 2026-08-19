@@ -18,7 +18,7 @@ public class MentalDeviation : FlagellantCardModel
         WithDamage(6, 2);
         WithStress(5);
         WithPower<ComboPower>(1);
-        WithAnimName("AcidRain");
+        WithAnimName("Necrosis");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

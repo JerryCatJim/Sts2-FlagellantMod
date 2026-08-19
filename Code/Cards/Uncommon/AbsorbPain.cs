@@ -17,10 +17,12 @@ public class AbsorbPain : FlagellantCardModel
         WithPowerTip<RegenPower>();
         WithKeyword(CardKeyword.Exhaust);
         WithCostUpgradeBy(-1);
+        WithAnimName("Deathless");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await PlayCardAnim();
         decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
         if(stressNum > 0)
         {
