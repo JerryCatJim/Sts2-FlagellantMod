@@ -120,7 +120,6 @@ namespace Flagellant.Code.Audio
                     break;
                 //CardPlay
                 case "CardPlay/Punish":
-                case "CardPlay/Fester":
                 case "CardPlay/Suffer":
                 case "CardPlay/Sepsis":
                 case "CardPlay/Necrosis":
@@ -130,11 +129,12 @@ namespace Flagellant.Code.Audio
                     TempDB = -10;
                     break;
                 case "CardPlay/Lash":
-                case "CardPlay/Deathless":
-                case "CardPlay/Undying":
                 case "CardPlay/Endure":
                     TempDB = -8;
                     break;
+                case "CardPlay/Fester":
+                case "CardPlay/Deathless":
+                case "CardPlay/Undying":
                 case "CardPlay/More":
                     TempDB = -7;
                     break;
