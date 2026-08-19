@@ -13,7 +13,7 @@ public class Scourge : FlagellantCardModel
 {
     public Scourge() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
-        WithAnimName("Suffer");
+        WithAnimName("Deathless");
         WithPowerTip<DoomPower>();
         WithPowerTip<PoisonPower>();
         WithKeyword(CardKeyword.Exhaust, UpgradeType.None);

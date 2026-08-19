@@ -15,7 +15,7 @@ public class ManiacForm : FlagellantCardModel
 {
     public ManiacForm() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        WithAnimName("Deathless");
+        WithAnimName("More");
         WithPower<ManiacFormPower>(1);
         WithTip(new TooltipSource((CardModel _) => FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
         WithEnergy(1);

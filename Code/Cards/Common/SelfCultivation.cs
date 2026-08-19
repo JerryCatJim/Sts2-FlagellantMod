@@ -16,7 +16,7 @@ public class SelfCultivation : FlagellantCardModel
     {
         WithPowerTip<RegenPower>();
         WithStress(2, 1);
-        WithAnimName("Lash");
+        WithAnimName("Deathless");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

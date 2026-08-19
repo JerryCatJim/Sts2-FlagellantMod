@@ -19,12 +19,14 @@ public class SelfDestruction : FlagellantCardModel
     {
         WithPower<DoomPower>(13);
         WithCostUpgradeBy(-1);
+        WithAnimName("Endure");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (base.CombatState == null) return;
 
+        await PlayCardAnim();
         await CommonActions.ApplySelf<DoomPower>(choiceContext, this);
         await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
 

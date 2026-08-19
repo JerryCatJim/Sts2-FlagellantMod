@@ -18,10 +18,12 @@ public class DeathComes : FlagellantCardModel
         WithStress(10);
         WithKeyword(CardKeyword.Exhaust);
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);
+        WithAnimName("Endure");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await PlayCardAnim();
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await PowerCmd.Apply<DoomPower>(choiceContext, base.Owner.Creature, base.Owner.Creature.CurrentHp, base.Owner.Creature, this);
     }

@@ -20,7 +20,7 @@ public class Redemption : FlagellantCardModel
         WithPower<RegenPower>(4,1);
         WithLossPercent(50);
         WithKeyword(CardKeyword.Exhaust);
-        WithAnimName("Lash");
+        WithAnimName("Undying");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

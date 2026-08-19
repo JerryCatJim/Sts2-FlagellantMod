@@ -18,6 +18,7 @@ public class DesperateFight : FlagellantCardModel
         WithDamage(19, 5);
         WithHealingPercent(12, 3);
         WithStress(5);
+        WithAnimName("Sepsis");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

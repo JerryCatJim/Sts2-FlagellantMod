@@ -22,7 +22,7 @@ public class Atonement : FlagellantCardModel
         WithPowerTip<FrailPower>();
         WithPowerTip<DoomPower>();
         WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
-        WithAnimName("More");
+        WithAnimName("Endure");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

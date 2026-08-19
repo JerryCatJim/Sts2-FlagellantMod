@@ -17,7 +17,7 @@ public class Pilgrimage : FlagellantCardModel
 
     public Pilgrimage() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithAnimName("Lash");
+        WithAnimName("Suffer");
         WithCards(2);
         WithVar("ExtraDraw", 1, 1);
         WithLostHpThisTurnDisplay();

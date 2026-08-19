@@ -15,7 +15,7 @@ public class Samsara : FlagellantCardModel
     {
         WithPowerTip<SamsaraPower>();
         WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
-        WithAnimName("More");
+        WithAnimName("Undying");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

@@ -16,7 +16,7 @@ public class Lash : FlagellantCardModel
 {
     public Lash() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithAnimName("Lash");
+        WithAnimName("Suffer");
         WithLossPercent(8);
         WithPower<RegenPower>(1);
         WithVars(new RepeatVar(2).WithUpgrade(1));
