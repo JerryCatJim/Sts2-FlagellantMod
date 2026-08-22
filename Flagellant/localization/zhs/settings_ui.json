@@ -28,6 +28,7 @@
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.title": "单局游戏内死神出现的最大次数",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.title": "单局游戏内死神出现的最大次数",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "死神已出现次数是通过拾取了最多的死神之颅的玩家的死神之颅拥有数来计数的。",
+  "FLAGELLANT-SHOULD_ENHANCE_DEATH_AFTER_DEFEAT.title": "是否在击败死神后强化死神",
   "FLAGELLANT-PREDICT_WHETHER_DEATH_WILL_APPEAR.title": "预测当前战斗是否会出现死神",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "死神是否在小怪房间出现",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "死神是否在精英房间出现",

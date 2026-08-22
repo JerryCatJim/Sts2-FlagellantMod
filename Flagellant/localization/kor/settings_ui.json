@@ -10,6 +10,7 @@
   "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.hover.desc": "게임 볼륨이 100일 때 0dB도 이미 꽤 높습니다! 동일한 카드 효과음을 연속으로 재생할 경우 효과음이 겹쳐 볼륨이 갑자기 커질 수 있습니다! (볼륨 크기에 주의하시고 청력을 보호하세요!)",
   "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.hover.title": "고행자의 카드 선택 및 사용/압박 변화/맹독 상태 진입 시 고유 볼륨 제어입니다.",
   "FLAGELLANT-FLAGELLANT_AUDIO_SOUND_VOLUME.title": "오디오 효과음 볼륨",
+  "FLAGELLANT-SHOULD_ENHANCE_DEATH_AFTER_DEFEAT.title": "사신을 처치 후 사신을 강화합니까",
   "FLAGELLANT-PREDICT_WHETHER_DEATH_WILL_APPEAR.title": "전투 중 사신 등장 여부 예측하기",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_BOSS_ROOM.title": "보스 방에서 사신이 등장하게 할지 여부",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "엘리트 방에서 사신이 등장하게 할지 여부",

@@ -35,7 +35,7 @@
   "FLAGELLANT-EXANIMATE_FORM_POWER.description": "Whenever you gain [gold]Stress[/gold], apply [blue]X[/blue] [gold]Poison[/gold] to all enemies.",
   "FLAGELLANT-EXANIMATE_FORM_POWER.smartDescription": "Whenever you gain [gold]Stress[/gold], apply [blue]{Amount}[/blue] [gold]Poison[/gold] to all enemies.",
   "FLAGELLANT-MANIAC_FORM_POWER.title": "Maniac Form",
-  "FLAGELLANT-MANIAC_FORM_POWER.description": "Whenever you enter [gold]Toxic[/gold], gain [blue]X[/blue] {energyPrefix:energyIcons(1)} and draw [blue]X[/blue] cards.",
+  "FLAGELLANT-MANIAC_FORM_POWER.description": "Whenever you enter [gold]Toxic[/gold], gain [blue]X[/blue]{energyPrefix:energyIcons(1)} and draw [blue]X[/blue] cards.",
   "FLAGELLANT-MANIAC_FORM_POWER.smartDescription": "Whenever you enter [gold]Toxic[/gold], gain [blue]{Amount:energyIcons()}[/blue] and draw [blue]{Amount}[/blue] {Amount:plural:card|cards}.",
   "FLAGELLANT-ANEMIA_POWER.title": "Anemia",
   "FLAGELLANT-ANEMIA_POWER.description": "Whenever you lose HP for the first time during your turn, draw [blue]X[/blue] cards.",

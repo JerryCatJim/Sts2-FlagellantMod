@@ -25,6 +25,7 @@
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.title": "Максимальное количество появлений Смерти за одну игру (одиночный режим)",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.title": "Максимальное количество появлений Смерти за одну игру (одиночный режим)",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "Количество появлений Смерти считается по максимальному числу подобранных Голов Смерти одним из игроков.",
+  "FLAGELLANT-SHOULD_ENHANCE_DEATH_AFTER_DEFEAT.title": "Укрепляет ли смерть после поражения",
   "FLAGELLANT-PREDICT_WHETHER_DEATH_WILL_APPEAR.title": "Предсказывать, появится ли Смерть в бою",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "Смерть может появиться в комнате с монстрами",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "Смерть может появиться в комнате с элитами",

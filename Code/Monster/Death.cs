@@ -31,8 +31,8 @@ public class Death : CustomMonsterModel
 {
     int CurrentActIndex => DeathListenForRunStateSingleton.CombatState?.RunState.CurrentActIndex ?? 0; //从0开始
     // 根据进阶提高最小和最大血量，进阶8及以上为A，否则为B
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 110, 80) + ExtraHp;
-    public override int MaxInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 120, 90) + ExtraHp;
+    public override int MinInitialHp => (AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 110, 80) + ExtraHp) * HpMultiple;
+    public override int MaxInitialHp => (AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 120, 90) + ExtraHp) * HpMultiple;
     private int ExtraHp
     {
         get
@@ -42,16 +42,20 @@ public class Death : CustomMonsterModel
             return CurrentActIndex * 5 * (CurrentActIndex + 7);
         }
     }
+    private int CurrentAppearedTimes => DeathListenForRunStateSingleton.DeathAppearTime <= 0 ? 1 : DeathListenForRunStateSingleton.DeathAppearTime + 1;
+    private bool ShouldEnhance => CurrentAppearedTimes >= 2 && FlagellantConfig.ShouldEnhanceDeathAfterDefeat;
+    private int HpMultiple => ShouldEnhance ? CurrentAppearedTimes : 1;
+    private int ExtraEnhancedValue => CurrentAppearedTimes >= 2 && ShouldEnhance ? CurrentAppearedTimes : 0;
 
     // 意图的数值，进阶9提高
-    private int MementoMoriDoomNum => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 9, 9) + CurrentActIndex * 2;
+    private int MementoMoriDoomNum => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 9, 9) + CurrentActIndex * 2 + ExtraEnhancedValue;
     private int WaningCrescentDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 12, 10) + CurrentActIndex * 2;
     private int SoulReaverDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 20, 16) + CurrentActIndex * 2;
     private int TrampleDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 8, 6) + CurrentActIndex * 2;
-    private int TrampleStrength => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 3) + CurrentActIndex * 1;
-    private bool ShouldApplyVulunerable => CurrentActIndex >= 2; //(第三层出现时难逃一死给易伤)
-    private bool ShouldApplyWeak => CurrentActIndex >= 0; //(第一层出现时践踏给虚弱)
-    private bool ShouldApplyCombo => CurrentActIndex >= 1; //(第二层出现时难逃一死给破绽)
+    private int TrampleStrength => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 3) + CurrentActIndex * 1 + ExtraEnhancedValue;
+    private bool ShouldApplyVulunerable => CurrentActIndex >= 2 || ShouldEnhance; //(第三层出现时难逃一死给易伤)
+    private bool ShouldApplyWeak => CurrentActIndex >= 0 || ShouldEnhance; //(第一层出现时践踏给虚弱)
+    private bool ShouldApplyCombo => CurrentActIndex >= 1 || ShouldEnhance; //(第二层出现时难逃一死给破绽)
     //private bool ShouldReduceStrengthAndDexterity => CurrentActIndex >= 1; //(第二层出现时难逃一死削力量和敏捷)
 
     private int MementoMoriUsedTimes { get; set; } = 0;
@@ -68,7 +72,7 @@ public class Death : CustomMonsterModel
     public override async Task AfterAddedToRoom()
     {
         NCreature? DeathNode = NCombatRoom.Instance?.GetCreatureNode(base.Creature);
-        if (DeathNode != null)
+        if (DeathNode != null && Creature.SlotName == null)
         {
             DeathNode.Visible = false;
             DeathNode.GlobalPosition = new Vector2(1417, 739);
@@ -104,6 +108,10 @@ public class Death : CustomMonsterModel
 
         AudioManager.PlayMonsterSfx("Spawn", true);
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = true;
+        if (ExtraEnhancedValue > 0)
+        {
+            await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Creature, ExtraEnhancedValue, Creature, null, true);
+        }
     }
 
     public override async Task BeforeDeath(Creature creature)
@@ -135,11 +143,10 @@ public class Death : CustomMonsterModel
     {
         if (creature != Creature) return Task.CompletedTask;
 
-        DeathListenForRunStateSingleton.DeathAppearTime++;
-
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = CombatState.HittableEnemies.Any((Creature c) => c.IsAlive && c.Monster is Death);
         if (DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
         {
+            DeathListenForRunStateSingleton.DeathAppearTime++;
             AudioManager.StopMonsterBgm();
             if (_vfxInstance != null)
             {
@@ -219,10 +226,10 @@ public class Death : CustomMonsterModel
                 await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), creature, -1, Creature, null);
                 await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), creature, -1, Creature, null);
             }*/
-            if (IsDarkestDungeonCharacter(creature))
-            {
-                await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, MementoMoriUsedTimes, Creature, null);
-            }
+            //if (IsDarkestDungeonCharacter(creature))
+            //{
+            await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, MementoMoriUsedTimes, Creature, null);
+            //}
         }
     }
 
@@ -245,10 +252,10 @@ public class Death : CustomMonsterModel
 
         foreach (Creature creature in targets)
         {
-            if (IsDarkestDungeonCharacter(creature))
-            {
-                await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
-            }
+            //if (IsDarkestDungeonCharacter(creature))
+            //{
+            await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
+            //}
         }
     }
 
@@ -291,10 +298,10 @@ public class Death : CustomMonsterModel
             {
                 await PowerCmd.Apply<WeakPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
             }
-            if (IsDarkestDungeonCharacter(creature))
-            {
-                await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
-            }
+            //if (IsDarkestDungeonCharacter(creature))
+            //{
+            await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
+            //}
         }
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Creature, TrampleStrength, Creature, null);
     }

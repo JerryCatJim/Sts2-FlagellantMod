@@ -32,7 +32,7 @@
   "FLAGELLANT-PAIN_STRIKE.title": "痛苦打击",
   "FLAGELLANT-PAIN_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害。\n你每有一点[gold]压力[/gold]，伤害增加{Multiplier:diff()}。",
   "FLAGELLANT-FATAL_STRIKE.title": "夺命打击",
-  "FLAGELLANT-FATAL_STRIKE.description": "造成已失去生命{InCombat:({CalculatedDamage:diff()})|}的伤害。\n减少{StressPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-FATAL_STRIKE.description": "造成已失去生命{InCombat:({CalculatedDamage:diff()})|}的伤害。\n失去{StressPower:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-CRIPPLING_STRIKE.title": "致残打击",
   "FLAGELLANT-CRIPPLING_STRIKE.description": "造成{Damage:diff()}点伤害。\n给予{PoisonPower:diff()}层[gold]中毒[/gold]。\n抽{Cards:diff()}张牌。\n失去{LossPercent:diff()}%({LossCurrentHp:diff()})当前生命。",
   "FLAGELLANT-SCOURGE_FORM.title": "天灾形态",
