@@ -25,6 +25,7 @@
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.title": "Death Appear Max Time in Single Round Game",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.title": "Death Appear Max Time in Single Round Game",
   "FLAGELLANT-DEATH_APPEAR_MAX_TIME.hover.desc": "Death appeared times is counted by the max num of DeathsHead picked by one of the players.",
+  "FLAGELLANT-SHOULD_ENHANCE_DEATH_AFTER_DEFEAT.title": "Should Enhance Death After Defeat",
   "FLAGELLANT-PREDICT_WHETHER_DEATH_WILL_APPEAR.title": "Predict whether Death will appear in Combat",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_MONSTER_ROOM.title": "Should Death Appear in Monster Room",
   "FLAGELLANT-SHOULD_DEATH_APPEAR_IN_ELITE_ROOM.title": "Should Death Appear in Elite Room",

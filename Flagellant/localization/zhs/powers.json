@@ -41,7 +41,7 @@
   "FLAGELLANT-ANEMIA_POWER.description": "每当你在你的回合第一次失去生命时，抽[blue]X[/blue]张牌。",
   "FLAGELLANT-ANEMIA_POWER.smartDescription": "每当你在你的回合第一次失去生命时，抽[blue]{Amount}[/blue]张牌。",
   "FLAGELLANT-SACRIFICE_POWER.title": "牺牲",
-  "FLAGELLANT-SACRIFICE_POWER.description": "每当你在你的回合第一次失去生命时，获得[blue]X[/blue]{energyPrefix:energyIcons(1)}。",
+  "FLAGELLANT-SACRIFICE_POWER.description": "每当你在你的回合第一次失去生命时，获得[blue]X[/blue]点{energyPrefix:energyIcons(1)}。",
   "FLAGELLANT-SACRIFICE_POWER.smartDescription": "每当你在你的回合第一次失去生命时，获得[blue]{Amount:energyIcons()}[/blue]。",
   "FLAGELLANT-BLACK_BLOOD_POWER.title": "黑血",
   "FLAGELLANT-BLACK_BLOOD_POWER.description": "每当你在你的回合受到未格挡伤害时，对所有敌人造成等量伤害。",

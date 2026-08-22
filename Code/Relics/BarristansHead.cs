@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.ValueProps;
-using System.Linq;
 
 namespace Flagellant.Code.Relics;
 
@@ -32,7 +31,7 @@ public class BarristansHead : FlagellantRelicModel
         if(stressNum > 0)
         {
             Flash();
-            await CreatureCmd.GainBlock(base.Owner.Creature, stressNum, ValueProp.Move, null);
+            await CreatureCmd.GainBlock(base.Owner.Creature, stressNum, ValueProp.Unpowered, null);
         }
     }
 }
