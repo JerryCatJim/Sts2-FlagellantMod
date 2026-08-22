@@ -3,10 +3,10 @@
 "name": "Flagellant",
 "author": "Jerry",
 "description": "A character mod for Slay the Spire 2, just for practice.\nThanks to artist 男猫 for the beautiful card art.\nThanks to the following people for their contributions with translating this mod: \nChinese : Jerry\nEnglish : Jerry\nKorean : 무앙터렛\nRussian : AI-DeepSeek",
-"version": "0.3.93",
+"version": "0.111.0",
 "has_pck": true,
 "has_dll": true,
-"min_game_version": "0.111.0",
+"min_game_version": "0.107.0",
 "dependencies": [
 {
 "id": "BaseLib",
