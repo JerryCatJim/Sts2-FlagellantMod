@@ -23,10 +23,10 @@ public abstract class FlagellantCardModel(
     bool shouldShowInCardLibrary = true) :
     MyConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
-    public String _cardSelectAnimName = "DoNothing";
-    public String _cardPlayAnimName = "DoNothing";
-    public String CardSelectAnimName => _cardSelectAnimName;
-    public String CardPlayAnimName => _cardPlayAnimName;
+    public string _cardSelectAnimName = "DoNothing";
+    public string _cardPlayAnimName = "DoNothing";
+    public string CardSelectAnimName => _cardSelectAnimName;
+    public string CardPlayAnimName => _cardPlayAnimName;
 
     protected bool HasAnyComboMarkedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
     protected bool HasAnyPoisonedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>()) ?? false;
@@ -35,7 +35,7 @@ public abstract class FlagellantCardModel(
         WithTip(new TooltipSource(_ => FlagellantHoverTipFactory.FromResoluteOrMeltdown<T>()));
         return this;
     }
-    protected FlagellantCardModel WithAnimName(String AnimName)
+    protected FlagellantCardModel WithAnimName(string AnimName)
     {
         _cardSelectAnimName = AnimName;
         _cardPlayAnimName = AnimName;

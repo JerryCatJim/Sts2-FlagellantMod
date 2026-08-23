@@ -25,15 +25,15 @@ public static class StressIncreaseAnimPatch
         {
             if (power is StressPower)
             {
-                String NodeName = amount > 0 ? "StressUp" : "StressDown";
-                Node2D StressNode = __instance.Visuals.GetNodeOrNull<Node2D>(NodeName+"Node");
+                string NodeName = amount > 0 ? "StressUp" : "StressDown";
+                Node2D StressNode = __instance.Visuals.GetNodeOrNull<Node2D>(NodeName + "Node");
                 if (StressNode == null)
                 {
-                    StressNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/"+NodeName+".tscn").Instantiate<Node2D>();
+                    StressNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/" + NodeName + ".tscn").Instantiate<Node2D>();
                 }
                 if (StressNode == null)
                 {
-                    Log.Info("[StressIncreaseAnimPatch]: " + NodeName +".tscn load failed.");
+                    Log.Info("[StressIncreaseAnimPatch]: " + NodeName + ".tscn load failed.");
                     return true;
                 }
                 else
@@ -59,11 +59,11 @@ public static class StressIncreaseAnimPatch
                 }
                 if (amount > 0)
                 {
-                    AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Stress/sfx_battle_status_stressup.wav", true, true, -4);
+                    StressAudioManager.PlayStressSfx("GainStress", false, false, -4);
                 }
                 else
                 {
-                    AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Stress/sfx_battle_status_stressdown.wav", true, true, -6);
+                    StressAudioManager.PlayStressSfx("LoseStress", false, false, -6);
                 }
             }
             else if (power is ResoluteOrMeltdownPowerModel)

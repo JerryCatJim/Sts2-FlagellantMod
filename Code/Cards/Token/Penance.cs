@@ -16,7 +16,7 @@ public class Penance : FlagellantCardModel
 {
     public Penance() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
-        WithLossPercent(8, -3);
+        WithLossPercent(10, -2);
         WithStress(1, 1);
         WithCards(1);
         WithKeyword(CardKeyword.Exhaust);

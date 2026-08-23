@@ -29,7 +29,7 @@ public class UntilDeath : FlagellantCardModel
         {
             NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokyVignetteVfx.Create(new Color(1.0f, 0.15f, 0.08f, 0.66f), new Color(4.0f, 0.0f, 0.0f, 0.33f)));
         }
-        AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Watcher/wrath_enter.ogg", true, true, 0);
+        CombatAudioManager.PlayCombatSfx("res://Flagellant/Sounds/Watcher/wrath_enter.ogg", true, true, 0);
         await CommonActions.ApplySelf<UntilDeathPower>(choiceContext, this);
         if (IsUpgraded && base.CombatState != null)
         {

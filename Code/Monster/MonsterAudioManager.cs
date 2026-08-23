@@ -1,76 +1,47 @@
-using Flagellant.Code.Config;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 
-namespace Flagellant.Code.Audio;
+namespace Flagellant.Code.Monster;
 
-internal static class AudioManager
+public static class MonsterAudioManager
 {
-    public static void PlayCombatSfx(string AudioName, bool bIsTemp = false, bool bIsFullPathName = false, float VolumeDb = -10.0f, int audioPlayerIndex = 0) //声音素材音量太大了，减小一点
+    private static AudioStreamPlayer? _monsterAudioPlayer;
+    public static AudioStreamPlayer MonsterAudioPlayer
     {
-        if (NonInteractiveMode.IsActive) return;
-
-        AudioStream stream;
-        String path = bIsFullPathName ? AudioName : AudioCfg.GetFlagellantPath(AudioName);
-
-        if (path == null || path == "") return;
-        try
+        get
         {
-            stream = PreloadManager.Cache.GetAsset<AudioStream>(path);
-        }
-        catch
-        {
-            GD.PrintErr($"[AudioManager] Could not load audio: {path}");
-            return;
-        }
-
-        //单例模式的audioPlayer，不要手动释放
-        var audioPlayer = bIsTemp ? new AudioStreamPlayer() : GetPlayerAudioPlayer(audioPlayerIndex);
-
-        audioPlayer.VolumeDb = 0.0f;
-        audioPlayer.VolumeDb += VolumeDb + FlagellantConfig.FlagellantAudioSoundVolume;
-        audioPlayer.Stream = stream;
-        audioPlayer.Bus = "SFX";
-        if (bIsTemp)
-        {
-            audioPlayer.Finished += () => audioPlayer.QueueFreeSafely();
-        }
-
-        var combatRoom = NCombatRoom.Instance;
-        if (combatRoom != null)
-        {
-            if (audioPlayer.GetParent() == null)
+            // IsInstanceValid 能同时检测 null 和已被 QueueFree 的对象
+            if (!GodotObject.IsInstanceValid(_monsterAudioPlayer))
             {
-                combatRoom.AddChild(audioPlayer);
+                _monsterAudioPlayer = new AudioStreamPlayer();
             }
-            audioPlayer.Play();
-        }
-        else if (bIsTemp)
-        {
-            audioPlayer.QueueFreeSafely();
+            return _monsterAudioPlayer;
         }
     }
-
-    private static AudioStreamPlayer GetPlayerAudioPlayer(int index = 0)
+    private static AudioStreamPlayer? _monsterBgmPlayer;
+    public static AudioStreamPlayer MonsterBgmPlayer
     {
-        switch (index)
+        get
         {
-            case 0:
-            default:
-                return CombatAudioPlayer.PlayerAudioPlayer;
-            case 1:
-                return CombatAudioPlayer.SecondPlayerAudioPlayer;
+            // IsInstanceValid 能同时检测 null 和已被 QueueFree 的对象
+            if (!GodotObject.IsInstanceValid(_monsterBgmPlayer))
+            {
+                _monsterBgmPlayer = new AudioStreamPlayer();
+            }
+            return _monsterBgmPlayer;
         }
     }
+    public static float ModifiedMonsterBgmLinear { get; set; } = 0.0f;
 
     public static void PlayMonsterSfx(string AudioName, bool bIsTemp = false, bool bIsFullPathName = false, float VolumeDb = -4f)
     {
         AudioStream stream;
-        String path = bIsFullPathName ? AudioName : AudioCfg.GetDeathPath(AudioName);
+        string path = bIsFullPathName ? AudioName : MonsterAudioCfg.GetDeathPath(AudioName);
 
         if (path == null || path == "") return;
         try
@@ -79,12 +50,12 @@ internal static class AudioManager
         }
         catch
         {
-            GD.PrintErr($"[AudioManager] Could not load audio: {path}");
+            Log.Info($"[MonsterAudioManager] Could not load audio: {path}");
             return;
         }
 
         //单例模式的audioPlayer，不要手动释放
-        var audioPlayer = bIsTemp ? new AudioStreamPlayer() : CombatAudioPlayer.MonsterAudioPlayer;
+        var audioPlayer = bIsTemp ? new AudioStreamPlayer() : MonsterAudioPlayer;
 
         audioPlayer.VolumeDb = 0.0f;
         audioPlayer.VolumeDb += VolumeDb;
@@ -112,26 +83,26 @@ internal static class AudioManager
     public static void PlayMonsterBgm(float VolumeDb = 0f)
     {
         AudioStream stream;
-        String path = "res://Flagellant/Monster_Death/Bgm/DD2_TheMountain_BGM.mp3";
+        string path = "res://Flagellant/Monster_Death/Bgm/DD2_TheMountain_BGM.mp3";
         try
         {
             stream = PreloadManager.Cache.GetAsset<AudioStream>(path);
         }
         catch
         {
-            GD.PrintErr($"[AudioManager] Could not load audio: {path}");
+            GD.PrintErr($"[MonsterAudioManager] Could not load audio: {path}");
             return;
         }
 
         //单例模式的audioPlayer，不要手动释放
-        var audioPlayer = CombatAudioPlayer.MonsterBgmPlayer;
+        var audioPlayer = MonsterBgmPlayer;
 
         audioPlayer.VolumeDb = 0.0f;
         audioPlayer.VolumeDb += VolumeDb;
         audioPlayer.Stream = stream;
         audioPlayer.Bus = "SFX";
 
-        CombatAudioPlayer.ModifiedMonsterBgmLinear = audioPlayer.VolumeLinear;
+        ModifiedMonsterBgmLinear = audioPlayer.VolumeLinear;
 
         SetMonsterBgmPlayerVolumeByPercent(SaveManager.Instance.SettingsSave.VolumeBgm);
 
@@ -148,7 +119,7 @@ internal static class AudioManager
     }
     public static void StopMonsterBgm()
     {
-        var audioPlayer = CombatAudioPlayer.MonsterBgmPlayer;
+        var audioPlayer = MonsterBgmPlayer;
         audioPlayer.Stop();
         audioPlayer.QueueFreeSafely();
         NAudioManager.Instance?.SetBgmVol(SaveManager.Instance.SettingsSave.VolumeBgm);
@@ -158,6 +129,6 @@ internal static class AudioManager
     {
         //SaveManager.Instance.SettingsSave.VolumeBgm在 [NBgmVolumeSlider] 类 的 "OnValueChanged"函数里接收的值已经/100.0了
         //VolumeLinear会把VolumeDb覆盖，所以要把修改过的Volume先记录再应用百分比
-        CombatAudioPlayer.MonsterBgmPlayer.VolumeLinear = CombatAudioPlayer.ModifiedMonsterBgmLinear * Math.Clamp(percent, 0, 1);
+        MonsterBgmPlayer.VolumeLinear = ModifiedMonsterBgmLinear * Math.Clamp(percent, 0, 1);
     }
 }
