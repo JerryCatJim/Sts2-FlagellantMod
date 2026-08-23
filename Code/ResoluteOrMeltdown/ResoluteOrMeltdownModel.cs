@@ -38,7 +38,7 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
     private Player? _player;
     public Player Owner => _player ?? throw new InvalidOperationException("Not a mutable instance");
 
-    public abstract ResoluteOrMeltdownType RMType {get;}
+    public abstract ResoluteOrMeltdownType RMType { get; }
 
     public ResoluteOrMeltdownModel ToMutable(Player player)
     {
@@ -70,7 +70,7 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
         description.Add("energyPrefix", EnergyIconHelper.GetPrefix(pool));
     }
 
-    protected virtual VfxConfig FlagellantVfxConfig => new (
+    protected virtual VfxConfig FlagellantVfxConfig => new(
         EnterSfxPath: GetEnterSfxPath(),
         ScreenShakeStrength: ShakeStrength.Strong
     );
@@ -93,10 +93,10 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
         _vfx = null;
     }
 
-    private String GetEnterSfxPath()
+    private string GetEnterSfxPath()
     {
-        String Path = "";
-        switch(RMType)
+        string Path = "";
+        switch (RMType)
         {
             case ResoluteOrMeltdownType.Resolute:
                 Path = "res://Flagellant/Sounds/Resolute/sfx_battle_status_resolute.wav";

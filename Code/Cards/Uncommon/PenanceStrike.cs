@@ -21,6 +21,7 @@ public class PenanceStrike : FlagellantCardModel
         WithDamage(9, 3);
         WithVar("CreateCards", 3);
         WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromCard<Penance>()));
+        WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromCard<Penance>(true)));
         WithPower<ComboPower>(1);
     }
 

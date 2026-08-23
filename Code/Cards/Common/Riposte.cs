@@ -18,7 +18,7 @@ public class Riposte : FlagellantCardModel
     private decimal _lastLostHp = 0;
     public Riposte() : base(1, CardType.Attack, CardRarity.Common, TargetType.RandomEnemy)
     {
-        WithLossPercent(10);
+        WithLossPercent(12);
         WithVars(new RepeatVar(3).WithUpgrade(1));
         WithCalculatedDamage(0, ((CardModel card, Creature? c) =>
         {

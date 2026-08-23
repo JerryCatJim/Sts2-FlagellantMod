@@ -1,6 +1,5 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
-using Flagellant.Code.Audio;
 using Flagellant.Code.Config;
 using Flagellant.Code.Potions;
 using Flagellant.Code.Powers;
@@ -102,11 +101,11 @@ public class Death : CustomMonsterModel
             }
             if (FlagellantConfig.ShouldPlayDeathEncounterBgm)
             {
-                AudioManager.PlayMonsterBgm();
+                MonsterAudioManager.PlayMonsterBgm();
             }
         }
 
-        AudioManager.PlayMonsterSfx("Spawn", true);
+        MonsterAudioManager.PlayMonsterSfx("Spawn", true);
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = true;
         if (ExtraEnhancedValue > 0)
         {
@@ -134,7 +133,7 @@ public class Death : CustomMonsterModel
             }
         }
 
-        AudioManager.PlayMonsterSfx("Dead", true);
+        MonsterAudioManager.PlayMonsterSfx("Dead", true);
         await CreatureCmd.TriggerAnim(Creature, "Dead", 0);
         await Cmd.CustomScaledWait(2f, 2f, true);
     }
@@ -147,7 +146,7 @@ public class Death : CustomMonsterModel
         if (DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
         {
             DeathListenForRunStateSingleton.DeathAppearTime++;
-            AudioManager.StopMonsterBgm();
+            MonsterAudioManager.StopMonsterBgm();
             if (_vfxInstance != null)
             {
                 _vfxInstance.QueueFree();

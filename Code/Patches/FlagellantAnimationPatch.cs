@@ -105,13 +105,13 @@ public static class FlagellantAnimationPatch
                     if (AR_SM != null)
                     {
                         string cardAnimName = animName.Replace("CardSelect/", "");
-                        if (!String.IsNullOrEmpty(cardAnimName) && cardAnimName != "DoNothing")
+                        if (!string.IsNullOrEmpty(cardAnimName) && cardAnimName != "DoNothing")
                         {
                             state_machine.Start("CardSelect");
                             AR_SM.Travel(cardAnimName);
                             if (!FlagellantConfig.ShouldMuteSeparately)
                             {
-                                AudioManager.PlayCombatSfx("CardSelect/" + cardAnimName
+                                CombatAudioManager.PlayCombatSfx("CardSelect/" + cardAnimName
                                     //, false, 
                                     //false, 
                                     //AudioCfg.GetFlagellantVolumeDB("CardSelect/" + cardAnimName)
@@ -150,13 +150,13 @@ public static class FlagellantAnimationPatch
     {
         if (!FlagellantConfig.ShouldMuteSeparately)
         {
-            float VolumeDB = AudioCfg.GetFlagellantVolumeDB("CardPlay/" + state);
+            float VolumeDB = CombatAudioCfg.GetFlagellantVolumeDB("CardPlay/" + state);
             //按理来说音频可叠加，但测试发现state和state_Recover都用TempAudio播放会失真？所以区分一下
-            AudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"), false, VolumeDB);
+            CombatAudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"), false, VolumeDB);
             if (state == "Lash")
             {
                 //Lash类技能有锤肉的音效，忘了加了在这补上
-                AudioManager.PlayCombatSfx("CardPlay/Suffer", false, false, -10, 1);
+                CombatAudioManager.PlayCombatSfx("CardPlay/Suffer", false, false, -10, 1);
             }
         }
     });

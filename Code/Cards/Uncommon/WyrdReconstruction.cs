@@ -25,7 +25,7 @@ public class WyrdReconstruction : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Occultist/sfx_hero_occ_wyrd_use.wav", true, true, -6);
+        CombatAudioManager.PlayCombatSfx("res://Flagellant/Sounds/Occultist/sfx_hero_occ_wyrd_use.wav", true, true, -6);
         if(IsLowHealth())
         {
             await CreatureCmd.Heal(base.Owner.Creature, GetHealingPercentHp(base.DynamicVars["HealingPercentLow"].BaseValue));

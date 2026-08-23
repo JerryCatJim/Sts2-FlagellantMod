@@ -24,7 +24,7 @@ public class CalmStrike : FlagellantCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        AudioManager.PlayCombatSfx("res://Flagellant/Sounds/Watcher/calm_enter.ogg", true, true, 0);
+        CombatAudioManager.PlayCombatSfx("res://Flagellant/Sounds/Watcher/calm_enter.ogg", true, true, 0);
 
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         if(IsStressLessEqual(4))

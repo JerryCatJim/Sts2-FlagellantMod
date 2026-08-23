@@ -1,4 +1,3 @@
-using Flagellant.Code.Audio;
 using Flagellant.Code.Monster;
 using Godot;
 using HarmonyLib;
@@ -69,7 +68,7 @@ public static class DeathAnimPatch
             }
             if (animName == "Hit")
             {
-                AudioManager.PlayMonsterSfx("Hit",true);
+                MonsterAudioManager.PlayMonsterSfx("Hit",true);
             }
             if (!bHasChildStateMachine)
             {
@@ -91,7 +90,7 @@ public static class DeathAnimPatch
                     if (state_machine != null && Attack_SM != null)
                     {
                         string attackAnimName = animName.Replace("Attack/", "");
-                        if (!String.IsNullOrEmpty(attackAnimName))
+                        if (!string.IsNullOrEmpty(attackAnimName))
                         {
                             if (!Attack_SM.IsConnected("state_started", _stateStartedCallable))
                             {
@@ -109,7 +108,7 @@ public static class DeathAnimPatch
     private static readonly Callable _stateStartedCallable = Callable.From((StringName state) =>
     {
         bool isTemp = state.ToString().Contains("Recover");// || state.ToString().Contains("Action");
-        AudioManager.PlayMonsterSfx(state, isTemp);
+        MonsterAudioManager.PlayMonsterSfx(state, isTemp);
     });
 }
 
@@ -122,7 +121,7 @@ public static class DeathBgmPatch
         if (CombatManager.Instance.IsInProgress && DeathListenForRunStateSingleton.IsDeathExistingInCombat == true)
         {
             NAudioManager.Instance?.SetBgmVol(0);
-            AudioManager.SetMonsterBgmPlayerVolumeByPercent((float)(value / 100.0));
+            MonsterAudioManager.SetMonsterBgmPlayerVolumeByPercent((float)(value / 100.0));
         }
     }
 }
