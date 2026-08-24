@@ -33,7 +33,7 @@ public class Sepsis : FlagellantCardModel
 
                 int poisonTimes = target.HasPower<ComboPower>() ? card.DynamicVars["TriggerPoison"].IntValue + 1 : card.DynamicVars["TriggerPoison"].IntValue;
                 decimal damageNum = 0;
-                for(int  i = 0; i < poisonTimes; i++)
+                for (int i = 0; i < poisonTimes; i++)
                 {
                     damageNum += Math.Max(0, target?.GetPower<PoisonPower>()?.Amount - i ?? 0);
                 }
@@ -46,20 +46,20 @@ public class Sepsis : FlagellantCardModel
         await PlayCardAnim();
         if (cardPlay.Target != null && cardPlay.Target.HasPower<PoisonPower>())
         {
-            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGaseousImpactVfx.Create(cardPlay.Target, new Godot.Color("008000"))); //83eb85
+            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGaseousImpactVfx.Create(cardPlay.Target, new Godot.Color("008000")));  //83eb85
 
             PoisonPower? PP = cardPlay.Target.GetPower<PoisonPower>();
             int TriggerTimes = (int)(base.DynamicVars["TriggerPoison"]?.BaseValue ?? 0) + (cardPlay.Target.HasPower<ComboPower>() ? 1 : 0);
-            if(cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
+            if (cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
             {
                 await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             }
-            for(int i = 0; i < TriggerTimes; i++)
+            for (int i = 0; i < TriggerTimes; i++)
             {
                 if (PP != null && PP.Amount > 0 && cardPlay.Target != null && cardPlay.Target.IsAlive)
                 {
                     await CreatureCmd.Damage(choiceContext,
-                        cardPlay.Target, PP.Amount, ValueProp.Unblockable | ValueProp.Unpowered, 
+                        cardPlay.Target, PP.Amount, ValueProp.Unblockable | ValueProp.Unpowered,
                         null, this);
                     await PowerCmd.Decrement(PP);
                 }

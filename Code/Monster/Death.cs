@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
 using Flagellant.Code.Config;
+using Flagellant.Code.Helper;
 using Flagellant.Code.Potions;
 using Flagellant.Code.Powers;
 using Flagellant.Code.Relics;
@@ -123,7 +124,7 @@ public class Death : CustomMonsterModel
         {
             foreach (var player in combatRoom.CombatState.Players)
             {
-                PotionReward potionReward = (player.Character is Character.Flagellant) ?
+                PotionReward potionReward = (IsFlagellant(player.Creature)) ?
                     new PotionReward(ModelDb.Potion<ScourgePotion>().ToMutable(), player)
                     : new PotionReward(player);
                 combatRoom.AddExtraReward(player, new CardReward(CardCreationOptions.ForRoom(player, RoomType.Boss), 3, player));
@@ -225,10 +226,7 @@ public class Death : CustomMonsterModel
                 await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), creature, -1, Creature, null);
                 await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), creature, -1, Creature, null);
             }*/
-            //if (IsDarkestDungeonCharacter(creature))
-            //{
             await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, MementoMoriUsedTimes, Creature, null);
-            //}
         }
     }
 
@@ -251,10 +249,7 @@ public class Death : CustomMonsterModel
 
         foreach (Creature creature in targets)
         {
-            //if (IsDarkestDungeonCharacter(creature))
-            //{
             await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
-            //}
         }
     }
 
@@ -297,21 +292,13 @@ public class Death : CustomMonsterModel
             {
                 await PowerCmd.Apply<WeakPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
             }
-            //if (IsDarkestDungeonCharacter(creature))
-            //{
             await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
-            //}
         }
         await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Creature, TrampleStrength, Creature, null);
     }
 
-    //等后续做更多的DD2角色时修改
-    private bool IsDarkestDungeonCharacter(Creature creature)
-    {
-        return creature.Player != null && creature.Player.Character is Character.Flagellant;
-    }
     private bool IsFlagellant(Creature creature)
     {
-        return creature.Player != null && creature.Player.Character is Character.Flagellant;
+        return DD2Helper.IsFlagellant(creature);
     }
 }

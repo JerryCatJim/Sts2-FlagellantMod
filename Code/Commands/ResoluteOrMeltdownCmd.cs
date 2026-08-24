@@ -1,4 +1,5 @@
 using Flagellant.Code.Core;
+using Flagellant.Code.Helper;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,7 +11,7 @@ public static class RMCmd
 {
     public static Task TryEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
-        if(player.Character is Flagellant.Code.Character.Flagellant)
+        if(DD2Helper.IsFlagellant(player))
         {
             return EnterToxic(ctx, player, cardSource);
         }

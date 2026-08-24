@@ -18,7 +18,7 @@ public sealed class MoreMorePower : FlagellantPowerModel
     [
         HoverTipFactory.FromPower<RegenPower>(),
     ];
-    
+
     public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(base.Owner)) return;

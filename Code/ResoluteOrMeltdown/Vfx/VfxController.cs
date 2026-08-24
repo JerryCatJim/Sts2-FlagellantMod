@@ -29,7 +29,7 @@ public class VfxController(VfxConfig cfg)
     private void PlayEnterSfx()
     {
         if (!string.IsNullOrEmpty(cfg.EnterSfxPath))
-            RMAudioManager.PlayRMSfx(cfg.EnterSfxPath, true, true, -4);
+            RMAudioManager.PlayRMSfx(cfg.EnterSfxPath, bIsTemp : false, bIsFullPathName : false, -4);
     }
 
     /*private void PlayScreenFlash()

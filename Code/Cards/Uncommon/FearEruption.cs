@@ -38,7 +38,7 @@ public class FearEruption : FlagellantCardModel
     {
         _calculatedStress = (base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m) + GetStressBeforeReceived();
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         _calculatedStress = 0;
     }
 }

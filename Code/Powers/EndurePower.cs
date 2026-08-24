@@ -25,7 +25,7 @@ public sealed class EndurePower : FlagellantPowerModel
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (CombatManager.Instance.IsInProgress && target == base.Owner 
+        if (CombatManager.Instance.IsInProgress && target == base.Owner
             && result.UnblockedDamage > 0 && base.CombatState.CurrentSide == base.Owner.Side)
         {
             await PowerCmd.Apply<StressPower>(choiceContext, base.Owner, base.Amount, base.Owner, null);
@@ -36,7 +36,7 @@ public sealed class EndurePower : FlagellantPowerModel
     {
         if (player != Owner.Player)
             return;
-        
+
         await PowerCmd.Apply<StressPower>(choiceContext, player.Creature, Amount, player.Creature, ModelDb.Card<Endure>());
         Flash();
     }

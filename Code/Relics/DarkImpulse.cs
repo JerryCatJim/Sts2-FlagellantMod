@@ -45,7 +45,7 @@ public class DarkImpulse : FlagellantRelicModel
     }
     public override async Task AfterModifyingHpLostAfterOsty()
     {
-        if(_amount > 0)
+        if (_amount > 0)
         {
             NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokePuffVfx.Create(base.Owner.Creature, NSmokePuffVfx.SmokePuffColor.Purple));
             await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, _amount, Owner.Creature, null);

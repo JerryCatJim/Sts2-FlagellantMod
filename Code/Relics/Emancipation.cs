@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -17,7 +18,7 @@ public class Emancipation : FlagellantRelicModel
     public override RelicRarity Rarity => RelicRarity.Rare;
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        
+
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

@@ -16,7 +16,7 @@ public class BloodWave : FlagellantCardModel
     {
         WithHealingPercent(5, 2);
         WithDamage(5, 2);
-        WithPower<RegenPower>(4,1);
+        WithPower<RegenPower>(4, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

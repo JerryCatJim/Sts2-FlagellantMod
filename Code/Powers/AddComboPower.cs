@@ -15,7 +15,7 @@ public sealed class AddComboPower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
-    public override PowerStackType StackType => PowerStackType.Counter; 
+    public override PowerStackType StackType => PowerStackType.Counter;
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<ComboPower>()
@@ -48,7 +48,7 @@ public sealed class AddComboPower : FlagellantPowerModel
             && cardSource != null && cardSource.Owner.Creature == base.Owner
             && cardSource.Type == CardType.Attack)
         {
-            if(GetInternalData<Data>().playedCards.TryGetValue(cardSource, out List<Creature>? value) 
+            if (GetInternalData<Data>().playedCards.TryGetValue(cardSource, out List<Creature>? value)
                 && value is List<Creature> myList && !myList.Exists((Creature c) => c == target))
             {
                 myList.Add(target);

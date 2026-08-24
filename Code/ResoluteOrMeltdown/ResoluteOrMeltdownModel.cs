@@ -1,4 +1,6 @@
 using BaseLib.Extensions;
+using Flagellant.Code.Extensions;
+using Flagellant.Code.ResoluteOrMeltdown.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -6,10 +8,8 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
-using Flagellant.Code.Character;
-using Flagellant.Code.Extensions;
-using Flagellant.Code.ResoluteOrMeltdown.Vfx;
 
 namespace Flagellant.Code.ResoluteOrMeltdown;
 
@@ -66,11 +66,11 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
     private void AddDumbVariablesToDescription(LocString description)
     {
         description.Add("singleStarIcon", "[img]res://images/packed/sprite_fonts/star_icon.png[/img]");
-        var pool = IsMutable ? Owner.Character.CardPool : ModelDb.CardPool<FlagellantCardPool>();
+        var pool = IsMutable ? Owner.Character.CardPool : ModelDb.CardPool<ColorlessCardPool>();
         description.Add("energyPrefix", EnergyIconHelper.GetPrefix(pool));
     }
 
-    protected virtual VfxConfig FlagellantVfxConfig => new(
+    protected virtual VfxConfig RMVfxConfig => new(
         EnterSfxPath: GetEnterSfxPath(),
         ScreenShakeStrength: ShakeStrength.Strong
     );
@@ -81,7 +81,7 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
 
     public virtual async Task OnEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player owner, CardModel? source)
     {
-        _vfx = new VfxController(FlagellantVfxConfig);
+        _vfx = new VfxController(RMVfxConfig);
         await _vfx.OnEnter(owner.Creature);
 
     }
@@ -99,13 +99,13 @@ public abstract class ResoluteOrMeltdownModel : AbstractModel
         switch (RMType)
         {
             case ResoluteOrMeltdownType.Resolute:
-                Path = "res://Flagellant/Sounds/Resolute/sfx_battle_status_resolute.wav";
+                Path = "Resolute";
                 break;
             case ResoluteOrMeltdownType.Meltdown:
-                Path = "res://Flagellant/Sounds/Meltdown/sfx_battle_status_meltdown.wav";
+                Path = "Meltdown";
                 break;
             case ResoluteOrMeltdownType.Toxic:
-                Path = "res://Flagellant/Sounds/Toxic/sfx_battle_status_toxic.wav";
+                Path = "Toxic";
                 break;
             default:
                 break;

@@ -24,6 +24,8 @@ public class SpreadingAnxiety : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (base.CombatState == null) return;
+
         await PlayCardAnim();
         decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
         stressNum += GetStressBeforeReceived();

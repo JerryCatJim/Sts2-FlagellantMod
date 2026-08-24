@@ -42,7 +42,7 @@ public class Riposte : FlagellantCardModel
     {
         _lastLostHp = GetLossPercentHp();
         await CreatureCmd.Damage(choiceContext, Owner.Creature, _lastLostHp, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
-        await CommonActions.CardAttack(this, cardPlay.Target, base.DynamicVars.Repeat.IntValue).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay, base.DynamicVars.Repeat.IntValue).Execute(choiceContext);
         _lastLostHp = 0;
     }
 }

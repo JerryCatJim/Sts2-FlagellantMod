@@ -44,7 +44,7 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
     {
         if (dealer == Owner.Creature && dealer != target && result.TotalDamage > 0 && result.Props.IsPoweredAttack())
         {
-            if(Owner.Creature.GetPower<VirulentPower>() is VirulentPower toxicPower)
+            if (Owner.Creature.GetPower<VirulentPower>() is VirulentPower toxicPower)
             {
                 toxicPower.VirulentPowerFlash();
             }

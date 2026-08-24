@@ -27,7 +27,7 @@ public class RMAudioManager
         if (NonInteractiveMode.IsActive) return;
 
         AudioStream stream;
-        string path = bIsFullPathName ? AudioName : CombatAudioCfg.GetFlagellantPath(AudioName);
+        string path = bIsFullPathName ? AudioName : GetEnterSfxPath(AudioName);
 
         if (path == null || path == "") return;
         try
@@ -65,5 +65,24 @@ public class RMAudioManager
         {
             audioPlayer.QueueFreeSafely();
         }
+    }
+    private static string GetEnterSfxPath(string RMType)
+    {
+        string Path = "";
+        switch (RMType)
+        {
+            case "Resolute":
+                Path = "res://Flagellant/Sounds/Resolute/sfx_battle_status_resolute.wav";
+                break;
+            case "Meltdown":
+                Path = "res://Flagellant/Sounds/Meltdown/sfx_battle_status_meltdown.wav";
+                break;
+            case "Toxic":
+                Path = "res://Flagellant/Sounds/Toxic/sfx_battle_status_toxic.wav";
+                break;
+            default:
+                break;
+        }
+        return Path;
     }
 }
