@@ -10,7 +10,7 @@
   "FLAGELLANT-EXECUTION.title": "处决",
   "FLAGELLANT-EXECUTION.description": "造成{Damage:diff()}点伤害。\n给予{PoisonPower:diff()}层[gold]中毒[/gold]。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。{IfUpgraded:show:\n给予{ComboPower:comboIcons()}。}",
   "FLAGELLANT-RAPTUROUS.title": "狂喜",
-  "FLAGELLANT-RAPTUROUS.description": "每当你获得[gold]压力[/gold]时多获得{RapturousPower:diff()}点。\n回合结束时减少{RapturousPower:diff()}点[gold]压力[/gold]。",
+  "FLAGELLANT-RAPTUROUS.description": "每当你获得[gold]压力[/gold]时，多获得{RapturousPower:diff()}点。\n在你的回合结束时，失去{RapturousPower:diff()}点[gold]压力[/gold]。",
   "FLAGELLANT-DEATHLESS.title": "不亡",
   "FLAGELLANT-DEATHLESS.description": "移除你的所有[gold]压力[/gold]。\n回复{HealingPercent:diff()}%({HealingMaxHp:diff()})生命。",
   "FLAGELLANT-ENDURE.title": "磨练",

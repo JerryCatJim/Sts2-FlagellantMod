@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Flagellant.Code.Powers;
@@ -26,46 +27,46 @@ public sealed class StressPower : FlagellantPowerModel
         HoverTipFactory.FromPower<ScourgeFormPower>(),
     ];
 
+    private bool WaitingForRemoving = false;
+    private bool HasLocked => Owner.Player != null && 
+        FlagellantCombatSingleton.StressLockDictionary.TryGetValue(Owner.Player.NetId, out int OutValue) && OutValue > 0;
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (amount == 0m || power is not StressPower || power != this)
             return;
 
-        //有效的变化层数，例如Amount当前为-2，amount为-3，即修改之前Amount为1，减少了1层，所以传入的是-1
-        decimal realChangedAmount = Amount < 0 ? amount - Amount : amount;
-        if(realChangedAmount != 0m)
+        if (HasLocked)
         {
-            await BroadcastStressChangedEvent(choiceContext, power, realChangedAmount, applier, cardSource);
+            Log.Error("[Stress Lock Error] : Stress amount change INFINITE LOOP detected! Check your design to avoid it!");
+            return;
         }
 
-        //满10点压力触发美德或者折磨判定，触发后把压力值归零
-        if (Amount >= 10)
+        TrySetStressLock(1);
+        try
         {
-            await BroadcastStressChangedEvent(choiceContext, power, -Amount, applier, cardSource);
-            //若不立刻移除则会导致苦楚+极乐时进入怨毒时无限循环
-            await SetAmountBorder();
-            if (Owner.Player is Player player)
+            //有效的变化层数，例如Amount当前为-2，amount为-3，即修改之前Amount为1，减少了1层，所以传入的是-1
+            decimal realChangedAmount = Amount < 0 ? amount - Amount : amount;
+            if (realChangedAmount != 0m)
             {
-                //预防 获得压力回血+每次失去生命(监听生命变化，不是受到伤害)时获得10点压力 导致的无限循环
-                if (!FlagellantCombatSingleton.EnterRMtimesDictionary.TryGetValue(Owner.Player.NetId, out var value) || value < 1)
+                await BroadcastStressChangedEvent(choiceContext, power, realChangedAmount, applier, cardSource);
+            }
+
+            //满10点压力触发美德或者折磨判定，触发后把压力值归零
+            if (Amount >= 10)
+            {
+                await BroadcastStressChangedEvent(choiceContext, power, -Amount, applier, cardSource);
+                await SetAmountBorder();
+                if (Owner.Player is Player player)
                 {
-                    if (!FlagellantCombatSingleton.EnterRMtimesDictionary.TryAdd(Owner.Player.NetId, 1))
-                    {
-                        // 添加失败，说明键已存在，手动更新
-                        FlagellantCombatSingleton.EnterRMtimesDictionary[Owner.Player.NetId]++;
-                    }
-
                     await RMCmd.TryEnterResoluteOrMeltdown(choiceContext, player, cardSource);
-
-                    if (!FlagellantCombatSingleton.EnterRMtimesDictionary.TryAdd(Owner.Player.NetId, 0))
-                    {
-                        // 添加失败，说明键已存在，手动更新
-                        FlagellantCombatSingleton.EnterRMtimesDictionary[Owner.Player.NetId] = 0;
-                    }
                 }
             }
+            await SetAmountBorder();
         }
-        await SetAmountBorder();
+        finally
+        {
+            TrySetStressLock(0);
+        }
     }
     
     private async Task BroadcastStressChangedEvent(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
@@ -82,9 +83,17 @@ public sealed class StressPower : FlagellantPowerModel
     }
     private async Task SetAmountBorder()
     {
-        if (Amount < 0 || Amount >= 10)
+        if ((Amount < 0 || Amount >= 10) && !WaitingForRemoving)
         {
+            WaitingForRemoving = true;
             await PowerCmd.Remove(this);
         }
+    }
+
+    private void TrySetStressLock(int Value)
+    {
+        if (Owner.Player == null) return;
+
+        FlagellantCombatSingleton.StressLockDictionary[Owner.Player.NetId] = Value;
     }
 }

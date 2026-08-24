@@ -7,7 +7,7 @@ public class NoResoluteAndMeltdown : ResoluteOrMeltdownModel
 {
     public override bool ShouldReceiveCombatHooks => false;
     public override ResoluteOrMeltdownType RMType => ResoluteOrMeltdownType.None;
-    protected override VfxConfig FlagellantVfxConfig => new(
+    protected override VfxConfig RMVfxConfig => new(
         EnterSfxPath: "",
         ScreenShakeStrength: ShakeStrength.None
     );

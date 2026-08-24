@@ -45,7 +45,7 @@
 		<OutputPath>.godot\mono\temp\bin\$(Configuration)\$(Sts2ApiCompat)\</OutputPath>
 	</PropertyGroup>
 
-	<Import Project="build\Flagellant.CompatDefines.targets"/>
+	<Import Project="build\Flagellant.CompatDefines.targets" />
 
 	<!-- OS Detection -->
 	<PropertyGroup>

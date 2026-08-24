@@ -35,3 +35,10 @@ public interface IModifyHpPercentEnterToxicAdditional
         return false;  //是否打断后续其他相同接口的修改
     }
 }
+public interface IGetDD2CharacterType
+{
+    public string TryGetCharacterType()
+    {
+        return "DD2DefaultCharacter";
+    }
+}

@@ -1,6 +1,7 @@
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Audio;
 using Flagellant.Code.Config;
+using Flagellant.Code.Helper;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,13 +22,8 @@ public static class FlagellantAnimationPatch
 {
     public static void Postfix(NCreature __instance, string trigger)
     {
-        if (__instance.Entity == null || !__instance.Entity.IsPlayer || __instance.Entity.Player?.Character is not Flagellant.Code.Character.Flagellant)
+        if (__instance.Entity == null || !__instance.Entity.IsPlayer || !DD2Helper.IsFlagellant(__instance.Entity.Player))
             return;
-
-        if (__instance.Entity.ModelId.ToString() == "CHARACTER.FLAGELLANT-FLAGELLANT")
-        {
-            //Log.Info("[>>>Flagellant AnimeTrigger=]" + trigger);
-        }
 
         switch (trigger)
         {
@@ -303,7 +299,7 @@ public class FlagellantAttackCommandPatch
     {
         if (card is not FlagellantCardModel) return;
 
-        if (card.Owner.Character is not Flagellant.Code.Character.Flagellant) return;
+        if (!DD2Helper.IsFlagellant(card.Owner)) return;
 
         FlagellantCardModel MyCard = (FlagellantCardModel)card;
         if (MyCard != null && MyCard.CardPlayAnimName != "DoNothing")
@@ -318,7 +314,7 @@ public class FlagellantDeathAnimPatch
 {
     public static void Postfix(NCreature __instance)
     {
-        if (__instance.Entity.Player?.Character is not Flagellant.Code.Character.Flagellant) return;
+        if (!DD2Helper.IsFlagellant(__instance.Entity.Player)) return;
 
         __instance.SetAnimationTrigger("Dead");
     }

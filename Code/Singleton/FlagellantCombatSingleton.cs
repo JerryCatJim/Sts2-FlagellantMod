@@ -15,7 +15,7 @@ public class FlagellantCombatSingleton : CustomSingletonModel, IAfterStressChang
     }
 
     public static Dictionary<ulong, decimal> GainedStressDictionary = new Dictionary<ulong, decimal> { };
-    public static Dictionary<ulong, int> EnterRMtimesDictionary = new Dictionary<ulong, int> { };
+    public static Dictionary<ulong, int> StressLockDictionary = new Dictionary<ulong, int> { };
     public Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (amount > 0 && power != null && power.Owner != null && power.Owner.Player != null)
@@ -31,12 +31,12 @@ public class FlagellantCombatSingleton : CustomSingletonModel, IAfterStressChang
     public static void ResetValue()
     {
         GainedStressDictionary.Clear();
-        EnterRMtimesDictionary.Clear();
+        StressLockDictionary.Clear();
     }
 
     public override Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
     {
-        EnterRMtimesDictionary.Clear();
+        StressLockDictionary.Clear();
         return Task.CompletedTask;
     }
 }

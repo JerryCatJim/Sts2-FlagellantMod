@@ -43,6 +43,8 @@ public static class StressIncreaseAnimPatch
                         __instance.AddChild(StressNode);
                         StressNode.Position = __instance.Visuals.GetNodeOrNull<Marker2D>("%StressPos")?.Position ??
                             (new Godot.Vector2(0, __instance.Visuals.GetNodeOrNull<Control>("%Bounds")?.Position.Y ?? 0));
+                        StressNode.Position *= __instance.Visuals.Scale;
+                        StressNode.Scale = __instance.Visuals.Scale;
                     }
                 }
 

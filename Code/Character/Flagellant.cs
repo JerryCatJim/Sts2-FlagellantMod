@@ -8,10 +8,11 @@ using Flagellant.Code.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
+using Flagellant.Code.Abstract;
 
 namespace Flagellant.Code.Character;
 
-public class Flagellant : PlaceholderCharacterModel
+public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
 {
     //public override float DeathAnimTime => 0f;
 
@@ -94,4 +95,9 @@ public class Flagellant : PlaceholderCharacterModel
 	public override CardPoolModel CardPool => ModelDb.CardPool<FlagellantCardPool>();
 	public override RelicPoolModel RelicPool => ModelDb.RelicPool<FlagellantRelicPool>();
 	public override PotionPoolModel PotionPool => ModelDb.PotionPool<FlagellantPotionPool>();
+
+    public string TryGetCharacterType()
+    {
+        return "Flagellant";
+    }
 }

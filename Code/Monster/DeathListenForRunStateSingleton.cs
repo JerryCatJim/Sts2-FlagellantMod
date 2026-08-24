@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using Flagellant.Code.Config;
+using Flagellant.Code.Helper;
 using Flagellant.Code.Relics;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -119,7 +120,7 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
         if (room is CombatRoom combatRoom)
         {
             if (FlagellantConfig.ShouldDeathOnlyHuntFlagellant
-                && !combatRoom.CombatState.Players.Any((Player p) => p.Character is Character.Flagellant))
+                && !combatRoom.CombatState.Players.Any((Player p) => DD2Helper.IsFlagellant(p)))
             {
                 return false;
             }
@@ -163,7 +164,7 @@ public class DeathListenForRunStateSingleton : CustomSingletonModel
     {
         if (room is CombatRoom combatRoom)
         {
-            if (!combatRoom.CombatState.Players.Any((Player p) => p.Character is Character.Flagellant))
+            if (!combatRoom.CombatState.Players.Any((Player p) => DD2Helper.IsFlagellant(p)))
             {
                 return false;
             }
