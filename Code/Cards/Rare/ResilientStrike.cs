@@ -19,9 +19,9 @@ public class ResilientStrike : FlagellantCardModel
         WithPowerTip<StressPower>();
         WithCalculatedDamage(8, (CardModel card, Creature? c) =>
         {
-            if (FlagellantCombatSingleton.GainedStressDictionary.ContainsKey(card.Owner.NetId))
+            if (DD2CombatSingleton.GainedStressDictionary.ContainsKey(card.Owner.NetId))
             {
-                return FlagellantCombatSingleton.GainedStressDictionary[card.Owner.NetId];
+                return DD2CombatSingleton.GainedStressDictionary[card.Owner.NetId];
             }
             else
             {

@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
+using Flagellant.Code.Audio;
 using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
 using Flagellant.Code.Potions;
@@ -102,7 +103,7 @@ public class Death : CustomMonsterModel
             }
             if (FlagellantConfig.ShouldPlayDeathEncounterBgm)
             {
-                MonsterAudioManager.PlayMonsterBgm();
+                DD2AudioManager.PlayDD2Bgm("Death");
             }
         }
 
@@ -147,7 +148,7 @@ public class Death : CustomMonsterModel
         if (DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)
         {
             DeathListenForRunStateSingleton.DeathAppearTime++;
-            MonsterAudioManager.StopMonsterBgm();
+            DD2AudioManager.StopDD2Bgm();
             if (_vfxInstance != null)
             {
                 _vfxInstance.QueueFree();
@@ -200,11 +201,14 @@ public class Death : CustomMonsterModel
         NGame.Instance?.ScreenShake(ShakeStrength.Weak, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));
         foreach (Creature creature in targets)
         {
+            if (creature == null || creature.IsDead) continue;
+
             //玩家反馈 : 对战活雾时被死神入侵会导致活雾的debuff未被消除而难以战斗
             if (MementoMoriUsedTimes == 1)
             {
                 foreach (PowerModel p in creature.Powers.Where(
-                       p => p.Type == MegaCrit.Sts2.Core.Entities.Powers.PowerType.Debuff
+                       p => p is not DoomPower
+                       && p.Type == MegaCrit.Sts2.Core.Entities.Powers.PowerType.Debuff
                        && p.GetType().Namespace == "MegaCrit.Sts2.Core.Models.Powers"
                        ).ToList())
                 {
@@ -212,6 +216,7 @@ public class Death : CustomMonsterModel
                 }
             }
 
+            //多人模式给已经阵亡的玩家施加Doom会导致活人的Doom无法结算
             await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), creature, MementoMoriDoomNum, Creature, null);
             if (ShouldApplyCombo || IsFlagellant(creature))
             {
@@ -249,6 +254,7 @@ public class Death : CustomMonsterModel
 
         foreach (Creature creature in targets)
         {
+            if (creature == null || creature.IsDead) continue;
             await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), creature, 2, Creature, null);
         }
     }
@@ -282,6 +288,7 @@ public class Death : CustomMonsterModel
             .Execute(null);
         foreach (Creature creature in targets)
         {
+            if (creature == null || creature.IsDead) continue;
             if (creature.GetPower<ComboPower>() is ComboPower comboP)
             {
                 NGame.Instance?.ScreenShake(ShakeStrength.Strong, ShakeDuration.Normal, 180f + MegaCrit.Sts2.Core.Random.Rng.Chaotic.NextFloat(-10f, 10f));

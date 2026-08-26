@@ -29,7 +29,7 @@ public static class StressIncreaseAnimPatch
                 Node2D StressNode = __instance.Visuals.GetNodeOrNull<Node2D>(NodeName + "Node");
                 if (StressNode == null)
                 {
-                    StressNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/" + NodeName + ".tscn").Instantiate<Node2D>();
+                    StressNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/DD2Scenes/" + NodeName + ".tscn").Instantiate<Node2D>();
                 }
                 if (StressNode == null)
                 {
@@ -61,11 +61,11 @@ public static class StressIncreaseAnimPatch
                 }
                 if (amount > 0)
                 {
-                    StressAudioManager.PlayStressSfx("GainStress", false, false, -4);
+                    DD2AudioManager.PlayDD2Sfx("GainStress", false, false, -4);
                 }
                 else
                 {
-                    StressAudioManager.PlayStressSfx("LoseStress", false, false, -6);
+                    DD2AudioManager.PlayDD2Sfx("LoseStress", false, false, -6);
                 }
             }
             else if (power is ResoluteOrMeltdownPowerModel)

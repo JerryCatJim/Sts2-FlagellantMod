@@ -29,7 +29,7 @@ public sealed class StressPower : FlagellantPowerModel
 
     private bool WaitingForRemoving = false;
     private bool HasLocked => Owner.Player != null && 
-        FlagellantCombatSingleton.StressLockDictionary.TryGetValue(Owner.Player.NetId, out int OutValue) && OutValue > 0;
+        DD2CombatSingleton.StressLockDictionary.TryGetValue(Owner.Player.NetId, out int OutValue) && OutValue > 0;
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (amount == 0m || power is not StressPower || power != this)
@@ -94,6 +94,6 @@ public sealed class StressPower : FlagellantPowerModel
     {
         if (Owner.Player == null) return;
 
-        FlagellantCombatSingleton.StressLockDictionary[Owner.Player.NetId] = Value;
+        DD2CombatSingleton.StressLockDictionary[Owner.Player.NetId] = Value;
     }
 }

@@ -37,12 +37,19 @@ public static class FlagellantAnimationPatch
                 break;
 
             case "Dead":  //官方的trigger("Dead")会先判断是否有spine结点，我的MOD人物场景里没有，所以在下面patch修改强行trigger，这回死亡能走进来了
-                PlayAnim(__instance, "DeathDoor", true);
+                PlayAnim(__instance, "Dead", true);
                 break;
 
-            case "Revive":
+            case "Revive": //同上
+                PlayAnim(__instance, "Revive");
+                break;
+
+            case "DeathDoor":
+                PlayAnim(__instance, "DeathDoor");
+                break;
+
             case "Idle":
-                PlayAnim(__instance, "Idle");
+                PlayAnim(__instance, "Idle", false, true);
                 break;
 
             default:
@@ -64,27 +71,57 @@ public static class FlagellantAnimationPatch
         var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
         if (animTree == null) return;
 
+        //根据当前血量和灾厄的关系决定播放哪种Idle和Hit动画
+        FlagellantHelper.ResetAdvancedConditions(animTree, node.Entity);
+
         var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/playback");
         AnimationNodeStateMachine? rootStateMachine = animTree.TreeRoot as AnimationNodeStateMachine;
 
         if (state_machine != null)
         {
-            //animPlayer.Stop(); //animPlayer.Stop对状态机没用?
+            #region FixIdleAnimTravel
+            //不要重复链接
+            if (!_idleCallables.TryGetValue(node, out var IdleCallable) ||
+                IdleCallable.Equals(default(Callable)) ||
+                !state_machine.IsConnected("state_started", IdleCallable))
+            {
+                IdleCallable = Callable.From((StringName state) =>
+                {
+                    if (state == "Idle")
+                    {
+                        var Idle_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/Idle/playback");
+                        if (Idle_SM != null)
+                        {
+                            //闭包用到了node实例变量，所以需要用creature来做区分，而不能用一个static callable连接一切
+                            Idle_SM.Travel(DD2Helper.WillDieInDoom(node.Entity) && FlagellantConfig.ShouldUseDeathDoorIdle ? "DeathIdle" : "Idle");
+                        }
+                        state_machine.Disconnect("state_started", IdleCallable);
+                        _idleCallables.Remove(node);
+                    }
+                });
+                _idleCallables[node] = IdleCallable;
+                //持续监听,手动移除
+                state_machine.Connect("state_started", IdleCallable);
+            }
+            #endregion FixIdleAnimTravel;
+
             if (!bHasChildStateMachine)
             {
                 //检测到状态机中不存在的结点(例如使用了属于其他角色卡池的卡牌而触发动画时)则什么也不做
                 if (rootStateMachine == null || !rootStateMachine.HasNode(animName)) return;
-                if (animName == "Idle" && (state_machine.GetCurrentNode() == "Idle" || state_machine.GetCurrentNode() == "CalmIdle"))
+
+                bool shouldStartTo = playImmediately;
+                if (animName == "Hit")
                 {
-                    //已经在CalmIdle(Idle_A)状态时收到取消打出卡牌信号后不再调为Idle(Idle_B)状态
-                    return;
+                    if (state_machine.GetCurrentNode() == "Hit" || state_machine.GetCurrentNode() == "HitRecover" || state_machine.GetCurrentNode() == "DeathDoor")
+                    {
+                        //有人反馈连续挨打容易触发T姿势，我没遇到过，还是限制一下吧
+                        return;
+                    }
+                    //若处于任意Idle时则平滑切换
+                    shouldStartTo = !FlagellantHelper.IsInAnyIdle(animTree, node.Entity);
                 }
-                if (animName == "Hit" && state_machine.GetCurrentNode() == "Hit")
-                {
-                    //有人反馈连续挨打容易触发T姿势，我没遇到过，还是限制一下吧
-                    return;
-                }
-                if (playImmediately)
+                if (shouldStartTo)
                 {
                     state_machine.Start(animName);
                 }
@@ -103,6 +140,7 @@ public static class FlagellantAnimationPatch
                         string cardAnimName = animName.Replace("CardSelect/", "");
                         if (!string.IsNullOrEmpty(cardAnimName) && cardAnimName != "DoNothing")
                         {
+                            //必须用Start立刻传送，否则在上一张牌动画Recover阶段没结束时迅速选择下一张牌，动画会无法正确播放
                             state_machine.Start("CardSelect");
                             AR_SM.Travel(cardAnimName);
                             if (!FlagellantConfig.ShouldMuteSeparately)
@@ -139,9 +177,26 @@ public static class FlagellantAnimationPatch
                         Attack_SM.Travel(cardAnimName);
                     }
                 }
+                else if (animName == "Idle")
+                {
+                    if (FlagellantHelper.IsInAnyIdle(animTree, node.Entity))
+                    {
+                        //已经在CalmIdle(Idle_A)状态时收到取消打出卡牌信号(例如取消打出没有选牌动画的卡牌)后不再调为Idle(Idle_B)状态
+                        return;
+                    }
+                    //由信号通知来切换Idle内部状态
+                    state_machine.Travel("Idle");
+                    /*var Idle_SM = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/Idle/playback");
+                    if (Idle_SM != null)
+                    {
+                        state_machine.Travel("Idle");
+                        Idle_SM.Travel(DD2Helper.WillDieInDoom(node.Entity) ? "DeathIdle" : "Idle");
+                    }*/
+                }
             }
         }
     }
+    private static readonly Dictionary<NCreature, Callable> _idleCallables = new();
     private static readonly Callable _stateStartedCallable = Callable.From((StringName state) =>
     {
         if (!FlagellantConfig.ShouldMuteSeparately)
@@ -317,5 +372,19 @@ public class FlagellantDeathAnimPatch
         if (!DD2Helper.IsFlagellant(__instance.Entity.Player)) return;
 
         __instance.SetAnimationTrigger("Dead");
+    }
+}
+
+[HarmonyPatch(typeof(NCreature), "StartReviveAnim")]
+public class FlagellantReviveAnimPatch
+{
+    public static void Postfix(NCreature __instance)
+    {
+        if (!DD2Helper.IsFlagellant(__instance.Entity.Player)) return;
+
+        if (!DD2Helper.WillDieInDoom(__instance.Entity))
+        {
+            __instance.SetAnimationTrigger("Revive");
+        }
     }
 }

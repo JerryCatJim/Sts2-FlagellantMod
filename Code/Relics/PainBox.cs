@@ -44,7 +44,6 @@ public class PainBox : FlagellantRelicModel
     {
         if (_amount > 0)
         {
-            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokePuffVfx.Create(base.Owner.Creature, NSmokePuffVfx.SmokePuffColor.Purple));
             await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, _amount, Owner.Creature, null);
             _amount = 0;
         }

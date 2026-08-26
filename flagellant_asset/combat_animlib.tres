@@ -67526,7 +67526,7 @@ tracks/274/keys = PackedFloat32Array(0, 1, -0.0002736376, -0.0035486417, -0.0768
 
 [sub_resource type="Animation" id="Animation_jlvb7"]
 resource_name = "flagellant_impact_action"
-length = 3.0
+length = 0.6
 tracks/0/type = "rotation_3d"
 tracks/0/imported = true
 tracks/0/enabled = true

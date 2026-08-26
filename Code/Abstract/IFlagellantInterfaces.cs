@@ -22,6 +22,11 @@ public interface IAfterComboChanged
     public Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource);
 }
 
+public interface IAfterDeathDoor
+{
+    public Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal doomPowerDelta, bool IsLowHealthTrigger);
+}
+
 public interface IOnResoluteOrMeltdownChanged
 {
     public Task OnResoluteOrMeltdownChanged(PlayerChoiceContext choiceContext, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM);

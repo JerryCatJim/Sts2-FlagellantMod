@@ -1,42 +1,43 @@
 using BaseLib.Abstracts;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Config;
+using Flagellant.Code.Helper;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace Flagellant.Code.Singleton;
 
-public class FlagellantCombatSingleton : CustomSingletonModel, IAfterStressChanged
+public class FlagellantCombatSingleton : CustomSingletonModel, IAfterDeathDoor
 {
     public FlagellantCombatSingleton() : base(HookType.Combat)
     {
 
     }
 
-    public static Dictionary<ulong, decimal> GainedStressDictionary = new Dictionary<ulong, decimal> { };
-    public static Dictionary<ulong, int> StressLockDictionary = new Dictionary<ulong, int> { };
-    public Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public async Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal doomPowerDelta, bool IsLowHealthTrigger)
     {
-        if (amount > 0 && power != null && power.Owner != null && power.Owner.Player != null)
+        if (DD2Helper.IsFlagellant(creature) && FlagellantConfig.ShouldUseDeathDoorIdle)
         {
-            if (!GainedStressDictionary.TryAdd(power.Owner.Player.NetId, amount))
+            FlagellantHelper.ResetAdvancedConditions(null, creature);
+            if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, healthDelta, doomPowerDelta))
             {
-                // 添加失败，说明键已存在，手动更新
-                GainedStressDictionary[power.Owner.Player.NetId] += amount;
+                if (FlagellantHelper.IsInAnyIdle(null, creature))
+                {
+                    await CreatureCmd.TriggerAnim(creature, DD2Helper.WillDieInDoom(creature) ? "DeathDoor" : "Revive", 0f);
+                }
             }
         }
-        return Task.CompletedTask;
-    }
-    public static void ResetValue()
-    {
-        GainedStressDictionary.Clear();
-        StressLockDictionary.Clear();
     }
 
-    public override Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
+    public override async Task AfterCombatEnd(CombatRoom room)
     {
-        StressLockDictionary.Clear();
-        return Task.CompletedTask;
+        foreach (Creature creature in room.CombatState.PlayerCreatures)
+        {
+            if (DD2Helper.IsFlagellant(creature))
+            {
+                await CreatureCmd.TriggerAnim(creature, "Revive", 0f);
+            }
+        }
     }
 }

@@ -30,10 +30,6 @@ public class TransferMisfortune : FlagellantCardModel
         {
             await PowerCmd.ModifyAmount(choiceContext, doomP, -base.DynamicVars.Doom.BaseValue, Owner.Creature, this);
         }
-        foreach (Creature enemy in base.CombatState.HittableEnemies)
-        {
-            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokePuffVfx.Create(enemy, NSmokePuffVfx.SmokePuffColor.Purple));
-        }
         await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
         await CommonActions.Draw(this, choiceContext);
     }
