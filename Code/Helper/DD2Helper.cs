@@ -47,11 +47,22 @@ public static class DD2Helper
         DD2AudioManager.StopDD2Bgm();
     }
 
-    private static readonly Dictionary<Creature, bool> _isPlayingDeathVfx = new();
+    private static readonly Dictionary<Creature, Node2D> _activeDeathVfx = new();
     public static void PlayDeathVfx(Creature creature, string DeathBlowName)
     {
-        if (_isPlayingDeathVfx.TryGetValue(creature, out bool isPlaying) && isPlaying)
-            return;
+        if (_activeDeathVfx.TryGetValue(creature, out Node2D? vfx) && vfx != null)
+        {
+            //如果还在播放上一个特效时被打死，强制刷新播放致命一击特效
+            if (DeathBlowName == "DeathBlow")
+            {
+                _activeDeathVfx.Remove(creature);
+                vfx.QueueFreeSafely();
+            }
+            else
+            {
+                return;
+            }
+        }
 
         PlayDeathSfx(creature, DeathBlowName);
 
@@ -80,10 +91,13 @@ public static class DD2Helper
         var AnimPlayer = vfxNode.GetNodeOrNull<AnimationPlayer>(NodeName + "AnimPlayer");
         if (AnimPlayer != null)
         {
-            _isPlayingDeathVfx[creature] = true;
-            AnimPlayer.AnimationFinished += (StringName state) => 
+            _activeDeathVfx[creature] = vfxNode;
+            AnimPlayer.AnimationFinished += (StringName state) =>
             {
-                _isPlayingDeathVfx.Remove(creature);
+                if (_activeDeathVfx.TryGetValue(creature, out var currentVfx) && currentVfx == vfxNode)
+                {
+                    _activeDeathVfx.Remove(creature);
+                }
                 vfxNode.QueueFreeSafely();
             };
             AnimPlayer.Stop();
