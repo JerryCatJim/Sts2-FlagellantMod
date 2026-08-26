@@ -3,16 +3,16 @@ using MegaCrit.Sts2.Core.Rooms;
 
 namespace Flagellant.Code.Singleton;
 
-public class FlagellantRunstateSingleton : CustomSingletonModel
+public class DD2RunstateSingleton : CustomSingletonModel
 {
-    public FlagellantRunstateSingleton() : base(HookType.Run)
+    public DD2RunstateSingleton() : base(HookType.Run)
     {
 
     }
 
     public override Task AfterRoomEntered(AbstractRoom room)
     {
-        FlagellantCombatSingleton.ResetValue();
+        DD2CombatSingleton.ResetValue();
 
         return Task.CompletedTask;
     }

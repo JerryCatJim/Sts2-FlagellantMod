@@ -1,3 +1,4 @@
+using Flagellant.Code.Audio;
 using Flagellant.Code.Monster;
 using Godot;
 using HarmonyLib;
@@ -121,7 +122,7 @@ public static class DeathBgmPatch
         if (CombatManager.Instance.IsInProgress && DeathListenForRunStateSingleton.IsDeathExistingInCombat == true)
         {
             NAudioManager.Instance?.SetBgmVol(0);
-            MonsterAudioManager.SetMonsterBgmPlayerVolumeByPercent((float)(value / 100.0));
+            DD2AudioManager.SetDD2BgmPlayerVolumeByPercent((float)(value / 100.0));
         }
     }
 }

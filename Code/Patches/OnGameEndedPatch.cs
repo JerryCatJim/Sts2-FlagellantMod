@@ -1,4 +1,4 @@
-using Flagellant.Code.Monster;
+using Flagellant.Code.Helper;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Runs;
 
@@ -9,7 +9,6 @@ public static class OnGameEndedPatch
 {
     public static void Postfix()
     {
-        DeathListenForRunStateSingleton.ResetValue();
-        MonsterAudioManager.StopMonsterBgm();
+        DD2Helper.ResetAllValues();
     }
 }

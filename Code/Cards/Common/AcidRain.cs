@@ -43,7 +43,6 @@ public class AcidRain : FlagellantCardModel
             {
                 await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             }
-            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NSmokePuffVfx.Create(hittableEnemy, NSmokePuffVfx.SmokePuffColor.Green));
         }
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         foreach (KeyValuePair<Creature, bool> pairs in MarkedEnemies)
