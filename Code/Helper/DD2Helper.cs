@@ -52,13 +52,17 @@ public static class DD2Helper
         DD2CombatSingleton.ResetValue();
         DeathListenForRunStateSingleton.ResetValue();
         DD2AudioManager.StopDD2Bgm();
+        _creaturesPosDoomed.Clear();
+        _activeDeathVfx.Clear();
     }
 
     private static readonly Dictionary<Creature, Vector2> _creaturesPosDoomed = new();
-    public static void RegisterCreaturePosDoomed(Creature creature, Vector2 pos)
+    public static bool RegisterCreaturePosDoomed(Creature creature, Vector2 pos)
     {
-        if (creature == null) return;
+        if (creature == null) return false;
+
         _creaturesPosDoomed[creature] = pos;
+        return true;
     }
     public static void UnRegisterCreaturePosDoomed(Creature creature)
     {

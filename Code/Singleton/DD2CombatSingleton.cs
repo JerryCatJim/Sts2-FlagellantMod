@@ -39,6 +39,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
     {
         GainedStressDictionary.Clear();
         StressLockDictionary.Clear();
+        _beforeTriggeredPoisons.Clear();
     }
 
     public override Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
@@ -75,12 +76,15 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
                 await BroadcastDeathDoorEvent(creature, delta, PoisonDelta, DeathDoorType.Poison);
             }
         }
-        else if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, delta, 0)
-            && creature.CombatState?.CurrentSide == creature.Side)
+        else if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, delta, 0))
         {
             if (DD2Helper.WillDieInDoom(creature))
             {
-                await BroadcastDeathDoorEvent(creature, delta, 0, DeathDoorType.Doom);
+                TryRegisterCreaturePosDoomed(creature);
+                if (creature.CombatState?.CurrentSide == creature.Side)
+                {
+                    await BroadcastDeathDoorEvent(creature, delta, 0, DeathDoorType.Doom);
+                }
             }
         }
     }
@@ -107,31 +111,43 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
         }
         else if (power is DoomPower && amount > 0)
         {
-            if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, 0, amount) 
-                && creature.CombatState?.CurrentSide == creature.Side) //在非生物本身的回合获得doom后不直接提示死门，doom在该生物回合开始后结算中毒后才尝试结算doom死门
+            if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, 0, amount))
             {
                 if (DD2Helper.WillDieInDoom(creature))
                 {
-                    await BroadcastDeathDoorEvent(creature, 0, amount, DeathDoorType.Doom);
+                    TryRegisterCreaturePosDoomed(creature);
+                    if (creature.CombatState?.CurrentSide == creature.Side)
+                    {
+                        await BroadcastDeathDoorEvent(creature, 0, amount, DeathDoorType.Doom);
+                    }
                 }
             }
         }
     }
 
-    //在非生物本身的回合获得doom后不直接提示死门，doom在该生物回合开始后结算中毒后才尝试结算doom死门
+    private bool TryRegisterCreaturePosDoomed(Creature creature)
+    {
+        if (DD2Helper.WillDieInDoom(creature))
+        {
+            NCreature? nCreature = creature.GetCreatureNode();
+            if (!(nCreature == null || !GodotObject.IsInstanceValid(nCreature) ||
+                nCreature.Visuals == null || !GodotObject.IsInstanceValid(nCreature.Visuals)))
+            {
+                Vector2 globalPos = nCreature.Visuals.GetNodeOrNull<Marker2D>("%CenterPos")?.GlobalPosition ?? nCreature.GlobalPosition;
+                return DD2Helper.RegisterCreaturePosDoomed(creature, globalPos);
+            }
+        }
+        return false;
+    }
+
+    //在非生物本身的回合获得doom后不直接提示死门，该生物回合开始后若即将死于doom则提示死门
     public override async Task AfterSideTurnStartLate(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         foreach (Creature creature in participants)
         {
             if (DD2Helper.WillDieInDoom(creature))
             {
-                NCreature? nCreature = creature.GetCreatureNode();
-                if (!(nCreature == null || !GodotObject.IsInstanceValid(nCreature) ||
-                    nCreature.Visuals == null || !GodotObject.IsInstanceValid(nCreature.Visuals)))
-                {
-                    Vector2 globalPos = nCreature.Visuals.GetNodeOrNull<Marker2D>("%CenterPos")?.GlobalPosition ?? nCreature.GlobalPosition;
-                    DD2Helper.RegisterCreaturePosDoomed(creature, globalPos);
-                }
+                TryRegisterCreaturePosDoomed(creature);
                 await BroadcastDeathDoorEvent(creature, 0, 0, DeathDoorType.Doom);
             }
             else
