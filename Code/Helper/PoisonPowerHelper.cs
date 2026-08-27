@@ -30,7 +30,7 @@ public static class PoisonPowerHelper
         for (int i = 0; i < num2; i++)
         {
             decimal damage = powerAmount - i;
-            damage = Hook.ModifyDamage(poisonPower.Owner.CombatState.RunState, poisonPower.Owner.CombatState, poisonPower.Owner, null, damage, ValueProp.Unblockable | ValueProp.Unpowered, null, null, ModifyDamageHookType.All, CardPreviewMode.None, out IEnumerable<AbstractModel> _);
+            damage = Hook.ModifyDamage(poisonPower.Owner.CombatState.RunState, poisonPower.Owner.CombatState, poisonPower.Owner, null, damage, ValueProp.Unblockable | ValueProp.Unpowered, null, ModifyDamageHookType.All, CardPreviewMode.None, out IEnumerable<AbstractModel> _);
             num += damage;
         }
         return (int)num;
