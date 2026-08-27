@@ -54,16 +54,16 @@ public static class DD2Helper
         DD2AudioManager.StopDD2Bgm();
     }
 
-    private static readonly Dictionary<Creature, NCreature?> _creaturesDoomed = new();
-    public static void RegisterNCreatureDoomed(Creature creature, NCreature? creatureNode)
+    private static readonly Dictionary<Creature, Vector2> _creaturesPosDoomed = new();
+    public static void RegisterCreaturePosDoomed(Creature creature, Vector2 pos)
     {
         if (creature == null) return;
-        _creaturesDoomed[creature] = creatureNode;
+        _creaturesPosDoomed[creature] = pos;
     }
-    public static void UnRegisterNCreatureDoomed(Creature creature)
+    public static void UnRegisterCreaturePosDoomed(Creature creature)
     {
         if (creature == null) return;
-        _creaturesDoomed.Remove(creature);
+        _creaturesPosDoomed.Remove(creature);
     }
 
     private static readonly Dictionary<Creature, Node2D> _activeDeathVfx = new();
@@ -87,16 +87,6 @@ public static class DD2Helper
 
         PlayDeathSfx(creature, DeathBlowName);
 
-        NCreature? nCreature = creature.GetCreatureNode();
-        if (nCreature == null)
-        {
-            nCreature = _creaturesDoomed.TryGetValue(creature, out var node) ? node : null;
-        }
-        if (nCreature == null)
-        {
-            return;   
-        }
-
         string NodeName = DeathBlowName;
         Node2D vfxNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/DD2Scenes/" + NodeName + ".tscn").Instantiate<Node2D>();
         if (vfxNode == null)
@@ -108,10 +98,24 @@ public static class DD2Helper
         {
             if (vfxNode.GetParent() == null && NGame.Instance != null)
             {
+                Vector2 globalPos;
+                Vector2 visualScale;
+
+                NCreature? nCreature = creature.GetCreatureNode();
+                if (nCreature == null || !GodotObject.IsInstanceValid(nCreature) ||
+                    nCreature.Visuals == null || !GodotObject.IsInstanceValid(nCreature.Visuals))
+                {
+                    _creaturesPosDoomed.TryGetValue(creature, out globalPos);
+                    visualScale = new Vector2(1, 1);
+                }
+                else
+                {
+                    globalPos = nCreature.Visuals.GetNodeOrNull<Marker2D>("%CenterPos")?.GlobalPosition ?? nCreature.GlobalPosition;
+                    visualScale = nCreature.Visuals.Scale;
+                }
                 NGame.Instance.RootSceneContainer.AddChild(vfxNode);
-                vfxNode.GlobalPosition = nCreature.Visuals.GetNodeOrNull<Marker2D>("%CenterPos")?.GlobalPosition ??
-                    nCreature.GlobalPosition;
-                vfxNode.Scale = nCreature.Visuals.Scale;
+                vfxNode.GlobalPosition = globalPos;
+                vfxNode.Scale = visualScale;
             }
         }
 
