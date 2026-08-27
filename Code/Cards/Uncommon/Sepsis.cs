@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Helper;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,6 +12,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Uncommon;
@@ -58,6 +60,11 @@ public class Sepsis : FlagellantCardModel
             {
                 if (PP != null && PP.Amount > 0 && cardPlay.Target != null && cardPlay.Target.IsAlive)
                 {
+                    if (CombatState != null)
+                    {
+                        //触发中毒之前若逻辑是先造成伤害再减少1层中毒则需要发出中毒触发通知，说明此次伤害是中毒造成的，让死门预测可以正确计算
+                        PoisonPowerHelper.BroadcastPoisonBeforeTriggered(CombatState, PP, PP.Amount);
+                    }
                     await CreatureCmd.Damage(choiceContext,
                         cardPlay.Target, PP.Amount, ValueProp.Unblockable | ValueProp.Unpowered,
                         null, this);

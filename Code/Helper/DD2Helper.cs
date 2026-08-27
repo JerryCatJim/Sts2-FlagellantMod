@@ -40,6 +40,13 @@ public static class DD2Helper
         //delta均为0时获取的是当前的状态，减去delta获取的是上次状态
         return creature != null && doomNum > 0 && (doomNum >= creature.CurrentHp - hpDelta);
     }
+    public static bool WillDieInPoison(Creature? creature, decimal hpDelta = 0m, decimal poisonDelta = 0m)
+    {
+        PoisonPower? poisonPower = creature?.GetPower<PoisonPower>();
+        //delta均为0时获取的是当前的状态，减去delta获取的是上次状态
+        return creature != null && poisonPower != null 
+            && (PoisonPowerHelper.CalculateTotalDamageNextTurn(poisonPower, poisonPower.Amount - (int)poisonDelta) >= creature.CurrentHp - hpDelta);
+    }
     public static void ResetAllValues()
     {
         DD2CombatSingleton.ResetValue();
@@ -47,9 +54,23 @@ public static class DD2Helper
         DD2AudioManager.StopDD2Bgm();
     }
 
+    private static readonly Dictionary<Creature, NCreature?> _creaturesDoomed = new();
+    public static void RegisterNCreatureDoomed(Creature creature, NCreature? creatureNode)
+    {
+        if (creature == null) return;
+        _creaturesDoomed[creature] = creatureNode;
+    }
+    public static void UnRegisterNCreatureDoomed(Creature creature)
+    {
+        if (creature == null) return;
+        _creaturesDoomed.Remove(creature);
+    }
+
     private static readonly Dictionary<Creature, Node2D> _activeDeathVfx = new();
     public static void PlayDeathVfx(Creature creature, string DeathBlowName)
     {
+        if (creature == null) return;
+
         if (_activeDeathVfx.TryGetValue(creature, out Node2D? vfx) && vfx != null)
         {
             //如果还在播放上一个特效时被打死，强制刷新播放致命一击特效
@@ -66,11 +87,17 @@ public static class DD2Helper
 
         PlayDeathSfx(creature, DeathBlowName);
 
-        string NodeName = DeathBlowName;
         NCreature? nCreature = creature.GetCreatureNode();
+        if (nCreature == null)
+        {
+            nCreature = _creaturesDoomed.TryGetValue(creature, out var node) ? node : null;
+        }
+        if (nCreature == null)
+        {
+            return;   
+        }
 
-        if (nCreature == null) return;
-
+        string NodeName = DeathBlowName;
         Node2D vfxNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/DD2Scenes/" + NodeName + ".tscn").Instantiate<Node2D>();
         if (vfxNode == null)
         {
