@@ -1,20 +1,20 @@
 {
   "FLAGELLANT.mod_title": "鞭笞者",
   "FLAGELLANT-SHOULD_USE_REMADE_CARD_IMAGE.title": "是否使用重绘版卡图(画师：男猫)",
-
   "FLAGELLANT-D_D2_CONFIG.title": "暗黑地牢2风格配置",
   "FLAGELLANT-SHOULD_PLAY_DEATH_DOOR_VFX_IF_DOOMED.title": "即将死于灾厄时是否播放死门特效",
   "FLAGELLANT-SHOULD_PLAY_DEATH_DOOR_VFX_IF_DOOMED.hover.title": "即将死于灾厄时是否播放死门特效",
   "FLAGELLANT-SHOULD_PLAY_DEATH_DOOR_VFX_IF_DOOMED.hover.desc": "若生命值或灾厄值变化后，你的当前生命值小于等于灾厄值，则进入死门状态。",
+  "FLAGELLANT-SHOULD_PLAY_DEATH_DOOR_VFX_IF_POISONED.title": "即将死于中毒时是否播放死门特效",
   "FLAGELLANT-SHOULD_PLAY_DEATH_DOOR_VFX_IF_LOW_HEALTH.title": "生命值过低时是否播放死门特效",
   "FLAGELLANT-SHOULD_PLAY_DEATH_DOOR_VFX_IF_LOW_HEALTH.hover.title": "生命值过低时是否播放死门特效",
   "FLAGELLANT-SHOULD_PLAY_DEATH_DOOR_VFX_IF_LOW_HEALTH.hover.desc": "若生命值降低后，你的当前生命值小于等于死门边界值，则进入死门状态。",
-  "FLAGELLANT-SHOW_DEATH_DOOR_VFX_HP_PERCENT.title": "播放死门特效的生命值百分比",
+  "FLAGELLANT-PLAYER_SHOW_DEATH_DOOR_VFX_HP_PERCENT.title": "玩家播放死门特效的生命值百分比",
+  "FLAGELLANT-MONSTER_SHOW_DEATH_DOOR_VFX_HP_PERCENT.title": "怪物播放死门特效的生命值百分比",
   "FLAGELLANT-SHOULD_PLAYER_SHOW_DEATH_DOOR_VFX.title": "玩家是否播放死门特效",
   "FLAGELLANT-SHOULD_MONSTER_SHOW_DEATH_DOOR_VFX.title": "怪物是否播放死门特效",
   "FLAGELLANT-SHOULD_PLAYER_SHOW_DEATH_BLOW_VFX.title": "玩家是否播放致命一击特效",
   "FLAGELLANT-SHOULD_MONSTER_SHOW_DEATH_BLOW_VFX.title": "怪物是否播放致命一击特效",
-
   "FLAGELLANT-ANIM_SECTION.title": "动画选项",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_AND_SOUND.title": "是否播放卡牌的选择和打出动画以及对应声音",
   "FLAGELLANT-SHOULD_PLAY_CARD_ANIM_AND_SOUND.hover.title": "是否播放卡牌的选择和打出动画以及对应声音",
@@ -28,11 +28,9 @@
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.title": "是否显示鞭笞者队友的选牌动画",
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.hover.title": "是否显示鞭笞者队友的选牌动画",
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.hover.desc": "勾选后可以看到联机模式的鞭笞者队友的选牌动画。",
-
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.title": "是否启用死门状态的站立动画",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.title": "当鞭笞者的当前生命值小于等于灾厄值时视为进入死门状态",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "勾选后，若鞭笞者处于死门状态，则常规站立动画会被切换为死门状态的站立动画。",
-
   "FLAGELLANT-DEATH_VFX_AND_BGM.title": "死神相关的视觉效果和背景音乐",
   "FLAGELLANT-SHOULD_SHOW_DEATH_ENCOUNTER_VFX.title": "是否播放与死神战斗时的全屏特效",
   "FLAGELLANT-SHOULD_PLAY_DEATH_ENCOUNTER_BGM.title": "是否播放与死神战斗时的背景音乐",

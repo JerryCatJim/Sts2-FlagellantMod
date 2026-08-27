@@ -15,17 +15,14 @@ public class FlagellantCombatSingleton : CustomSingletonModel, IAfterDeathDoor
 
     }
 
-    public async Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal doomPowerDelta, bool IsLowHealthTrigger)
+    public async Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal powerDelta, DeathDoorType type)
     {
-        if (DD2Helper.IsFlagellant(creature) && FlagellantConfig.ShouldUseDeathDoorIdle)
+        if (DD2Helper.IsFlagellant(creature) && FlagellantConfig.ShouldUseDeathDoorIdle && type == DeathDoorType.Doom)
         {
             FlagellantHelper.ResetAdvancedConditions(null, creature);
-            if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, healthDelta, doomPowerDelta))
+            if (FlagellantHelper.IsInAnyIdle(null, creature))
             {
-                if (FlagellantHelper.IsInAnyIdle(null, creature))
-                {
-                    await CreatureCmd.TriggerAnim(creature, DD2Helper.WillDieInDoom(creature) ? "DeathDoor" : "Revive", 0f);
-                }
+                await CreatureCmd.TriggerAnim(creature, DD2Helper.WillDieInDoom(creature) ? "DeathDoor" : "Revive", 0f);
             }
         }
     }

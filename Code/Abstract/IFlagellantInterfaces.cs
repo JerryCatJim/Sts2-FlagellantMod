@@ -22,9 +22,16 @@ public interface IAfterComboChanged
     public Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource);
 }
 
+public enum DeathDoorType
+{
+    LowHealth,
+    Doom,
+    Poison
+}
+
 public interface IAfterDeathDoor
 {
-    public Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal doomPowerDelta, bool IsLowHealthTrigger);
+    public Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal powerDelta, DeathDoorType Type);
 }
 
 public interface IOnResoluteOrMeltdownChanged

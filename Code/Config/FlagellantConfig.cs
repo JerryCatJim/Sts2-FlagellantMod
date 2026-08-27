@@ -10,9 +10,12 @@ internal class FlagellantConfig : SimpleModConfig
 
     [ConfigSection("DD2Config")]
     public static bool ShouldPlayDeathDoorVfxIfDoomed { get; set; } = true;
+    public static bool ShouldPlayDeathDoorVfxIfPoisoned { get; set; } = true;
     public static bool ShouldPlayDeathDoorVfxIfLowHealth { get; set; } = true;
     [ConfigSlider(0, 100, 1, Format = "{0:0} %")]
-    public static int ShowDeathDoorVfxHpPercent { get; set; } = 25;
+    public static int PlayerShowDeathDoorVfxHpPercent { get; set; } = 25;
+    [ConfigSlider(0, 100, 1, Format = "{0:0} %")]
+    public static int MonsterShowDeathDoorVfxHpPercent { get; set; } = 10;
     public static bool ShouldPlayerShowDeathDoorVfx { get; set; } = true;
     public static bool ShouldMonsterShowDeathDoorVfx { get; set; } = true;
     public static bool ShouldPlayerShowDeathBlowVfx { get; set; } = true;
