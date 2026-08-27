@@ -2,6 +2,7 @@ using BaseLib.Abstracts;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -9,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace Flagellant.Code.Singleton;
 
@@ -123,12 +125,18 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
         {
             if (DD2Helper.WillDieInDoom(creature))
             {
-                DD2Helper.RegisterNCreatureDoomed(creature, creature.GetCreatureNode());
+                NCreature? nCreature = creature.GetCreatureNode();
+                if (!(nCreature == null || !GodotObject.IsInstanceValid(nCreature) ||
+                    nCreature.Visuals == null || !GodotObject.IsInstanceValid(nCreature.Visuals)))
+                {
+                    Vector2 globalPos = nCreature.Visuals.GetNodeOrNull<Marker2D>("%CenterPos")?.GlobalPosition ?? nCreature.GlobalPosition;
+                    DD2Helper.RegisterCreaturePosDoomed(creature, globalPos);
+                }
                 await BroadcastDeathDoorEvent(creature, 0, 0, DeathDoorType.Doom);
             }
             else
             {
-                DD2Helper.UnRegisterNCreatureDoomed(creature);
+                DD2Helper.UnRegisterCreaturePosDoomed(creature);
             }
         }
     }
@@ -140,7 +148,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
             //用AfterDeath会导致PlayDeathVfx内部取不到NCreature，因为它在AfterDeath通知之前被清理了
             DD2Helper.PlayDeathVfx(creature, "DeathBlow");
         }
-        DD2Helper.UnRegisterNCreatureDoomed(creature);
+        DD2Helper.UnRegisterCreaturePosDoomed(creature);
         return Task.CompletedTask;
     }
 
