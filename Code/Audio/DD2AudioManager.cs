@@ -37,6 +37,19 @@ public class DD2AudioManager
             return _deathDoorAudioPlayer;
         }
     }
+    private static AudioStreamPlayer? _deathBlowAudioPlayer;
+    public static AudioStreamPlayer DeathBlowAudioPlayer
+    {
+        get
+        {
+            // IsInstanceValid 能同时检测 null 和已被 QueueFree 的对象
+            if (!GodotObject.IsInstanceValid(_deathBlowAudioPlayer))
+            {
+                _deathBlowAudioPlayer = new AudioStreamPlayer();
+            }
+            return _deathBlowAudioPlayer;
+        }
+    }
     private static AudioStreamPlayer? _dd2BgmPlayer;
     public static AudioStreamPlayer DD2BgmPlayer
     {
@@ -70,7 +83,7 @@ public class DD2AudioManager
         }
 
         //单例模式的audioPlayer，不要手动释放
-        var audioPlayer = bIsTemp ? new AudioStreamPlayer() : GetPlayerAudioPlayer(AudioName);
+        var audioPlayer = bIsTemp ? new AudioStreamPlayer() : GetDD2AudioPlayer(AudioName);
 
         audioPlayer.VolumeDb = 0.0f;
         audioPlayer.VolumeDb += VolumeDb;
@@ -141,15 +154,19 @@ public class DD2AudioManager
         NAudioManager.Instance?.SetBgmVol(SaveManager.Instance.SettingsSave.VolumeBgm);
     }
 
-    private static AudioStreamPlayer GetPlayerAudioPlayer(string audioName)
+    private static AudioStreamPlayer GetDD2AudioPlayer(string audioName)
     {
         if (audioName.Contains("Stress"))
         {
             return StressAudioPlayer;
         }
-        else if (audioName.Contains("DeathDoor") || (audioName.Contains("DeathBlow")))
+        else if (audioName.Contains("DeathDoor"))
         {
             return DeathDoorAudioPlayer;
+        }
+        else if (audioName.Contains("DeathBlow"))
+        {
+            return DeathBlowAudioPlayer;
         }
         return new AudioStreamPlayer();
     }
