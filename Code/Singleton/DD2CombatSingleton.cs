@@ -63,28 +63,32 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
 
         //因为毒触发时是先造成伤害再减1层数，所以如果是毒造成的伤害，需要检测是否死于中毒时传入1层delta来预测减1层以正确计算
         decimal PoisonDelta = _beforeTriggeredPoisons.TryGetValue(creature, out var poisonPower) && poisonPower != null ? 1 : 0;
-
-        if ((100m * creature.CurrentHp / creature.MaxHp) <= GetDeathDoorPercent(creature)
-            && (100m * (creature.CurrentHp - delta) / creature.MaxHp) > GetDeathDoorPercent(creature))
+        
+        if (DD2Helper.WillDieInPoison(creature, 0, PoisonDelta))
         {
-            await BroadcastDeathDoorEvent(creature, delta, 0, DeathDoorType.LowHealth);
-        }
-        else if (DD2Helper.WillDieInPoison(creature, 0, PoisonDelta) != DD2Helper.WillDieInPoison(creature, delta, 0))
-        {
-            if (DD2Helper.WillDieInPoison(creature))
+            if (!DD2Helper.WillDieInPoison(creature, delta, 0))
             {
+                //预计算的这一层PoisonDelta要不要广播出去？
                 await BroadcastDeathDoorEvent(creature, delta, PoisonDelta, DeathDoorType.Poison);
             }
         }
-        else if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, delta, 0))
+        else if (DD2Helper.WillDieInDoom(creature))
         {
-            if (DD2Helper.WillDieInDoom(creature))
+            if (!DD2Helper.WillDieInDoom(creature, delta, 0))
             {
                 TryRegisterCreaturePosDoomed(creature);
                 if (creature.CombatState?.CurrentSide == creature.Side)
                 {
                     await BroadcastDeathDoorEvent(creature, delta, 0, DeathDoorType.Doom);
                 }
+            }
+        }
+        else if ((100m * creature.CurrentHp / creature.MaxHp) <= GetDeathDoorPercent(creature))
+        {
+            if ((100m * (creature.CurrentHp - delta) / creature.MaxHp) > GetDeathDoorPercent(creature) 
+                || ((100m * (creature.CurrentHp - delta) / creature.MaxHp) == GetDeathDoorPercent(creature) && GetDeathDoorPercent(creature) == 100m))
+            {
+                await BroadcastDeathDoorEvent(creature, delta, 0, DeathDoorType.LowHealth);
             }
         }
     }
@@ -101,19 +105,19 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
                 _beforeTriggeredPoisons.Remove(power.Owner);
                 return;
             }
-            if (DD2Helper.WillDieInPoison(creature) != DD2Helper.WillDieInPoison(creature, 0, amount))
+            if (DD2Helper.WillDieInPoison(creature))
             {
-                if (DD2Helper.WillDieInPoison(creature))
+                if (!DD2Helper.WillDieInPoison(creature, 0, amount))
                 {
                     await BroadcastDeathDoorEvent(creature, 0, amount, DeathDoorType.Poison);
                 }
             }
         }
-        else if (power is DoomPower && amount > 0)
+        else if (power is DoomPower)
         {
-            if (DD2Helper.WillDieInDoom(creature) != DD2Helper.WillDieInDoom(creature, 0, amount))
+            if (DD2Helper.WillDieInDoom(creature) && amount > 0)
             {
-                if (DD2Helper.WillDieInDoom(creature))
+                if (!DD2Helper.WillDieInDoom(creature, 0, amount))
                 {
                     TryRegisterCreaturePosDoomed(creature);
                     if (creature.CombatState?.CurrentSide == creature.Side)
@@ -171,7 +175,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
     public Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal powerDelta, DeathDoorType type)
     {
         if (!ShouldPlayDeathDoorVfx(creature)) return Task.CompletedTask;
-        //if (DD2Helper.IsFlagellant(creature) && type == DeathDoorType.Poison) return Task.CompletedTask;
+        if (DD2Helper.IsFlagellant(creature) && type == DeathDoorType.Poison) return Task.CompletedTask;
 
         if ((type == DeathDoorType.LowHealth && FlagellantConfig.ShouldPlayDeathDoorVfxIfLowHealth)
             || (type == DeathDoorType.Doom && FlagellantConfig.ShouldPlayDeathDoorVfxIfDoomed)

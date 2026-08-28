@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 
 namespace Flagellant.Code.Helper;
 
@@ -52,6 +53,11 @@ public static class DD2Helper
         DD2CombatSingleton.ResetValue();
         DeathListenForRunStateSingleton.ResetValue();
         DD2AudioManager.StopDD2Bgm();
+        ResetCombatDictionaries();
+    }
+
+    public static void ResetCombatDictionaries()
+    {
         _creaturesPosDoomed.Clear();
         _activeDeathVfx.Clear();
     }
@@ -98,29 +104,34 @@ public static class DD2Helper
             Log.Info("[DD2Helper PlayDeathVfx]: " + NodeName + ".tscn load failed.");
             return;
         }
+
+        if (NCombatRoom.Instance != null && NCombatRoom.Instance.CombatVfxContainer != null)
+        {
+            Vector2 globalPos;
+            Vector2 visualScale;
+
+            NCreature? nCreature = creature.GetCreatureNode();
+            if (nCreature == null || !GodotObject.IsInstanceValid(nCreature) ||
+                nCreature.Visuals == null || !GodotObject.IsInstanceValid(nCreature.Visuals))
+            {
+                _creaturesPosDoomed.TryGetValue(creature, out globalPos);
+                visualScale = new Vector2(1, 1);
+            }
+            else
+            {
+                globalPos = nCreature.Visuals.GetNodeOrNull<Marker2D>("%CenterPos")?.GlobalPosition ?? nCreature.GlobalPosition;
+                visualScale = nCreature.Visuals.Scale;
+            }
+            if (vfxNode.GetParent() == null)
+            {
+                NCombatRoom.Instance.CombatVfxContainer.AddChild(vfxNode);
+            }
+            vfxNode.GlobalPosition = globalPos;
+            vfxNode.Scale = visualScale;
+        }
         else
         {
-            if (vfxNode.GetParent() == null && NGame.Instance != null)
-            {
-                Vector2 globalPos;
-                Vector2 visualScale;
-
-                NCreature? nCreature = creature.GetCreatureNode();
-                if (nCreature == null || !GodotObject.IsInstanceValid(nCreature) ||
-                    nCreature.Visuals == null || !GodotObject.IsInstanceValid(nCreature.Visuals))
-                {
-                    _creaturesPosDoomed.TryGetValue(creature, out globalPos);
-                    visualScale = new Vector2(1, 1);
-                }
-                else
-                {
-                    globalPos = nCreature.Visuals.GetNodeOrNull<Marker2D>("%CenterPos")?.GlobalPosition ?? nCreature.GlobalPosition;
-                    visualScale = nCreature.Visuals.Scale;
-                }
-                NGame.Instance.RootSceneContainer.AddChild(vfxNode);
-                vfxNode.GlobalPosition = globalPos;
-                vfxNode.Scale = visualScale;
-            }
+            vfxNode.QueueFreeSafely();
         }
 
         var AnimPlayer = vfxNode.GetNodeOrNull<AnimationPlayer>(NodeName + "AnimPlayer");
@@ -152,6 +163,20 @@ public static class DD2Helper
         else if (DeathBlowName == "DeathDoor")
         {
             DD2AudioManager.PlayDD2Sfx("DeathDoor", false, false, -4);
+        }
+    }
+
+    public static void ReparentActiveVfxNodes()
+    {
+        foreach (KeyValuePair<Creature, Node2D> pairs in _activeDeathVfx)
+        {
+            if (pairs.Value != null)
+            {
+                if (NGame.Instance != null && NGame.Instance.RootSceneContainer != null)
+                {
+                    pairs.Value.Reparent(NGame.Instance.RootSceneContainer);
+                }
+            }
         }
     }
 }

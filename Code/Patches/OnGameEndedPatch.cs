@@ -9,6 +9,7 @@ public static class OnGameEndedPatch
 {
     public static void Postfix()
     {
+        DD2Helper.ReparentActiveVfxNodes();
         DD2Helper.ResetAllValues();
     }
 }
