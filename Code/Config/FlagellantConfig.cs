@@ -9,8 +9,8 @@ internal class FlagellantConfig : SimpleModConfig
     public static bool ShouldUseRemadeCardImage { get; set; } = true;
 
     [ConfigSection("DD2Config")]
-    public static bool ShouldPlayDeathDoorVfxIfDoomed { get; set; } = true;
     public static bool ShouldPlayDeathDoorVfxIfPoisoned { get; set; } = true;
+    public static bool ShouldPlayDeathDoorVfxIfDoomed { get; set; } = true;
     public static bool ShouldPlayDeathDoorVfxIfLowHealth { get; set; } = true;
     [ConfigSlider(0, 100, 1, Format = "{0:0} %")]
     public static int PlayerShowDeathDoorVfxHpPercent { get; set; } = 25;
