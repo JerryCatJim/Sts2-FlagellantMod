@@ -16,7 +16,7 @@ public class PsychologyConsulting : FlagellantCardModel
 {
     public PsychologyConsulting() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithVar("Multiplier", 2, 1);
+        WithVar("Multiplier", 1, 1);
         WithCalculatedVar("CalculatedHealing", 0,
             ((CardModel card, Creature? target) =>
             {
