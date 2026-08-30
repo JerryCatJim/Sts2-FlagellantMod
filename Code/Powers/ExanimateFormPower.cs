@@ -1,15 +1,15 @@
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Cards.Token;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Powers;
 
-public sealed class ExanimateFormPower : FlagellantPowerModel, IAfterStressChanged
+public sealed class ExanimateFormPower : FlagellantPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
@@ -17,14 +17,14 @@ public sealed class ExanimateFormPower : FlagellantPowerModel, IAfterStressChang
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<StressPower>(),
-        HoverTipFactory.FromPower<PoisonPower>(),
+        HoverTipFactory.FromCard<Penance>()
     ];
-    public async Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (amount <= 0 || power.Owner != base.Owner) return;
-
-        Flash();
-        await PowerCmd.Apply<PoisonPower>(choiceContext, base.CombatState.HittableEnemies, base.Amount, base.Owner, null);
+        if (participants.Contains(base.Owner) && base.Owner.Player != null)  //if (side == base.Owner.Side)
+        {
+            IEnumerable<Penance> enumerable = Penance.Create(base.Owner.Player, Amount, base.CombatState);
+            await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Hand, base.Owner.Player);
+        }
     }
 }

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Runs;
@@ -17,11 +18,24 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("HealingHp", 0)
+    ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<DoomPower>(),
         HoverTipFactory.FromPower<StressPower>()
     ];
+
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        if (power.Owner != Owner || (power is not SufferPower && power is not WeightTrainingPower)) return Task.CompletedTask;
+
+        DynamicVars["HealingHp"].BaseValue = GetHealingPercentHp(Amount) + GetExtraHealingHp(base.Owner);
+        InvokeDisplayAmountChanged();
+        return Task.CompletedTask;
+    }
 
     public async Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {

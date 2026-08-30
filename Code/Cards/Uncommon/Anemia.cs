@@ -4,6 +4,7 @@ using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Flagellant.Code.Cards.Uncommon;
 
@@ -13,6 +14,8 @@ public class Anemia : FlagellantCardModel
     public Anemia() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithPower<AnemiaPower>(1,1);
+        WithPowerTip<StressPower>();
+        WithPowerTip<PoisonPower>();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
