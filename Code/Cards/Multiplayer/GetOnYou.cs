@@ -2,6 +2,7 @@ using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
 using Flagellant.Code.Core;
+using Flagellant.Code.Helper;
 using Flagellant.Code.Powers;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -22,7 +23,7 @@ public class GetOnYou : FlagellantCardModel
         WithStress(2, 1);
         WithPower<StrengthPower>(2, 2);
         WithPower<PoisonPower>(2);
-        WithTip(new TooltipSource((CardModel _) => FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
+        WithTip(new TooltipSource((CardModel _) => RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
         WithAnimName("More");
     }
 
@@ -36,7 +37,7 @@ public class GetOnYou : FlagellantCardModel
         {
             await CommonActions.Apply<GetOnYouPower>(choiceContext, creature, this, base.DynamicVars.Strength.BaseValue);
         }
-        if(FlagellantModel.IsInResoluteOrMeltdown<ToxicMeltdown>(base.Owner))
+        if(RMHelper.IsInResoluteOrMeltdown<ToxicMeltdown>(base.Owner))
         {
             await CommonActions.Apply<PoisonPower>(choiceContext, playerCreatures, this);
         }

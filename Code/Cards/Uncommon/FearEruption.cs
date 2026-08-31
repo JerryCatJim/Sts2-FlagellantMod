@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Hooks;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -26,7 +27,12 @@ public class FearEruption : FlagellantCardModel
                 }
                 else
                 {
-                    return (myCard.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m) + myCard.GetStressBeforeReceived();
+                    decimal delta = 0m;
+                    if (myCard.DynamicVars.TryGetValue("StressPower", out var dynamicVar))
+                    {
+                        delta = dynamicVar.BaseValue;
+                    }
+                    return DD2Hooks.ModifyStressPower(myCard.Owner.Creature.GetPower<StressPower>(), delta, myCard.Owner.Creature, myCard.Owner.Creature, myCard);
                 }
             }
             return 0;
@@ -36,7 +42,7 @@ public class FearEruption : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _calculatedStress = (base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m) + GetStressBeforeReceived();
+        _calculatedStress = DD2Hooks.ModifyStressPower(Owner.Creature.GetPower<StressPower>(), DynamicVars["StressPower"].BaseValue, Owner.Creature, Owner.Creature, this);
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         _calculatedStress = 0;

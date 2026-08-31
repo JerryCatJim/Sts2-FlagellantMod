@@ -17,7 +17,7 @@ public class ManiacForm : FlagellantCardModel
     {
         WithAnimName("More");
         WithPower<ManiacFormPower>(1);
-        WithTip(new TooltipSource((CardModel _) => FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
+        WithTip(new TooltipSource((CardModel _) => RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
         WithEnergy(1);
         WithKeyword(CardKeyword.Retain, UpgradeType.Add);
     }

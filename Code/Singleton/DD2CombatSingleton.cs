@@ -59,7 +59,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
 
     public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
     {
-        if (delta >= 0 || creature.IsDead) return;
+        if (delta >= 0 || creature == null || creature.IsDead) return;
 
         //因为毒触发时是先造成伤害再减1层数，所以如果是毒造成的伤害，需要检测是否死于中毒时传入1层delta来预测减1层以正确计算
         decimal PoisonDelta = _beforeTriggeredPoisons.TryGetValue(creature, out var poisonPower) && poisonPower != null ? 1 : 0;
@@ -83,10 +83,10 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
                 }
             }
         }
-        else if ((100m * creature.CurrentHp / creature.MaxHp) <= GetDeathDoorPercent(creature))
+        else if (DD2Helper.IsInDeathDoorHp(creature))
         {
-            if ((100m * (creature.CurrentHp - delta) / creature.MaxHp) > GetDeathDoorPercent(creature) 
-                || ((100m * (creature.CurrentHp - delta) / creature.MaxHp) == GetDeathDoorPercent(creature) && GetDeathDoorPercent(creature) == 100m))
+            if (!DD2Helper.IsInDeathDoorHp(creature, delta)
+                || ((100m * (creature.CurrentHp - delta) / creature.MaxHp) == DD2Helper.GetDeathDoorPercent(creature) && DD2Helper.GetDeathDoorPercent(creature) == 100m))
             {
                 await BroadcastDeathDoorEvent(creature, delta, 0, DeathDoorType.LowHealth);
             }
@@ -196,20 +196,6 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
             {
                 await myModel.AfterDeathDoor(creature, healthDelta, powerDelta, type);
             }
-        }
-    }
-
-    private decimal GetDeathDoorPercent(Creature creature)
-    {
-        if (creature == null) return 0m;
-
-        if (creature.IsPlayer)
-        {
-            return (decimal)FlagellantConfig.PlayerShowDeathDoorVfxHpPercent;
-        }
-        else
-        {
-            return (decimal)FlagellantConfig.MonsterShowDeathDoorVfxHpPercent;
         }
     }
 

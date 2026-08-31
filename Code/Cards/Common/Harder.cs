@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Hooks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -27,7 +28,7 @@ public class Harder : FlagellantCardModel
         await CreatureCmd.Heal(base.Owner.Creature, healNum);
         if (Owner.Creature.GetPower<DoomPower>() is DoomPower doomP && IsUpgraded)
         {
-            await PowerCmd.ModifyAmount(choiceContext, doomP, -(healNum + GetExtraHealingHp(base.Owner.Creature)), Owner.Creature, this);
+            await PowerCmd.ModifyAmount(choiceContext, doomP, -DD2Hooks.ModifyHealingHp(base.Owner.Creature, healNum), Owner.Creature, this);
         }
         await CommonActions.Draw(this, choiceContext);
     }

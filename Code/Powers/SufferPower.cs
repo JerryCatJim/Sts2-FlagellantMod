@@ -1,5 +1,6 @@
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Cards.Rare;
+using Flagellant.Code.Hooks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -8,7 +9,6 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Powers;
 
@@ -32,7 +32,7 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
     {
         if (power.Owner != Owner || (power is not SufferPower && power is not WeightTrainingPower)) return Task.CompletedTask;
 
-        DynamicVars["HealingHp"].BaseValue = GetHealingPercentHp(Amount) + GetExtraHealingHp(base.Owner);
+        DynamicVars["HealingHp"].BaseValue = DD2Hooks.ModifyHealingHp(Owner, GetHealingPercentHp(Amount));
         InvokeDisplayAmountChanged();
         return Task.CompletedTask;
     }
@@ -47,25 +47,7 @@ public sealed class SufferPower : FlagellantPowerModel, IAfterStressChanged
         if (base.Owner.GetPower<DoomPower>() is DoomPower DPwr)
         {
             Flash();
-            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), DPwr, -(healAmount + GetExtraHealingHp(base.Owner)), base.Owner, ModelDb.Card<Suffer>());
+            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), DPwr, -DD2Hooks.ModifyHealingHp(Owner, healAmount), base.Owner, ModelDb.Card<Suffer>());
         }
-    }
-
-    private decimal GetExtraHealingHp(Creature creature)
-    {
-        decimal num = 999;
-        IRunState? runState = creature.Player?.RunState;
-        if (runState != null)
-        {
-            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
-            {
-                if (item is IModifyHpAmountReceived myModel)
-                {
-                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
-                    num = myModifiedAmount;
-                }
-            }
-        }
-        return num - 999;
     }
 }

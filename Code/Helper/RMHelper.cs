@@ -1,24 +1,31 @@
-using BaseLib.Abstracts;
 using BaseLib.Utils;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
-using Flagellant.Code.Events;
 using Flagellant.Code.ResoluteOrMeltdown;
+using Flagellant.Code.Hooks;
+using Flagellant.Code.Core;
+using MegaCrit.Sts2.Core.Combat;
 
-namespace Flagellant.Code.Core;
+namespace Flagellant.Code.Helper;
 
-public class FlagellantModel() : CustomSingletonModel(HookType.Combat)
+public static class RMHelper
 {
     private static readonly SpireField<Player, ResoluteOrMeltdownModel> ActiveRM =
-        new(FlagellantModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>);
-
-
+        new(RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>);
+    
+    public static bool InitActiveRM(CombatState? State)
+    {
+        if (State == null) return false;
+        foreach (var player in State.Players)
+        {
+            ActiveRM[player] = RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
+        }
+        return true;
+    }
     public static ResoluteOrMeltdownModel GetResoluteOrMeltdownModel(Player player)
     {
-        return ActiveRM[player] ?? FlagellantModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
+        return ActiveRM[player] ?? RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
     }
 
     public static bool IsInResoluteOrMeltdown<T>(Player player) where T : ResoluteOrMeltdownModel
@@ -29,7 +36,7 @@ public class FlagellantModel() : CustomSingletonModel(HookType.Combat)
 
     public static async Task SetResoluteOrMeltdown<T>(PlayerChoiceContext ctx, Player player, CardModel? source) where T : ResoluteOrMeltdownModel
     {
-        await SetResoluteOrMeltdown(ctx, player, FlagellantModelDb.ResoluteOrMeltdown<T>(), source);
+        await SetResoluteOrMeltdown(ctx, player, RMModelDb.ResoluteOrMeltdown<T>(), source);
     }
 
     private static async Task SetResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel newCanonical, CardModel? source)
@@ -46,20 +53,6 @@ public class FlagellantModel() : CustomSingletonModel(HookType.Combat)
         await mutable.OnEnterResoluteOrMeltdown(ctx, player, source);
 
         //var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
-        await FlagellantHook.OnResoluteOrMeltdownChanged(ctx, player, current!, ActiveRM[player]!);
+        await DD2Hooks.OnResoluteOrMeltdownChanged(ctx, player, current!, ActiveRM[player]!);
     }
-
-    public override Task BeforeCombatStart()
-    {
-        var state = CombatManager.Instance.DebugOnlyGetState();
-        if (state == null) return Task.CompletedTask;
-
-        foreach (var player in state.Players)
-        {
-            ActiveRM[player] = FlagellantModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
-        }
-
-        return Task.CompletedTask;
-    }
-    public override bool ShouldReceiveCombatHooks => true;
 }

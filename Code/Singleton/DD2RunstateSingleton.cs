@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using Flagellant.Code.Helper;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Rooms;
 
 namespace Flagellant.Code.Singleton;
@@ -11,10 +12,25 @@ public class DD2RunstateSingleton : CustomSingletonModel
 
     }
 
+    public static CombatState? CombatState { get; set; }
+
     public override Task AfterRoomEntered(AbstractRoom room)
     {
         DD2CombatSingleton.ResetValue(); 
         DD2Helper.ResetCombatDictionaries();
+
+        if (room is CombatRoom combatRoom)
+        {
+            CombatState = combatRoom.CombatState;
+        }
+        return Task.CompletedTask;
+    }
+
+    public override Task BeforeCombatStart()
+    {
+        if (CombatState == null) return Task.CompletedTask;
+
+        RMHelper.InitActiveRM(CombatState);
 
         return Task.CompletedTask;
     }

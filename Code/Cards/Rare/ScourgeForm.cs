@@ -20,7 +20,7 @@ public class ScourgeForm : FlagellantCardModel
         WithPower<ScourgeFormPower>(1);
         WithPower<ToxicFormPower>(2);
         WithPowerTip<PoisonPower>();
-        WithTip(new TooltipSource((CardModel _) => FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
+        WithTip(new TooltipSource((CardModel _) => RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
         WithCostUpgradeBy(-1);
         WithVar("AdditionalHpPercent", 15);
     }
