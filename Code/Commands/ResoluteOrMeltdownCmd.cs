@@ -1,4 +1,3 @@
-using Flagellant.Code.Core;
 using Flagellant.Code.Helper;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -19,17 +18,17 @@ public static class RMCmd
     }
     public static Task EnterToxic(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
-        return FlagellantModel.SetResoluteOrMeltdown<ToxicMeltdown>(ctx, player, cardSource);
+        return RMHelper.SetResoluteOrMeltdown<ToxicMeltdown>(ctx, player, cardSource);
     }
 
     public static Task EnterResoluteOrMeltdown<T>(PlayerChoiceContext ctx, Player player, CardModel? cardSource) where T : ResoluteOrMeltdownModel
     {
-        return FlagellantModel.SetResoluteOrMeltdown<T>(ctx, player, cardSource);
+        return RMHelper.SetResoluteOrMeltdown<T>(ctx, player, cardSource);
     }
 
     public static Task ExitResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
-        return FlagellantModel.SetResoluteOrMeltdown<NoResoluteAndMeltdown>(ctx, player, cardSource);
+        return RMHelper.SetResoluteOrMeltdown<NoResoluteAndMeltdown>(ctx, player, cardSource);
     }
     private static Task EnterRandomResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {

@@ -32,7 +32,7 @@ public abstract class FlagellantCardModel(
     protected bool HasAnyPoisonedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>()) ?? false;
     protected FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
     {
-        WithTip(new TooltipSource(_ => FlagellantHoverTipFactory.FromResoluteOrMeltdown<T>()));
+        WithTip(new TooltipSource(_ => RMHoverTipFactory.FromResoluteOrMeltdown<T>()));
         return this;
     }
     protected FlagellantCardModel WithAnimName(string AnimName)

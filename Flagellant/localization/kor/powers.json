@@ -93,5 +93,8 @@
   "FLAGELLANT-WAR_FEEDS_WAR_POWER.smartDescription": "[gold]스트레스[/gold]를 [blue]{GainStressAmount:diff()}[/blue] 얻을 때마다, 다음에 내는 공격 카드가 [gold]연계[/gold]를 부여합니다.",
   "FLAGELLANT-SAMSARA_POWER.title": "윤회",
   "FLAGELLANT-SAMSARA_POWER.description": "다음 턴 시작 시, 체력을 [blue]X[/blue] 회복합니다.",
-  "FLAGELLANT-SAMSARA_POWER.smartDescription": "다음 턴 시작 시, 체력을 [blue]{Amount}[/blue] 회복합니다."
+  "FLAGELLANT-SAMSARA_POWER.smartDescription": "다음 턴 시작 시, 체력을 [blue]{Amount}[/blue] 회복합니다.",
+  "FLAGELLANT-DEATH_ARMOR_POWER.title": "죽음 저항",
+  "FLAGELLANT-DEATH_ARMOR_POWER.description": "[red]죽음의 일격[/red]을 [blue]X[/blue]회 방지.",
+  "FLAGELLANT-DEATH_ARMOR_POWER.smartDescription": "[red]죽음의 일격[/red]을 [blue]{Amount}[/blue]회 방지."
 }

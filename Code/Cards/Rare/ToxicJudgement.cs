@@ -1,7 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Core;
+using Flagellant.Code.Helper;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -17,7 +17,7 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class ToxicJudgement : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => HasAnyPoisonedEnemy || FlagellantModel.IsInResoluteOrMeltdown<ToxicMeltdown>(base.Owner);
+    protected override bool ShouldGlowGoldInternal => HasAnyPoisonedEnemy || RMHelper.IsInResoluteOrMeltdown<ToxicMeltdown>(base.Owner);
     public ToxicJudgement() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithDamage(26, 6);

@@ -1,6 +1,8 @@
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Audio;
+using Flagellant.Code.Config;
 using Flagellant.Code.Monster;
+using Flagellant.Code.Powers;
 using Flagellant.Code.Singleton;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
@@ -35,6 +37,10 @@ public static class DD2Helper
     {
         return player != null && player.Character is IGetDD2CharacterType DD2Character && DD2Character.TryGetCharacterType() == "Flagellant";
     }
+    public static bool IsInDeathDoor(Creature? creature)
+    {
+        return WillDieInPoison(creature) || WillDieInDoom(creature) || IsInDeathDoorHp(creature);
+    }
     public static bool WillDieInDoom(Creature? creature, decimal hpDelta = 0m, decimal doomDelta = 0m)
     {
         decimal doomNum = (creature?.GetPower<DoomPower>()?.Amount ?? 0) - doomDelta;
@@ -48,6 +54,33 @@ public static class DD2Helper
         return creature != null && poisonPower != null 
             && (PoisonPowerHelper.CalculateTotalDamageNextTurn(poisonPower, poisonPower.Amount - (int)poisonDelta) >= creature.CurrentHp - hpDelta);
     }
+    public static bool IsInDeathDoorHp(Creature? creature, decimal hpDelta = 0m)
+    {
+        //delta均为0时获取的是当前的状态，减去delta获取的是上次状态
+        return creature != null && (100m * (creature.CurrentHp - hpDelta) / creature.MaxHp) <= GetDeathDoorPercent(creature);
+    }
+    public static bool IsLowHealth(Creature? creature, decimal Percent = 30m)
+    {
+        if (creature == null) return false;
+
+        return 100m * creature.CurrentHp / creature.MaxHp <= Percent;
+    }
+
+    public static bool IsStressGreaterEqual(Creature? creature, decimal num = 5m)
+    {
+        if (creature == null) return false;
+
+        return creature.GetPower<StressPower>() is StressPower stressPower && stressPower.Amount >= num;
+    }
+
+    public static bool IsStressLessEqual(Creature? creature, decimal num = 5m)
+    {
+        if (creature == null) return false;
+
+        StressPower? stressPower = creature.GetPower<StressPower>();
+        return stressPower == null || (stressPower != null && stressPower.Amount <= num);
+    }
+
     public static void ResetAllValues()
     {
         DD2CombatSingleton.ResetValue();
@@ -56,10 +89,25 @@ public static class DD2Helper
         ResetCombatDictionaries();
     }
 
+    public static decimal GetDeathDoorPercent(Creature creature)
+    {
+        if (creature == null) return 0m;
+
+        if (creature.IsPlayer)
+        {
+            return (decimal)FlagellantConfig.PlayerShowDeathDoorVfxHpPercent;
+        }
+        else
+        {
+            return (decimal)FlagellantConfig.MonsterShowDeathDoorVfxHpPercent;
+        }
+    }
+
     public static void ResetCombatDictionaries()
     {
         _creaturesPosDoomed.Clear();
         _activeDeathVfx.Clear();
+        _lastVfxName.Clear();
     }
 
     private static readonly Dictionary<Creature, Vector2> _creaturesPosDoomed = new();
@@ -77,25 +125,40 @@ public static class DD2Helper
     }
 
     private static readonly Dictionary<Creature, Node2D> _activeDeathVfx = new();
+    private static readonly Dictionary<Creature, string> _lastVfxName = new();
     public static void PlayDeathVfx(Creature creature, string DeathBlowName)
     {
         if (creature == null) return;
 
+        bool shouldPlaySfx = true;
         if (_activeDeathVfx.TryGetValue(creature, out Node2D? vfx) && vfx != null)
         {
             //如果还在播放上一个特效时被打死，强制刷新播放致命一击特效
             if (DeathBlowName == "DeathBlow")
             {
                 _activeDeathVfx.Remove(creature);
+                _lastVfxName.Remove(creature);
                 vfx.QueueFreeSafely();
             }
-            else
+            else if (DeathBlowName == "DeathArmor")
+            {
+                //连续击破死亡护甲时仅刷新动画不重放声音
+                shouldPlaySfx = !_lastVfxName.TryGetValue(creature, out string? name) || name != "DeathArmor";
+
+                _activeDeathVfx.Remove(creature);
+                _lastVfxName.Remove(creature);
+                vfx.QueueFreeSafely();
+            }
+            else //DeathDoor则不刷新
             {
                 return;
             }
         }
 
-        PlayDeathSfx(creature, DeathBlowName);
+        if (shouldPlaySfx)
+        {
+            PlayDeathSfx(creature, DeathBlowName);
+        }
 
         string NodeName = DeathBlowName;
         Node2D vfxNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/DD2Scenes/" + NodeName + ".tscn").Instantiate<Node2D>();
@@ -138,11 +201,13 @@ public static class DD2Helper
         if (AnimPlayer != null)
         {
             _activeDeathVfx[creature] = vfxNode;
+            _lastVfxName[creature] = DeathBlowName;
             AnimPlayer.AnimationFinished += (StringName state) =>
             {
                 if (_activeDeathVfx.TryGetValue(creature, out var currentVfx) && currentVfx == vfxNode)
                 {
                     _activeDeathVfx.Remove(creature);
+                    _lastVfxName.Remove(creature);
                 }
                 vfxNode.QueueFreeSafely();
             };
@@ -159,6 +224,10 @@ public static class DD2Helper
         if (DeathBlowName == "DeathBlow")
         {
             DD2AudioManager.PlayDD2Sfx(IsFlagellant(creature) ? "DeathBlowDoom" : "DeathBlow", false, false, -2);
+        }
+        else if (DeathBlowName == "DeathArmor")
+        {
+            DD2AudioManager.PlayDD2Sfx("DeathArmor", false, false, -4);
         }
         else if (DeathBlowName == "DeathDoor")
         {

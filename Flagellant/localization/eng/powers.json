@@ -93,5 +93,8 @@
   "FLAGELLANT-WAR_FEEDS_WAR_POWER.smartDescription": "Whenever you gain [blue]{GainStressAmount:diff()}[/blue] [gold]Stress[/gold], the next Attack card you play applies [gold]Combo[/gold].",
   "FLAGELLANT-SAMSARA_POWER.title": "Samsara",
   "FLAGELLANT-SAMSARA_POWER.description": "At the start of your next turn, gain [blue]X[/blue] HP.",
-  "FLAGELLANT-SAMSARA_POWER.smartDescription": "At the start of your next turn, gain [blue]{Amount}[/blue] HP."
+  "FLAGELLANT-SAMSARA_POWER.smartDescription": "At the start of your next turn, gain [blue]{Amount}[/blue] HP.",
+  "FLAGELLANT-DEATH_ARMOR_POWER.title": "Death Armor",
+  "FLAGELLANT-DEATH_ARMOR_POWER.description": "Protects against [blue]X[/blue] [red]Deathblow[/red].",
+  "FLAGELLANT-DEATH_ARMOR_POWER.smartDescription": "Protects against [blue]{Amount}[/blue] [red]Deathblow[/red]."
 }

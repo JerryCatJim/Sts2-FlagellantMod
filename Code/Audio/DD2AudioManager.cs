@@ -181,6 +181,8 @@ public class DD2AudioManager
                 return "res://Flagellant/Sounds/Stress/sfx_battle_status_stressdown.wav";
             case "DeathDoor":
                 return "res://Flagellant/Sounds/DeathDoor/sfx_battle_deathsdoor.wav";
+            case "DeathArmor":
+                return "res://Flagellant/Sounds/DeathDoor/sfx_battle_token_deathsdoorarmor.wav";
             case "DeathBlowDoom":
                 return "res://Flagellant/Sounds/DeathDoor/sfx_battle_deathsdoor_deathblow.wav";
             case "DeathBlow":

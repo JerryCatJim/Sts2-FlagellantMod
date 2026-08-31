@@ -1,9 +1,8 @@
-using Flagellant.Code.Abstract;
+using Flagellant.Code.Hooks;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.DisplayHpVar;
 public sealed class HealingMaxHpVar : DynamicVar
@@ -27,11 +26,11 @@ public sealed class HealingMaxHpVar : DynamicVar
     public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
     {
         BaseValue = GetHealingPercentHp(card);
-        if(card.IsInCombat)
+        if(card != null && card.IsInCombat)
         {
             //Creature myTarget = (card.TargetType != TargetType.Self && target != null) ? target : card.Owner.Creature;
             Creature myTarget = card.Owner.Creature;
-            PreviewValue = BaseValue + GetExtraHealingHp(myTarget);
+            PreviewValue = DD2Hooks.ModifyHealingHp(myTarget, BaseValue);
         }
     }
     private decimal GetHealingPercentHp(CardModel card)
@@ -46,22 +45,5 @@ public sealed class HealingMaxHpVar : DynamicVar
             return 1m;
         }
         return Healing;
-    }
-    private decimal GetExtraHealingHp(Creature creature)
-    {
-        decimal num = 999;
-        IRunState? runState = creature.Player?.RunState;
-        if(runState != null)
-        {
-            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
-            {
-                if (item is IModifyHpAmountReceived myModel)
-                {
-                    myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
-                    num = myModifiedAmount;
-                }
-            }
-        }
-        return num - 999;
     }
 }

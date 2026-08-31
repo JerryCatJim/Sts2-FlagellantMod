@@ -2,15 +2,18 @@ using BaseLib.Abstracts;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
+using Flagellant.Code.Powers;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Singleton;
 
@@ -59,7 +62,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
 
     public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
     {
-        if (delta >= 0 || creature.IsDead) return;
+        if (delta >= 0 || creature == null || creature.IsDead) return;
 
         //因为毒触发时是先造成伤害再减1层数，所以如果是毒造成的伤害，需要检测是否死于中毒时传入1层delta来预测减1层以正确计算
         decimal PoisonDelta = _beforeTriggeredPoisons.TryGetValue(creature, out var poisonPower) && poisonPower != null ? 1 : 0;
@@ -83,10 +86,10 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
                 }
             }
         }
-        else if ((100m * creature.CurrentHp / creature.MaxHp) <= GetDeathDoorPercent(creature))
+        else if (DD2Helper.IsInDeathDoorHp(creature))
         {
-            if ((100m * (creature.CurrentHp - delta) / creature.MaxHp) > GetDeathDoorPercent(creature) 
-                || ((100m * (creature.CurrentHp - delta) / creature.MaxHp) == GetDeathDoorPercent(creature) && GetDeathDoorPercent(creature) == 100m))
+            if (!DD2Helper.IsInDeathDoorHp(creature, delta)
+                || ((100m * (creature.CurrentHp - delta) / creature.MaxHp) == DD2Helper.GetDeathDoorPercent(creature) && DD2Helper.GetDeathDoorPercent(creature) == 100m))
             {
                 await BroadcastDeathDoorEvent(creature, delta, 0, DeathDoorType.LowHealth);
             }
@@ -163,10 +166,28 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
 
     public override Task BeforeDeath(Creature creature)
     {
+        //用AfterDeath会导致PlayDeathVfx内部取不到NCreature，因为它在AfterDeath通知之前被清理了
+        bool shouldDie = true;
+        AbstractModel? preventer = null;
+        if (creature.CombatState != null)
+        {
+            ICombatState? combatState = creature.CombatState;
+            IRunState runState = combatState.RunState;
+            shouldDie = Hook.ShouldDie(runState, combatState, creature, out preventer);
+        }
         if (ShouldPlayDeathBlowVfx(creature))
         {
-            //用AfterDeath会导致PlayDeathVfx内部取不到NCreature，因为它在AfterDeath通知之前被清理了
-            DD2Helper.PlayDeathVfx(creature, "DeathBlow");
+            if (shouldDie)
+            {
+                DD2Helper.PlayDeathVfx(creature, "DeathBlow");
+            }
+            else
+            {
+                if (preventer is DeathArmorPower)
+                {
+                    DD2Helper.PlayDeathVfx(creature, "DeathArmor");
+                }
+            }
         }
         DD2Helper.UnRegisterCreaturePosDoomed(creature);
         return Task.CompletedTask;
@@ -196,20 +217,6 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
             {
                 await myModel.AfterDeathDoor(creature, healthDelta, powerDelta, type);
             }
-        }
-    }
-
-    private decimal GetDeathDoorPercent(Creature creature)
-    {
-        if (creature == null) return 0m;
-
-        if (creature.IsPlayer)
-        {
-            return (decimal)FlagellantConfig.PlayerShowDeathDoorVfxHpPercent;
-        }
-        else
-        {
-            return (decimal)FlagellantConfig.MonsterShowDeathDoorVfxHpPercent;
         }
     }
 

@@ -17,7 +17,7 @@ public sealed class ScourgeFormPower : FlagellantPowerModel, IModifyHpPercentEnt
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()
+        RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()
     ];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

@@ -23,7 +23,7 @@ public sealed class StressPower : FlagellantPowerModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        FlagellantHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>(),
+        RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>(),
         HoverTipFactory.FromPower<ToxicFormPower>(),
     ];
 

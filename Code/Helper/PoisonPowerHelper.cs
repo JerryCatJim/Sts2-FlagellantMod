@@ -35,6 +35,21 @@ public static class PoisonPowerHelper
         }
         return (int)num;
     }
+    public static int CalculateTotalDamageByCount(PoisonPower poisonPower, int count)
+    {
+        if (poisonPower == null || count <= 0 || poisonPower.Owner == null || poisonPower.Owner.CombatState == null) return 0;
+
+        decimal num = default(decimal);
+        int num2 = Math.Min(poisonPower.Amount, count);
+        for (int i = 0; i < num2; i++)
+        {
+            decimal damage = poisonPower.Amount - i;
+            damage = Hook.ModifyDamage(poisonPower.Owner.CombatState.RunState, poisonPower.Owner.CombatState, poisonPower.Owner, null, damage, ValueProp.Unblockable | ValueProp.Unpowered, null, null, ModifyDamageHookType.All, CardPreviewMode.None, out IEnumerable<AbstractModel> _);
+            num += damage;
+        }
+        return (int)num;
+    }
+
     public static void BroadcastPoisonBeforeTriggered(ICombatState combatState, PowerModel power, decimal amount)
     {
         if (combatState != null)

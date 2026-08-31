@@ -33,7 +33,7 @@ public partial class MainFile// : Node
 
 	public static void Initialize()
 	{
-		FlagellantSubscriber.Subscribe();
+		RMSubscriber.Subscribe();
 
         ModConfigRegistry.Register(ModId, new FlagellantConfig());
 

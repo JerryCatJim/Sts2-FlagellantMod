@@ -93,5 +93,8 @@
   "FLAGELLANT-WAR_FEEDS_WAR_POWER.smartDescription": "每当你获得[blue]{GainStressAmount:diff()}[/blue]点[gold]压力[/gold]时，你打出的下一张攻击牌给予[gold]破绽[/gold]。",
   "FLAGELLANT-SAMSARA_POWER.title": "轮回",
   "FLAGELLANT-SAMSARA_POWER.description": "在你的下个回合开始时，获得[blue]X[/blue]生命。",
-  "FLAGELLANT-SAMSARA_POWER.smartDescription": "在你的下个回合开始时，获得[blue]{Amount}[/blue]生命。"
+  "FLAGELLANT-SAMSARA_POWER.smartDescription": "在你的下个回合开始时，获得[blue]{Amount}[/blue]生命。",
+  "FLAGELLANT-DEATH_ARMOR_POWER.title": "死亡护甲",
+  "FLAGELLANT-DEATH_ARMOR_POWER.description": "可抵御[blue]X[/blue]次[red]致命伤害[/red]。",
+  "FLAGELLANT-DEATH_ARMOR_POWER.smartDescription": "可抵御[blue]{Amount}[/blue]次[red]致命伤害[/red]。"
 }

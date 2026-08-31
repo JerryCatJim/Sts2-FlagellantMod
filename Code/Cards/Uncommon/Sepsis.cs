@@ -12,7 +12,6 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
-using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Uncommon;
@@ -29,17 +28,17 @@ public class Sepsis : FlagellantCardModel
         WithPowerTip<PoisonPower>();
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
         WithCalculatedVar("CalculatedPoisonDamage", 0,
-            ((CardModel card, Creature? target) =>
+            ((CardModel myCard, Creature? target) =>
             {
                 if (target == null || !target.HasPower<PoisonPower>()) return 0;
 
-                int poisonTimes = target.HasPower<ComboPower>() ? card.DynamicVars["TriggerPoison"].IntValue + 1 : card.DynamicVars["TriggerPoison"].IntValue;
-                decimal damageNum = 0;
-                for (int i = 0; i < poisonTimes; i++)
+                int poisonTimes = 0;
+                if (myCard.DynamicVars.TryGetValue("TriggerPoison", out var dynamicVar))
                 {
-                    damageNum += Math.Max(0, target?.GetPower<PoisonPower>()?.Amount - i ?? 0);
+                    poisonTimes = target.HasPower<ComboPower>() ? dynamicVar.IntValue + 1 : dynamicVar.IntValue;
                 }
-                return damageNum;
+                PoisonPower? pp = target.GetPower<PoisonPower>();
+                return pp != null ? PoisonPowerHelper.CalculateTotalDamageByCount(pp, poisonTimes) : 0;
             }
             ));
     }

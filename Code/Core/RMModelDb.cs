@@ -3,7 +3,7 @@ using Flagellant.Code.ResoluteOrMeltdown;
 
 namespace Flagellant.Code.Core;
 
-public class FlagellantModelDb
+public class RMModelDb
 {
     public static T ResoluteOrMeltdown<T>() where T : ResoluteOrMeltdownModel
     {

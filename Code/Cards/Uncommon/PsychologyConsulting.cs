@@ -1,7 +1,7 @@
-using BaseLib.Cards.Variables;
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Hooks;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -22,11 +22,15 @@ public class PsychologyConsulting : FlagellantCardModel
             {
                 if (card.Owner.Creature == null || !card.Owner.Creature.HasPower<StressPower>()) return 0;
 
-                if(card is PsychologyConsulting myCard)
+                if (card is PsychologyConsulting myCard)
                 {
-                    decimal healingAmount = (myCard.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0) * myCard.DynamicVars["Multiplier"].BaseValue;
-                    healingAmount += healingAmount > 0 ? myCard.GetExtraHealingHp(myCard.Owner.Creature) : 0;
-                    return healingAmount;
+                    decimal multiNum = 0m;
+                    if (myCard.DynamicVars.TryGetValue("Multiplier", out var dynamicVar))
+                    {
+                        multiNum = dynamicVar.BaseValue;
+                    }
+                    decimal healingAmount = (myCard.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0) * multiNum;
+                    return healingAmount > 0 ? DD2Hooks.ModifyHealingHp(myCard.Owner.Creature, healingAmount) : 0;
                 }
                 return 0;
             }
@@ -39,21 +43,15 @@ public class PsychologyConsulting : FlagellantCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayCardAnim();
-
-        decimal healingAmount = 0;
-        CustomCalculatedVar? MyVar = base.DynamicVars["CalculatedHealing"] as CustomCalculatedVar;
-        if(MyVar != null)
-        {
-            healingAmount = MyVar.CalculateCustom(base.Owner.Creature);
-            healingAmount -= healingAmount > 0 ? GetExtraHealingHp(base.Owner.Creature) : 0;
-        }
+        
         if (base.Owner.Creature.GetPower<StressPower>() is StressPower SP)
         {
+            decimal healingAmount = SP.Amount * DynamicVars["Multiplier"].BaseValue;
             await PowerCmd.ModifyAmount(choiceContext, SP, -SP.Amount, Owner.Creature, this);
-        }
-        if(healingAmount > 0)
-        {
-            await CreatureCmd.Heal(Owner.Creature, healingAmount);
+            if (healingAmount > 0)
+            {
+                await CreatureCmd.Heal(Owner.Creature, healingAmount);
+            }
         }
         await CommonActions.Draw(this, choiceContext);
     }

@@ -65,10 +65,9 @@ public class ToxicMeltdown : ResoluteOrMeltdownModel
     private decimal GetEnterToxicHpPercent(Creature creature)
     {
         decimal num = 30m;
-        IRunState? runState = creature.Player?.RunState;
-        if (runState != null && creature != null)
+        if (creature != null && creature.CombatState != null)
         {
-            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+            foreach (AbstractModel item in creature.CombatState.IterateHookListeners())
             {
                 if (item is IModifyHpPercentEnterToxicAdditional myModel)
                 {

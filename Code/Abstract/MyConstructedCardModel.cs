@@ -2,15 +2,13 @@ using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.DisplayHpVar;
+using Flagellant.Code.Helper;
 using Flagellant.Code.Powers;
-using Flagellant.Code.Relics;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Abstract;
 
@@ -108,58 +106,16 @@ public abstract class MyConstructedCardModel(
 
     protected bool IsLowHealth(decimal Percent = 30m)
     {
-        if (base.Owner.Creature == null) return false;
-
-        return (decimal)base.Owner.Creature.CurrentHp / (decimal)base.Owner.Creature.MaxHp * 100m <= Percent;
+        return DD2Helper.IsLowHealth(Owner.Creature, Percent);
     }
 
     protected bool IsStressGreaterEqual(decimal num = 5m)
     {
-        if (base.Owner.Creature == null) return false;
-
-        return base.Owner.Creature.GetPower<StressPower>() is StressPower stressPower && stressPower.Amount >= num; 
+        return DD2Helper.IsStressGreaterEqual(Owner.Creature, num);
     }
 
     protected bool IsStressLessEqual(decimal num = 5m)
     {
-        if (base.Owner.Creature == null) return false;
-
-        StressPower? stressPower = base.Owner.Creature.GetPower<StressPower>();
-        return  stressPower == null || (stressPower != null && stressPower.Amount <= num);
-    }
-
-    protected decimal GetStressBeforeReceived()
-    {
-        //目前只有RapturousPower会预先修改Stress的获得量(Stress一旦大于等于10点就会立刻归零，没啥好地方去接收归零前的实际值，先这样取巧地修改一下吧)
-        decimal rapturousAmount = base.Owner.Creature.GetPower<RapturousPower>()?.Amount ?? 0;
-        if (base.DynamicVars.ContainsKey("StressPower"))
-        {
-            return base.DynamicVars["StressPower"].BaseValue + (base.DynamicVars["StressPower"].BaseValue > 0 ? rapturousAmount : 0);
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    protected decimal GetExtraHealingHp(Creature creature)
-    {
-        if(base.IsInCombat)
-        {
-            decimal num = 999;
-            IRunState? runState = creature.Player?.RunState;
-            if (runState != null)
-            {
-                foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
-                {
-                    if (item is IModifyHpAmountReceived myModel)
-                    {
-                        myModel.TryModifyHpAmountReceived(creature, num, out var myModifiedAmount, true);
-                        num = myModifiedAmount;
-                    }
-                }
-            }
-            return num - 999;
-        }
-        return 0;
+        return DD2Helper.IsStressLessEqual(Owner.Creature, num);
     }
 }

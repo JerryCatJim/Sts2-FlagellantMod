@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Hooks;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -27,8 +28,7 @@ public class SpreadingAnxiety : FlagellantCardModel
         if (base.CombatState == null) return;
 
         await PlayCardAnim();
-        decimal stressNum = base.Owner.Creature.GetPower<StressPower>()?.Amount ?? 0m;
-        stressNum += GetStressBeforeReceived();
+        decimal stressNum = DD2Hooks.ModifyStressPower(Owner.Creature.GetPower<StressPower>(), DynamicVars["StressPower"].BaseValue, Owner.Creature, Owner.Creature, this);
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
         {

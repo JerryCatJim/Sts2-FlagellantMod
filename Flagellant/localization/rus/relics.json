@@ -1,10 +1,10 @@
 {
   "FLAGELLANT-PAIN_BOX.title": "Коробка боли",
   "FLAGELLANT-PAIN_BOX.flavor": "[red]Страх — убийца разума...[/red]",
-  "FLAGELLANT-PAIN_BOX.description": "Всякий раз, когда вы получаете [red]Смертельный урон[/red] в бою, вместо этого получите равное количество [gold]Злой рок[/gold].",
+  "FLAGELLANT-PAIN_BOX.description": "Всякий раз, когда вы получаете [red]смертельных ударов[/red] в бою, вместо этого получите равное количество [gold]Злой рок[/gold].",
   "FLAGELLANT-DARK_IMPULSE.title": "Тёмный импульс",
   "FLAGELLANT-DARK_IMPULSE.flavor": "[red]Объятия тьмы, чтобы служить свету.[/red]",
-  "FLAGELLANT-DARK_IMPULSE.description": "Всякий раз, когда вы получаете [red]Смертельный урон[/red] в бою, вместо этого получите равное количество [gold]Злой рок[/gold].В начале каждого боя получите [blue]5[/blue] [gold]Стресс[/gold].",
+  "FLAGELLANT-DARK_IMPULSE.description": "Всякий раз, когда вы получаете [red]смертельных ударов[/red] в бою, вместо этого получите равное количество [gold]Злой рок[/gold].В начале каждого боя получите [blue]5[/blue] [gold]Стресс[/gold].",
   "FLAGELLANT-DEATHS_HEAD.title": "Голова смерти",
   "FLAGELLANT-DEATHS_HEAD.flavor": "[red]Ты можешь бежать... Но не спрятаться![/red]",
   "FLAGELLANT-DEATHS_HEAD.description": "Когда ОЗ понижаются до [blue]0[/blue], вы исцеляетесь до [green]{Heal}%[/green] от максимальных ОЗ вместо того, чтобы умереть (срабатывает один раз).",
