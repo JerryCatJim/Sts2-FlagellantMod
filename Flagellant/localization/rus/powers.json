@@ -93,5 +93,8 @@
   "FLAGELLANT-WAR_FEEDS_WAR_POWER.smartDescription": "Когда вы получаете [blue]{GainStressAmount:diff()}[/blue] [gold]Стресс[/gold], следующая карта Атаки, которую вы разыгрываете, применяет [gold]Комбо[/gold].",
   "FLAGELLANT-SAMSARA_POWER.title": "Самсара",
   "FLAGELLANT-SAMSARA_POWER.description": "В начале вашего следующего хода получите [blue]X[/blue] ОЗ.",
-  "FLAGELLANT-SAMSARA_POWER.smartDescription": "В начале вашего следующего хода получите [blue]{Amount}[/blue] ОЗ."
+  "FLAGELLANT-SAMSARA_POWER.smartDescription": "В начале вашего следующего хода получите [blue]{Amount}[/blue] ОЗ.",
+  "FLAGELLANT-DEATH_ARMOR_POWER.title": "Броня от смерти",
+  "FLAGELLANT-DEATH_ARMOR_POWER.description": "Защищает от [blue]X[/blue] [red]смертельных ударов[/red].",
+  "FLAGELLANT-DEATH_ARMOR_POWER.smartDescription": "Защищает от [blue]{Amount}[/blue] [red]смертельных ударов[/red]."
 }

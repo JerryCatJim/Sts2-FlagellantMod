@@ -2,15 +2,18 @@ using BaseLib.Abstracts;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
+using Flagellant.Code.Powers;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace Flagellant.Code.Singleton;
 
@@ -163,10 +166,28 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
 
     public override Task BeforeDeath(Creature creature)
     {
+        //用AfterDeath会导致PlayDeathVfx内部取不到NCreature，因为它在AfterDeath通知之前被清理了
+        bool shouldDie = true;
+        AbstractModel? preventer = null;
+        if (creature.CombatState != null)
+        {
+            ICombatState? combatState = creature.CombatState;
+            IRunState runState = combatState.RunState;
+            shouldDie = Hook.ShouldDie(runState, combatState, creature, out preventer);
+        }
         if (ShouldPlayDeathBlowVfx(creature))
         {
-            //用AfterDeath会导致PlayDeathVfx内部取不到NCreature，因为它在AfterDeath通知之前被清理了
-            DD2Helper.PlayDeathVfx(creature, "DeathBlow");
+            if (shouldDie)
+            {
+                DD2Helper.PlayDeathVfx(creature, "DeathBlow");
+            }
+            else
+            {
+                if (preventer is DeathArmorPower)
+                {
+                    DD2Helper.PlayDeathVfx(creature, "DeathArmor");
+                }
+            }
         }
         DD2Helper.UnRegisterCreaturePosDoomed(creature);
         return Task.CompletedTask;

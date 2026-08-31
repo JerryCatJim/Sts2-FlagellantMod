@@ -107,6 +107,7 @@ public static class DD2Helper
     {
         _creaturesPosDoomed.Clear();
         _activeDeathVfx.Clear();
+        _lastVfxName.Clear();
     }
 
     private static readonly Dictionary<Creature, Vector2> _creaturesPosDoomed = new();
@@ -124,25 +125,40 @@ public static class DD2Helper
     }
 
     private static readonly Dictionary<Creature, Node2D> _activeDeathVfx = new();
+    private static readonly Dictionary<Creature, string> _lastVfxName = new();
     public static void PlayDeathVfx(Creature creature, string DeathBlowName)
     {
         if (creature == null) return;
 
+        bool shouldPlaySfx = true;
         if (_activeDeathVfx.TryGetValue(creature, out Node2D? vfx) && vfx != null)
         {
             //如果还在播放上一个特效时被打死，强制刷新播放致命一击特效
             if (DeathBlowName == "DeathBlow")
             {
                 _activeDeathVfx.Remove(creature);
+                _lastVfxName.Remove(creature);
                 vfx.QueueFreeSafely();
             }
-            else
+            else if (DeathBlowName == "DeathArmor")
+            {
+                //连续击破死亡护甲时仅刷新动画不重放声音
+                shouldPlaySfx = !_lastVfxName.TryGetValue(creature, out string? name) || name != "DeathArmor";
+
+                _activeDeathVfx.Remove(creature);
+                _lastVfxName.Remove(creature);
+                vfx.QueueFreeSafely();
+            }
+            else //DeathDoor则不刷新
             {
                 return;
             }
         }
 
-        PlayDeathSfx(creature, DeathBlowName);
+        if (shouldPlaySfx)
+        {
+            PlayDeathSfx(creature, DeathBlowName);
+        }
 
         string NodeName = DeathBlowName;
         Node2D vfxNode = PreloadManager.Cache.GetScene("res://Flagellant/Scenes/DD2Scenes/" + NodeName + ".tscn").Instantiate<Node2D>();
@@ -185,11 +201,13 @@ public static class DD2Helper
         if (AnimPlayer != null)
         {
             _activeDeathVfx[creature] = vfxNode;
+            _lastVfxName[creature] = DeathBlowName;
             AnimPlayer.AnimationFinished += (StringName state) =>
             {
                 if (_activeDeathVfx.TryGetValue(creature, out var currentVfx) && currentVfx == vfxNode)
                 {
                     _activeDeathVfx.Remove(creature);
+                    _lastVfxName.Remove(creature);
                 }
                 vfxNode.QueueFreeSafely();
             };
@@ -206,6 +224,10 @@ public static class DD2Helper
         if (DeathBlowName == "DeathBlow")
         {
             DD2AudioManager.PlayDD2Sfx(IsFlagellant(creature) ? "DeathBlowDoom" : "DeathBlow", false, false, -2);
+        }
+        else if (DeathBlowName == "DeathArmor")
+        {
+            DD2AudioManager.PlayDD2Sfx("DeathArmor", false, false, -4);
         }
         else if (DeathBlowName == "DeathDoor")
         {

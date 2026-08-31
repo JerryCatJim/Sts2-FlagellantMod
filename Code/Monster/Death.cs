@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
@@ -58,6 +59,7 @@ public class Death : CustomMonsterModel
     private bool ShouldApplyWeak => CurrentActIndex >= 0 || ShouldEnhance; //(第一层出现时践踏给虚弱)
     private bool ShouldApplyCombo => CurrentActIndex >= 1 || ShouldEnhance; //(第二层出现时难逃一死给破绽)
     //private bool ShouldReduceStrengthAndDexterity => CurrentActIndex >= 1; //(第二层出现时难逃一死削力量和敏捷)
+    private int DeathArmorNum => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 3, 2);
 
     private int MementoMoriUsedTimes { get; set; } = 0;
 
@@ -109,6 +111,8 @@ public class Death : CustomMonsterModel
 
         MonsterAudioManager.PlayMonsterSfx("Spawn", true);
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = true;
+
+        await PowerCmd.Apply<DeathArmorPower>(new ThrowingPlayerChoiceContext(), Creature, DeathArmorNum, Creature, null, true);
         if (ExtraEnhancedValue > 0)
         {
             await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Creature, ExtraEnhancedValue, Creature, null, true);
@@ -117,10 +121,11 @@ public class Death : CustomMonsterModel
 
     public override async Task BeforeDeath(Creature creature)
     {
-        if (creature != Creature) return;
+        if (creature != Creature || CombatState == null) return;
+        if (!Hook.ShouldDie(CombatState.RunState, CombatState, creature, out _)) return;
 
         //奖励生成别放在AfterDeath，多人模式会不生效（可能是结算顺序问题）
-        AbstractRoom? currentRoom = base.CombatState.RunState.CurrentRoom;
+        AbstractRoom? currentRoom = CombatState.RunState.CurrentRoom;
         if (currentRoom is CombatRoom combatRoom)
         {
             foreach (var player in combatRoom.CombatState.Players)
@@ -142,7 +147,8 @@ public class Death : CustomMonsterModel
 
     public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        if (creature != Creature) return Task.CompletedTask;
+        if (creature != Creature || CombatState == null) return Task.CompletedTask;
+        if (!Hook.ShouldDie(CombatState.RunState, CombatState, creature, out _)) return Task.CompletedTask;
 
         DeathListenForRunStateSingleton.IsDeathExistingInCombat = CombatState.HittableEnemies.Any((Creature c) => c.IsAlive && c.Monster is Death);
         if (DeathListenForRunStateSingleton.IsDeathExistingInCombat == false)

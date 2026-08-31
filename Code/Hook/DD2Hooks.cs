@@ -41,10 +41,10 @@ public class DD2Hooks
         if (creature == null) return originalHealing;
 
         decimal num = originalHealing;
-        IRunState? runState = creature.Player?.RunState;  //不用combatState，保留在战斗外监听血量回复的可能
-        if (runState != null)
+        if (creature.CombatState != null && creature.CombatState.RunState != null)
         {
-            foreach (AbstractModel item in runState.IterateHookListeners(creature.CombatState))
+            //不用CombatState，保留在战斗外监听血量回复的可能
+            foreach (AbstractModel item in creature.CombatState.RunState.IterateHookListeners(creature.CombatState))
             {
                 if (item is IModifyHpAmountReceived myModel)
                 {
