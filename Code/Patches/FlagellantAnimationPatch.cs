@@ -110,7 +110,6 @@ public static class FlagellantAnimationPatch
                 //检测到状态机中不存在的结点(例如使用了属于其他角色卡池的卡牌而触发动画时)则什么也不做
                 if (rootStateMachine == null || !rootStateMachine.HasNode(animName)) return;
 
-                bool shouldStartTo = playImmediately;
                 if (animName == "Hit")
                 {
                     if (state_machine.GetCurrentNode() == "Hit" || state_machine.GetCurrentNode() == "HitRecover" || state_machine.GetCurrentNode() == "DeathDoor")
@@ -119,9 +118,9 @@ public static class FlagellantAnimationPatch
                         return;
                     }
                     //若处于任意Idle时则平滑切换
-                    shouldStartTo = !FlagellantHelper.IsInAnyIdle(animTree, node.Entity);
+                    playImmediately = !FlagellantHelper.IsInAnyIdle(animTree, node.Entity);
                 }
-                if (shouldStartTo)
+                if (playImmediately)
                 {
                     state_machine.Start(animName);
                 }

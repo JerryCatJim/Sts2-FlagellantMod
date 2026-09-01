@@ -508,10 +508,8 @@ animation = &"flagellant_deaths_door_loop"
 animation = &"flagellant_idle_B"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ahp1d"]
-advance_condition = &"ToIdle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_06fn5"]
-advance_condition = &"ToDeathIdle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pcivu"]
 switch_mode = 2

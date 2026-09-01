@@ -164,14 +164,16 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
         }
     }
 
-    public override Task BeforeDeath(Creature creature)
+    public override async Task BeforeDeath(Creature creature)
     {
+        if (creature == null) return;
+
         //用AfterDeath会导致PlayDeathVfx内部取不到NCreature，因为它在AfterDeath通知之前被清理了
         bool shouldDie = true;
         AbstractModel? preventer = null;
         if (creature.CombatState != null)
         {
-            ICombatState? combatState = creature.CombatState;
+            ICombatState combatState = creature.CombatState;
             IRunState runState = combatState.RunState;
             shouldDie = Hook.ShouldDie(runState, combatState, creature, out preventer);
         }
@@ -183,18 +185,22 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
             }
             else
             {
-                if (preventer is DeathArmorPower)
+                if (preventer is DeathArmorPower && ShouldPlayDeathArmorVfx(creature))
                 {
+                    await BroadcastDeathDoorEvent(creature, 0, 0, DeathDoorType.DeathArmor);
                     DD2Helper.PlayDeathVfx(creature, "DeathArmor");
                 }
             }
         }
         DD2Helper.UnRegisterCreaturePosDoomed(creature);
-        return Task.CompletedTask;
     }
 
     public Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal powerDelta, DeathDoorType type)
     {
+        if (DD2Helper.IsDD2Monster(creature))
+        {
+            DD2MonsterHelper.ResetMonsterAdvancedConditions(null, creature);
+        }
         if (!ShouldPlayDeathDoorVfx(creature)) return Task.CompletedTask;
         if (DD2Helper.IsFlagellant(creature) && type == DeathDoorType.Poison) return Task.CompletedTask;
 
@@ -209,7 +215,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
 
     private async Task BroadcastDeathDoorEvent(Creature creature, decimal healthDelta, decimal powerDelta, DeathDoorType type)
     {
-        if (creature.CombatState == null) return;
+        if (creature == null || creature.CombatState == null) return;
 
         foreach (AbstractModel item in creature.CombatState.IterateHookListeners())
         {
@@ -226,6 +232,13 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
 
         return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathDoorVfx) ||
             (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathDoorVfx);
+    }
+    private bool ShouldPlayDeathArmorVfx(Creature creature)
+    {
+        if (creature == null) return false;
+
+        return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathArmorVfx) ||
+            (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathArmorVfx);
     }
     private bool ShouldPlayDeathBlowVfx(Creature creature)
     {

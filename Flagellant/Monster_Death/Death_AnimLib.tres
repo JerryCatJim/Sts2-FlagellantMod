@@ -11054,7 +11054,7 @@ tracks/130/keys = PackedFloat32Array(0, 1, 0, 0, -0.096003465, 0.995381, 0.13333
 
 [sub_resource type="Animation" id="Animation_nf5cp"]
 resource_name = "shared_death_deathsdoor"
-length = 4.9666667
+length = 1.5
 tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
@@ -11975,7 +11975,7 @@ tracks/130/keys = PackedFloat32Array(0, 1, 0, 0, -0.49418887, 0.86935455, 0.5, 1
 
 [sub_resource type="Animation" id="Animation_m071y"]
 resource_name = "shared_death_deathsdoor_loop"
-length = 4.9666667
+length = 3.34
 loop_mode = 1
 tracks/0/type = "position_3d"
 tracks/0/imported = true
