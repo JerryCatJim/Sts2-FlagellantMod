@@ -24,9 +24,10 @@ public interface IAfterComboChanged
 
 public enum DeathDoorType
 {
-    LowHealth,
     Doom,
-    Poison
+    Poison,
+    LowHealth,
+    DeathArmor
 }
 
 public interface IAfterDeathDoor
@@ -52,5 +53,12 @@ public interface IGetDD2CharacterType
     public string TryGetCharacterType()
     {
         return "DD2DefaultCharacter";
+    }
+}
+public interface IGetDD2MonsterType
+{
+    public string TryGetMonsterType()
+    {
+        return "DD2DefaultMonster";
     }
 }

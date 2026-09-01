@@ -18,6 +18,8 @@ internal class FlagellantConfig : SimpleModConfig
     public static int MonsterShowDeathDoorVfxHpPercent { get; set; } = 10;
     public static bool ShouldPlayerShowDeathDoorVfx { get; set; } = true;
     public static bool ShouldMonsterShowDeathDoorVfx { get; set; } = true;
+    public static bool ShouldPlayerShowDeathArmorVfx { get; set; } = true;
+    public static bool ShouldMonsterShowDeathArmorVfx { get; set; } = true;
     public static bool ShouldPlayerShowDeathBlowVfx { get; set; } = true;
     public static bool ShouldMonsterShowDeathBlowVfx { get; set; } = true;
 

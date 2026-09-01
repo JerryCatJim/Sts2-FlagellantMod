@@ -22,8 +22,6 @@ public static class FlagellantHelper
         {
             if (FlagellantConfig.ShouldUseDeathDoorIdle)
             {
-                /*animationTree.Set("parameters/Idle/conditions/ToIdle", !DD2Helper.WillDieInDoom(creature));
-                animationTree.Set("parameters/Idle/conditions/ToDeathIdle", DD2Helper.WillDieInDoom(creature));*/
                 animationTree.Set("parameters/conditions/HitToIdle", !DD2Helper.WillDieInDoom(creature));
                 animationTree.Set("parameters/conditions/HitToDeathIdle", DD2Helper.WillDieInDoom(creature));
             }

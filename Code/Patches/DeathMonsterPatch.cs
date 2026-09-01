@@ -1,4 +1,5 @@
 using Flagellant.Code.Audio;
+using Flagellant.Code.Helper;
 using Flagellant.Code.Monster;
 using Godot;
 using HarmonyLib;
@@ -59,17 +60,20 @@ public static class DeathAnimPatch
         var animTree = visual.GetNodeOrNull<AnimationTree>("AnimationTree");
         if (animTree == null) return;
 
+        DD2MonsterHelper.ResetMonsterAdvancedConditions(animTree, node.Entity);
+
         var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/playback");
 
         if (state_machine != null)
         {
-            if (animName == "Hit" && (state_machine.GetCurrentNode() == "Spawn" || (state_machine.GetCurrentNode() == "Hit")))
+            if (animName == "Hit" && (state_machine.GetCurrentNode() == "Spawn" || state_machine.GetCurrentNode() == "Hit" || state_machine.GetCurrentNode() == "DeathDoorHit"))
             {
                 return;
             }
             if (animName == "Hit")
             {
-                MonsterAudioManager.PlayMonsterSfx("Hit", true);
+                MonsterAudioManager.PlayMonsterSfx("Hit",true);
+                animName = DD2Helper.IsInDeathDoor(node.Entity) || node.Entity.CurrentHp == 1m ? "DeathDoorHit" : "Hit";
             }
             if (!bHasChildStateMachine)
             {

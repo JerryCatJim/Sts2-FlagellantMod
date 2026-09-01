@@ -29,6 +29,11 @@ public static class DD2Helper
         return player != null && player.Character is IGetDD2CharacterType DD2Character &&
             !string.IsNullOrEmpty(DD2Character.TryGetCharacterType()) && DD2Character.TryGetCharacterType() != "DD2DefaultCharacter";
     }
+    public static bool IsDD2Monster(Creature? creature)
+    {
+        return creature != null && creature.Monster is IGetDD2MonsterType DD2Monster &&
+            !string.IsNullOrEmpty(DD2Monster.TryGetMonsterType()) && DD2Monster.TryGetMonsterType() != "DD2DefaultMonster";
+    }
     public static bool IsFlagellant(Creature? creature)
     {
         return creature != null && creature.Player != null && creature.Player.Character is IGetDD2CharacterType DD2Character && DD2Character.TryGetCharacterType() == "Flagellant";

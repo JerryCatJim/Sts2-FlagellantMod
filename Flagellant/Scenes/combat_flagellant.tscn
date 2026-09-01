@@ -107,6 +107,4 @@ parameters/CardPlay/Punish_Recover/TimeSeek/seek_request = -1.0
 parameters/CardPlay/Sepsis/TimeScale/scale = 3.0
 parameters/CardPlay/Suffer/TimeScale/scale = 3.0
 parameters/CardPlay/Undying/TimeScale/scale = 5.0
-parameters/Idle/conditions/ToDeathIdle = false
-parameters/Idle/conditions/ToIdle = false
 metadata/Skill = ""

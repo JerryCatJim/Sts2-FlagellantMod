@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
+using Flagellant.Code.Abstract;
 using Flagellant.Code.Audio;
 using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
@@ -29,8 +30,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Monster;
 
-public class Death : CustomMonsterModel
+public class Death : CustomMonsterModel, IGetDD2MonsterType
 {
+    public string TryGetMonsterType()
+    {
+        return "Death";
+    }
     int CurrentActIndex => DeathListenForRunStateSingleton.CombatState?.RunState.CurrentActIndex ?? 0; //从0开始
     // 根据进阶提高最小和最大血量，进阶8及以上为A，否则为B
     public override int MinInitialHp => (AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 110, 80) + ExtraHp) * HpMultiple;
@@ -280,7 +285,7 @@ public class Death : CustomMonsterModel
             .WithHitFx("vfx/vfx_attack_slash") // 攻击特效
             .Execute(null);
         //多人模式 游戏会自动将格挡按人数增值
-        await CreatureCmd.GainBlock(Creature, WaningCrescentDamage, ValueProp.Move, null);
+        await CreatureCmd.GainBlock(Creature, WaningCrescentDamage + ExtraEnhancedValue, ValueProp.Move, null);
     }
 
     private async Task TrampleMove(IReadOnlyList<Creature> targets)
