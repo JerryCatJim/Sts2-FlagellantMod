@@ -18,7 +18,7 @@ public class SpreadingPlague : FlagellantCardModel
     public SpreadingPlague() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithDamage(9,3);
-        WithPower<PoisonPower>(9,3);
+        WithPower<PoisonPower>(7,3);
         WithAnimName("Punish");
     }
 

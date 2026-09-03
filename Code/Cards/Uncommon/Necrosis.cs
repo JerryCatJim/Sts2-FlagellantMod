@@ -15,8 +15,8 @@ public class Necrosis : FlagellantCardModel
     public Necrosis() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithAnimName("Necrosis");
-        WithDamage(6,3);
-        WithPower<RegenPower>(2);
+        WithDamage(8, 3);
+        WithPower<RegenPower>(2, 1);
         WithPowerTip<PoisonPower>();
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

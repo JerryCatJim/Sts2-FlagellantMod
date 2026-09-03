@@ -15,8 +15,9 @@ public class MentalDeviation : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => HasAnyComboMarkedEnemy;
     public MentalDeviation() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithDamage(6, 2);
+        WithDamage(8, 3);
         WithStress(5);
+        WithCards(1);
         WithPower<ComboPower>(1);
         WithAnimName("Necrosis");
     }
@@ -32,6 +33,7 @@ public class MentalDeviation : FlagellantCardModel
             {
                 await PowerCmd.ModifyAmount(choiceContext, comboP, -1, base.Owner.Creature, this);
                 await CommonActions.ApplySelf<StressPower>(choiceContext, this);
+                await CommonActions.Draw(this, choiceContext);
             }
         }
     }

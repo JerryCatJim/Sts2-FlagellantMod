@@ -13,9 +13,9 @@ namespace Flagellant.Code.Cards.Uncommon;
 public class BoneMeltingPalm : FlagellantCardModel
 {
     protected override bool ShouldGlowGoldInternal => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<DoomPower>()) ?? false;
-    public BoneMeltingPalm() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public BoneMeltingPalm() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(8, 2);
+        WithDamage(13, 3);
         WithPowerTip<DoomPower>();
         WithPowerTip<PoisonPower>();
     }

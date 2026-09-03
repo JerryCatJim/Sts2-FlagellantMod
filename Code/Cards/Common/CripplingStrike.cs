@@ -17,7 +17,7 @@ public class CripplingStrike : FlagellantCardModel
         WithTags(CardTag.Strike);
         WithDamage(6);
         WithPoison(3);
-        WithLossPercent(10);
+        WithLossPercent(8);
         WithAnimName("Punish");
         WithCards(1,1);
     }

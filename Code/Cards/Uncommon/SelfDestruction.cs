@@ -6,15 +6,15 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class SelfDestruction : FlagellantCardModel
 {
-    public SelfDestruction() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public SelfDestruction() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithPower<DoomPower>(13);
-        WithCostUpgradeBy(-1);
+        WithPower<DoomPower>(13, 4);
+        WithVar("SelfDoom", 13, -4);
         WithAnimName("Endure");
     }
 
@@ -23,7 +23,7 @@ public class SelfDestruction : FlagellantCardModel
         if (base.CombatState == null) return;
 
         await PlayCardAnim();
-        await CommonActions.ApplySelf<DoomPower>(choiceContext, this);
+        await CommonActions.ApplySelf<DoomPower>(choiceContext, this, DynamicVars["SelfDoom"].BaseValue);
         await PowerCmd.Apply<DoomPower>(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
     }
 }

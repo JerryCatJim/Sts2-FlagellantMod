@@ -1,6 +1,6 @@
 {
   "FLAGELLANT-HOPE_CANDLE.title": "Hope Candle",
-  "FLAGELLANT-HOPE_CANDLE.description": "Gain [gold]Strength[/gold] equal to your [gold]Stress[/gold]. Remove all your [gold]Stress[/gold].",
+  "FLAGELLANT-HOPE_CANDLE.description": "Gain [gold]Strength[/gold] equal to your [gold]Stress[/gold]. Lose all your [gold]Stress[/gold].",
   "FLAGELLANT-COMBO_POTION.title": "Combo Potion",
   "FLAGELLANT-COMBO_POTION.description": "Apply [gold]Combo[/gold] and [blue]1[/blue] [gold]Vulnerable[/gold].",
   "FLAGELLANT-SCOURGE_POTION.title": "Scourge Potion",

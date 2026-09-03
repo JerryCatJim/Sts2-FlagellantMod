@@ -17,7 +17,7 @@ public class Fantasy : FlagellantCardModel
     protected override bool ShouldGlowGoldInternal => IsStressGreaterEqual() || RMHelper.IsInResoluteOrMeltdown<ToxicMeltdown>(base.Owner);
     public Fantasy() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithDamage(5, 2);
+        WithDamage(5, 3);
         WithTip(new TooltipSource((CardModel _) => RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
         WithVars(new RepeatVar(2));
         WithStress(5);

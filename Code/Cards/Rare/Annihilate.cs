@@ -36,5 +36,6 @@ public class Annihilate : FlagellantCardModel
         {
             await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         }
+        await CommonActions.Apply<ComboPower>(choiceContext, cardPlay.Target, this);
     }
 }

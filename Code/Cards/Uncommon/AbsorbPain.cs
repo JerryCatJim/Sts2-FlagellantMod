@@ -11,7 +11,7 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class AbsorbPain : FlagellantCardModel
 {
-    public AbsorbPain() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public AbsorbPain() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithPowerTip<StressPower>();
         WithPowerTip<RegenPower>();

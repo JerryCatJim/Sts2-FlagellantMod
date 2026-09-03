@@ -11,7 +11,7 @@ namespace Flagellant.Code.Cards.Rare;
 [Pool(typeof(FlagellantCardPool))]
 public class DoomedConstitution : FlagellantCardModel
 {
-    public DoomedConstitution() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public DoomedConstitution() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithPowerTip<DoomPower>();
         WithPower<DoomedConstitutionPower>(1);

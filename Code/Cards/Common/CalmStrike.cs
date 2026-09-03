@@ -11,11 +11,11 @@ namespace Flagellant.Code.Cards.Common;
 [Pool(typeof(FlagellantCardPool))]
 public class CalmStrike : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => IsStressLessEqual(4);
+    protected override bool ShouldGlowGoldInternal => IsStressLessEqual(5);
     public CalmStrike() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithTags(CardTag.Strike);
-        WithDamage(6,3);
+        WithDamage(5, 2);
         WithStress(5);
         WithPower<ComboPower>(1);
     }
@@ -27,7 +27,7 @@ public class CalmStrike : FlagellantCardModel
         CombatAudioManager.PlayCombatSfx("res://Flagellant/Sounds/Watcher/calm_enter.ogg", true, true, 0);
 
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
-        if(IsStressLessEqual(4))
+        if(IsStressLessEqual(5))
         {
             await CommonActions.Apply<ComboPower>(choiceContext, cardPlay.Target, this);
         }

@@ -56,16 +56,20 @@ public class DD2Hooks
         return num;
     }
     
-    public static decimal ModifyStressPower(StressPower? stressPower, decimal deltaAmount, Creature? applier, Creature target, CardModel? cardSource)
+    public static decimal ModifyStressPower(ICombatState? combatState, PowerModel? stressPower, decimal deltaAmount, Creature? applier, Creature target, CardModel? cardSource)
     {
-        if (stressPower == null || stressPower.CombatState == null) return deltaAmount;
+        if (combatState == null) return deltaAmount;
 
-        decimal modifiedAmount = stressPower.Amount + deltaAmount;
-        if (applier != null && stressPower.CombatState.ContainsCreature(applier))
+        if (stressPower == null)
         {
-            modifiedAmount = Hook.ModifyPowerAmountGiven(stressPower.CombatState, stressPower, applier, modifiedAmount, target, cardSource, out IEnumerable<AbstractModel>_);
+            stressPower = ModelDb.Power<StressPower>().ToMutable();
         }
-        modifiedAmount = Hook.ModifyPowerAmountReceived(stressPower.CombatState, stressPower, target, modifiedAmount, applier, out IEnumerable<AbstractModel>_);
+        decimal modifiedAmount = stressPower.Amount + deltaAmount;
+        if (applier != null && combatState.ContainsCreature(applier))
+        {
+            modifiedAmount = Hook.ModifyPowerAmountGiven(combatState, stressPower, applier, modifiedAmount, target, cardSource, out IEnumerable<AbstractModel>_);
+        }
+        modifiedAmount = Hook.ModifyPowerAmountReceived(combatState, stressPower, target, modifiedAmount, applier, out IEnumerable<AbstractModel>_);
         return modifiedAmount;
     }
 }

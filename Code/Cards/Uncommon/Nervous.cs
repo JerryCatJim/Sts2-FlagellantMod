@@ -13,19 +13,18 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
-public class SpreadingAnxiety : FlagellantCardModel
+public class Nervous : FlagellantCardModel
 {
+    protected override bool ShouldGlowGoldInternal => base.Owner.Creature.HasPower<DoomPower>();
+
     private decimal _calculatedStress = 0;
-    public SpreadingAnxiety() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
+    public Nervous() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithAnimName("Endure");
         WithStress(2);
-        WithCostUpgradeBy(-1);
-        WithKeyword(CardKeyword.Exhaust);
-        WithPowerTip<StrengthPower>();
+        WithKeyword(CardKeyword.Retain, UpgradeType.Add);
         WithCalculatedVar("CalculatedStress", 0, ((CardModel card, Creature? c) =>
         {
-            if (card != null && card is SpreadingAnxiety myCard)
+            if (card != null && card is Nervous myCard)
             {
                 if (myCard._calculatedStress != 0)
                 {
@@ -38,7 +37,7 @@ public class SpreadingAnxiety : FlagellantCardModel
                     {
                         delta = dynamicVar.BaseValue;
                     }
-                    return DD2Hooks.ModifyStressPower(myCard.Owner.Creature.CombatState, myCard.Owner.Creature.GetPower<StressPower>(), delta, myCard.Owner.Creature, myCard.Owner.Creature, myCard);
+                    return DD2Hooks.ModifyStressPower(myCard.Owner.Creature.CombatState ,myCard.Owner.Creature.GetPower<StressPower>(), delta, myCard.Owner.Creature, myCard.Owner.Creature, myCard);
                 }
             }
             return 0;
@@ -48,15 +47,12 @@ public class SpreadingAnxiety : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (base.CombatState == null) return;
-
-        await PlayCardAnim();
         _calculatedStress = DD2Hooks.ModifyStressPower(Owner.Creature.CombatState, Owner.Creature.GetPower<StressPower>(), DynamicVars["StressPower"].BaseValue, Owner.Creature, Owner.Creature, this);
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
-        foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
+        if (Owner.Creature.GetPower<DoomPower>() is DoomPower doomP)
         {
-            await PowerCmd.Apply<SpreadingAnxietyPower>(choiceContext, hittableEnemy, _calculatedStress, base.Owner.Creature, this);
+            await PowerCmd.ModifyAmount(choiceContext, doomP, -_calculatedStress, Owner.Creature, this);
         }
-        _calculatedStress = 0m;
+        _calculatedStress = 0;
     }
 }

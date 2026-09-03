@@ -253,4 +253,26 @@ public static class DD2Helper
             }
         }
     }
+
+    public static bool ShouldPlayDeathDoorVfx(Creature creature)
+    {
+        if (creature == null) return false;
+
+        return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathDoorVfx) ||
+            (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathDoorVfx);
+    }
+    public static bool ShouldPlayDeathArmorVfx(Creature creature)
+    {
+        if (creature == null) return false;
+
+        return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathArmorVfx) ||
+            (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathArmorVfx);
+    }
+    public static bool ShouldPlayDeathBlowVfx(Creature creature)
+    {
+        if (creature == null) return false;
+
+        return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathBlowVfx) ||
+            (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathBlowVfx);
+    }
 }

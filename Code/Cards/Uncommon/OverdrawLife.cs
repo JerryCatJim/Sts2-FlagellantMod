@@ -11,17 +11,15 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class OverdrawLife : FlagellantCardModel
 {
-    public OverdrawLife() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public OverdrawLife() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithBlock(10,3);
-        WithEnergy(1);
-        WithPower<DoomPower>(10, 3);
+        WithEnergy(2, 1);
+        WithPower<DoomPower>(9, 4);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.CardBlock(this, cardPlay);
+        await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, base.Owner);
         await CommonActions.ApplySelf<DoomPower>(choiceContext, this);
-        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
     }
 }
