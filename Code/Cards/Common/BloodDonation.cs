@@ -17,7 +17,7 @@ public class BloodDonation : FlagellantCardModel
     public BloodDonation() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
         WithHealingPercent(12,4); //并不是真的回血，是获取最大生命值百分比的数值
-        WithLossPercent(12,-4);
+        WithLossPercent(8,-2);
         WithAnimName("AcidRain");
         WithCalculatedDamage(0, ((CardModel card, Creature? c) =>
         {

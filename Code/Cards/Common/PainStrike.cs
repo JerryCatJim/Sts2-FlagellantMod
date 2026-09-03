@@ -7,12 +7,12 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
-namespace Flagellant.Code.Cards.Uncommon;
+namespace Flagellant.Code.Cards.Common;
 
 [Pool(typeof(FlagellantCardPool))]
 public class PainStrike : FlagellantCardModel
 {
-    public PainStrike() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public PainStrike() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithTags(CardTag.Strike);
         WithPowerTip<StressPower>();

@@ -6,11 +6,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Common;
@@ -27,7 +24,7 @@ public class AcidRain : FlagellantCardModel
         WithPoison(4, 1);
         WithLossPercent(8);
         WithAnimName("AcidRain");
-        WithVar("ComboUpgraded", 2, 1);
+        WithVar("ComboUpgraded", 3, 1);
         WithPower<ComboPower>(1);  //要注册过这个类型的值 才能在Formatter中正确解析{ComboPower:{comboIcons()}}等类似的格式
     }
 

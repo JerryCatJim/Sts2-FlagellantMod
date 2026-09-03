@@ -6,12 +6,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Flagellant.Code.Cards.Common;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Undying : FlagellantCardModel
 {
-    public Undying() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public Undying() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithAnimName("Undying");
         WithLossPercent(8, -2);

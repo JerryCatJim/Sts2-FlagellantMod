@@ -16,7 +16,7 @@ public class Practice : FlagellantCardModel
     public Practice() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithAnimName("Undying");
-        WithHealingPercent(10);
+        WithHealingPercent(10, 2);
         WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromCard<Penance>(_.IsUpgraded)));
     }
 

@@ -50,7 +50,7 @@ public class FlagellantCombatSingleton : CustomSingletonModel, IAfterDeathDoor
         if (DD2Helper.IsFlagellant(creature) && FlagellantConfig.ShouldUseDeathDoorIdle && type == DeathDoorType.Doom)
         {
             FlagellantHelper.ResetAdvancedConditions(null, creature);
-            if (FlagellantHelper.IsInAnyIdle(null, creature))
+            if (FlagellantHelper.IsInAnyIdle(null, creature) && DD2Helper.ShouldPlayDeathDoorVfx(creature))
             {
                 await CreatureCmd.TriggerAnim(creature, DD2Helper.WillDieInDoom(creature) ? "DeathDoor" : "Revive", 0f);
             }

@@ -3,12 +3,8 @@ using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Nodes.Vfx;
 
 namespace Flagellant.Code.Cards.Common;
 
@@ -19,7 +15,8 @@ public class TransferMisfortune : FlagellantCardModel
     public TransferMisfortune() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithPower<DoomPower>(9);
-        WithCards(1,1);
+        WithCards(2);
+        WithKeyword(CardKeyword.Exhaust, UpgradeType.Remove);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

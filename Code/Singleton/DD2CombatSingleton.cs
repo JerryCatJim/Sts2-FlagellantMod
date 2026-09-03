@@ -177,7 +177,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
             IRunState runState = combatState.RunState;
             shouldDie = Hook.ShouldDie(runState, combatState, creature, out preventer);
         }
-        if (ShouldPlayDeathBlowVfx(creature))
+        if (DD2Helper.ShouldPlayDeathBlowVfx(creature))
         {
             if (shouldDie)
             {
@@ -185,7 +185,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
             }
             else
             {
-                if (preventer is DeathArmorPower && ShouldPlayDeathArmorVfx(creature))
+                if (preventer is DeathArmorPower && DD2Helper.ShouldPlayDeathArmorVfx(creature))
                 {
                     await BroadcastDeathDoorEvent(creature, 0, 0, DeathDoorType.DeathArmor);
                     DD2Helper.PlayDeathVfx(creature, "DeathArmor");
@@ -201,7 +201,7 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
         {
             DD2MonsterHelper.ResetMonsterAdvancedConditions(null, creature);
         }
-        if (!ShouldPlayDeathDoorVfx(creature)) return Task.CompletedTask;
+        if (!DD2Helper.ShouldPlayDeathDoorVfx(creature)) return Task.CompletedTask;
         if (DD2Helper.IsFlagellant(creature) && type == DeathDoorType.Poison) return Task.CompletedTask;
 
         if ((type == DeathDoorType.LowHealth && FlagellantConfig.ShouldPlayDeathDoorVfxIfLowHealth)
@@ -224,27 +224,5 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
                 await myModel.AfterDeathDoor(creature, healthDelta, powerDelta, type);
             }
         }
-    }
-
-    private bool ShouldPlayDeathDoorVfx(Creature creature)
-    {
-        if (creature == null) return false;
-
-        return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathDoorVfx) ||
-            (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathDoorVfx);
-    }
-    private bool ShouldPlayDeathArmorVfx(Creature creature)
-    {
-        if (creature == null) return false;
-
-        return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathArmorVfx) ||
-            (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathArmorVfx);
-    }
-    private bool ShouldPlayDeathBlowVfx(Creature creature)
-    {
-        if (creature == null) return false;
-
-        return (creature.IsPlayer && FlagellantConfig.ShouldPlayerShowDeathBlowVfx) ||
-            (!creature.IsPlayer && FlagellantConfig.ShouldMonsterShowDeathBlowVfx);
     }
 }

@@ -13,10 +13,10 @@ namespace Flagellant.Code.Cards.Uncommon;
 [Pool(typeof(FlagellantCardPool))]
 public class BeyondCure : FlagellantCardModel
 {
-    public BeyondCure() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public BeyondCure() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithVar("SelfPoison", 3, -1);
-        WithPower<PoisonPower>(9, 1);
+        WithPower<PoisonPower>(12, 1);
         WithPower<WeakPower>(1, 1);
         WithAnimName("Sepsis");
     }
