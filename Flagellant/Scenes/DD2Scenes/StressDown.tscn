@@ -50,23 +50,21 @@ _data = {
 [node name="StressDownNode" type="Node2D"]
 
 [node name="StressDownIcon" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("1_ajvgm")
 
 [node name="StressDownText" type="Label" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 offset_left = -32.0
-offset_top = -145.0
+offset_top = -150.0
 offset_right = 32.0
-offset_bottom = -73.0
+offset_bottom = -78.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 1
-theme_override_constants/shadow_outline_size = 5
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/font_size = 48
 text = "2"
 horizontal_alignment = 1

@@ -1,9 +1,9 @@
 [gd_scene load_steps=66 format=3 uid="uid://bsk2bex2vik0u"]
 
 [ext_resource type="Material" uid="uid://0i26vo7857ka" path="res://Flagellant/Monster_Death/Shader/Rect_Clear_MAT.tres" id="1_55qdu"]
-[ext_resource type="PackedScene" uid="uid://pu8kf1r8loor" path="res://Flagellant/Monster_Death/mdl_shard_death.tscn" id="1_cwawx"]
 [ext_resource type="AnimationLibrary" uid="uid://bwgjem6cbuqu" path="res://Flagellant/Monster_Death/Death_AnimLib.tres" id="2_cwawx"]
 [ext_resource type="Script" uid="uid://y8opi7yvyu7n" path="res://Code/Nodes/DeathSVC.cs" id="2_yxteo"]
+[ext_resource type="PackedScene" uid="uid://5n7nxxa8ut3c" path="res://Flagellant/Monster_Death/death_mdl_export.tscn" id="4_jnqev"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cwawx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -307,11 +307,12 @@ handle_input_locally = false
 size = Vector2i(1000, 800)
 render_target_update_mode = 4
 
-[node name="mdl_shard_death" parent="Visuals/SubViewportContainer/SubViewport" instance=ExtResource("1_cwawx")]
-transform = Transform3D(-34.20201, 0, 93.96925, 0, 99.99999, 0, -93.96926, 0, -34.20201, 0, 0, 0)
+[node name="death_mdl_export" parent="Visuals/SubViewportContainer/SubViewport" instance=ExtResource("4_jnqev")]
+transform = Transform3D(-4.371139e-06, 0, 100, 0, 100, 0, -100, 0, -4.371139e-06, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Visuals/SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 1.6, 3.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 1.6, 8.5)
+fov = 30.0
 near = 0.001
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Visuals/SubViewportContainer/SubViewport"]
@@ -346,7 +347,7 @@ position = Vector2(0, -225)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/mdl_shard_death")
+root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/death_mdl_export")
 libraries = {
 &"": ExtResource("2_cwawx")
 }
@@ -354,7 +355,7 @@ autoplay = "shared_death_idle_A"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("%SubViewportContainer/SubViewport/mdl_shard_death")
+root_node = NodePath("%SubViewportContainer/SubViewport/death_mdl_export")
 tree_root = SubResource("AnimationNodeStateMachine_jnqev")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle/conditions/ToDeathIdle = false

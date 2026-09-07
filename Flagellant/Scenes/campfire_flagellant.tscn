@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cnplxa45ucmlm"]
 
-[ext_resource type="PackedScene" uid="uid://ra7injoopate" path="res://Flagellant/Scenes/flagellant_model.tscn" id="1_70dyi"]
 [ext_resource type="Script" uid="uid://b63cvk40irkn4" path="res://Code/Nodes/FlagellantNRestSiteCharacter.cs" id="1_l7vq5"]
-[ext_resource type="AnimationLibrary" uid="uid://b7bf02uvl0c8l" path="res://flagellant_asset/campfire_animlib.tres" id="2_70dyi"]
+[ext_resource type="AnimationLibrary" uid="uid://dfarp4gxc7dk2" path="res://flagellant_asset/campfire_animlib.tres" id="2_l7vq5"]
 [ext_resource type="PackedScene" uid="uid://cftw6csox0fhd" path="res://Flagellant/Scenes/selection_reticle.tscn" id="3_34dk0"]
 [ext_resource type="Script" uid="uid://d06d3w5af6d70" path="res://Code/Nodes/FlagellantNSelectionReticle.cs" id="4_l7vq5"]
+[ext_resource type="PackedScene" uid="uid://dtw0bc1rau4ct" path="res://Flagellant/Scenes/flagellant_mdl_export.tscn" id="6_hjn2p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ydqrq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -23,9 +23,9 @@ glow_enabled = true
 script = ExtResource("1_l7vq5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../ControlRoot/Visuals/SubViewportContainer/SubViewport/flagellant_model")
+root_node = NodePath("../ControlRoot/Visuals/SubViewportContainer/SubViewport/flagellant_mdl_export")
 libraries = {
-&"": ExtResource("2_70dyi")
+&"": ExtResource("2_l7vq5")
 }
 autoplay = "flagellant_inn_idle"
 
@@ -98,8 +98,8 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.6, 2)
 near = 0.001
 
-[node name="flagellant_model" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport" instance=ExtResource("1_70dyi")]
-transform = Transform3D(62.58013, 21.417913, 75, 32.441883, 80.29648, -50, -70.93131, 55.621487, 43.301266, 0, 0, 0)
+[node name="flagellant_mdl_export" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport" instance=ExtResource("6_hjn2p")]
+transform = Transform3D(62.58013, 21.417913, 75, 32.441883, 80.29648, -50, -70.93131, 55.621483, 43.301266, 0, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_fnc4o")

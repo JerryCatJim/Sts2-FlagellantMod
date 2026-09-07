@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtw0bc1rau4ct"]
+
+[ext_resource type="PackedScene" uid="uid://8icnvgon6x0d" path="res://flagellant_asset/flagellant_mdl_export.glb" id="1_1k4lo"]
+
+[node name="flagellant_mdl_export" instance=ExtResource("1_1k4lo")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)

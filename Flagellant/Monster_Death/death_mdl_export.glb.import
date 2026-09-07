@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://lrc3trb3emoq"
-path="res://.godot/imported/mdl_flagellant.glb-a4c62f6cba07f079515f117d21cdafae.scn"
+uid="uid://cgkfsj10t1ioe"
+path="res://.godot/imported/death_mdl_export.glb-b19ac832c1259a10474e402470f16f5b.scn"
 
 [deps]
 
-source_file="res://flagellant_asset/mdl_flagellant.glb"
-dest_files=["res://.godot/imported/mdl_flagellant.glb-a4c62f6cba07f079515f117d21cdafae.scn"]
+source_file="res://Flagellant/Monster_Death/death_mdl_export.glb"
+dest_files=["res://.godot/imported/death_mdl_export.glb-b19ac832c1259a10474e402470f16f5b.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -39,20 +39,15 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "materials": {
-"mat_flagellant.001": {
+"mat_shared_death": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://flagellant_asset/CHAR_Mat.tres",
-"use_external/path": "uid://djmst8o5yl7lp"
+"use_external/fallback_path": "res://Flagellant/Monster_Death/Texture/CHAR_death.tres",
+"use_external/path": "uid://jpqnapguvf0a"
 },
-"mat_flagellant_wpn_flail_scourge.002": {
+"mat_shared_death_wpn_scythe": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://flagellant_asset/WPN_Mat.tres",
-"use_external/path": "uid://bhin3f1hn066e"
-}
-},
-"nodes": {
-"PATH:flagellant_wpn_scourge_art_prefab/mdl_flagellant/SHJntGrp/Skeleton3D/Chain_a_jot9/vfx_whip_blood_drip_recover_1": {
-"node/node_type": "Node3D"
+"use_external/fallback_path": "res://Flagellant/Monster_Death/Texture/WPN_death.tres",
+"use_external/path": "uid://c8s6r6413owe"
 }
 }
 }
