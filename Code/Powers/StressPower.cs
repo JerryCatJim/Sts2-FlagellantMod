@@ -1,6 +1,7 @@
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Commands;
 using Flagellant.Code.Core;
+using Flagellant.Code.Helper;
 using Flagellant.Code.ResoluteOrMeltdown;
 using Flagellant.Code.Singleton;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,11 +22,17 @@ public sealed class StressPower : FlagellantPowerModel
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>(),
-        HoverTipFactory.FromPower<ToxicFormPower>(),
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            if (DD2Helper.IsFlagellant(Owner.Player))
+            {
+                yield return RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>();
+                yield return HoverTipFactory.FromPower<ToxicFormPower>();
+            }
+        }
+    }
 
     private bool WaitingForRemoving = false;
     private bool HasLocked => Owner.Player != null && 

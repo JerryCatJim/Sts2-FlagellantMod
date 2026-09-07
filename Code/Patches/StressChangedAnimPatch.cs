@@ -40,11 +40,19 @@ public static class StressIncreaseAnimPatch
                 {
                     if (__instance != null && StressNode.GetParent() == null)
                     {
-                        __instance.AddChild(StressNode);
-                        StressNode.Position = __instance.Visuals.GetNodeOrNull<Marker2D>("%StressPos")?.Position ??
-                            (new Godot.Vector2(0, __instance.Visuals.GetNodeOrNull<Control>("%Bounds")?.Position.Y ?? 0));
-                        StressNode.Position *= __instance.Visuals.Scale;
-                        StressNode.Scale = __instance.Visuals.Scale;
+                        Marker2D? stressPosMarker = __instance.Visuals.GetNodeOrNull<Marker2D>("%StressPos");
+                        if (stressPosMarker != null)
+                        {
+                            stressPosMarker.AddChild(StressNode);
+                            StressNode.Position = new Vector2(0, 0);
+                        }
+                        else
+                        {
+                            __instance.AddChild(StressNode);
+                            StressNode.Position = new Godot.Vector2(0, __instance.Visuals.GetNodeOrNull<Control>("%Bounds")?.Position.Y ?? 0);
+                            StressNode.Position *= __instance.Visuals.Scale;
+                        }
+                        StressNode.Scale *= __instance.Visuals.Scale;
                     }
                 }
 

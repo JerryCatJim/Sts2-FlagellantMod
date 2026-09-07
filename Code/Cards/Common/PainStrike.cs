@@ -28,6 +28,6 @@ public class PainStrike : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
     }
 }

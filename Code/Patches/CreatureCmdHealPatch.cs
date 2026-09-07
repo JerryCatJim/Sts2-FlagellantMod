@@ -1,4 +1,4 @@
-using Flagellant.Code.Hooks;
+/*using Flagellant.Code.Hooks;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -18,4 +18,4 @@ public static class CreatureCmdHealPatch
         amount = DD2Hooks.ModifyHealingHp(creature, amount);
         return true;
     }
-}
+}*/

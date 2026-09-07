@@ -27,6 +27,6 @@ public class Fantasy : FlagellantCardModel
     {
         int repeatTimes = IsStressGreaterEqual() || RMHelper.IsInResoluteOrMeltdown<ToxicMeltdown>(base.Owner)
             ? base.DynamicVars.Repeat.IntValue : 1;
-        await CommonActions.CardAttack(this, cardPlay, repeatTimes).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay, repeatTimes).Execute(choiceContext);
     }
 }

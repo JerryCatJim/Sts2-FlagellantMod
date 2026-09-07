@@ -26,7 +26,7 @@ public class CalmStrike : FlagellantCardModel
 
         CombatAudioManager.PlayCombatSfx("res://Flagellant/Sounds/Watcher/calm_enter.ogg", true, true, 0);
 
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         if(IsStressLessEqual(5))
         {
             await CommonActions.Apply<ComboPower>(choiceContext, cardPlay.Target, this);

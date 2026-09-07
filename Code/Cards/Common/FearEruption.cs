@@ -44,7 +44,7 @@ public class FearEruption : FlagellantCardModel
     {
         _calculatedStress = DD2Hooks.ModifyStressPower(Owner.Creature.CombatState, Owner.Creature.GetPower<StressPower>(), DynamicVars["StressPower"].BaseValue, Owner.Creature, Owner.Creature, this);
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         _calculatedStress = 0;
     }
 }

@@ -22,7 +22,7 @@ public class Trudge : FlagellantCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         await CreatureCmd.Heal(base.Owner.Creature, GetHealingPercentHp());
         await CommonActions.Apply<ComboPower>(choiceContext, cardPlay.Target, this);
     }

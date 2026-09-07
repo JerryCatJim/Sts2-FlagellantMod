@@ -41,7 +41,7 @@ public class AcidRain : FlagellantCardModel
                 await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             }
         }
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         foreach (KeyValuePair<Creature, bool> pairs in MarkedEnemies)
         {
             if (pairs.Key != null && pairs.Key.IsAlive)

@@ -73,7 +73,7 @@ public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
     // 死亡音效
     // public override string CustomDeathSfx => null;
     // 角色选择音效
-    // public override string CharacterSelectSfx => null;
+    public override string CharacterSelectSfx => GetRandomSelectedSfx();
     // 过渡音效。这个不能删。
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 
@@ -95,6 +95,50 @@ public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
 	public override CardPoolModel CardPool => ModelDb.CardPool<FlagellantCardPool>();
 	public override RelicPoolModel RelicPool => ModelDb.RelicPool<FlagellantRelicPool>();
 	public override PotionPoolModel PotionPool => ModelDb.PotionPool<FlagellantPotionPool>();
+
+    private bool _isFirst = true;
+    private string _lastSelectedSfx = "";
+    private readonly Random _rng = new Random();
+    private readonly List<string> _candidates = new List<string>(3);
+    private string GetRandomSelectedSfx()  //第一次不出Lash's Gift的音效，且每次的音效与上次不同
+    {
+        if (_isFirst)
+        {
+            _isFirst = false;  //按理说应该打完一局游戏后重新设置为true，但真没必要因为这个东西再改ShouldReceiveCombatHook然后监听结束游戏事件了
+            _lastSelectedSfx = GetSelectedSfxByIndex(_rng.Next(3)); // 0,1,2
+            return _lastSelectedSfx;
+        }
+
+        _candidates.Clear();
+        for (int i = 0; i < 4; i++)
+        {
+            string sfx = GetSelectedSfxByIndex(i);
+            if (sfx != _lastSelectedSfx)
+                _candidates.Add(sfx);
+        }
+        //防御编程，给予默认元素
+        if (_candidates.Count == 0)
+            _candidates.Add(GetSelectedSfxByIndex(0));
+
+        _lastSelectedSfx = _candidates[_rng.Next(_candidates.Count)];
+        return _lastSelectedSfx;
+    }
+    private string GetSelectedSfxByIndex(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return "res://Flagellant/Sounds/Selected/sfx_flg_suffer_selected.wav";
+            case 1:
+                return "res://Flagellant/Sounds/Selected/sfx_flg_punish_selected.wav";
+            case 2:
+                return "res://Flagellant/Sounds/Selected/sfx_flg_necro_selected.wav";
+            case 3:
+                return "res://Flagellant/Sounds/Selected/sfx_flg_lash_selected.wav";
+            default:
+                return "";
+        }
+    }
 
     public string TryGetCharacterType()
     {

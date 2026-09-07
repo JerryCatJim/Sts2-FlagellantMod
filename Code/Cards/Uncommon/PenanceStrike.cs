@@ -39,7 +39,7 @@ public class PenanceStrike : FlagellantCardModel
             await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
             createCards = base.DynamicVars["CreateCards"].IntValue;
         }
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         IEnumerable<Penance> enumerable = Penance.Create(base.Owner, createCards, base.CombatState);
         if (hasCombo)
         {

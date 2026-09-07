@@ -23,7 +23,7 @@ public class Necrosis : FlagellantCardModel
     {
         if (base.CombatState == null) return;
 
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         foreach (Creature creature in base.CombatState.HittableEnemies)
         {
             if (creature.HasPower<PoisonPower>())

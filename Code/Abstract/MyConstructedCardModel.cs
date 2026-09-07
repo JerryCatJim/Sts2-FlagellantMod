@@ -1,10 +1,13 @@
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
+using Flagellant.Code.Core;
 using Flagellant.Code.DisplayHpVar;
 using Flagellant.Code.Helper;
 using Flagellant.Code.Powers;
+using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -20,9 +23,16 @@ public abstract class MyConstructedCardModel(
     bool shouldShowInCardLibrary = true) :
     ConstructedCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
+    protected bool HasAnyComboMarkedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
+    protected bool HasAnyPoisonedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>()) ?? false;
     protected MyConstructedCardModel WithPowerTip<T>() where T : PowerModel
     {
         WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromPower<T>()));
+        return this;
+    }
+    protected MyConstructedCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
+    {
+        WithTip(new TooltipSource(_ => RMHoverTipFactory.FromResoluteOrMeltdown<T>()));
         return this;
     }
     protected MyConstructedCardModel WithHpLoss(int baseVal, int upgrade = 0)

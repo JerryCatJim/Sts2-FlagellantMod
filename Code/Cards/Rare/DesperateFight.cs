@@ -27,7 +27,7 @@ public class DesperateFight : FlagellantCardModel
         {
             await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         }
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         await CreatureCmd.Heal(base.Owner.Creature, GetHealingPercentHp());
     }
 }

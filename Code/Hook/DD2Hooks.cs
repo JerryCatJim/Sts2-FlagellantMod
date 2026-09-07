@@ -1,3 +1,4 @@
+using BaseLib.Patches.Hooks;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Powers;
 using Flagellant.Code.ResoluteOrMeltdown;
@@ -40,7 +41,7 @@ public class DD2Hooks
     {
         if (creature == null) return originalHealing;
 
-        decimal num = originalHealing;
+        /*decimal num = originalHealing;
         if (creature.CombatState != null && creature.CombatState.RunState != null)
         {
             //不用CombatState，保留在战斗外监听血量回复的可能
@@ -53,7 +54,8 @@ public class DD2Hooks
                 }
             }
         }
-        return num;
+        return num;*/
+        return ModifyHealAmountPatches.ModifyHeal(originalHealing, creature);
     }
     
     public static decimal ModifyStressPower(ICombatState? combatState, PowerModel? stressPower, decimal deltaAmount, Creature? applier, Creature target, CardModel? cardSource)

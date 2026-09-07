@@ -5,7 +5,6 @@ using Flagellant.Code.Helper;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -33,6 +32,7 @@ public static class FlagellantAnimationPatch
 
             case "Cast":    //原版角色的施法动作
             case "Attack":  //攻击卡牌在attackcmd里默认赋值trigger为attack,所以传入的是attack的话什么也不做
+            case "PowerUp": //原版角色某些卡牌动作
             case "DoNothing":
                 break;
 
@@ -205,7 +205,7 @@ public static class FlagellantAnimationPatch
             CombatAudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"), false, VolumeDB);
             if (state == "Lash")
             {
-                //Lash类技能有锤肉的音效，忘了加了在这补上
+                //Lash类技能有锤肉的音效，游戏内听着不明显，单独再叠加一个
                 CombatAudioManager.PlayCombatSfx("CardPlay/Suffer", false, false, -10, 1);
             }
         }
@@ -342,24 +342,6 @@ public class FlagellantOnCreatureUnhoverPatch
         if (Card == null || Card is not FlagellantCardModel) return;
 
         CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
-    }
-}
-
-//可能改为在卡牌OnPlay时调用attackcommand.WithAttackerAnim好一些?
-[HarmonyPatch(typeof(AttackCommand), "FromCard")]
-public class FlagellantAttackCommandPatch
-{
-    public static void Postfix(AttackCommand __instance, CardModel card)
-    {
-        if (card is not FlagellantCardModel) return;
-
-        if (!DD2Helper.IsFlagellant(card.Owner)) return;
-
-        FlagellantCardModel MyCard = (FlagellantCardModel)card;
-        if (MyCard != null && MyCard.CardPlayAnimName != "DoNothing")
-        {
-            Traverse.Create(__instance).Field("_attackerAnimName").SetValue("CardPlay/" + MyCard.CardPlayAnimName);
-        }
     }
 }
 

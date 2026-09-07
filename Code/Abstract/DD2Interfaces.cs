@@ -9,14 +9,14 @@ public interface IAfterStressChanged
 {
     public Task AfterStressAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource);
 }
-public interface IModifyHpAmountReceived
+/*public interface IModifyHpAmountReceived
 {
     public bool TryModifyHpAmountReceived(Creature creature, decimal amount, out decimal modifiedAmount, bool silent)
     {
         modifiedAmount = amount;
         return false;
     }
-}
+}*/
 public interface IAfterComboChanged
 {
     public Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource);

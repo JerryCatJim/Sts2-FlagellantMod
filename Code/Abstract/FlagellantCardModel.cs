@@ -2,15 +2,15 @@ using BaseLib.Extensions;
 using BaseLib.Utils;
 using Flagellant.Code.Character;
 using Flagellant.Code.Config;
-using Flagellant.Code.Core;
 using Flagellant.Code.Extensions;
-using Flagellant.Code.Powers;
-using Flagellant.Code.ResoluteOrMeltdown;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Abstract;
 
@@ -27,14 +27,6 @@ public abstract class FlagellantCardModel(
     public string _cardPlayAnimName = "DoNothing";
     public string CardSelectAnimName => _cardSelectAnimName;
     public string CardPlayAnimName => _cardPlayAnimName;
-
-    protected bool HasAnyComboMarkedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<ComboPower>()) ?? false;
-    protected bool HasAnyPoisonedEnemy => base.CombatState?.HittableEnemies.Any((Creature e) => e.HasPower<PoisonPower>()) ?? false;
-    protected FlagellantCardModel WithRMTip<T>() where T : ResoluteOrMeltdownModel
-    {
-        WithTip(new TooltipSource(_ => RMHoverTipFactory.FromResoluteOrMeltdown<T>()));
-        return this;
-    }
     protected FlagellantCardModel WithAnimName(string AnimName)
     {
         _cardSelectAnimName = AnimName;
@@ -43,12 +35,67 @@ public abstract class FlagellantCardModel(
     }
     protected async Task PlayCardAnim(float waitTime = 0.0f)
     {
-        if (CardPlayAnimName == null || CardPlayAnimName == "" || CardPlayAnimName == "DoNothing")
+        if (!HasCardPlayAnimName())
         {
             return;
         }
         await CreatureCmd.TriggerAnim(Owner.Creature, "CardPlay/" + CardPlayAnimName, waitTime);
     }
+    protected bool HasCardPlayAnimName()
+    {
+        if (CardPlayAnimName == null || CardPlayAnimName == "" || CardPlayAnimName == "DoNothing")
+        {
+            return false;
+        }
+        return true;
+    }
+    #region PackedAttackCommands
+    protected static AttackCommand CardAttackWithCustomAnim(CardModel card, CardPlay? play, int hitCount = 1, string? vfx = null, string? sfx = null, string? tmpSfx = null)
+    {
+        if (card is FlagellantCardModel myCard && myCard.HasCardPlayAnimName())
+        {
+            return CommonActions.CardAttack(card, play, hitCount, vfx, sfx, tmpSfx).WithAttackerAnim("CardPlay/" + myCard.CardPlayAnimName, 0f);
+        }
+        else
+        {
+            return CommonActions.CardAttack(card, play, hitCount, vfx, sfx, tmpSfx);
+        }
+    }
+    protected static AttackCommand CardAttackWithCustomAnim(CardModel card, CardPlay? cardPlay, Creature? target, decimal damage, ValueProp valueProp, int hitCount = 1, string? vfx = null, string? sfx = null, string? tmpSfx = null)
+    {
+        if (card is FlagellantCardModel myCard && myCard.HasCardPlayAnimName())
+        {
+            return CommonActions.CardAttack(card, cardPlay, target, damage, valueProp, hitCount, vfx, sfx, tmpSfx).WithAttackerAnim("CardPlay/" + myCard.CardPlayAnimName, 0f);
+        }
+        else
+        {
+            return CommonActions.CardAttack(card, cardPlay, target, damage, valueProp, hitCount, vfx, sfx, tmpSfx);
+        }
+    }
+    protected static AttackCommand CardAttackWithCustomAnim(CardModel card, CardPlay? cardPlay, Creature? target, CalculatedDamageVar calculatedDamage, int hitCount = 1, string? vfx = null, string? sfx = null, string? tmpSfx = null)
+    {
+        if (card is FlagellantCardModel myCard && myCard.HasCardPlayAnimName())
+        {
+            return CommonActions.CardAttack(card, cardPlay, target, calculatedDamage, hitCount, vfx, sfx, tmpSfx).WithAttackerAnim("CardPlay/" + myCard.CardPlayAnimName, 0f);
+        }
+        else
+        {
+            return CommonActions.CardAttack(card, cardPlay, target, calculatedDamage, hitCount, vfx, sfx, tmpSfx);
+        }
+    }
+    protected static AttackCommand CardAttackWithCustomAnim(CardModel card, CardPlay? cardPlay, Creature? target, CalculatedDamageVar calculatedDamage, ValueProp valueProp, int hitCount = 1, string? vfx = null, string? sfx = null, string? tmpSfx = null)
+    {
+        if (card is FlagellantCardModel myCard && myCard.HasCardPlayAnimName())
+        {
+            return CommonActions.CardAttack(card, cardPlay, target, calculatedDamage, valueProp, hitCount, vfx, sfx, tmpSfx).WithAttackerAnim("CardPlay/" + myCard.CardPlayAnimName, 0f);
+        }
+        else
+        {
+            return CommonActions.CardAttack(card, cardPlay, target, calculatedDamage, valueProp, hitCount, vfx, sfx, tmpSfx);
+        }
+    }
+    #endregion PackedAttackCommands
+
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
     //Full art: 606x852
