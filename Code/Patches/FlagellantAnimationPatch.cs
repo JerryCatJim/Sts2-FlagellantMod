@@ -205,7 +205,7 @@ public static class FlagellantAnimationPatch
             CombatAudioManager.PlayCombatSfx("CardPlay/" + state, state.ToString().Contains("Recover"), false, VolumeDB);
             if (state == "Lash")
             {
-                //Lash类技能有锤肉的音效，忘了加了在这补上
+                //Lash类技能有锤肉的音效，游戏内听着不明显，单独再叠加一个
                 CombatAudioManager.PlayCombatSfx("CardPlay/Suffer", false, false, -10, 1);
             }
         }
