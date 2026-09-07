@@ -35,7 +35,7 @@ public class RelievedStrike : FlagellantCardModel
             hasCombo = true;
             await PowerCmd.ModifyAmount(choiceContext, comboP, -1, base.Owner.Creature, this);
         }
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         if (hasCombo && base.CombatState != null)
         {
             await PlayerCmd.GainEnergy(base.DynamicVars.Energy.BaseValue, base.Owner);

@@ -34,7 +34,7 @@ public class ToxicJudgement : FlagellantCardModel
         NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGaseousImpactVfx.Create(cardPlay.Target, new Godot.Color("008000"))); //83eb85
 
         decimal poisonNum1 = Math.Round((cardPlay.Target?.GetPower<PoisonPower>()?.Amount ?? 0m) / 2m, MidpointRounding.AwayFromZero);
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         decimal poisonNum2 = Math.Round((cardPlay.Target?.GetPower<PoisonPower>()?.Amount ?? 0m) / 2m, MidpointRounding.AwayFromZero);
         if (cardPlay.Target != null && cardPlay.Target.IsAlive)
         {

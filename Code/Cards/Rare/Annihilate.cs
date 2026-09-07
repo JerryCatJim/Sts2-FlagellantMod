@@ -30,11 +30,11 @@ public class Annihilate : FlagellantCardModel
         if (cardPlay.Target.GetPower<ComboPower>() is ComboPower comboP)
         {
             await PowerCmd.ModifyAmount(choiceContext, comboP, -1, Owner.Creature, this);
-            await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, base.DynamicVars["ComboDamage"].BaseValue, ValueProp.Move).Execute(choiceContext);
+            await CardAttackWithCustomAnim(this, cardPlay, cardPlay.Target, base.DynamicVars["ComboDamage"].BaseValue, ValueProp.Move).Execute(choiceContext);
         }
         else
         {
-            await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+            await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         }
         await CommonActions.Apply<ComboPower>(choiceContext, cardPlay.Target, this);
     }

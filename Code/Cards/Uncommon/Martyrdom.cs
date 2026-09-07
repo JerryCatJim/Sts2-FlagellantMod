@@ -58,7 +58,7 @@ public class Martyrdom : FlagellantCardModel
                     NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NGroundFireVfx.Create(hittableEnemy));
                 }
             }
-            await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+            await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
 
             if (_doomNum > 0m)
             {

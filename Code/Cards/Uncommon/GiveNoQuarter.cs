@@ -28,7 +28,7 @@ public class GiveNoQuarter : FlagellantCardModel
             ShouldApplyGiveNoQuarterPower = true;
             //await CommonActions.ApplySelf<GiveNoQuarterPower>(choiceContext, this);
         }
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
