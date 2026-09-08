@@ -1,4 +1,5 @@
 using Flagellant.Code.Audio;
+using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
 using Flagellant.Code.Monster;
 using Godot;
@@ -123,7 +124,7 @@ public static class DeathBgmPatch
     public static void Postfix(double value)
     {
         //从死神的战斗中退回到主界面会导致BGM音量为0，调一下滑动条就恢复正常了，没找到退回到主界面事件，懒得修了
-        if (CombatManager.Instance.IsInProgress && DeathListenForRunStateSingleton.IsDeathExistingInCombat == true)
+        if (CombatManager.Instance.IsInProgress && DeathListenForRunStateSingleton.IsDeathExistingInCombat && FlagellantConfig.ShouldPlayDeathEncounterBgm)
         {
             NAudioManager.Instance?.SetBgmVol(0);
             DD2AudioManager.SetDD2BgmPlayerVolumeByPercent((float)(value / 100.0));
