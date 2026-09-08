@@ -4,6 +4,7 @@ using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
@@ -61,6 +62,14 @@ public static class StressIncreaseAnimPatch
                 {
                     AnimPlayer.Stop();
                     AnimPlayer.Play("Show");
+                    AnimPlayer.AnimationFinished += (animName) =>
+                    {
+                        //每次都是新生成的压力动画结点，不用判断是否重复连接信号
+                        if (StressNode != null && !StressNode.IsQueuedForDeletion())
+                        {
+                            StressNode.QueueFreeSafely();
+                        }
+                    };
                 }
                 var StressValueText = StressNode.GetNodeOrNull<Label>(NodeName + "Text");
                 if (StressValueText != null)
