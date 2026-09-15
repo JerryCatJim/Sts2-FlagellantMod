@@ -30,6 +30,8 @@ public static class FlagellantAnimationPatch
                 PlayAnim(__instance, "Hit", true);
                 break;
 
+            case "":
+            case null:
             case "Cast":    //原版角色的施法动作
             case "Attack":  //攻击卡牌在attackcmd里默认赋值trigger为attack,所以传入的是attack的话什么也不做
             case "PowerUp": //原版角色某些卡牌动作
@@ -75,8 +77,6 @@ public static class FlagellantAnimationPatch
         FlagellantHelper.ResetAdvancedConditions(animTree, node.Entity);
 
         var state_machine = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/playback");
-        AnimationNodeStateMachine? rootStateMachine = animTree.TreeRoot as AnimationNodeStateMachine;
-
         if (state_machine != null)
         {
             #region FixIdleAnimTravel
@@ -108,6 +108,7 @@ public static class FlagellantAnimationPatch
             if (!bHasChildStateMachine)
             {
                 //检测到状态机中不存在的结点(例如使用了属于其他角色卡池的卡牌而触发动画时)则什么也不做
+                AnimationNodeStateMachine? rootStateMachine = animTree.TreeRoot as AnimationNodeStateMachine;
                 if (rootStateMachine == null || !rootStateMachine.HasNode(animName)) return;
 
                 if (animName == "Hit")
@@ -119,6 +120,7 @@ public static class FlagellantAnimationPatch
                     }
                     //若处于任意Idle时则平滑切换
                     playImmediately = !FlagellantHelper.IsInAnyIdle(animTree, node.Entity);
+		            animName = DD2Helper.IsInDeathDoor(node.Entity) ? "DeathDoor" : animName;
                 }
                 if (playImmediately)
                 {
@@ -137,6 +139,8 @@ public static class FlagellantAnimationPatch
                     if (AR_SM != null)
                     {
                         string cardAnimName = animName.Replace("CardSelect/", "");
+                        if (!FlagellantHelper.CanTravelTo(cardAnimName)) return;
+
                         if (!string.IsNullOrEmpty(cardAnimName) && cardAnimName != "DoNothing")
                         {
                             //必须用Start立刻传送，否则在上一张牌动画Recover阶段没结束时迅速选择下一张牌，动画会无法正确播放
@@ -144,10 +148,10 @@ public static class FlagellantAnimationPatch
                             AR_SM.Travel(cardAnimName);
                             if (!FlagellantConfig.ShouldMuteSeparately)
                             {
-                                CombatAudioManager.PlayCombatSfx("CardSelect/" + cardAnimName
-                                    //, false, 
-                                    //false, 
-                                    //AudioCfg.GetFlagellantVolumeDB("CardSelect/" + cardAnimName)
+                                CombatAudioManager.PlayCombatSfx("CardSelect/" + cardAnimName,
+                                    false, 
+                                    false, 
+                                    CombatAudioCfg.GetFlagellantVolumeDB("CardSelect/" + cardAnimName)
                                     );
                             }
                         }
@@ -159,6 +163,8 @@ public static class FlagellantAnimationPatch
                     if (Attack_SM != null)
                     {
                         string cardAnimName = animName.Replace("CardPlay/", "");
+                        if (!FlagellantHelper.CanTravelTo(cardAnimName)) return;
+
                         //单独调整melee_recover(Punish和Necrosis状态用的)动画，把前面的头掐掉看着更顺畅
                         if (cardAnimName == "Punish" || cardAnimName == "Necrosis")
                         {
@@ -219,12 +225,10 @@ public class FlagellantOnSelectedPatch
     {
         if (!FlagellantConfig.ShouldPlayCardAnimAndSound) return;
 
-        if (cardModel is not FlagellantCardModel) return;
-
-        FlagellantCardModel? MyCard = cardModel as FlagellantCardModel;
-        if (MyCard == null || MyCard.CardSelectAnimName == "DoNothing") return;
-
-        CreatureCmd.TriggerAnim(MyCard.Owner.Creature, "CardSelect/" + MyCard.CardSelectAnimName, 0);
+        if (cardModel is FlagellantCardModel myCard && myCard.CardSelectAnimName != "DoNothing" && DD2Helper.IsFlagellant(myCard.Owner))
+        {
+            CreatureCmd.TriggerAnim(myCard.Owner.Creature, "CardSelect/" + myCard.CardSelectAnimName, 0);
+        }
     }
 }
 
@@ -240,7 +244,7 @@ public static class FlagellantOnCardSelectedPatch
         Player? CurrentPlayer = Traverse.Create(__instance).Field("_player").GetValue<Player>();
 
         //Log.Info("ShouldShowHoverTip : " + ShouldShowHoverTip);  //不知道为什么ShouldShowHoverTip一直是false，先屏蔽了
-        if (CurrentPlayer == null || LocalContext.IsMe(CurrentPlayer)) return;// || !ShouldShowHoverTip) return;
+        if (!DD2Helper.IsFlagellant(CurrentPlayer) || LocalContext.IsMe(CurrentPlayer)) return;// || !ShouldShowHoverTip) return;
 
         NMultiplayerCardIntent CardIntent = Traverse.Create(__instance).Field("_cardIntent").GetValue<NMultiplayerCardIntent>();
         if (CardIntent != null && CardIntent.Card != null && CardIntent.Visible)
@@ -297,7 +301,7 @@ public class FlagellantCancelPlayCardPatch
         if (!GodotObject.IsInstanceValid(__instance)) return;
 
         CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
-        if (Card == null || Card is not FlagellantCardModel) return;
+        if (Card is not FlagellantCardModel || !DD2Helper.IsFlagellant(Card.Owner)) return;
 
         #region FixPowerCardPlayedTravelToIdle
         //发现PowerCard在打出时会先停顿一小会再播放打出动画(Attack和Skill倒是会立刻播放，但其实也经历了Travel到Idle的过程，只不过随后又立刻切换了)。
@@ -339,7 +343,7 @@ public class FlagellantOnCreatureUnhoverPatch
         if (__instance is not NControllerCardPlay) return;
 
         CardModel Card = Traverse.Create(__instance).Property("Card").GetValue<CardModel>();
-        if (Card == null || Card is not FlagellantCardModel) return;
+        if (Card is not FlagellantCardModel || !DD2Helper.IsFlagellant(Card.Owner)) return;
 
         CreatureCmd.TriggerAnim(Card.Owner.Creature, "Idle", 0);
     }
