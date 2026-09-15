@@ -56,4 +56,24 @@ public static class FlagellantHelper
         }
         return false;
     }
+    public static bool CanTravelTo(string nodeName)
+    {
+        switch (nodeName)
+        {
+            case "Punish":
+            case "Necrosis":
+            case "Fester":
+            case "AcidRain":
+            case "Deathless":
+            case "Endure":
+            case "More":
+            case "Sepsis":
+            case "Undying":
+            case "Lash":
+            case "Suffer":
+                return true;
+            default:
+                return false;
+        }
+    }
 }
