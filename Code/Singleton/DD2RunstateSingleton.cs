@@ -16,7 +16,7 @@ public class DD2RunstateSingleton : CustomSingletonModel
 
     public override Task AfterRoomEntered(AbstractRoom room)
     {
-        DD2CombatSingleton.ResetValue(); 
+        DD2CombatSingleton.ResetValueBeforeCombat(); 
         DD2Helper.ResetCombatDictionaries();
 
         if (room is CombatRoom combatRoom)

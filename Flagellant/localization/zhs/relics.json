@@ -1,10 +1,10 @@
 {
   "FLAGELLANT-PAIN_BOX.title": "痛苦之匣",
   "FLAGELLANT-PAIN_BOX.flavor": "[red]恐惧是心灵的杀手......[/red]",
-  "FLAGELLANT-PAIN_BOX.description": "每当你在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。",
+  "FLAGELLANT-PAIN_BOX.description": "每当你在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。在战斗结束时，移除你的所有[gold]压力[/gold]。",
   "FLAGELLANT-DARK_IMPULSE.title": "黑暗冲动",
   "FLAGELLANT-DARK_IMPULSE.flavor": "[red]拥抱黑暗，侍奉光明。[/red]",
-  "FLAGELLANT-DARK_IMPULSE.description": "每当你在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。在每场战斗开始时，获得[blue]5[/blue]点[gold]压力[/gold]。",
+  "FLAGELLANT-DARK_IMPULSE.description": "每当你在战斗中受到[red]致命伤害[/red]时，改为获得等量[gold]灾厄[/gold]。在每场战斗开始时，获得[blue]5[/blue]点[gold]压力[/gold]。在战斗结束时，移除你的所有[gold]压力[/gold]。",
   "FLAGELLANT-DEATHS_HEAD.title": "死神之颅",
   "FLAGELLANT-DEATHS_HEAD.flavor": "[red]你可以逃跑，但你无法躲藏！[/red]",
   "FLAGELLANT-DEATHS_HEAD.description": "当你的生命值将要降低至[blue]0[/blue]或以下时，回复到最大生命值的[green]{Heal}%[/green]（仅能起效一次）。",
@@ -28,5 +28,8 @@
   "FLAGELLANT-SEARING_SCRIPTURE.description": "每场战斗中，你打出的第一张攻击牌会给予[gold]破绽[/gold]。",
   "FLAGELLANT-HIS_PRISON.title": "本我囚笼",
   "FLAGELLANT-HIS_PRISON.flavor": "[red]追求痛苦的灵魂被困在了不死的躯壳中。[/red]",
-  "FLAGELLANT-HIS_PRISON.description": "每当你被攻击命中时，给予攻击者[blue]2[/blue]层[gold]中毒[/gold]。"
+  "FLAGELLANT-HIS_PRISON.description": "每当你被攻击命中时，给予攻击者[blue]2[/blue]层[gold]中毒[/gold]。",
+  "FLAGELLANT-STRESS_COUNTER_RELIC.title": "压力计数器",
+  "FLAGELLANT-STRESS_COUNTER_RELIC.flavor": "[red]我们的家族没落了。[/red]",
+  "FLAGELLANT-STRESS_COUNTER_RELIC.description": "记录着你的当前[gold]压力[/gold]。在战斗结束时，保留你的[gold]压力[/gold]。"
 }

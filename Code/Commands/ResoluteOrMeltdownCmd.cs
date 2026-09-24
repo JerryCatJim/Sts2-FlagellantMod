@@ -1,24 +1,28 @@
+using Flagellant.Code.Core;
 using Flagellant.Code.Helper;
+using Flagellant.Code.Hooks;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
+using System;
 
 namespace Flagellant.Code.Commands;
 
 public static class RMCmd
 {
-    public static Task TryEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
+    public static async Task TryEnterResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
-        if(DD2Helper.IsFlagellant(player))
+        ResoluteOrMeltdownModel oldRM = RMHelper.GetResoluteOrMeltdownModel(player);
+        ResoluteOrMeltdownModel newRM = DD2Helper.TryGetUniqueRM(player);
+        if(newRM == null || newRM == RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>())
         {
-            return EnterToxic(ctx, player, cardSource);
+            newRM = GetRandomResoluteOrMeltdown(ctx, player, cardSource);
         }
-        return EnterRandomResoluteOrMeltdown(ctx, player ,cardSource);
-    }
-    public static Task EnterToxic(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
-    {
-        return RMHelper.SetResoluteOrMeltdown<ToxicMeltdown>(ctx, player, cardSource);
+        await DD2Hooks.BeforeResoluteOrMeltdownChanged(ctx, player, oldRM, newRM);
+        await RMHelper.SetResoluteOrMeltdown(ctx, player, newRM, cardSource);
+        await DD2Hooks.AfterResoluteOrMeltdownChanged(ctx, player, oldRM, newRM);
     }
 
     public static Task EnterResoluteOrMeltdown<T>(PlayerChoiceContext ctx, Player player, CardModel? cardSource) where T : ResoluteOrMeltdownModel
@@ -30,7 +34,7 @@ public static class RMCmd
     {
         return RMHelper.SetResoluteOrMeltdown<NoResoluteAndMeltdown>(ctx, player, cardSource);
     }
-    private static Task EnterRandomResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
+    private static ResoluteOrMeltdownModel GetRandomResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, CardModel? cardSource)
     {
         //You can also use official RNG class to get syncable random values.
         int playerMaxHP = player.Creature?.MaxHp ?? 0;
@@ -38,37 +42,34 @@ public static class RMCmd
         int roundNumber = player.Creature?.CombatState?.RoundNumber ?? 0;
 
         //int index0 = player.PlayerRng.Transformations.NextInt(0, 9);
-        int index1 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, 10);
-        int index2 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, Enum.GetNames(typeof(ResoluteType)).Length);
-        int index3 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, Enum.GetNames(typeof(MeltdownType)).Length);
+        int index1 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, 100);
 
-        bool isMeltdown = index1 >= 2; //0到9,Meltdown概率80%，所以2到9为Meltdown, 0和1为Resolute
+        //0到99,Meltdown概率80%，所以0到19为Resolute，其他为Meltdown
+        bool isMeltdown = index1 >= DD2Hooks.ModifyResoluteprobability(player.Creature, 20m);
         if(isMeltdown)
         {
-            return index2 switch
-            {
-                //0 => EnterResoluteOrMeltdown<YourResoluteClass>(ctx, player, cardSource),
-                //1 => and so on...
-                //_ => EnterResoluteOrMeltdown<YourResoluteClassDefault>(ctx, player, cardSource),
-                _ => EnterResoluteOrMeltdown<NoResoluteAndMeltdown>(ctx, player, cardSource)
-            };
+            IReadOnlyList<RMRegistration> MeltdownList = RMRegistry.Query(r => r.RMType == ResoluteOrMeltdownType.Meltdown);
+            int index2 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, MeltdownList.Count);
+
+            if (index2 <= 0) return RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
+
+            return MeltdownList[index2].Factory();
         }
         else
         {
-            return index3 switch
-            {
-                //0 => EnterResoluteOrMeltdown<YourMeltdownClass>(ctx, player, cardSource),
-                //1 => and so on...
-                //_ => EnterResoluteOrMeltdown<YourMeltdownClassDefault>(ctx, player, cardSource),
-                _ => EnterResoluteOrMeltdown<NoResoluteAndMeltdown>(ctx, player, cardSource)
-            };
+            IReadOnlyList<RMRegistration> ResoluteList = RMRegistry.Query(r => r.RMType == ResoluteOrMeltdownType.Resolute);
+            int index3 = GetRandomIndex(player, playerMaxHP, floorCount, roundNumber, ResoluteList.Count);
+
+            if (index3 <= 0) return RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
+
+            return ResoluteList[index3].Factory();
         }
     }
     public static int GetRandomIndex(Player player, int a, int b, int c, int N)
     {
         if (N <= 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(N), "N must be greater than 0.");
+            return -1;
         }
 
         ulong seed = player.PlayerRng.Seed;     //盐值，增加分散度

@@ -1,4 +1,5 @@
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Attributes;
 using Flagellant.Code.Commands;
 using Flagellant.Code.Powers;
 using Godot;
@@ -13,11 +14,11 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
-using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.ResoluteOrMeltdown;
 
+[RMRegister(typeof(Character.Flagellant), ResoluteOrMeltdownType.Toxic, isUnique : true)]
 public class ToxicMeltdown : ResoluteOrMeltdownModel
 {
     public override bool ShouldReceiveCombatHooks => true;

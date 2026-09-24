@@ -4,13 +4,12 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace Flagellant.Code.Relics;
 
-[Pool(typeof(SharedRelicPool))]
-public class DeathsHead : FlagellantRelicModel
+[Pool(typeof(DarkestDungeonRelicPool))]
+public class DeathsHead : DarkestDungeonRelicModel
 {
     private bool _wasUsed;
 

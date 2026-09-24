@@ -39,7 +39,7 @@ public static class RMHelper
         await SetResoluteOrMeltdown(ctx, player, RMModelDb.ResoluteOrMeltdown<T>(), source);
     }
 
-    private static async Task SetResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel newCanonical, CardModel? source)
+    public static async Task SetResoluteOrMeltdown(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel newCanonical, CardModel? source)
     {
         var current = ActiveRM[player];
         //可以重复进入美德/折磨

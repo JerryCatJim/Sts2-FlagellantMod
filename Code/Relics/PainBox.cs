@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
+using Flagellant.Code.Helper;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -9,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Relics;
@@ -44,6 +46,11 @@ public class PainBox : FlagellantRelicModel
             await PowerCmd.Apply<DoomPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, _amount, Owner.Creature, null);
             _amount = 0;
         }
+    }
+    public override Task AfterCombatVictory(CombatRoom room)
+    {
+        DD2Helper.ClearStressAfterCombatVictory(Owner);
+        return Task.CompletedTask;
     }
 
     public override RelicModel? GetUpgradeReplacement()

@@ -1,8 +1,11 @@
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Audio;
 using Flagellant.Code.Config;
+using Flagellant.Code.Core;
 using Flagellant.Code.Monster;
 using Flagellant.Code.Powers;
+using Flagellant.Code.Relics;
+using Flagellant.Code.ResoluteOrMeltdown;
 using Flagellant.Code.Singleton;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
@@ -41,6 +44,23 @@ public static class DD2Helper
     public static bool IsFlagellant(Player? player)
     {
         return player != null && player.Character is IGetDD2CharacterType DD2Character && DD2Character.TryGetCharacterType() == "Flagellant";
+    }
+    public static void ClearStressAfterCombatVictory(Player? player)
+    {
+        if (player == null) return;
+        foreach(StressCounterRelic relic in player.Relics.Where(r => r is StressCounterRelic && r.Owner == player).ToList())
+        {
+            relic.CurrentStress = 0;
+        }
+    }
+    public static ResoluteOrMeltdownModel TryGetUniqueRM(Player? player)
+    {
+        if (player != null)
+        {
+            ResoluteOrMeltdownModel? uniqueRM = RMRegistry.GetUnique(player.Character.Id.Entry).FirstOrDefault()?.Factory();
+            return uniqueRM != null ? uniqueRM : RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
+        }
+        return RMModelDb.ResoluteOrMeltdown<NoResoluteAndMeltdown>();
     }
     public static bool IsInDeathDoor(Creature? creature)
     {
@@ -88,7 +108,7 @@ public static class DD2Helper
 
     public static void ResetAllValues()
     {
-        DD2CombatSingleton.ResetValue();
+        DD2CombatSingleton.ResetAllValue();
         DeathListenForRunStateSingleton.ResetValue();
         DD2AudioManager.StopDD2Bgm();
         ResetCombatDictionaries();

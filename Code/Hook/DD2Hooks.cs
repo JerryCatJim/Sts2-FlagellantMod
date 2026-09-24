@@ -34,8 +34,12 @@ public class DD2Hooks
         combatState.IterateHookListeners().OfType<T>()
             .Aggregate(seed, (current, model) => action(model, current));
 
+    public static Task BeforeResoluteOrMeltdownChanged(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM)
+        => Dispatch<IBeforeResoluteOrMeltdownChanged>(ctx, player, m => m.BeforeResoluteOrMeltdownChanged(ctx, player, oldRM, newRM));
     public static Task OnResoluteOrMeltdownChanged(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM)
         => Dispatch<IOnResoluteOrMeltdownChanged>(ctx, player, m => m.OnResoluteOrMeltdownChanged(ctx, player, oldRM, newRM));
+    public static Task AfterResoluteOrMeltdownChanged(PlayerChoiceContext ctx, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM)
+        => Dispatch<IAfterResoluteOrMeltdownChanged>(ctx, player, m => m.AfterResoluteOrMeltdownChanged(ctx, player, oldRM, newRM));
 
     public static decimal ModifyHealingHp(Creature? creature, decimal originalHealing)
     {
@@ -73,5 +77,25 @@ public class DD2Hooks
         }
         modifiedAmount = Hook.ModifyPowerAmountReceived(combatState, stressPower, target, modifiedAmount, applier, out IEnumerable<AbstractModel>_);
         return modifiedAmount;
+    }
+
+    public static decimal ModifyResoluteprobability(Creature? creature, decimal originalprobability = 20m)
+    {
+        if (creature == null) return originalprobability;
+
+        decimal num = originalprobability;
+        if (creature.CombatState != null && creature.CombatState.RunState != null)
+        {
+            //不用CombatState，保留在战斗外监听的可能
+            foreach (AbstractModel item in creature.CombatState.RunState.IterateHookListeners(creature.CombatState))
+            {
+                if (item is IModifyResoluteprobability myModel)
+                {
+                    myModel.TryModifyResoluteprobability(creature, num, out var myModifiedAmount);
+                    num = myModifiedAmount;
+                }
+            }
+        }
+        return num;
     }
 }

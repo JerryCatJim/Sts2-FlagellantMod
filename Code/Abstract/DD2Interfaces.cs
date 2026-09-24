@@ -17,6 +17,15 @@ public interface IAfterStressChanged
         return false;
     }
 }*/
+public interface IModifyResoluteprobability
+{
+    //百分制
+    public bool TryModifyResoluteprobability(Creature creature, decimal amount, out decimal modifiedAmount)
+    {
+        modifiedAmount = amount;
+        return false;  //还没想好返回值有啥用
+    }
+}
 public interface IAfterComboChanged
 {
     public Task AfterComboChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel? cardSource);
@@ -35,9 +44,17 @@ public interface IAfterDeathDoor
     public Task AfterDeathDoor(Creature creature, decimal healthDelta, decimal powerDelta, DeathDoorType Type);
 }
 
+public interface IBeforeResoluteOrMeltdownChanged
+{
+    public Task BeforeResoluteOrMeltdownChanged(PlayerChoiceContext choiceContext, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM);
+}
 public interface IOnResoluteOrMeltdownChanged
 {
     public Task OnResoluteOrMeltdownChanged(PlayerChoiceContext choiceContext, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM);
+}
+public interface IAfterResoluteOrMeltdownChanged
+{
+    public Task AfterResoluteOrMeltdownChanged(PlayerChoiceContext choiceContext, Player player, ResoluteOrMeltdownModel oldRM, ResoluteOrMeltdownModel newRM);
 }
 
 public interface IModifyHpPercentEnterToxicAdditional

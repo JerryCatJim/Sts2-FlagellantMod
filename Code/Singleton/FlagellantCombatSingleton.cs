@@ -61,7 +61,7 @@ public class FlagellantCombatSingleton : CustomSingletonModel, IAfterDeathDoor
     {
         foreach (Creature creature in room.CombatState.PlayerCreatures)
         {
-            if (DD2Helper.IsFlagellant(creature))
+            if (DD2Helper.IsFlagellant(creature) && DD2Helper.IsInDeathDoor(creature))
             {
                 await CreatureCmd.TriggerAnim(creature, "Revive", 0f);
             }

@@ -38,19 +38,26 @@ public class DD2CombatSingleton : CustomSingletonModel, IAfterStressChanged, IAf
         }
         return Task.CompletedTask;
     }
-    public static void ResetValue()
+    public static void ResetValueBeforeCombat()
     {
         GainedStressDictionary.Clear();
         StressLockDictionary.Clear();
         _beforeTriggeredPoisons.Clear();
     }
-
+    public static void ResetAllValue()
+    {
+        ResetValueBeforeCombat();
+    }
     public override Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
     {
-        StressLockDictionary.Clear();
+        if (player != null)
+        { 
+            StressLockDictionary[player.NetId] = 0; 
+        }
         return Task.CompletedTask;
     }
 
+    //用来记录需要在中毒造成伤害前广播触发中毒事件的poisonPower实例
     private static readonly Dictionary<Creature, PowerModel> _beforeTriggeredPoisons = new();
     public void BeforePoisonTrigger(PowerModel power, decimal amount)
     {
