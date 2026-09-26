@@ -12,9 +12,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<AssemblyVersion>0.5.2</AssemblyVersion>
-		<FileVersion>0.5.2</FileVersion>
-		<Version>0.5.2</Version>
+		<AssemblyVersion>0.5.3</AssemblyVersion>
+		<FileVersion>0.5.3</FileVersion>
+		<Version>0.5.3</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -97,13 +97,15 @@
 			<HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
-		<!-- <Reference Include="BaseLib">
-      <HintPath>$(BaseLibPath)/BaseLib.dll</HintPath>
-    </Reference> -->
 		<!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->
 		<PackageReference Include="Alchyr.Sts2.BaseLib" Version="*" />
+		<Reference Include="DD2ModConfig">
+		    <HintPath>..\..\Steam\steamapps\common\Slay the Spire 2\mods\DD2ModConfig\DD2ModConfig.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 		<Reference Include="GodotSharp">
 			<HintPath>$(Sts2DataDir)/GodotSharp.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
 		<Reference Include="sts2">
 			<HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
@@ -147,11 +149,13 @@
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/lib/$(Sts2ApiCompat)" />
     <Copy SourceFiles="Flagellant.json" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
 
-		<Message Text="Copying BaseLib to mods folder." Importance="high" />
+		<Message Text="Copying BaseLib and DD2ModConfig to mods folder." Importance="high" />
 		<ItemGroup>
 			<BaseLibFiles Include="$(BaseLibPath)/BaseLib.dll;$(BaseLibPath)/BaseLib.pck;$(BaseLibPath)/BaseLib.json;" />
+			<DD2ModConfigFiles Include="$(DD2ModConfigPath)/DD2ModConfig.dll;$(DD2ModConfigPath)/DD2ModConfig.pck;$(DD2ModConfigPath)/DD2ModConfig.json;$(DD2ModConfigPath)/DD2ModConfig.pdb;" />
 		</ItemGroup>
 		<Copy SourceFiles="@(BaseLibFiles)" DestinationFolder="$(ModsPath)BaseLib/" />
+		<Copy SourceFiles="@(DD2ModConfigFiles)" DestinationFolder="$(ModsPath)DD2ModConfig/" />
 	</Target>
 
 	<Target Name="GodotPublish" AfterTargets="Publish" Condition="'$(GodotPath)' != '' and Exists('$(GodotPath)') and '$(IsInnerGodotExport)' != 'true'">

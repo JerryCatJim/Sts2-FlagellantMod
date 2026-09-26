@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cmedn07nou7p8" path="res://flagellant_asset/Texture2D/tex_flagellant_col.png" id="1_tadu3"]
 [ext_resource type="Texture2D" uid="uid://djlsc14k71rrj" path="res://flagellant_asset/Texture2D/tex_flagellant_ink.png" id="2_cgch8"]
-[ext_resource type="Material" uid="uid://vcnod8d0hbak" path="res://flagellant_asset/mdlShader_Shadow.tres" id="2_nxuvn"]
+[ext_resource type="Material" uid="uid://vcnod8d0hbak" path="res://flagellant_asset/Shader/mdlShader_Shadow.tres" id="2_nxuvn"]
 
 [resource]
 next_pass = ExtResource("2_nxuvn")

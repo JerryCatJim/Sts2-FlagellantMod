@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using Flagellant.Code.Cards.Uncommon;
+using DD2ModConfig.Code.Powers;
 
 namespace Flagellant.Code.Powers;
 

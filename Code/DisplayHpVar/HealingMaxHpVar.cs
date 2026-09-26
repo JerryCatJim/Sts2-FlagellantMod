@@ -1,4 +1,4 @@
-using Flagellant.Code.Hooks;
+using DD2ModConfig.Code.Hooks;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;

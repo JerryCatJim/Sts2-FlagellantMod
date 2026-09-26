@@ -2,7 +2,6 @@ using BaseLib.Abstracts;
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,6 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Flagellant.Code.Cards.Ancient;
+using DD2ModConfig.Code.Powers;
 
 namespace Flagellant.Code.Cards.Basic;
 

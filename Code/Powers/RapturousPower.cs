@@ -1,3 +1,4 @@
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Cards.Ancient;
 using MegaCrit.Sts2.Core.Combat;

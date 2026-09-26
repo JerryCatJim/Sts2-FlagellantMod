@@ -9,7 +9,8 @@ Remember to change the following paths to your own!
     <!-- ========== Windows default ========== -->
     <GodotWinPath>E:\GodotEngine_4.5.1_stable\Godot_v4.5.1-stable_mono_win64.exe</GodotWinPath>
     <SteamLibraryWinPath>E:/Steam/steamapps</SteamLibraryWinPath>
-    <BaseLibPath>E:\Steam\steamapps\common\Slay the Spire 2\BaseLib</BaseLibPath>
+    <BaseLibPath>E:\Steam\steamapps\common\Slay the Spire 2\mods\BaseLib</BaseLibPath>
+    <DD2ModConfigPath>E:\Steam\steamapps\common\Slay the Spire 2\mods\DD2ModConfig</DD2ModConfigPath>
 
     <!-- ========== Linux default ========== -->
     <!-- 注意：$(HOME) 会读取环境变量，如果没定义可改用 /home/$(USER) 等 -->

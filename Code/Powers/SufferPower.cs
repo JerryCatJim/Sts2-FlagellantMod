@@ -1,6 +1,8 @@
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.Hooks;
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Cards.Rare;
-using Flagellant.Code.Hooks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;

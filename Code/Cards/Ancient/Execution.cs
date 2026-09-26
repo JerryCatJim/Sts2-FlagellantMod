@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
+using DD2ModConfig.Code.Powers;
 
 namespace Flagellant.Code.Cards.Ancient;
 

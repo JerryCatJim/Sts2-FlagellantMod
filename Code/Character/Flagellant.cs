@@ -1,14 +1,11 @@
 using BaseLib.Abstracts;
 using Flagellant.Code.Cards.Basic;
-using Flagellant.Code.Cards.Common;
-using Flagellant.Code.Cards.Uncommon;
-using Flagellant.Code.Cards.Rare;
 using Flagellant.Code.Extensions;
 using Flagellant.Code.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
-using Flagellant.Code.Abstract;
+using DD2ModConfig.Code.Abstract;
 
 namespace Flagellant.Code.Character;
 

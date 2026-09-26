@@ -1,7 +1,7 @@
 using BaseLib.Utils;
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 

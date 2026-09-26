@@ -1,3 +1,5 @@
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;

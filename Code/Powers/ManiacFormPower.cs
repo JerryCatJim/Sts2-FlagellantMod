@@ -1,3 +1,5 @@
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.ResoluteOrMeltdown;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Commands;

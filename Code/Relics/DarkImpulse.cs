@@ -1,7 +1,8 @@
 using BaseLib.Utils;
+using DD2ModConfig.Code.Helper;
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -58,10 +59,15 @@ public class DarkImpulse : FlagellantRelicModel
     }*/
     public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (participants.Contains(base.Owner.Creature) && base.Owner.PlayerCombatState != null && base.Owner.PlayerCombatState.TurnNumber <= 1)
+        if (participants.Contains(base.Owner.Creature) && base.Owner.PlayerCombatState != null && base.Owner.PlayerCombatState.TurnNumber == 1)
         {
             Flash();
             await PowerCmd.Apply<StressPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 5, Owner.Creature, null);
         }
+    }
+    public override Task AfterCombatVictory(CombatRoom room)
+    {
+        DD2Helper.ClearStressAfterCombatVictory(Owner);
+        return Task.CompletedTask;
     }
 }

@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
-using Flagellant.Code.Abstract;
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.Helper;
 using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
 using MegaCrit.Sts2.Core.Commands;
@@ -61,7 +62,7 @@ public class FlagellantCombatSingleton : CustomSingletonModel, IAfterDeathDoor
     {
         foreach (Creature creature in room.CombatState.PlayerCreatures)
         {
-            if (DD2Helper.IsFlagellant(creature))
+            if (DD2Helper.IsFlagellant(creature) && DD2Helper.IsInDeathDoor(creature))
             {
                 await CreatureCmd.TriggerAnim(creature, "Revive", 0f);
             }

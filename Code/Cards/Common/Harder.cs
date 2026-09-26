@@ -1,7 +1,7 @@
 using BaseLib.Utils;
+using DD2ModConfig.Code.Hooks;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Hooks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
