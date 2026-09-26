@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://vcnod8d0hbak"]
 
-[ext_resource type="Shader" uid="uid://dtgpl1uarcwqd" path="res://flagellant_asset/mdlShader_Shadow.gdshader" id="1_lv71a"]
+[ext_resource type="Shader" uid="uid://dtgpl1uarcwqd" path="res://flagellant_asset/Shader/mdlShader_Shadow.gdshader" id="1_lv71a"]
 
 [resource]
 render_priority = 0

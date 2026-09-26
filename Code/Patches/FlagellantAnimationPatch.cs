@@ -122,7 +122,7 @@ public static class FlagellantAnimationPatch
                     }
                     //若处于任意Idle时则平滑切换
                     playImmediately = !FlagellantHelper.IsInAnyIdle(animTree, node.Entity);
-		            animName = DD2Helper.IsInDeathDoor(node.Entity) ? "DeathDoor" : animName;
+		            animName = DD2Helper.WillDieInDoom(node.Entity) ? "DeathDoor" : animName;
                 }
                 if (playImmediately)
                 {
