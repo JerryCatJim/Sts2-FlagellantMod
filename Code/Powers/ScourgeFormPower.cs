@@ -1,5 +1,6 @@
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.Core;
 using Flagellant.Code.Abstract;
-using Flagellant.Code.Core;
 using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;

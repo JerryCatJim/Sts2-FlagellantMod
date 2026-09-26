@@ -1,7 +1,8 @@
 using BaseLib.Utils;
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
-using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;

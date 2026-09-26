@@ -1,5 +1,4 @@
 using BaseLib.Config;
-using Flagellant.Code.Events;
 using Godot.Bridge;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Logging;
@@ -33,16 +32,14 @@ public partial class MainFile// : Node
 
 	public static void Initialize()
 	{
-		RMSubscriber.Subscribe();
-
         ModConfigRegistry.Register(ModId, new FlagellantConfig());
 
         Harmony harmony = new(ModId);
         var assembly = Assembly.GetExecutingAssembly();
         ScriptManagerBridge.LookupScriptsInAssembly(assembly);
-       // harmony.PatchAll();
-       //输出所有检测到的Patch类
-        var patchTypes = assembly.GetTypes()
+        harmony.PatchAll();
+        //输出所有检测到的Patch类
+        /*var patchTypes = assembly.GetTypes()
                 .Where(t => t.GetCustomAttribute<HarmonyPatch>() != null)
                 .ToList();
         Log.Info($"Found {patchTypes.Count} types with [HarmonyPatch].");
@@ -59,7 +56,7 @@ public partial class MainFile// : Node
         catch (Exception ex)
         {
             Log.Info($"Harmony PatchAll FAILED: {ex}");
-        }
+        }*/
     }
 }
 

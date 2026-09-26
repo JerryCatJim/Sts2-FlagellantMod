@@ -1,3 +1,5 @@
+using DD2ModConfig.Code.Helper;
+using DD2ModConfig.Code.Patches;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Audio;
 using Flagellant.Code.Config;

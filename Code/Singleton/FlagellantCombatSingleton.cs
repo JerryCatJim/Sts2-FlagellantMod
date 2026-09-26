@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
-using Flagellant.Code.Abstract;
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.Helper;
 using Flagellant.Code.Config;
 using Flagellant.Code.Helper;
 using MegaCrit.Sts2.Core.Commands;

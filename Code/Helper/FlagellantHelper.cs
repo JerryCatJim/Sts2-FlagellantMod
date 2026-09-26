@@ -1,3 +1,4 @@
+using DD2ModConfig.Code.Helper;
 using Flagellant.Code.Config;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Creatures;

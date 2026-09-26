@@ -1,7 +1,5 @@
 using BaseLib.Abstracts;
 using Godot;
-using Flagellant.Code.Character;
-using System;
 
 namespace Flagellant.Code.Character;
 

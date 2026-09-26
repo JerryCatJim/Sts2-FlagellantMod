@@ -5,9 +5,6 @@
   "FLAGELLANT-DARK_IMPULSE.description": "전투 중 [red]죽음의 일격[/red]를 받을 때마다, 대신 동일한 수치의 [gold]종말[/gold]을 얻습니다. 매 전투 시작 시, [gold]스트레스[/gold] [blue]5[/blue]를 얻습니다. 전투 종료 시, 자신의 모든 [gold]스트레스[/gold]를 제거합니다.",
   "FLAGELLANT-DARK_IMPULSE.flavor": "[red]빛을 섬기기 위해 어둠을 받아들이다.[/red]",
   "FLAGELLANT-DARK_IMPULSE.title": "어두운 충동",
-  "FLAGELLANT-DEATHS_HEAD.description": "제력이 [blue]0[/blue]이 될 때, 최대 제력이 [green]{Heal}%[/green]만큼 체력을 회복합니다 (한 번만).",
-  "FLAGELLANT-DEATHS_HEAD.flavor": "[red]도망칠 순 있어도... 숨을 순 없다![/red]",
-  "FLAGELLANT-DEATHS_HEAD.title": "사신의 머리",
   "FLAGELLANT-DISMASS_HEAD.description": "[gold]연계[/gold]를 부여할 때마다, [gold]취약[/gold] [blue]1[/blue]도 함께 부여합니다.",
   "FLAGELLANT-DISMASS_HEAD.flavor": "[red]불행히도 그에겐 두 번째 기회가 오지 않을 것이다.[/red]",
   "FLAGELLANT-DISMASS_HEAD.title": "디스마스의 머리",
@@ -28,8 +25,5 @@
   "FLAGELLANT-SEARING_SCRIPTURE.title": "타오르는 경전",
   "FLAGELLANT-THRILLING_TABLET.description": "획득 시 최대 체력이 두 배가 되고 체력을 모두 회복합니다.",
   "FLAGELLANT-THRILLING_TABLET.flavor": "[red]차가워진 동료들이 따뜻한 최대 체력으로 변합니다.[/red]",
-  "FLAGELLANT-THRILLING_TABLET.title": "소름 돋는 석판",
-  "FLAGELLANT-STRESS_COUNTER_RELIC.title": "스트레스 카운터",
-  "FLAGELLANT-STRESS_COUNTER_RELIC.flavor": "[red]파멸이 우리 가문에 찾아왔습니다.[/red]",
-  "FLAGELLANT-STRESS_COUNTER_RELIC.description": "현재 [gold]스트레스[/gold]를 기록합니다. 전투 종료 시, 자신의 [gold]스트레스[/gold]를 유지합니다."
+  "FLAGELLANT-THRILLING_TABLET.title": "소름 돋는 석판"
 }

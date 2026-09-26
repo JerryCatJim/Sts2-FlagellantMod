@@ -11,6 +11,10 @@
 {
 "id": "BaseLib",
 "min_version": "3.3.6"
+},
+{
+"id": "DD2ModConfig",
+"min_version": "0.0.1"
 }
 ],
 "affects_gameplay": true

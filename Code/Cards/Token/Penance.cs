@@ -1,6 +1,6 @@
 using BaseLib.Utils;
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
-using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;

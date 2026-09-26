@@ -1,6 +1,7 @@
-using Flagellant.Code.Abstract;
-using Flagellant.Code.Attributes;
-using Flagellant.Code.Commands;
+using DD2ModConfig.Code.Abstract;
+using DD2ModConfig.Code.Attributes;
+using DD2ModConfig.Code.Commands;
+using DD2ModConfig.Code.ResoluteOrMeltdown;
 using Flagellant.Code.Powers;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -22,6 +23,11 @@ namespace Flagellant.Code.ResoluteOrMeltdown;
 public class ToxicMeltdown : ResoluteOrMeltdownModel
 {
     public override bool ShouldReceiveCombatHooks => true;
+    public override IEnumerable<PowerModel> DisplayPowers =>
+    [
+        ModelDb.Power<ToxicFormPower>().ToMutable(),
+        ModelDb.Power<VirulentPower>().ToMutable()
+    ];
 
     public override ResoluteOrMeltdownType RMType => ResoluteOrMeltdownType.Toxic;
 

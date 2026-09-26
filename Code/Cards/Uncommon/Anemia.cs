@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using DD2ModConfig.Code.Powers;
 using Flagellant.Code.Abstract;
 using Flagellant.Code.Character;
 using Flagellant.Code.Powers;

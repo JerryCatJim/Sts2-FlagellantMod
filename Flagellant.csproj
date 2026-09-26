@@ -102,8 +102,13 @@
     </Reference> -->
 		<!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->
 		<PackageReference Include="Alchyr.Sts2.BaseLib" Version="*" />
+		<Reference Include="DD2ModConfig">
+		    <HintPath>..\..\Steam\steamapps\common\Slay the Spire 2\mods\DD2ModConfig\DD2ModConfig.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 		<Reference Include="GodotSharp">
 			<HintPath>$(Sts2DataDir)/GodotSharp.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
 		<Reference Include="sts2">
 			<HintPath>$(Sts2DataDir)/sts2.dll</HintPath>

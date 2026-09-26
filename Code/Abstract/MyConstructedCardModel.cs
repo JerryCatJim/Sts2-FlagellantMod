@@ -1,11 +1,11 @@
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
-using Flagellant.Code.Core;
+using DD2ModConfig.Code.Core;
+using DD2ModConfig.Code.Helper;
+using DD2ModConfig.Code.Powers;
+using DD2ModConfig.Code.ResoluteOrMeltdown;
 using Flagellant.Code.DisplayHpVar;
-using Flagellant.Code.Helper;
-using Flagellant.Code.Powers;
-using Flagellant.Code.ResoluteOrMeltdown;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;

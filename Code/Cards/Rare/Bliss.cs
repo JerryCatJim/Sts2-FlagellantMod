@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Flagellant.Code.Character;
 using Flagellant.Code.Powers;
 using MegaCrit.Sts2.Core.Models.Powers;
+using DD2ModConfig.Code.Powers;
 
 namespace Flagellant.Code.Cards.Rare;
 
