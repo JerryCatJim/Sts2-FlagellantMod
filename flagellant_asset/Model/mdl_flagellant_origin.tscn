@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://suj6fbul4as"]
 
-[ext_resource type="PackedScene" uid="uid://ckcb2p4mdr5hg" path="res://flagellant_asset/Model/mdl_flagellant_skn_origin.fbx" id="1_5k4pr"]
+[ext_resource type="PackedScene" uid="uid://ckcb2p4mdr5hg" path="res://flagellant_asset/Model/mdl_flagellant_origin.fbx" id="1_5k4pr"]
 [ext_resource type="Material" uid="uid://w443ed4726wb" path="res://flagellant_asset/Material/char_origin_mat.tres" id="2_svkkb"]
 [ext_resource type="Material" uid="uid://352vr23ul0u6" path="res://flagellant_asset/Material/wpn_origin_mat.tres" id="3_dhaha"]
 [ext_resource type="Shader" uid="uid://3thfe6r883dg" path="res://flagellant_asset/Shader/flagellant_shadow_shader.gdshader" id="4_dhaha"]

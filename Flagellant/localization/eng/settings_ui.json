@@ -19,5 +19,9 @@
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "After checking, if Flagellant is in Death Door, the Idle anim will be switched to the Death Door Idle anim. ",
   "FLAGELLANT-SKIN_TYPE.title": "Change Skin",
   "FLAGELLANT-SKIN_TYPE.Default": "Default Skin",
+  "FLAGELLANT-SKIN_TYPE.Exanimate": "Exanimate",
+  "FLAGELLANT-SKIN_TYPE.Maniac": "Maniac",
+  "FLAGELLANT-SKIN_TYPE.Scourge": "Scourge",
+  "FLAGELLANT-SKIN_TYPE.Infernal": "Infernal",
   "FLAGELLANT-SKIN_TYPE.Origin": "Origin"
 }

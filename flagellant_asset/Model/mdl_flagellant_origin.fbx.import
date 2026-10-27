@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ckcb2p4mdr5hg"
-path="res://.godot/imported/mdl_flagellant_skn_origin.fbx-4b4c9fbd5034f4882c9f75a30ed2e782.scn"
+path="res://.godot/imported/mdl_flagellant_origin.fbx-83bec025f4254f10e7e78144df358f7d.scn"
 
 [deps]
 
-source_file="res://flagellant_asset/Model/mdl_flagellant_skn_origin.fbx"
-dest_files=["res://.godot/imported/mdl_flagellant_skn_origin.fbx-4b4c9fbd5034f4882c9f75a30ed2e782.scn"]
+source_file="res://flagellant_asset/Model/mdl_flagellant_origin.fbx"
+dest_files=["res://.godot/imported/mdl_flagellant_origin.fbx-83bec025f4254f10e7e78144df358f7d.scn"]
 
 [params]
 

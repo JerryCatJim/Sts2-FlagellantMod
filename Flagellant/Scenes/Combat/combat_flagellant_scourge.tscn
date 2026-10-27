@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctxx3cu1rrl7u"]
+
+[ext_resource type="Script" uid="uid://qrqbofexw5sb" path="res://Code/Nodes/FlagellantNCreatureVisuals.cs" id="1_clbak"]
+[ext_resource type="PackedScene" uid="uid://fqengi7g57d2" path="res://flagellant_asset/Model/mdl_flagellant_scourge.tscn" id="2_clbak"]
+[ext_resource type="AnimationLibrary" uid="uid://bd2o6s7oij1bj" path="res://flagellant_asset/AnimLib/combat_animlib.tres" id="3_if15f"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://mylb2dc3cdc6" path="res://flagellant_asset/StateMachines/flagellant_state_machine.tres" id="4_jfb4a"]
+
+[node name="TestFlagellant" type="Node2D"]
+script = ExtResource("1_clbak")
+
+[node name="FormVfx" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Visuals"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -556.0
+offset_top = -502.0
+offset_right = 644.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Visuals/SubViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 2
+size = Vector2i(1200, 600)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Visuals/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.95, 5.5)
+fov = 30.0
+near = 0.001
+
+[node name="mdl_flagellant_scourge" parent="Visuals/SubViewportContainer/SubViewport" instance=ExtResource("2_clbak")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Visuals/SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -120.0
+offset_top = -300.0
+offset_right = 120.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -370)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -180)
+
+[node name="StressPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -300)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/mdl_flagellant_scourge")
+libraries = {
+&"": ExtResource("3_if15f")
+}
+autoplay = "flagellant_idle_A"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%Visuals/SubViewportContainer/SubViewport/mdl_flagellant_scourge")
+tree_root = ExtResource("4_jfb4a")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/HitToDeathIdle = false
+parameters/conditions/HitToIdle = true
+parameters/CardPlay/AcidRain/TimeScale/scale = 3.0
+parameters/CardPlay/Deathless/TimeScale/scale = 5.0
+parameters/CardPlay/Endure/TimeScale/scale = 5.0
+parameters/CardPlay/Fester/TimeScale/scale = 3.0
+parameters/CardPlay/Lash/TimeScale/scale = 3.0
+parameters/CardPlay/More/TimeScale/scale = 5.0
+parameters/CardPlay/Necrosis/TimeScale/scale = 60.0
+parameters/CardPlay/Necrosis_Recover/TimeSeek/seek_request = -1.0
+parameters/CardPlay/Punish/TimeScale/scale = 60.0
+parameters/CardPlay/Punish_Recover/TimeSeek/seek_request = -1.0
+parameters/CardPlay/Sepsis/TimeScale/scale = 3.0
+parameters/CardPlay/Suffer/TimeScale/scale = 3.0
+parameters/CardPlay/Undying/TimeScale/scale = 5.0
+metadata/Skill = ""

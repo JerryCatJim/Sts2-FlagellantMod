@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://8icnvgon6x0d"
-path="res://.godot/imported/mdl_flagellant.glb-ad0e5648e5f2948d4606f18d9538ff59.scn"
+uid="uid://e8xr15ma8ljx"
+path="res://.godot/imported/mdl_flagellant_maniac.fbx-10d9ef42ff9bd15d274d1c0f30e19357.scn"
 
 [deps]
 
-source_file="res://flagellant_asset/Model/mdl_flagellant.glb"
-dest_files=["res://.godot/imported/mdl_flagellant.glb-ad0e5648e5f2948d4606f18d9538ff59.scn"]
+source_file="res://flagellant_asset/Model/mdl_flagellant_maniac.fbx"
+dest_files=["res://.godot/imported/mdl_flagellant_maniac.fbx-10d9ef42ff9bd15d274d1c0f30e19357.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,23 +38,13 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={
-"materials": {
-"mat_flagellant": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://flagellant_asset/Material/char_mat.tres",
-"use_external/path": "uid://djmst8o5yl7lp"
-},
-"mat_flagellant_wpn_flail": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://flagellant_asset/Material/wpn_mat.tres",
-"use_external/path": "uid://bhin3f1hn066e"
-}
-},
 "nodes": {
 "PATH:AnimationPlayer": {
 "import/skip_import": true
 }
 }
 }
-gltf/naming_version=2
-gltf/embedded_image_handling=1
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1
+fbx/naming_version=2

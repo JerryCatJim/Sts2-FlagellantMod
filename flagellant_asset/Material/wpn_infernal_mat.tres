@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://brlfed6yanxjb"]
+
+[ext_resource type="Texture2D" uid="uid://bwdx5lhacoctq" path="res://flagellant_asset/Texture2D/tex_flagellant_wpn_flail_infernal_col.png" id="1_hnv0s"]
+[ext_resource type="Material" uid="uid://p7insnvhxw5r" path="res://flagellant_asset/Shader/shadow_line.tres" id="2_pibig"]
+[ext_resource type="Texture2D" uid="uid://d20w3v3std7sx" path="res://flagellant_asset/Texture2D/tex_flagellant_wpn_flail_infernal_ink.png" id="3_pibig"]
+
+[resource]
+next_pass = ExtResource("2_pibig")
+albedo_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
+albedo_texture = ExtResource("1_hnv0s")
+rim_enabled = true
+rim_texture = ExtResource("3_pibig")

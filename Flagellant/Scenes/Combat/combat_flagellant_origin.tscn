@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cakkcsaljjsl0"]
 
-[ext_resource type="PackedScene" uid="uid://suj6fbul4as" path="res://flagellant_asset/Model/mdl_flagellant_skn_origin.tscn" id="1_b4f3b"]
+[ext_resource type="PackedScene" uid="uid://suj6fbul4as" path="res://flagellant_asset/Model/mdl_flagellant_origin.tscn" id="1_b4f3b"]
 [ext_resource type="Script" uid="uid://qrqbofexw5sb" path="res://Code/Nodes/FlagellantNCreatureVisuals.cs" id="1_tpi77"]
 [ext_resource type="AnimationLibrary" uid="uid://cc1p56iak2nh0" path="res://flagellant_asset/AnimLib/combat_animlib_origin.tres" id="2_tpi77"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://fquh0jldd511" path="res://flagellant_asset/StateMachines/flagellant_state_machine_origin.tres" id="3_b4f3b"]
@@ -45,7 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.95, 5.5)
 fov = 30.0
 near = 0.001
 
-[node name="mdl_flagellant_skn_origin" parent="Visuals/SubViewportContainer/SubViewport" instance=ExtResource("1_b4f3b")]
+[node name="mdl_flagellant_origin" parent="Visuals/SubViewportContainer/SubViewport" instance=ExtResource("1_b4f3b")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Visuals/SubViewportContainer/SubViewport"]
@@ -74,7 +74,7 @@ position = Vector2(0, -300)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin")
+root_node = NodePath("../Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin")
 libraries = {
 &"": ExtResource("2_tpi77")
 }
@@ -82,7 +82,7 @@ autoplay = "flagellant_skn_origin_idle_A"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("%Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin")
+root_node = NodePath("%Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin")
 tree_root = ExtResource("3_b4f3b")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/HitToDeathIdle = true

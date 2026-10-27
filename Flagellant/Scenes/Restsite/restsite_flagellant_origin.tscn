@@ -1,20 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://j4w5bciqy5ks"]
 
 [ext_resource type="Script" uid="uid://b63cvk40irkn4" path="res://Code/Nodes/FlagellantNRestSiteCharacter.cs" id="1_hr8il"]
-[ext_resource type="AnimationLibrary" uid="uid://bilwpbcnkdlaq" path="res://flagellant_asset/AnimLib/campfire_animlib_origin.tres" id="2_hr8il"]
+[ext_resource type="AnimationLibrary" uid="uid://bilwpbcnkdlaq" path="res://flagellant_asset/AnimLib/restsite_animlib_origin.tres" id="2_hr8il"]
 [ext_resource type="PackedScene" uid="uid://cftw6csox0fhd" path="res://Flagellant/Scenes/selection_reticle.tscn" id="3_xairx"]
 [ext_resource type="Script" uid="uid://d06d3w5af6d70" path="res://Code/Nodes/FlagellantNSelectionReticle.cs" id="4_3u7bd"]
-[ext_resource type="PackedScene" uid="uid://suj6fbul4as" path="res://flagellant_asset/Model/mdl_flagellant_skn_origin.tscn" id="5_pq110"]
+[ext_resource type="PackedScene" uid="uid://suj6fbul4as" path="res://flagellant_asset/Model/mdl_flagellant_origin.tscn" id="5_pq110"]
 
 [node name="TestFlagellant" type="Node2D"]
 script = ExtResource("1_hr8il")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin")
-libraries = {
-&"": ExtResource("2_hr8il")
-}
-autoplay = "flagellant_skn_origin_inn_idle"
 
 [node name="ControlRoot" type="Control" parent="."]
 layout_mode = 3
@@ -87,13 +80,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.6, 2)
 current = true
 near = 0.001
 
-[node name="mdl_flagellant_skn_origin" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport" instance=ExtResource("5_pq110")]
+[node name="mdl_flagellant_origin" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport" instance=ExtResource("5_pq110")]
 transform = Transform3D(0.6258013, 0.21417913, 0.75, 0.3244188, 0.80296475, -0.5, -0.70931315, 0.5562148, 0.43301266, 0, 0, 0)
 
-[node name="mdl_flagellant_skn_origin (merge)" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin" index="0"]
+[node name="mdl_flagellant_skn_origin (merge)" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin" index="0"]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 
-[node name="Skeleton3D" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp" index="0"]
+[node name="Skeleton3D" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp" index="0"]
 bones/1/position = Vector3(-0.015380761, 0.69552094, 0.10587463)
 bones/1/rotation = Quaternion(0.6376385, 0.26734668, -0.60715663, -0.3915403)
 bones/2/position = Vector3(0.074412346, 0.19529729, -0.4443925)
@@ -251,26 +244,33 @@ bones/130/position = Vector3(-0.10585097, 0.0020265987, -0.0006804642)
 bones/130/rotation = Quaternion(0.030005325, 0.06136357, -0.17519134, 0.982162)
 bones/131/rotation = Quaternion(-0.00027775875, -0.0035486904, -0.07688578, 0.9970336)
 
-[node name="l_Leg_ToeSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="0"]
+[node name="l_Leg_ToeSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="0"]
 transform = Transform3D(0.50997597, 0.8598543, 0.023985773, -0.020187702, -0.015912749, 0.9996696, 0.85995185, -0.5102917, 0.00924336, 0.46137744, -0.010267846, 0.6865665)
 
-[node name="r_Leg_ToeSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="1"]
+[node name="r_Leg_ToeSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="1"]
 transform = Transform3D(0.6165491, 0.7871621, 0.015595547, 0.0018747794, 0.018340355, -0.9998299, -0.78731406, 0.6164737, 0.0098318765, -0.39662632, 0.0014039204, 0.43260238)
 
-[node name="l_Prop_AuxSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="2"]
+[node name="l_Prop_AuxSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="2"]
 transform = Transform3D(0.71194315, 0.6843354, -0.15755066, -0.6965356, 0.7166924, -0.034501314, 0.089304924, 0.13430285, 0.9869081, 0.44427907, 0.5612389, 0.007356748)
 
-[node name="l_Prop_AuxSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D/l_Prop_AuxSHJnt" index="0"]
+[node name="l_Prop_AuxSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D/l_Prop_AuxSHJnt" index="0"]
 transform = Transform3D(0.984711, 5.9992967e-16, 0.1741961, -5.5442806e-16, 1, -3.0987046e-16, -0.1741961, 2.0855365e-16, 0.984711, 0.015360836, -0.080477454, -0.08215703)
 
-[node name="r_Prop_AuxSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="3"]
+[node name="r_Prop_AuxSHJnt" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin/mdl_flagellant_skn_origin (merge)/mdl_flagellant_skn_origin/SHJntGrp/Skeleton3D" index="3"]
 transform = Transform3D(-0.2210137, 0.2632478, -0.9390706, 0.40889066, -0.84915715, -0.3342764, -0.8854159, -0.457857, 0.0800356, -0.26334345, 0.71294504, 0.3372163)
 
-[node name="ShadowNode" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin" index="2"]
+[node name="ShadowNode" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin" index="1"]
 visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="ControlRoot/Visuals/SubViewportContainer/SubViewport"]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[editable path="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_skn_origin"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin")
+libraries = {
+&"": ExtResource("2_hr8il")
+}
+autoplay = "flagellant_skn_origin_inn_idle"
+
+[editable path="ControlRoot/Visuals/SubViewportContainer/SubViewport/mdl_flagellant_origin"]

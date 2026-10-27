@@ -19,5 +19,9 @@
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "После включения, если Бич находится в состоянии Двери смерти, анимация ожидания будет заменена на соответствующую.",
   "FLAGELLANT-SKIN_TYPE.title": "Сменить облик",
   "FLAGELLANT-SKIN_TYPE.Default": "Облик по умолчанию",
+  "FLAGELLANT-SKIN_TYPE.Exanimate": "Безжизненный облик",
+  "FLAGELLANT-SKIN_TYPE.Maniac": "Облик маньяка",
+  "FLAGELLANT-SKIN_TYPE.Scourge": "Облик бича",
+  "FLAGELLANT-SKIN_TYPE.Infernal": "Инфернальный облик",
   "FLAGELLANT-SKIN_TYPE.Origin": "Изначальный облик"
 }

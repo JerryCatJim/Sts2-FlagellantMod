@@ -8,6 +8,10 @@ internal class FlagellantConfig : SimpleModConfig
     public enum SkinTypeEnum
     {
         Default,
+        Exanimate,
+        Maniac,
+        Scourge,
+        Infernal,
         Origin
     }
     // Should likely be at the top, as an easy and obvious opt-out

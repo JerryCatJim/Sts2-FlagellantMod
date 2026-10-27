@@ -35,9 +35,9 @@ public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
     // 人物模型tscn路径。要自定义见下。
     public override string CustomVisualPath => "res://Flagellant/Scenes/Combat/combat_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
     // 篝火休息场景。
-    public override string CustomRestSiteAnimPath => "res://Flagellant/Scenes/Restsite/campfire_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
+    public override string CustomRestSiteAnimPath => "res://Flagellant/Scenes/Restsite/restsite_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
     // 商店人物场景。
-    public override string CustomMerchantAnimPath => "res://Flagellant/Scenes/Merchant/shop_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
+    public override string CustomMerchantAnimPath => "res://Flagellant/Scenes/Merchant/merchant_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
 
     // 卡牌拖尾场景。
     // public override string CustomTrailPath => "res://scenes/vfx/card_trail_ironclad.tscn";
@@ -150,6 +150,10 @@ public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
         return skinType switch
         {
             SkinTypeEnum.Default => "",
+            SkinTypeEnum.Exanimate => "_exanimate",
+            SkinTypeEnum.Maniac => "_maniac",
+            SkinTypeEnum.Scourge => "_scourge",
+            SkinTypeEnum.Infernal => "_infernal",
             SkinTypeEnum.Origin => "_origin",
             _ => ""
         };
