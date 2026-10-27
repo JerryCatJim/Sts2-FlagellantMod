@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://p7insnvhxw5r"]
+
+[ext_resource type="Shader" uid="uid://cullef0til27j" path="res://flagellant_asset/Shader/shadow_line.gdshader" id="1_l2c5b"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_l2c5b")

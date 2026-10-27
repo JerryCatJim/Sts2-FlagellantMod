@@ -16,5 +16,12 @@
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.hover.desc": "Checking this option will allow you see teammate Flagellant's card select animation in multiplayer mode.",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.title": "Should Use Death Door Idle",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.title": "It is considered that Flagellant enters Death Door if the Flagellant's current Hp is equal to Doom or less.",
-  "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "After checking, if Flagellant is in Death Door, the Idle anim will be switched to the Death Door Idle anim. "
+  "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "After checking, if Flagellant is in Death Door, the Idle anim will be switched to the Death Door Idle anim. ",
+  "FLAGELLANT-SKIN_TYPE.title": "Change Skin",
+  "FLAGELLANT-SKIN_TYPE.Default": "Default Skin",
+  "FLAGELLANT-SKIN_TYPE.Exanimate": "Exanimate",
+  "FLAGELLANT-SKIN_TYPE.Maniac": "Maniac",
+  "FLAGELLANT-SKIN_TYPE.Scourge": "Scourge",
+  "FLAGELLANT-SKIN_TYPE.Infernal": "Infernal",
+  "FLAGELLANT-SKIN_TYPE.Origin": "Origin"
 }

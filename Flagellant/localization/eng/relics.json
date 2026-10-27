@@ -25,5 +25,6 @@
   "FLAGELLANT-SEARING_SCRIPTURE.description": "The first Attack card you play each combat applies [gold]Combo[/gold].",
   "FLAGELLANT-HIS_PRISON.title": "His Prison",
   "FLAGELLANT-HIS_PRISON.flavor": "[red]A soul that pursues pain, trapped in an undying shell.[/red]",
-  "FLAGELLANT-HIS_PRISON.description": "Whenever you are hit by an attack, apply [blue]2[/blue] [gold]Poison[/gold] to the attacker."
+  "FLAGELLANT-HIS_PRISON.description": "Whenever you are hit by an attack, apply [blue]2[/blue] [gold]Poison[/gold] to the attacker.",
+  "SEA_GLASS.FLAGELLANT-FLAGELLANT.title": "Pain Glass"
 }

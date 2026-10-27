@@ -124,7 +124,7 @@ public static class CombatAudioCfg
                 TempDB = -6;
                 break;
             case "CardPlay/AcidRain":
-                TempDB = -10;
+                TempDB = -8;
                 break;
             case "CardPlay/Lash":
             case "CardPlay/Endure":

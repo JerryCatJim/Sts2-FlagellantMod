@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpc2krqbuxf7a"]
+
+[ext_resource type="PackedScene" uid="uid://cgqh7l4icoff5" path="res://flagellant_asset/Model/mdl_flagellant.fbx" id="1_whh57"]
+[ext_resource type="Material" uid="uid://djmst8o5yl7lp" path="res://flagellant_asset/Material/char_mat.tres" id="2_poht7"]
+[ext_resource type="Material" uid="uid://bhin3f1hn066e" path="res://flagellant_asset/Material/wpn_mat.tres" id="3_rfjps"]
+[ext_resource type="Shader" uid="uid://3thfe6r883dg" path="res://flagellant_asset/Shader/flagellant_shadow_shader.gdshader" id="4_rfjps"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01e3u"]
+render_priority = 0
+shader = ExtResource("4_rfjps")
+shader_parameter/shadow_color = Color(0, 0, 0, 0.3)
+shader_parameter/fade = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cxopg"]
+height = 0.01
+
+[node name="mdl_flagellant" instance=ExtResource("1_whh57")]
+
+[node name="mdl_flagellant (merge)" parent="." index="0"]
+transform = Transform3D(85, 0, 0, 0, 85, 0, 0, 0, 85, 0, 0, 0)
+
+[node name="vfx_whip_blood_drip_recover_1" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="0"]
+transform = Transform3D(0.9999941, -0.0034571043, 1.319172e-06, 0.0034571043, 0.9999941, -5.74018e-06, -1.2993197e-06, 5.744706e-06, 1, 0.3920307, -0.0010059008, 0.3899225)
+bone_idx = 14
+
+[node name="vfx_whip_blood_drip_recover_2" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="1"]
+transform = Transform3D(1.5830454e-06, -5.745165e-06, -0.9999999, 0.003452387, 0.999994, -5.7396674e-06, 0.99999386, -0.0034523865, 1.6028707e-06, 0.0016021606, -0.0010067387, 0.78058505)
+bone_idx = 24
+
+[node name="vfx_whip_blood_drip_recover_3" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="2"]
+transform = Transform3D(-0.9999913, -0.004116835, 0.00050290604, -0.0041168383, 0.9999914, -5.82509e-06, -0.0005028779, -7.8954245e-06, -0.9999998, -0.39150098, -0.0012090319, 0.38988417)
+bone_idx = 34
+
+[node name="l_Leg_ToeSHJnt" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="3"]
+transform = Transform3D(0.1437824, 0.9896094, 2.5386005e-06, -1.7359851e-05, -7.664903e-08, 1, 0.9896092, -0.14378229, 1.7208695e-05, 0.2605068, 1.1697412e-06, 0.09422516)
+bone_idx = 44
+
+[node name="r_Leg_ToeSHJnt" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="4"]
+transform = Transform3D(0.1437825, 0.9896094, 2.575856e-06, 1.7434355e-05, 6.361188e-08, -0.9999998, -0.9896092, 0.14378265, -1.7208695e-05, -0.26050678, 1.3336539e-06, 0.09422511)
+bone_idx = 64
+
+[node name="l_Prop_AuxSHJnt" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="5"]
+transform = Transform3D(0.2754914, 0.80270827, -0.5289272, -0.70635456, 0.5422428, 0.45501176, 0.65204865, 0.24825837, 0.71638, 0.42398906, 0.9308258, 0.16964331)
+bone_idx = 88
+
+[node name="vfx_smoke_hands_02" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="6"]
+transform = Transform3D(0.2754914, 0.80270827, -0.5289272, -0.70635456, 0.5422428, 0.45501176, 0.65204865, 0.24825837, 0.71638, 0.42398906, 0.9308258, 0.16964331)
+bone_idx = 88
+
+[node name="vfx_hand_glow_antic_1" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="7"]
+transform = Transform3D(0.2754914, 0.80270827, -0.5289272, -0.70635456, 0.5422428, 0.45501176, 0.65204865, 0.24825837, 0.71638, 0.42398906, 0.9308258, 0.16964331)
+bone_idx = 88
+
+[node name="Head_JawEndSHJnt" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="8"]
+transform = Transform3D(8.425733e-17, -7.2295586e-17, -1, -0.39741448, 0.9176392, -9.982635e-17, 0.9176392, 0.39741448, 4.858651e-17, 3.5527136e-17, 1.6332655, 0.115698144)
+bone_idx = 112
+
+[node name="r_Prop_AuxSHJnt" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="9"]
+transform = Transform3D(0.2754914, 0.80270827, -0.5289272, 0.70635456, -0.5422428, -0.45501176, -0.65204865, -0.24825837, -0.71638, -0.42398906, 0.9308258, 0.16964331)
+bone_idx = 122
+
+[node name="vfx_smoke_hands_01" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="10"]
+transform = Transform3D(0.2754914, 0.80270827, -0.5289272, 0.70635456, -0.5422428, -0.45501176, -0.65204865, -0.24825837, -0.71638, -0.42398906, 0.9308258, 0.16964331)
+bone_idx = 122
+
+[node name="vfx_blood_drip_from_back_01" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="11"]
+transform = Transform3D(0, 0, -1, 0.99610215, -0.08820686, 0, -0.08820686, -0.99610215, 0, 0, 1.3087987, 0.04671783)
+bone_idx = 83
+
+[node name="pop_text_loc" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="12"]
+bone_idx = 0
+
+[node name="stamp_loc" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="13"]
+bone_idx = 0
+
+[node name="vfx_punish_whip_hit_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="14"]
+bone_idx = 0
+
+[node name="vfx_punish_whip_burst_recovery" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="15"]
+bone_idx = 0
+
+[node name="vfx_rain_of_sorrows_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="16"]
+bone_idx = 0
+
+[node name="vfx_rain_of_sorrows_recovery" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="17"]
+bone_idx = 0
+
+[node name="vfx_exsanginate_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="18"]
+bone_idx = 0
+
+[node name="vfx_endure_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="19"]
+bone_idx = 0
+
+[node name="vfx_reclaim_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="20"]
+bone_idx = 0
+
+[node name="vfx_redeem_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="21"]
+bone_idx = 0
+
+[node name="vfx_suffer_recovery" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="22"]
+bone_idx = 0
+
+[node name="vfx_suffer_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="23"]
+bone_idx = 0
+
+[node name="vfx_vertical_aoe_slash_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="24"]
+bone_idx = 0
+
+[node name="vfx_more_more_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="25"]
+bone_idx = 0
+
+[node name="vfx_more_more_recovery" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="26"]
+bone_idx = 0
+
+[node name="vfx_exultation_action" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="27"]
+bone_idx = 0
+
+[node name="msh_flagellant" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="28"]
+surface_material_override/0 = ExtResource("2_poht7")
+
+[node name="msh_flagellant_wpn_flail" parent="mdl_flagellant (merge)/mdl_flagellant/SHJntGrp/Skeleton3D" index="29"]
+surface_material_override/0 = ExtResource("3_rfjps")
+
+[node name="ShadowNode" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0.05)
+material_override = SubResource("ShaderMaterial_01e3u")
+mesh = SubResource("CylinderMesh_cxopg")

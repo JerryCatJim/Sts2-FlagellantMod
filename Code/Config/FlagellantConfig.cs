@@ -5,8 +5,20 @@ namespace Flagellant.Code.Config;
 [ConfigHoverTipsByDefault]
 internal class FlagellantConfig : SimpleModConfig
 {
+    public enum SkinTypeEnum
+    {
+        Default,
+        Exanimate,
+        Maniac,
+        Scourge,
+        Infernal,
+        Origin
+    }
     // Should likely be at the top, as an easy and obvious opt-out
     public static bool ShouldUseRemadeCardImage { get; set; } = true;
+
+    [ConfigDropdownOverrideLocalization("SKIN_TYPE")]
+    public static SkinTypeEnum SkinType { get; set; } = SkinTypeEnum.Default;
 
     [ConfigSection("AnimSection")]
     public static bool ShouldPlayCardAnimAndSound { get; set; } = true;

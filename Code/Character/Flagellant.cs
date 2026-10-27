@@ -1,11 +1,13 @@
 using BaseLib.Abstracts;
+using DD2ModConfig.Code.Abstract;
 using Flagellant.Code.Cards.Basic;
 using Flagellant.Code.Extensions;
 using Flagellant.Code.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
-using DD2ModConfig.Code.Abstract;
+using Flagellant.Code.Config;
+using static Flagellant.Code.Config.FlagellantConfig;
 
 namespace Flagellant.Code.Character;
 
@@ -31,7 +33,12 @@ public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
     public override int StartingHp => 80;
 
     // 人物模型tscn路径。要自定义见下。
-    public override string CustomVisualPath => "res://Flagellant/Scenes/combat_flagellant.tscn";
+    public override string CustomVisualPath => "res://Flagellant/Scenes/Combat/combat_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
+    // 篝火休息场景。
+    public override string CustomRestSiteAnimPath => "res://Flagellant/Scenes/Restsite/restsite_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
+    // 商店人物场景。
+    public override string CustomMerchantAnimPath => "res://Flagellant/Scenes/Merchant/merchant_flagellant" + GetPostfixPathString(FlagellantConfig.SkinType) + ".tscn";
+
     // 卡牌拖尾场景。
     // public override string CustomTrailPath => "res://scenes/vfx/card_trail_ironclad.tscn";
     // 悬浮于继续游戏时的预览的人物头像，历史记录左上角，图鉴头像等图的路径。
@@ -40,10 +47,6 @@ public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
     public override string CustomIconPath => "res://Flagellant/Scenes/flagellant_icon.tscn";
     // 能量表盘tscn路径。要自定义见下。
     //public override string CustomEnergyCounterPath => "res://test/scenes/test_energy_counter.tscn";
-    // 篝火休息场景。
-    public override string CustomRestSiteAnimPath => "res://Flagellant/Scenes/campfire_flagellant.tscn";
-    // 商店人物场景。
-    public override string CustomMerchantAnimPath => "res://Flagellant/Scenes/shop_flagellant.tscn";
     // 多人模式-手指。
     // public override string CustomArmPointingTexturePath => null;
     // 多人模式剪刀石头布-石头。
@@ -140,5 +143,19 @@ public class Flagellant : PlaceholderCharacterModel, IGetDD2CharacterType
     public string TryGetCharacterType()
     {
         return "Flagellant";
+    }
+
+    private string GetPostfixPathString(SkinTypeEnum skinType)
+    {
+        return skinType switch
+        {
+            SkinTypeEnum.Default => "",
+            SkinTypeEnum.Exanimate => "_exanimate",
+            SkinTypeEnum.Maniac => "_maniac",
+            SkinTypeEnum.Scourge => "_scourge",
+            SkinTypeEnum.Infernal => "_infernal",
+            SkinTypeEnum.Origin => "_origin",
+            _ => ""
+        };
     }
 }

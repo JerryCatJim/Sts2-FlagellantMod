@@ -16,5 +16,12 @@
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.hover.desc": "勾选后可以看到联机模式的鞭笞者队友的选牌动画。",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.title": "是否启用死门状态的站立动画",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.title": "当鞭笞者的当前生命值小于等于灾厄值时视为进入死门状态",
-  "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "勾选后，若鞭笞者处于死门状态，则常规站立动画会被切换为死门状态的站立动画。"
+  "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "勾选后，若鞭笞者处于死门状态，则常规站立动画会被切换为死门状态的站立动画。",
+  "FLAGELLANT-SKIN_TYPE.title": "切换皮肤",
+  "FLAGELLANT-SKIN_TYPE.Default": "默认皮肤",
+  "FLAGELLANT-SKIN_TYPE.Exanimate": "躯壳",
+  "FLAGELLANT-SKIN_TYPE.Maniac": "狂人",
+  "FLAGELLANT-SKIN_TYPE.Scourge": "天灾",
+  "FLAGELLANT-SKIN_TYPE.Infernal": "渊狱",
+  "FLAGELLANT-SKIN_TYPE.Origin": "起源"
 }
