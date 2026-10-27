@@ -25,5 +25,6 @@
   "FLAGELLANT-SEARING_SCRIPTURE.description": "每场战斗中，你打出的第一张攻击牌会给予[gold]破绽[/gold]。",
   "FLAGELLANT-HIS_PRISON.title": "本我囚笼",
   "FLAGELLANT-HIS_PRISON.flavor": "[red]追求痛苦的灵魂被困在了不死的躯壳中。[/red]",
-  "FLAGELLANT-HIS_PRISON.description": "每当你被攻击命中时，给予攻击者[blue]2[/blue]层[gold]中毒[/gold]。"
+  "FLAGELLANT-HIS_PRISON.description": "每当你被攻击命中时，给予攻击者[blue]2[/blue]层[gold]中毒[/gold]。",
+  "SEA_GLASS.FLAGELLANT-FLAGELLANT.title": "痛苦玻璃"
 }

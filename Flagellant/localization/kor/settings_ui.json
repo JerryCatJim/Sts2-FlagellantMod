@@ -16,5 +16,8 @@
   "FLAGELLANT-SHOULD_SHOW_CARD_ANIM_IN_MULTIPLAYER_MODE.title": "멀티플레이어 모드에서 카드 애니메이션 표시 여부",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.title": "사망 문 대기 사용",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.title": "고행자의 현재 체력이 종말 수치 이하일 경우 고행자가 사망 문 상태에 진입한 것으로 간주됩니다.",
-  "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "확인 후, 고행자가 사망 문 상태라면 대기 애니메이션이 사망 문 대기 애니메이션으로 전환됩니다."
+  "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "확인 후, 고행자가 사망 문 상태라면 대기 애니메이션이 사망 문 대기 애니메이션으로 전환됩니다.",
+  "FLAGELLANT-SKIN_TYPE.title": "스킨 변경",
+  "FLAGELLANT-SKIN_TYPE.Default": "기본 스킨",
+  "FLAGELLANT-SKIN_TYPE.Origin": "오리진"
 }

@@ -17,4 +17,7 @@
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.title": "Использовать анимацию ожидания Двери смерти",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.title": "Считается, что Бич входит в Дверь смерти, если его текущие ОЗ равны или меньше Злого рока.",
   "FLAGELLANT-SHOULD_USE_DEATH_DOOR_IDLE.hover.desc": "После включения, если Бич находится в состоянии Двери смерти, анимация ожидания будет заменена на соответствующую.",
+  "FLAGELLANT-SKIN_TYPE.title": "Сменить облик",
+  "FLAGELLANT-SKIN_TYPE.Default": "Облик по умолчанию",
+  "FLAGELLANT-SKIN_TYPE.Origin": "Изначальный облик"
 }
