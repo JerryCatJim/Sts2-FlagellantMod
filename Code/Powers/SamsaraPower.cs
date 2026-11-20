@@ -26,7 +26,7 @@ public sealed class SamsaraPower : FlagellantPowerModel
         Flash();
         if (Amount < 0)
         {
-            await CreatureCmd.Damage(choiceContext, Owner, -Amount, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, base.Owner, null);
+            await CreatureCmd.Damage(choiceContext, Owner, -Amount, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, base.Owner, null, null);
         }
         else if (Amount > 0)
         {

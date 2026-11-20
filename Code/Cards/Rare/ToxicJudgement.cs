@@ -50,6 +50,6 @@ public class ToxicJudgement : FlagellantCardModel
                 await PowerCmd.Apply<PoisonPower>(choiceContext, base.CombatState.HittableEnemies, poisonNum1, base.Owner.Creature, this);
             }
         }
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
     }
 }

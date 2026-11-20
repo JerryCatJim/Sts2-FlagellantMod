@@ -41,7 +41,7 @@ public class BloodDonation : FlagellantCardModel
     {
         _maxHpDamage = GetHealingPercentHp();
         await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
         _maxHpDamage = 0;
     }
 }

@@ -32,7 +32,7 @@ public class Penance : FlagellantCardModel
         }
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CommonActions.Draw(this, choiceContext);
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
     }
 
     public static async Task<IEnumerable<Penance>> CreateInHand(Player owner, int amount, ICombatState combatState, Player? creator = null)

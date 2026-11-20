@@ -30,6 +30,6 @@ public class Redemption : FlagellantCardModel
         await PlayCardAnim();
         List<Creature> playerCreatures = base.CombatState.PlayerCreatures.Where(c => c.IsAlive).ToList();
         await CommonActions.Apply<RegenPower>(choiceContext, playerCreatures, this);
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
     }
 }

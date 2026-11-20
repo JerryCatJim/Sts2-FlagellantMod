@@ -29,6 +29,6 @@ public class CripplingStrike : FlagellantCardModel
         await CardAttackWithCustomAnim(this, cardPlay).Execute(choiceContext);
         await CommonActions.Apply<PoisonPower>(choiceContext, cardPlay.Target, this);
         await CommonActions.Draw(this, choiceContext);
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
     }
 }

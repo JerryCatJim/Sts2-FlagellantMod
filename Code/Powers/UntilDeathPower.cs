@@ -17,7 +17,7 @@ public sealed class UntilDeathPower : FlagellantPowerModel
 
     ];
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (props.HasFlag(ValueProp.Unpowered) || base.Owner.CombatState == null)
         {
