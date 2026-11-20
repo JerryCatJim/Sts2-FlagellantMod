@@ -1,42 +1,31 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
+using Flagellant.Code.Cards.Token;
 using Flagellant.Code.Character;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Pilgrimage : FlagellantCardModel
 {
-    protected override bool ShouldGlowGoldInternal => LostHpThisTurn(base.Owner.Creature);
-
     public Pilgrimage() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithAnimName("Suffer");
-        WithCards(2);
-        WithVar("ExtraDraw", 1, 1);
-        WithLostHpThisTurnDisplay();
+        WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromCard<Penance>()));
+        WithCards(2, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (base.CombatState == null) return;
+
         await PlayCardAnim();
-        decimal drawNum = LostHpThisTurn(base.Owner.Creature) ? 
-            base.DynamicVars.Cards.BaseValue + base.DynamicVars["ExtraDraw"].BaseValue : 
-            base.DynamicVars.Cards.BaseValue;
-        await CardPileCmd.Draw(choiceContext, drawNum, base.Owner);
-    }
-    private static bool LostHpThisTurn(Creature creature)
-    {
-        return CombatManager.Instance.History.Entries.
-            OfType<DamageReceivedEntry>().
-            Any((DamageReceivedEntry e) => e.HappenedThisTurn(creature.CombatState)
-                && e.Receiver == creature 
-                && e.Result.UnblockedDamage > 0);
+        IEnumerable<Penance> enumerable = Penance.Create(base.Owner, base.DynamicVars.Cards.IntValue, base.CombatState);
+        await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Hand, base.Owner);
     }
 }

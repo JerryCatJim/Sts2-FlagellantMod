@@ -52,9 +52,9 @@
   "FLAGELLANT-SACRIFICE.title": "Sacrifice",
   "FLAGELLANT-SACRIFICE.description": "Whenever you lose HP for the first time during your turn, gain {Energy:energyIcons()}.",
   "FLAGELLANT-PILGRIMAGE.title": "Pilgrimage",
-  "FLAGELLANT-PILGRIMAGE.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nIf you have taken unblocked damage this turn, draw {ExtraDraw:diff()} additional {ExtraDraw:plural:card|cards}.",
+  "FLAGELLANT-PILGRIMAGE.description": "Add {Cards:plural:a|{Cards:diff()}} [gold]{Cards:plural:Penance|Penances}[/gold] to your [gold]Hand[/gold].",
   "FLAGELLANT-BLACK_BLOOD.title": "Black Blood",
-  "FLAGELLANT-BLACK_BLOOD.description": "Whenever you take unblocked damage during your turn, deal that much damage to all enemies.",
+  "FLAGELLANT-BLACK_BLOOD.description": "Whenever you take unblocked damage, gain {BlackBloodPower:diff()} [gold]Vigor[/gold].",
   "FLAGELLANT-ABSORB_PAIN.title": "Absorb Pain",
   "FLAGELLANT-ABSORB_PAIN.description": "Gain [gold]Regen[/gold] equal to your [gold]Stress[/gold].",
   "FLAGELLANT-WYRD_RECONSTRUCTION.title": "Wyrd Reconstruction",
@@ -92,7 +92,7 @@
   "FLAGELLANT-OVERDRAW_LIFE.title": "Overdraw Life",
   "FLAGELLANT-OVERDRAW_LIFE.description": "Gain {Energy:energyIcons()}.\nGain {DoomPower:diff()} [gold]Doom[/gold].",
   "FLAGELLANT-MARTYRDOM.title": "Martyrdom",
-  "FLAGELLANT-MARTYRDOM.description": "Deal damage equal to your [gold]Doom[/gold] to all enemies{InCombat:({CalculatedDamage:diff()})|}.\nLose HP equal to your [gold]Doom[/gold].\nRemove all your [gold]Doom[/gold].",
+  "FLAGELLANT-MARTYRDOM.description": "Play all [gold]Penances[/gold] in your [gold]Exhaust Pile[/gold].",
   "FLAGELLANT-BATTLEFIELD_MEDICINE.title": "Battlefield Medicine",
   "FLAGELLANT-BATTLEFIELD_MEDICINE.description": "Gain {RegenPower:diff()} [gold]Regen[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
   "FLAGELLANT-BACK_TO_THE_PIT.title": "Back To The Pit",
@@ -178,5 +178,5 @@
   "FLAGELLANT-BITTER_TO_SWEET.title": "Bitter To Sweet",
   "FLAGELLANT-BITTER_TO_SWEET.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each [gold]Penance[/gold] in your [gold]Exhaust Pile[/gold].",
   "FLAGELLANT-BIDE.title": "Bide",
-  "FLAGELLANT-BIDE.description": "Add {IfUpgraded:show:X+1|X} [gold]{IfUpgraded:show:Penances+|Penances}[/gold] to your [gold]Draw Pile[/gold]."
+  "FLAGELLANT-BIDE.description": "Lose {LossPercent:diff()}%({LossCurrentHp:diff()}) current HP {IfUpgraded:show:X+1|X} times.\nRemove {DoomPower:diff()} [gold]Doom[/gold] {IfUpgraded:show:X+1|X} times."
 }

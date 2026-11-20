@@ -16,10 +16,9 @@ public class ManiacForm : FlagellantCardModel
     public ManiacForm() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithAnimName("More");
-        WithPower<ManiacFormPower>(1);
+        WithPower<ManiacFormPower>(1, 1);
         WithTip(new TooltipSource((CardModel _) => RMHoverTipFactory.FromResoluteOrMeltdown<ToxicMeltdown>()));
-        WithEnergy(1);
-        WithKeyword(CardKeyword.Retain, UpgradeType.Add);
+        WithEnergy(1, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

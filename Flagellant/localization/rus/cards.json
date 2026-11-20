@@ -52,9 +52,9 @@
   "FLAGELLANT-SACRIFICE.title": "Жертва",
   "FLAGELLANT-SACRIFICE.description": "Когда вы теряете ОЗ в первый раз за ход, получите {Energy:energyIcons()}.",
   "FLAGELLANT-PILGRIMAGE.title": "Паломничество",
-  "FLAGELLANT-PILGRIMAGE.description": "Вытянуть {Cards:diff()} карт.\nЕсли вы получили неблокированный урон в этом ходу, вытяните ещё {ExtraDraw:diff()} {ExtraDraw:plural:карту|карты}.",
+  "FLAGELLANT-PILGRIMAGE.description": " хода добавьте {Cards:diff()} [gold]Епитимья[/gold] в вашу [gold]руку[/gold].",
   "FLAGELLANT-BLACK_BLOOD.title": "Чёрная кровь",
-  "FLAGELLANT-BLACK_BLOOD.description": "Когда вы получаете неблокированный урон во время вашего хода, нанесите столько же урона всем врагам.",
+  "FLAGELLANT-BLACK_BLOOD.description": "Когда вы получаете неблокированный урон, Получить {BlackBloodPower:diff()} [gold]Бодрость[/gold].",
   "FLAGELLANT-ABSORB_PAIN.title": "Поглощение боли",
   "FLAGELLANT-ABSORB_PAIN.description": "Получить [gold]регенерации[/gold], равный вашему [gold]Стресс[/gold].",
   "FLAGELLANT-WYRD_RECONSTRUCTION.title": "Реконструкция Вирд",
@@ -92,7 +92,7 @@
   "FLAGELLANT-OVERDRAW_LIFE.title": "Перерасход жизни",
   "FLAGELLANT-OVERDRAW_LIFE.description": "получите {Energy:energyIcons()}.\nПолучить {DoomPower:diff()} [gold]Злой рок[/gold].",
   "FLAGELLANT-MARTYRDOM.title": "Мученичество",
-  "FLAGELLANT-MARTYRDOM.description": "Нанести всем врагам урон, равный вашему [gold]Злой рок[/gold]{InCombat:({CalculatedDamage:diff()})|}.\nПотерять ОЗ, равное вашему [gold]Злой рок[/gold].\nУдалить весь ваш [gold]Злой рок[/gold].",
+  "FLAGELLANT-MARTYRDOM.description": "Разыгрывает ВСЕ [gold]Епитимья[/gold] из вашей [gold]стопки пепла[/gold].",
   "FLAGELLANT-BATTLEFIELD_MEDICINE.title": "Полевая медицина",
   "FLAGELLANT-BATTLEFIELD_MEDICINE.description": "Получить {RegenPower:diff()} [gold]регенерации[/gold].\nВытянуть {Cards:diff()} {Cards:plural:карту|карты}.",
   "FLAGELLANT-BACK_TO_THE_PIT.title": "Обратно в яму",
@@ -178,5 +178,5 @@
   "FLAGELLANT-BITTER_TO_SWEET.title": "От горького к сладкому",
   "FLAGELLANT-BITTER_TO_SWEET.description": "Нанести {CalculatedDamage:diff()} урона.\nНаносит {ExtraDamage:diff()} дополнительного урона за каждую [gold]Епитимья[/gold] в вашей [gold]стопке удаления[/gold].",
   "FLAGELLANT-BIDE.title": "Выжидание",
-  "FLAGELLANT-BIDE.description": "Добавить {IfUpgraded:show:X+1|X} [gold]{IfUpgraded:show:Епитимья+|Епитимья}[/gold] в вашу [gold]стопку добора[/gold]."
+  "FLAGELLANT-BIDE.description": "{IfUpgraded:show:X+1|X} раз Потерять {LossPercent:diff()}%({LossCurrentHp:diff()}) текущих ОЗ.\n{IfUpgraded:show:X+1|X} раз Удалить {DoomPower:diff()} [gold]Злой рок[/gold]."
 }

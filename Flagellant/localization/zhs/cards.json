@@ -52,9 +52,9 @@
   "FLAGELLANT-SACRIFICE.title": "牺牲",
   "FLAGELLANT-SACRIFICE.description": "每当你在你的回合第一次失去生命时，获得{Energy:energyIcons()}。",
   "FLAGELLANT-PILGRIMAGE.title": "朝圣",
-  "FLAGELLANT-PILGRIMAGE.description": "抽{Cards:diff()}张牌。\n若你在本回合受到过未格挡伤害，则多抽{ExtraDraw:diff()}张。",
+  "FLAGELLANT-PILGRIMAGE.description": "将{Cards:diff()}张[gold]苦修[/gold]添加至你的[gold]手牌[/gold]。",
   "FLAGELLANT-BLACK_BLOOD.title": "黑血",
-  "FLAGELLANT-BLACK_BLOOD.description": "每当你在你的回合受到未格挡伤害时，对所有敌人造成等量伤害。",
+  "FLAGELLANT-BLACK_BLOOD.description": "每当你受到未格挡伤害时，获得{BlackBloodPower:diff()}点[gold]活力[/gold]。",
   "FLAGELLANT-ABSORB_PAIN.title": "吸收痛苦",
   "FLAGELLANT-ABSORB_PAIN.description": "获得你[gold]压力[/gold]值的[gold]再生[/gold]。",
   "FLAGELLANT-WYRD_RECONSTRUCTION.title": "怪诞重塑",
@@ -92,7 +92,7 @@
   "FLAGELLANT-OVERDRAW_LIFE.title": "透支生命",
   "FLAGELLANT-OVERDRAW_LIFE.description": "获得{Energy:energyIcons()}。\n获得{DoomPower:diff()}层[gold]灾厄[/gold]。",
   "FLAGELLANT-MARTYRDOM.title": "殉道",
-  "FLAGELLANT-MARTYRDOM.description": "对所有敌人造成你[gold]灾厄[/gold]层数的伤害{InCombat:({CalculatedDamage:diff()})|}。\n失去你[gold]灾厄[/gold]层数的生命。\n移除你的所有[gold]灾厄[/gold]。",
+  "FLAGELLANT-MARTYRDOM.description": "打出你[gold]消耗牌堆[/gold]中的所有[gold]苦修[/gold]。",
   "FLAGELLANT-BATTLEFIELD_MEDICINE.title": "战地医疗",
   "FLAGELLANT-BATTLEFIELD_MEDICINE.description": "获得{RegenPower:diff()}层[gold]再生[/gold]。\n抽{Cards:diff()}张牌。",
   "FLAGELLANT-BACK_TO_THE_PIT.title": "归于尘土",
@@ -178,5 +178,5 @@
   "FLAGELLANT-BITTER_TO_SWEET.title": "苦尽甘来",
   "FLAGELLANT-BITTER_TO_SWEET.description": "造成{CalculatedDamage:diff()}点伤害。\n你的[gold]消耗牌堆[/gold]中每有一张[gold]苦修[/gold]，伤害增加{ExtraDamage:diff()}。",
   "FLAGELLANT-BIDE.title": "隐忍",
-  "FLAGELLANT-BIDE.description": "将{IfUpgraded:show:X+1|X}张[gold]{IfUpgraded:show:苦修+|苦修}[/gold]加入你的[gold]抽牌堆[/gold]。"
+  "FLAGELLANT-BIDE.description": "失去{LossPercent:diff()}%({LossCurrentHp:diff()})当前生命{IfUpgraded:show:X+1|X}次。\n移除{DoomPower:diff()}层[gold]灾厄[/gold]{IfUpgraded:show:X+1|X}次。"
 }
