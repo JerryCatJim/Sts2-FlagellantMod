@@ -45,7 +45,7 @@
 	    <OutputPath>.godot\mono\temp\bin\$(Configuration)\$(Sts2ApiCompat)\</OutputPath>
     </PropertyGroup>
 
-    <Import Project="build\Flagellant.CompatDefines.targets"/>
+    <Import Project="build\Flagellant.CompatDefines.targets" />
 
 	<!-- OS Detection -->
   <PropertyGroup>
@@ -100,8 +100,8 @@
 		<!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->
 		<PackageReference Include="Alchyr.Sts2.BaseLib" Version="*" />
 		<Reference Include="DD2ModConfig">
-		    <HintPath>..\..\Steam\steamapps\common\Slay the Spire 2\mods\DD2ModConfig\DD2ModConfig.dll</HintPath>
-			<Private>false</Private>
+		  <HintPath>..\..\Steam\steamapps\common\Slay the Spire 2\mods\DD2ModConfig\lib\0.111.0\DD2ModConfig.dll</HintPath>
+		  <Private>false</Private>
 		</Reference>
 		<Reference Include="GodotSharp">
 			<HintPath>$(Sts2DataDir)/GodotSharp.dll</HintPath>
