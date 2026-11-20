@@ -25,7 +25,11 @@ public class Penance : FlagellantCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PlayCardAnim();
+        //殉道 Martyrdom 会一次性打出大量苦修，全都播放动画观感不好
+        if (!cardPlay.IsAutoPlay)
+        {
+            await PlayCardAnim();
+        }
         await CommonActions.ApplySelf<StressPower>(choiceContext, this);
         await CommonActions.Draw(this, choiceContext);
         await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);

@@ -17,7 +17,7 @@
   "FLAGELLANT-BEING_TOWARDS_DEATH.title": "죽음을 향한 존재",
   "FLAGELLANT-BEYOND_CURE.description": "[gold]중독[/gold]을 {SelfPoison:diff()}만큼 얻습니다.\n[gold]중독[/gold]을 {PoisonPower:diff()}만큼 부여합니다.\n[gold]양화[/gold]를 {WeakPower:diff()}만큼 부여합니다.",
   "FLAGELLANT-BEYOND_CURE.title": "불치",
-  "FLAGELLANT-BLACK_BLOOD.description": "자신의 턴에 방어도 없는 피해를 받을 때마다, 모든 적에게 그 수치만큼 피해를 줍니다.",
+  "FLAGELLANT-BLACK_BLOOD.description": "방어도 없는 피해를 받을 때마다, {BlackBloodPower:diff()}만큼 [gold]활력[/gold]을 얻습니다.",
   "FLAGELLANT-BLACK_BLOOD.title": "검은 피",
   "FLAGELLANT-BLISS.description": "{Damage:diff()}의 피해를 줍니다.\n이 카드를 사용한 후, 이번 턴에 방어도 없는 피해를 받을 때마다 [gold]스트레스[/gold]를 {BlissPower:diff()}만큼, [gold]재생[/gold]을 {BlissPower:diff()}만큼 얻습니다.",
   "FLAGELLANT-BLISS.title": "지복",
@@ -83,7 +83,7 @@
   "FLAGELLANT-LUNATIC_STRIKE.title": "광인 일격",
   "FLAGELLANT-MANIAC_FORM.description": "[gold]독성[/gold] 상태에 진입할 때마다 {Energy:energyIcons()}를 얻고 카드를 {ManiacFormPower:diff()}장 뽑습니다.",
   "FLAGELLANT-MANIAC_FORM.title": "광증 형상",
-  "FLAGELLANT-MARTYRDOM.description": "모든 적에게 자신의 [gold]종말[/gold] 수치만큼 피해를 줍니다{InCombat:({CalculatedDamage:diff()})|}.\n자신의 [gold]종말[/gold] 수치만큼 체력을 잃습니다.\n자신의 모든 [gold]종말[/gold]을 제거합니다.",
+  "FLAGELLANT-MARTYRDOM.description": "[gold]소멸된 카드 더미[/gold]에 있는 모든 [gold]고행[/gold] 사용합니다.",
   "FLAGELLANT-MARTYRDOM.title": "순교",
   "FLAGELLANT-MEDITATION.description": "[gold]재생[/gold]을 {IfUpgraded:show:2X|X}만큼 얻습니다.\n[gold]스트레스[/gold]를 {IfUpgraded:show:X+1|X}만큼 얻습니다.",
   "FLAGELLANT-MEDITATION.title": "명상",
@@ -103,7 +103,7 @@
   "FLAGELLANT-PAIN_STRIKE.title": "고통 일격",
   "FLAGELLANT-PENANCE.description": "[gold]스트레스[/gold]를 {StressPower:diff()}만큼 얻습니다.\n카드를 {Cards:diff()}장 뽑습니다.\n현재 체력을 {LossPercent:diff()}%({LossCurrentHp:diff()}) 잃습니다.",
   "FLAGELLANT-PENANCE.title": "고행",
-  "FLAGELLANT-PILGRIMAGE.description": "카드를 {Cards:diff()}장 뽑습니다.\n이번 턴에 방어도 없는 피해를 입었다면 카드를 {ExtraDraw:diff()}장 추가로 더 뽑습니다.",
+  "FLAGELLANT-PILGRIMAGE.description": "[gold]손패[/gold]에 {Cards:diff()}만큼의 [gold]고행[/gold]을 추가합니다.",
   "FLAGELLANT-PILGRIMAGE.title": "순례",
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.description": "모든 [gold]스트레스[/gold]를 잃습니다.\n잃은 [gold]스트레스[/gold]의 {Multiplier:diff()}배만큼 체력을 회복합니다{InCombat:({CalculatedHealing:diff()})|}.\n카드를 {Cards:diff()}장 뽑습니다.",
   "FLAGELLANT-PSYCHOLOGY_CONSULTING.title": "심리 상담",
@@ -178,5 +178,5 @@
   "FLAGELLANT-BITTER_TO_SWEET.title": "고통에서 달콤함으로",
   "FLAGELLANT-BITTER_TO_SWEET.description": "{CalculatedDamage:diff()}의 피해를 줍니다.\n[gold]소진 더미[/gold]에 있는 [gold]고행[/gold] 한 장당 {ExtraDamage:diff()}의 추가 피해를 줍니다.",
   "FLAGELLANT-BIDE.title": "기다림",
-  "FLAGELLANT-BIDE.description": "[gold]드로우 더미[/gold]에 [gold]{IfUpgraded:show:고행+|고행}[/gold]을 {IfUpgraded:show:X+1|X}장 넣습니다."
+  "FLAGELLANT-BIDE.description": "현재 체력을 {LossPercent:diff()}%({LossCurrentHp:diff()}) {IfUpgraded:show:X+1|X}번 잃습니다.\n[gold]종말[/gold]을 {IfUpgraded:show:X+1|X}번 {DoomPower:diff()}만큼 제거합니다."
 }

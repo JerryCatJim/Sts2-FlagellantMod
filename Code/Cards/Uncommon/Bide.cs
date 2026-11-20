@@ -1,12 +1,11 @@
 using BaseLib.Utils;
 using Flagellant.Code.Abstract;
-using Flagellant.Code.Cards.Token;
 using Flagellant.Code.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Flagellant.Code.Cards.Uncommon;
 
@@ -16,8 +15,9 @@ public class Bide : FlagellantCardModel
     protected override bool HasEnergyCostX => true;
     public Bide() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithTip(new TooltipSource((CardModel _) => HoverTipFactory.FromCard<Penance>(_.IsUpgraded)));
         WithAnimName("More");
+        WithLossPercent(8);
+        WithPower<DoomPower>(9);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -26,14 +26,13 @@ public class Bide : FlagellantCardModel
 
         await PlayCardAnim();
         int num = base.IsUpgraded ? ResolveEnergyXValue() + 1 : ResolveEnergyXValue();
-        IEnumerable<Penance> enumerable = Penance.Create(base.Owner, num, base.CombatState);
-        if (base.IsUpgraded)
+        for (int i = 0; i < num; i++)
         {
-            foreach (Penance item in enumerable)
+            await CreatureCmd.Damage(choiceContext, Owner.Creature, GetLossPercentHp(), ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, cardPlay);
+            if (Owner.Creature.GetPower<DoomPower>() is DoomPower doomP)
             {
-                CardCmd.Upgrade(item);
+                await PowerCmd.ModifyAmount(choiceContext, doomP, -base.DynamicVars.Doom.BaseValue, Owner.Creature, this);
             }
         }
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Draw, base.Owner, CardPilePosition.Random));
     }
 }

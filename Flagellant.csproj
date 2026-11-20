@@ -144,11 +144,12 @@
 		</ReadLinesFromFile>
 		<WriteLinesToFile File="Flagellant.json" Lines="@(JsonLines-&gt;Replace('$VERSION$', '$(Version)'))" Overwrite="true" />
 	</Target>
-	<!--Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
+	<Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
 		<Message Text="Copying .dll and manifest to mods folder." Importance="high" />
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/lib/$(Sts2ApiCompat)" />
 		<Copy SourceFiles="Flagellant.json" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
-
+	</Target>
+	<!-->Target Name="CopyBaseModsToModsFolderOnBuild" AfterTargets="PostBuildEvent">
 		<Message Text="Copying BaseLib and DD2ModConfig to mods folder." Importance="high" />
 		<ItemGroup>
 			<BaseLibFiles Include="$(BaseLibPath)/*" />

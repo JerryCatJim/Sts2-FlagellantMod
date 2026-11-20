@@ -6,12 +6,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace Flagellant.Code.Cards.Rare;
+namespace Flagellant.Code.Cards.Uncommon;
 
 [Pool(typeof(FlagellantCardPool))]
 public class Scourge : FlagellantCardModel
 {
-    public Scourge() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public Scourge() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithAnimName("Deathless");
         WithPowerTip<DoomPower>();
